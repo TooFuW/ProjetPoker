@@ -52,8 +52,6 @@ class Deck:
 
 
 
-
-
 def new_deck():
     """
         Create a new deck of 52 non-shuffled cards
