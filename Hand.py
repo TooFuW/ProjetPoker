@@ -1,5 +1,6 @@
 from Card import Card
 import AlreadyExistingCard
+from Board import Board
 
 class Hand:
 
@@ -29,6 +30,15 @@ class Hand:
 
         return string
     
+    def __add__(self, object):
+
+        if type(object) == Hand:
+            return Hand(self.hand+object.hand)
+        else:
+            raise TypeError
+        
+
+    
     def add_card(self, card : Card):
 
         if type(card) == Card:
@@ -38,6 +48,9 @@ class Hand:
                 raise AlreadyExistingCard
         else:
             raise TypeError
+        
+    def clear_hand(self):
+        self.hand = []
 
             
         

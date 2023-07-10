@@ -9,11 +9,31 @@ class Player:
 
     def __init__(self,id : int, pseudo : str, conn : socket, is_alive : bool, hand : Hand) -> None:
 
-        self.id = id
-        self.pseudo = pseudo
-        self.conn = conn
-        self.is_alive = is_alive
-        self.hand = hand
+        if type(id) == int:
+            self.id = id
+        else:
+            raise TypeError
+        
+        if type(pseudo) == str:
+            self.pseudo = pseudo
+        else:
+            raise TypeError
+        
+        if type(conn) == socket:
+            self.conn = conn
+        else:
+            raise TypeError
+        
+        if type(is_alive) == bool:
+            self.is_alive = is_alive
+        else:
+            raise TypeError
+        
+        if type(hand) == Hand:
+            self.hand = hand
+        else:
+            raise TypeError
+        
 
     def __str__(self) -> str:
         string = ""
@@ -36,6 +56,15 @@ class Player:
     
     def send_packet(self, packet : str):
         self.conn.send(packet.encode("utf8"))
+    
+    def set_hand(self,hand : Hand):
+        if type(hand) == Hand:
+            self.hand = hand
+        else :
+            raise TypeError
+        
+    def clear_hand(self):
+        self.hand.clear_hand()
 
     
     
