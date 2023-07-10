@@ -28,6 +28,19 @@ if False:
     print(type(hand.hand))
     print(hand+hand2)
 
+if True:
+    i = 0
+    while True:
+        print (i)
+        if i%2 == 0:
+            print("pair")
+        else:
+            print("impair")
+        i += 1
+        if i == 1469 :
+            break
+
+
 card = Card("spade","2")
 card2 = Card("spade","3")
 card3 = Card("spade","4")
@@ -37,5 +50,3 @@ hand1 = Hand([card,card2])
 
 hand1.get_hand().append("suii")
 print(hand1)
-
-

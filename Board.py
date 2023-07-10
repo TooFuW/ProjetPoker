@@ -30,6 +30,9 @@ class Board :
 
         return string
     
+    def get_board(self) -> list:
+        return self.board.copy()
+
     
     def add_card(self,card : Card):
 

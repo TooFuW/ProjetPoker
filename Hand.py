@@ -31,11 +31,17 @@ class Hand:
         return string
     
     def __add__(self, object):
+        
 
         if type(object) == Hand:
-            return Hand(self.hand+object.hand)
-        else:
-            raise TypeError
+            return Hand(self.hand+object.get_hand())
+        if type(object) == Board:
+            liste = []
+            liste += self.hand
+            liste += object.get_board()
+            return liste
+        
+        raise TypeError
         
     def get_hand(self):
         return self.hand.copy()

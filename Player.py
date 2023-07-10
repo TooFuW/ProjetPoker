@@ -43,7 +43,9 @@ class Player:
         return self.id
     
     def get_pseudo(self) -> str:
-        return self.get_pseudo
+        clone = ""
+        clone += self.pseudo
+        return clone
     
     def get_conn(self) -> socket:
         return self.conn
