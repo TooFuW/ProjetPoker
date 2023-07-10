@@ -66,6 +66,12 @@ class Player:
     def clear_hand(self):
         self.hand.clear_hand()
 
+    def add_card(self,card : Card):
+        try:
+            self.hand.add_card(card)
+        except:
+            return False
+
     
     
 

@@ -37,7 +37,9 @@ class Hand:
         else:
             raise TypeError
         
-
+    def get_hand(self):
+        return self.hand.copy()
+        
     
     def add_card(self, card : Card):
 
@@ -51,6 +53,17 @@ class Hand:
         
     def clear_hand(self):
         self.hand = []
+
+
+    def remove_card(self,card : Card):
+        if type(card) == Card:
+            if card in self.hand:
+                self.hand.remove(card)
+            else:
+                raise ValueError
+        else:
+            raise TypeError
+
 
             
         
