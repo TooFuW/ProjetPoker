@@ -1,12 +1,24 @@
 from Deck import Deck
+from Hand import Hand
+from Card import Card
+import AlreadyExistingCard
 
-my_deck = Deck()
+if False:
+    my_deck = Deck()
 
-print(my_deck)
-print("\n\n")
+    print(my_deck)
+    print("\n\n")
 
-my_deck.shuffle()
+    my_deck.shuffle()
 
-print(my_deck, len(my_deck))
-print("\n\n")
-print(my_deck.draw(), len(my_deck))
+    print(my_deck, len(my_deck))
+    print("\n\n")
+    print(my_deck.draw(), len(my_deck))
+
+card = Card("spade","2")
+card2 = Card("spade","3")
+print(card, card2, card==card2)
+hand = Hand((card,card2))
+print(hand)
+print(type(hand.hand))
+
