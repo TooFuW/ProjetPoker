@@ -11,10 +11,17 @@ class Round:
     def start(self):
         pass
 
+    def start_pre_flop(self):
+        pass
 
+    def start_flop(self):
+        pass
 
+    def start_turn(self):
+        pass
 
-
+    def start_river(self):
+        pass
 
 
 

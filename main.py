@@ -21,7 +21,7 @@ class Main:
     
     def listen_connections(self):
         pass
-    def on_new_player_connect(self):
+    def on_new_connection(self):
         pass
 
     def redirect_to_lobby(self,lobby : Lobby, player : Player):

@@ -27,6 +27,15 @@ class Lobby :
     def add_player(self,player : Player):
         pass
 
+    def end_lobby(self):
+        pass
+
+    def redirect_all_to_main(players : Player):
+        pass
+    
+    def redirect_player_to_main(self):
+        pass
+
 
 def on_player_deconnect(player : Player):
     pass

@@ -42,7 +42,7 @@ class Player:
         
 
     def __str__(self) -> str:
-        string = ""
+        return f"[Player id : {self.id}, Pseudo : {self.pseudo}, Connection : {self.conn}]"
 
 
     def get_id(self) -> int:
