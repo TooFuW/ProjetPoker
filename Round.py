@@ -2,7 +2,11 @@ import Hand
 import Board
 
 class Round:
-    def __init__(self) -> None:
+    """
+        Represent a round (pre-flop to river) and manage winner players ...    
+    
+    """
+    def __init__(self, players : list) -> None:
         pass
     def start(self):
         pass

@@ -50,3 +50,7 @@ hand1 = Hand([card,card2])
 
 hand1.get_hand().append("suii")
 print(hand1)
+
+
+
+float("3.2")

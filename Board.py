@@ -74,3 +74,4 @@ def only_cards(liste):
         if type(i) != Card:
             return False
     return True
+

@@ -7,7 +7,7 @@ class Player:
       Represent a player who will play a game of poker.
     """
 
-    def __init__(self,id : int, pseudo : str, conn : socket, is_alive : bool, hand : Hand) -> None:
+    def __init__(self,id : int, pseudo : str, conn : socket, is_alive : bool, hand : Hand, bank : int) -> None:
 
         if type(id) == int:
             self.id = id
@@ -33,6 +33,12 @@ class Player:
             self.hand = hand
         else:
             raise TypeError
+        if type(bank) == int:
+            self.bank = bank
+        else:
+            raise TypeError
+        
+        self.chips = 0
         
 
     def __str__(self) -> str:
@@ -65,6 +71,12 @@ class Player:
         else :
             raise TypeError
         
+    def set_conn(self, conn : socket):
+        if type(conn) == conn:
+            self.conn = conn
+        else:
+            raise TypeError
+        
     def clear_hand(self):
         self.hand.clear_hand()
 
@@ -73,6 +85,27 @@ class Player:
             self.hand.add_card(card)
         except:
             return False
+        
+    def bank_remove(self, amount : int):
+        if type(amount) == int:
+            if amount >=0:
+                self.bank -= amount
+                #completer avec gestion de base de données
+            else:
+                raise ValueError
+        else:
+            raise TypeError
+
+        
+    def bank_add(self,amount : int):
+        if type(amount) == int:
+            if amount >=0:
+                self.bank += amount
+                #completer avec gestion de base de données
+            else:
+                raise ValueError
+        else:
+            raise TypeError
 
     
     

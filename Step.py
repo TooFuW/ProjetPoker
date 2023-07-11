@@ -1,7 +1,12 @@
 
 
 class Step:
-    def __init__(self) -> None:
+    """
+
+        Represent a step of the game (pre-flop, flop, turn, river) and call the methods for each player
+
+    """
+    def __init__(self,type : str ,players : list) -> None:
         pass
 
     def start(self):
