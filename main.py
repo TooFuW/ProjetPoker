@@ -1,8 +1,12 @@
 #Menu du jeu Poker
 
+import pygame
 
-
-
+#Set up de l'interface de base
+pygame.init()
+screen = pygame.display.set_mode((1280, 720))
+clock = pygame.time.Clock()
+running = True
 
 
 
