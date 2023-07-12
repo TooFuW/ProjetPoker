@@ -74,7 +74,7 @@ class Button:
             # On fait les actions souhaitées lorsque le clic est relaché
             else:
                 self.dynamic_elevation = self.elevation
-                if self.pressed:
+                if self.pressed == True:
                     # CODE POUR QUAND LE BOUTON EST CLIQUE
                     print("click")
                     self.pressed = False
