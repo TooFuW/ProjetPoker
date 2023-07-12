@@ -4,16 +4,14 @@ from Player import *
 
 
 class Main:
-    """
-        on proggram start
-    """
+    
 
     def __init__(self) -> None:  #initialise les variables principales
         self.lobbys = []
         self.players = []
         self.threads = []
 
-        self.ports = (5567,5568,5569,5570,5571,5572,5573,5574,5575,5576,5577,5578,5579,5580)
+        self.lobbys_ports = (5567,5568,5569,5570,5571,5572,5573,5574,5575,5576,5577,5578,5579,5580)
         self.next_port_index = 0
 
     def start(self):   #lance l'écoute serveur et le script
