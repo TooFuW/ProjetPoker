@@ -8,15 +8,17 @@ class Button:
     """Classe Button pour créer des boutons dynamiques (https://www.youtube.com/watch?v=8SzTzvrWaAA)
     """
 
-    def __init__(self, text : str, width : int, height : int, pos : tuple, elevation : int):
+    def __init__(self, text : str, police : str, textsize : int, width : int, height : int, pos : tuple, elevation : int):
         """Initialisation de la classe Button
 
         Args:
             text (str): Texte d'affichage du bouton
+            police (str): Police d'affichage du texte (seulement parmis les polices système disponibles)
+            textsize (int): Taille du texte
             width (int): Largeur du bouton
             height (int): Hauteur du bouton
             pos (tuple): Position contenant deux valeurs x et y dans un tuple
-            elevation (int): /!\ PLUS QUE 6 N'EST PAS RECOMMANDE /!\ Hauteur du bouton comparé au "sol" (purement cosmétique, pour donner un style "d'appui")
+            elevation (int): /!\ PLUS QUE 6 N'EST PAS RECOMMANDE /!\ Hauteur du bouton comparé au "sol" (purement cosmétique, pour donner un style "d'appui") (risque de bug si on appuie à un endroit qui ne va plus être le bouton lorsque celui-ci va se baisser)
         """
         # Attributs principaux
         self.pressed = False
@@ -35,6 +37,7 @@ class Button:
         self.bottom_color = "#354B5E"
 
         # Button text
+        gui_font = pygame.font.SysFont(police, textsize)
         self.text_surf = gui_font.render(text, True, "#FFFFFF")
         self.text_rect = self.text_surf.get_rect(center = self.top_rect.center)
     
@@ -89,19 +92,19 @@ screen = pygame.display.set_mode((1600, 1024))
 # Nom de la fenêtre
 pygame.display.set_caption("Main Menu")
 clock = pygame.time.Clock()
-# Paramètre de texte
-gui_font = pygame.font.Font(None, 60)
 
 # Chargement de l'image de fond
 fond = pygame.image.load("C:/Users/Utilisateur/ProjetPoker/PokerBackground.jpg")
 fond = pygame.transform.scale(fond, (1600, 1024))
 
+#Création de l'objet accountbutton
+accountbutton = Button("ACCOUNT", "Roboto", 20, 150, 75, (1425, 25), 3)
 # Création de l'objet playbutton
-playbutton = Button("PLAY", 400, 80, (600, 350), 6)
+playbutton = Button("PLAY", "Roboto", 100, 425, 100, (600, 400), 6)
 # Création de l'objet settingsbutton
-settingsbutton = Button("SETTINGS", 400, 80, (600, 450), 6)
+settingsbutton = Button("SETTINGS", "Roboto", 100, 425, 100, (600, 550), 6)
 # Création de l'objet quitbutton
-exitbutton = Button("EXIT", 400, 80, (600, 550), 6)
+exitbutton = Button("EXIT", "Roboto", 100, 425, 100, (600, 700), 6)
 
 # Gameloop
 while True:
@@ -116,6 +119,7 @@ while True:
     screen.blit(fond, (0, 0))
 
     # Affichage des bouttons
+    accountbutton.draw()
     playbutton.draw()
     settingsbutton.draw()
     exitbutton.draw()
