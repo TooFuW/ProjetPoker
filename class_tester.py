@@ -2,6 +2,7 @@ from Deck import Deck
 from Hand import Hand
 from Card import Card
 import AlreadyExistingCard
+from Player import Player
 
 if False:
     my_deck = Deck()
@@ -48,7 +49,12 @@ card4 = Card("spade","ace")
 
 hand1 = Hand([card,card2])
 
-hand1.get_hand().append("suii")
-print(hand1)
+rh = Player(69,"rh",None, True, hand1,6900)
 
-float("3.2")
+rh.add_card(Card("spade","7"))
+print(rh.get_hand())
+print(rh.get_conn())
+print(rh.chips,rh.bank)
+rh.chips += 100
+rh.bank_remove(100)
+print(rh.chips,rh.bank)

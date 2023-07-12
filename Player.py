@@ -19,7 +19,7 @@ class Player:
         else:
             raise TypeError
         
-        if type(conn) == socket:
+        if type(conn) == socket or conn == None:
             self.conn = conn
         else:
             raise TypeError
