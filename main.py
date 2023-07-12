@@ -74,7 +74,7 @@ class Button:
             # On fait les actions souhaitées lorsque le clic est relaché
             else:
                 self.dynamic_elevation = self.elevation
-                if self.pressed == True:
+                if self.pressed:
                     # CODE POUR QUAND LE BOUTON EST CLIQUE
                     print("click")
                     self.pressed = False
@@ -94,7 +94,7 @@ pygame.display.set_caption("Main Menu")
 clock = pygame.time.Clock()
 
 # Chargement de l'image de fond
-fond = pygame.image.load("C:/Users/Utilisateur/ProjetPoker/PokerBackground.jpg")
+fond = pygame.image.load("PokerBackground.jpg")
 fond = pygame.transform.scale(fond, (1600, 1024))
 
 #Création de l'objet accountbutton
