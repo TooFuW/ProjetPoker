@@ -78,6 +78,8 @@ class Button:
                     # CODE POUR QUAND LE BOUTON EST CLIQUE
                     print("click")
                     self.pressed = False
+                    pygame.quit()
+                    sys.exit()
         # Le else est là pour reset l'état du bouton lorsqu'il n'y a plus aucune interaction
         else:
             self.dynamic_elevation = self.elevation
@@ -88,23 +90,26 @@ class Button:
 # Pygame setup
 pygame.init()
 # Taille de la fenêtre
-screen = pygame.display.set_mode((1600, 1024))
+screen_info = pygame.display.Info()
+screen_width = screen_info.current_w
+screen_height = screen_info.current_h
+screen = pygame.display.set_mode((screen_width, screen_height), pygame.FULLSCREEN)
 # Nom de la fenêtre
 pygame.display.set_caption("Main Menu")
 clock = pygame.time.Clock()
 
 # Chargement de l'image de fond
 fond = pygame.image.load("PokerBackground.jpg")
-fond = pygame.transform.scale(fond, (1600, 1024))
+fond = pygame.transform.scale(fond, (screen_width, screen_height))
 
 #Création de l'objet accountbutton
-accountbutton = Button("ACCOUNT", "Roboto", 20, 150, 75, (1425, 25), 3)
+accountbutton = Button("ACCOUNT", "Roboto", 30, 150, 75, ((screen_width - 170), (20)), 3)
 # Création de l'objet playbutton
-playbutton = Button("PLAY", "Roboto", 100, 425, 100, (600, 400), 6)
+playbutton = Button("PLAY", "Roboto", 100, 425, 100, ((screen_width // 2)-(425//2), (screen_height // 2) - 30), 6)
 # Création de l'objet settingsbutton
-settingsbutton = Button("SETTINGS", "Roboto", 100, 425, 100, (600, 550), 6)
+settingsbutton = Button("SETTINGS", "Roboto", 100, 425, 100, ((screen_width // 2)-(425//2), (screen_height // 2) + 100), 6)
 # Création de l'objet quitbutton
-exitbutton = Button("EXIT", "Roboto", 100, 425, 100, (600, 700), 6)
+exitbutton = Button("EXIT", "Roboto", 100, 425, 100, ((screen_width // 2)-(425//2), (screen_height // 2) + 230), 6)
 
 # Gameloop
 while True:
