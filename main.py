@@ -38,7 +38,7 @@ class Button:
         self.bottom_color = "#354B5E"
 
         # Button text
-        gui_font = pygame.font.SysFont(police, textsize)
+        gui_font = pygame.font.SysFont(police, textsize, False, False)
         self.text_surf = gui_font.render(text, True, "#FFFFFF")
         self.text_rect = self.text_surf.get_rect(center = self.top_rect.center)
     
@@ -78,15 +78,17 @@ class Button:
                 self.dynamic_elevation = self.elevation
                 if self.pressed == True:
                     self.pressed = False
-                    if self.text == "EXIT":
+                    if self.text == "PLAY":
+                        game_state.state = "Lobby Menu"
+                    elif self.text == "SETTINGS":
+                        game_state.state = "Setting Menu"
+                    elif self.text == "ACCOUNT":
+                        game_state.state = "Account Menu"
+                    elif self.text == "EXIT":
                         pygame.quit()
                         sys.exit()
-                    elif self.text == "PLAY":
-                        game_state.state = "Lobby Menu"
                     elif self.text == "BACK":
                         game_state.state = "Main Menu"
-                    else:
-                        print(self.text)
         # Le else est là pour reset l'état du bouton lorsqu'il n'y a plus aucune interaction
         else:
             self.dynamic_elevation = self.elevation
@@ -111,14 +113,22 @@ class HUD_State:
         for event in pygame.event.get():
             pass
 
-        # Dessin l'image de fond sur la surface de l'écran
+        # Dessine l'image de fond sur la surface de l'écran (IMPORANT CAR SE SUPERPOSE A L'INTERFACE PRECEDENT ET PERMET DE "L'EFFACER")
         screen.blit(fond, (0, 0))
+        # Dessine le logo du jeu
+        logopoker = pygame.transform.scale(pokertablebackground, (250, 250))
+        screen.blit(logopoker, (screen_height//2 + 200, 75))
+        # Dessine le logo MWTE
+        logomwte = pygame.transform.scale(pokertablebackground, (150, 150))
+        screen.blit(logomwte, (25 , screen_width//2 - 75))
 
         # Affichage des bouttons
-        accountbutton.draw()
         # Cliquer sur le bouton PLAY ouvre l'interface présentant les lobbys disponibles
         playbutton.draw()
+        # Cliquer sur le bouton SETTINGS ouvre l'interface présentant les paramètres
         settingsbutton.draw()
+        # Cliquer sur le bouton ACCOUNT ouvre l'interface présentant les informations du compte actif
+        accountbutton.draw()
         # Cliquer sur le bouton EXIT ferme la fenêtre purement et simplement
         exitbutton.draw()
 
@@ -132,11 +142,62 @@ class HUD_State:
         for event in pygame.event.get():
             pass
 
-        # Dessin l'image de fond sur la surface de l'écran
+        # Dessine l'image de fond sur la surface de l'écran
         screen.blit(fond, (0, 0))
+        # Affichage du titre de la page en haut à gauche
+        gui_font = pygame.font.SysFont("Roboto", 50, False, True)
+        text_surf = gui_font.render("Table List", True, "#FFFFFF")
+        text_rect = text_surf.get_rect(center = pygame.Rect((30, 0), (150, 75)).center)
+        screen.blit(text_surf, text_rect)
 
         # Affichage des bouttons
-        # Cliquer sur le bouton EXIT ferme la fenêtre purement et simplement
+        # Cliquer sur le bouton BACK ferme la fenêtre purement et simplement
+        backbutton.draw()
+
+        # Met à jour l'affichage de l'interface
+        pygame.display.update()
+    
+    def settingmenu(self):
+        """settingmenu est la fonction qui fait tourner/afficher le menu des settings
+        """
+        # Rassemblement de tout les événements
+        for event in pygame.event.get():
+            pass
+
+        # Dessine l'image de fond sur la surface de l'écran (IMPORANT CAR SE SUPERPOSE A L'INTERFACE PRECEDENT ET PERMET DE "L'EFFACER")
+        screen.blit(fond, (0, 0))
+
+        # Affichage du titre de la page en haut à gauche
+        gui_font = pygame.font.SysFont("Roboto", 50, False, True)
+        text_surf = gui_font.render("Settings Menu", True, "#FFFFFF")
+        text_rect = text_surf.get_rect(center = pygame.Rect((70, 0), (150, 75)).center)
+        screen.blit(text_surf, text_rect)
+
+        # Affichage des bouttons
+        # Cliquer sur le bouton BACK ferme la fenêtre purement et simplement
+        backbutton.draw()
+
+        # Met à jour l'affichage de l'interface
+        pygame.display.update()
+    
+    def accountmenu(self):
+        """accountmenu est la fonction qui fait tourner/afficher le menu du compte actif
+        """
+        # Rassemblement de tout les événements
+        for event in pygame.event.get():
+            pass
+
+        # Dessine l'image de fond sur la surface de l'écran (IMPORANT CAR SE SUPERPOSE A L'INTERFACE PRECEDENT ET PERMET DE "L'EFFACER")
+        screen.blit(fond, (0, 0))
+
+        # Affichage du titre de la page en haut à gauche
+        gui_font = pygame.font.SysFont("Roboto", 50, False, True)
+        text_surf = gui_font.render("Your Account", True, "#FFFFFF")
+        text_rect = text_surf.get_rect(center = pygame.Rect((50, 0), (150, 75)).center)
+        screen.blit(text_surf, text_rect)
+
+        # Affichage des bouttons
+        # Cliquer sur le bouton BACK ferme la fenêtre purement et simplement
         backbutton.draw()
 
         # Met à jour l'affichage de l'interface
@@ -149,6 +210,10 @@ class HUD_State:
             self.mainmenu()
         elif self.state == "Lobby Menu":
             self.lobbymenu()
+        elif self.state == "Setting Menu":
+            self.settingmenu()
+        elif self.state == "Account Menu":
+            self.accountmenu()
 
 
 # Pygame setup
@@ -164,8 +229,8 @@ pygame.display.set_caption("Menu Jeu Poker")
 clock = pygame.time.Clock()
 
 # Chargement de l'image de fond
-fond = pygame.image.load("PokerBackground.jpg")
-fond = pygame.transform.scale(fond, (screen_width, screen_height))
+pokertablebackground = pygame.image.load("PokerBackground.jpg")
+fond = pygame.transform.scale(pokertablebackground, (screen_width, screen_height))
 
 # Création de tout les boutons utilisés
 # Création de l'objet accountbutton
