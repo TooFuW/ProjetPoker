@@ -142,6 +142,7 @@ def is_straight(board : Board, hand : Hand):
     liste = board.get_board()+hand.get_hand()
     return is_straight_list(liste)
     
+
 def is_four_of_a_kind(board : Board, hand : Hand):
 
     board_list = board.get_board()
@@ -165,10 +166,15 @@ def is_four_of_a_kind(board : Board, hand : Hand):
     
     return False
 
+def is_full_house(board : Board, hand : Hand):
 
+    board_list = board.get_board()
+    hand_list = hand.get_hand()
+    seven_cards_player = board_list+hand_list
+    seven_cards_player = sorted(seven_cards_player).reverse()
 
-
-
+    for i in range(len(seven_cards_player)-1):
+        pass
 
         
 
