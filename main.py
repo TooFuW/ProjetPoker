@@ -120,11 +120,11 @@ class HUD_State:
         # Dessine le logo du jeu
         logojeu = pygame.image.load("PokerBackground.jpg")
         logojeu = pygame.transform.scale(logojeu, (250, 250))
-        screen.blit(logojeu, ((screen_height // 2) + (425 // 2), (screen_width // 2) - (1400 // 2)))
+        screen.blit(logojeu, ((screen_width // 2) - 125, 25))
         # Dessine le logo MWTE
         logomwte = pygame.image.load("logo mwte.jpg")
         logomwte = pygame.transform.scale(logomwte, (150, 150))
-        screen.blit(logomwte, ((screen_height // 2) - (800 // 2), (screen_width // 2) - (150 // 2)))
+        screen.blit(logomwte, (25, screen_height - 160))
 
         # Affichage des bouttons
         # Cliquer sur le bouton PLAY ouvre l'interface présentant les lobbys disponibles
@@ -157,9 +157,10 @@ class HUD_State:
         text_rect = text_surf.get_rect(center = pygame.Rect((30, 0), (150, 75)).center)
         screen.blit(text_surf, text_rect)
 
+        # Affichage d'onglets en fonction du nombre de lobbys disponibles
         if self.lobbyycreated == False:
             for i in range(len(lobbys)//10):
-                lobbypagebutton = Button("Lobby " + str(i+1), "Roboto", 100, 425, 100, ((screen_width // 2)-(425//2), (screen_height // 2) - 30), 6)
+                lobbypagebutton = Button("Lobby " + str(i+1), "Roboto", 50, 200, 50, ((screen_width // 2)-((425*i)//2), (screen_height // 2) - 30), 6)
                 lobbypagebutton.draw()
 
         # Affichage des bouttons
