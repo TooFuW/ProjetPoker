@@ -56,34 +56,55 @@ def is_straight_flush(hand : Hand, board : Board):
     hand_list = hand.get_hand()
     seven_cards_player = board_list+hand_list
     seven_cards_player = sorted(seven_cards_player)
-
     suits = ("club","heart","spade","diamond")
 
-    cpt = 0
-    for i in range(len(seven_cards_player)-1):
-        current_suit = seven_cards_player[i].get_suit()
-        print(seven_cards_player[i])
-        if seven_cards_player[i+1].get_value() == seven_cards_player[i].get_value()+1 and seven_cards_player[i+1].get_suit() == current_suit:
-            cpt +=1
-            print(seven_cards_player[i],seven_cards_player[i+1], "enchainement ! cpt = ",cpt)
-        else :
-            cpt = 0
-            print(seven_cards_player[i],seven_cards_player[i+1], "pas d'enchainement cpt = ",cpt)
+    heart_list, spade_list, club_list, diamond_list = [],[],[],[]
 
-        if cpt == 4:
-            print("QUINTE FLUSH couleur : ", current_suit, "hauteur : ", seven_cards_player[i+1])
+    for card in seven_cards_player:
+        if card.get_suit() == "club":
+            club_list.append(card)
+
+        if card.get_suit() == "heart":
+            heart_list.append(card)
+
+        if card.get_suit() == "diamond":
+            diamond_list.append(card)
+
+        if card.get_suit() == "spade":
+            spade_list.append(card)
+
+    
+    if len(heart_list) >= 5:
+        if is_straight_list(heart_list):
+            print("QUINTE FLUSH COULEUR COEUR")
+            return True
+        
+    if len(diamond_list) >= 5:
+        if is_straight_list(diamond_list):
+            print("QUINTE FLUSH COULEUR CARREAU")
             return True
 
-        if cpt == 3:
-            if Card(current_suit, "ace") in seven_cards_player:
-                print("QUINTE FLUSH HAUTEUR 5 couleur : ",current_suit)
-                return True
+    if len(club_list) >= 5:
+        if is_straight_list(club_list):
+            print("QUINTE FLUSH COULEUR TREFLE")
+            return True
+
+    if len(spade_list) >= 5:
+        if is_straight_list(spade_list):
+            print("QUINTE FLUSH COULEUR PIQUE")
+            return True
+        
     return False
 
 
-def is_straight_list(seven_cards_player : list):
+    
+
+
+def is_straight_list(seven_cards_player : list):   # Vérifie la présence d'une quinte avec un board et une main
+
     seven_cards_player = sorted(seven_cards_player)
     cpt = 0
+
     for i in range(len(seven_cards_player)-1):
         print(seven_cards_player[i])
         if seven_cards_player[i+1].get_value() == seven_cards_player[i].get_value()+1:
@@ -94,22 +115,32 @@ def is_straight_list(seven_cards_player : list):
             print(seven_cards_player[i],seven_cards_player[i+1], "meme valeur, on continue ! cpt = ",cpt)
 
         else:
+            if cpt >= 4:
+                print("QUINTE ! hauteur : ", seven_cards_player[i])
+                return True,seven_cards_player[-1]
+
+            if cpt == 3 and seven_cards_player[i].get_value() == 5:
+                if seven_cards_player[-1].rank == "ace":
+                    print("QUINTE HAUTEUR 5 ! ")
+                    return True,5
             cpt = 0
             print(seven_cards_player[i],seven_cards_player[i+1], "pas d'enchainement ! cpt = ",cpt)
 
-        if cpt == 4:
-            print("QUINTE ! hauteur : ", seven_cards_player[i+1])
-            return True
+    if cpt >= 4:
+        print("QUINTE ! hauteur : ", seven_cards_player[-1])
+        return True,seven_cards_player[-1]
 
-        if cpt == 3:
-            if seven_cards_player[-1].rank == "ace":
-                print("QUINTE HAUTEUR 5 ! ")
-                return True
+    if cpt == 3 and seven_cards_player[-1].get_value() == 5:
+        if seven_cards_player[-1].rank == "ace":
+            print("QUINTE HAUTEUR 5 ! ")
+            return True,5
     return False
 
 
 def is_straight(board : Board, hand : Hand):
-    pass
+    liste = board.get_board()+hand.get_hand()
+    return is_straight_list(liste)
+    
 
 
 

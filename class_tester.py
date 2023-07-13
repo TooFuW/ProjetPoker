@@ -96,14 +96,15 @@ hand1 = Hand([Card("club","2"),Card("spade","5")])
 print(is_straight_flush(board=board, hand=hand1))
 
 
-card = Card("spade","ace")
-card2 = Card("spade","2")
-card3 = Card("spade","3")
+card = Card("spade","2")
+card2 = Card("spade","3")
+card3 = Card("spade","ace")
 card4 = Card("spade","4")
-card5 = Card("club","ace")
+card5 = Card("club","5")
 
 board = Board([card,card2,card3,card4,card5])
 
-hand1 = Hand([Card("club","2"),Card("spade","5")])
+hand1 = Hand([Card("club","6"),Card("spade","7")])
 
 print(is_straight_list(board.get_board()+hand1.get_hand()))
+print(is_straight_flush(board=board,hand=hand1))

@@ -48,6 +48,10 @@ class Card():
     def get_suit(self):
         copy = self.suit
         return copy
+    
+    def get_rank(self):
+        copy = self.rank
+        return copy
 
 
     
