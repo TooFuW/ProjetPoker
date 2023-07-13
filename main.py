@@ -1,7 +1,8 @@
 #Menu du jeu Poker
 
 
-import pygame, sys
+import pygame
+import sys
 
 
 class Button:
@@ -105,6 +106,7 @@ class HUD_State:
         """
         # self.state définit l'état actuel de l'interface (qui est par défaut Main Menu)
         self.state = "Main Menu"
+        self.lobbyycreated = False
     
     def mainmenu(self):
         """mainmenu est la fonction qui fait tourner/afficher le menu principal
@@ -116,11 +118,13 @@ class HUD_State:
         # Dessine l'image de fond sur la surface de l'écran (IMPORANT CAR SE SUPERPOSE A L'INTERFACE PRECEDENT ET PERMET DE "L'EFFACER")
         screen.blit(fond, (0, 0))
         # Dessine le logo du jeu
-        logopoker = pygame.transform.scale(pokertablebackground, (250, 250))
-        screen.blit(logopoker, (screen_height//2 + 200, 75))
+        logojeu = pygame.image.load("PokerBackground.jpg")
+        logojeu = pygame.transform.scale(logojeu, (250, 250))
+        screen.blit(logojeu, ((screen_height // 2) + (425 // 2), (screen_width // 2) - (1400 // 2)))
         # Dessine le logo MWTE
-        logomwte = pygame.transform.scale(pokertablebackground, (150, 150))
-        screen.blit(logomwte, (25 , screen_width//2 - 75))
+        logomwte = pygame.image.load("logo mwte.jpg")
+        logomwte = pygame.transform.scale(logomwte, (150, 150))
+        screen.blit(logomwte, ((screen_height // 2) - (800 // 2), (screen_width // 2) - (150 // 2)))
 
         # Affichage des bouttons
         # Cliquer sur le bouton PLAY ouvre l'interface présentant les lobbys disponibles
@@ -138,6 +142,9 @@ class HUD_State:
     def lobbymenu(self):
         """lobbymenu est la fonction qui fait tourner/afficher le menu des lobbys
         """
+
+        lobbys = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]
+
         # Rassemblement de tout les événements
         for event in pygame.event.get():
             pass
@@ -149,6 +156,11 @@ class HUD_State:
         text_surf = gui_font.render("Table List", True, "#FFFFFF")
         text_rect = text_surf.get_rect(center = pygame.Rect((30, 0), (150, 75)).center)
         screen.blit(text_surf, text_rect)
+
+        if self.lobbyycreated == False:
+            for i in range(len(lobbys)//10):
+                lobbypagebutton = Button("Lobby " + str(i+1), "Roboto", 100, 425, 100, ((screen_width // 2)-(425//2), (screen_height // 2) - 30), 6)
+                lobbypagebutton.draw()
 
         # Affichage des bouttons
         # Cliquer sur le bouton BACK ferme la fenêtre purement et simplement
@@ -207,12 +219,15 @@ class HUD_State:
         """state_manager se charge d'afficher la bonne interface en fonction de l'état de l'interface
         """
         if self.state == "Main Menu":
+            self.lobbyycreated = False
             self.mainmenu()
         elif self.state == "Lobby Menu":
             self.lobbymenu()
         elif self.state == "Setting Menu":
+            self.lobbyycreated = False
             self.settingmenu()
         elif self.state == "Account Menu":
+            self.lobbyycreated = False
             self.accountmenu()
 
 
