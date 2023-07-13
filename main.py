@@ -228,6 +228,9 @@ screen = pygame.display.set_mode((screen_width, screen_height), pygame.FULLSCREE
 pygame.display.set_caption("Menu Jeu Poker")
 clock = pygame.time.Clock()
 
+# Chargement de la musique de fond
+pygame.mixer.music.load("mainmenu_soundtrack.mp3")
+
 # Chargement de l'image de fond
 pokertablebackground = pygame.image.load("PokerBackground.jpg")
 fond = pygame.transform.scale(pokertablebackground, (screen_width, screen_height))
@@ -246,9 +249,11 @@ backbutton = Button("BACK", "Roboto", 100, 425, 100, ((screen_width // 2)-(425//
 
 # Gameloop
 while True:
+    # Lance la musique de fond en boucle
+    pygame.mixer.music.play()
     # Cet appel permet de gérer l'interface active
     game_state.state_manager()
-    #Limite les FPS à 60
+    # Limite les FPS à 60
     clock.tick(60)
 
 
