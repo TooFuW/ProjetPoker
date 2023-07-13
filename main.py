@@ -143,8 +143,6 @@ class HUD_State:
         """lobbymenu est la fonction qui fait tourner/afficher le menu des lobbys
         """
 
-        lobbys = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]
-
         # Rassemblement de tout les événements
         for event in pygame.event.get():
             pass
@@ -160,8 +158,8 @@ class HUD_State:
         # Affichage d'onglets en fonction du nombre de lobbys disponibles
         if self.lobbyycreated == False:
             for i in range(len(lobbys)//10):
-                lobbypagebutton = Button("Lobby " + str(i+1), "Roboto", 50, 200, 50, ((screen_width // 2)-((425*i)//2), (screen_height // 2) - 30), 6)
                 lobbypagebutton.draw()
+                print("coucou")
 
         # Affichage des bouttons
         # Cliquer sur le bouton BACK ferme la fenêtre purement et simplement
@@ -244,6 +242,9 @@ screen = pygame.display.set_mode((screen_width, screen_height), pygame.FULLSCREE
 pygame.display.set_caption("Menu Jeu Poker")
 clock = pygame.time.Clock()
 
+# Récupération de la liste des lobbys disponibles et de leurs informations
+lobbys = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]
+
 # Chargement de l'image de fond
 pokertablebackground = pygame.image.load("PokerBackground.jpg")
 fond = pygame.transform.scale(pokertablebackground, (screen_width, screen_height))
@@ -259,6 +260,10 @@ settingsbutton = Button("SETTINGS", "Roboto", 100, 425, 100, ((screen_width // 2
 exitbutton = Button("EXIT", "Roboto", 100, 425, 100, ((screen_width // 2)-(425//2), (screen_height // 2) + 230), 6)
 # Création de l'objet backbutton
 backbutton = Button("BACK", "Roboto", 100, 425, 100, ((screen_width // 2)-(425//2), (screen_height // 2) + 230), 6)
+# Création de l'objet lobbypagebutton
+for i in range(len(lobbys)//10):
+    lobbypagebutton = Button("Page " + str(i + 1), "Roboto", 50, 200, 50, ((screen_width // 2)-((425 * i)//2), (screen_height // 2) - 30), 6)
+    print(lobbypagebutton.text)
 
 # Gameloop
 while True:
