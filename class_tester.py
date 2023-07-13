@@ -3,9 +3,7 @@ from Hand import Hand
 from Card import Card
 import AlreadyExistingCard
 from Player import Player
-from Round import is_royal_flush
-from Round import is_straight_flush
-from Round import is_straight_list
+from Round import *
 from Board import Board
 
 if False:
@@ -98,13 +96,14 @@ print(is_straight_flush(board=board, hand=hand1))
 
 card = Card("spade","2")
 card2 = Card("spade","3")
-card3 = Card("spade","ace")
-card4 = Card("spade","4")
-card5 = Card("club","5")
+card3 = Card("diamond","ace")
+card4 = Card("spade","7")
+card5 = Card("heart","ace")
 
 board = Board([card,card2,card3,card4,card5])
 
-hand1 = Hand([Card("club","6"),Card("spade","7")])
+hand1 = Hand([Card("club","ace"),Card("spade","ace")])
 
 print(is_straight_list(board.get_board()+hand1.get_hand()))
 print(is_straight_flush(board=board,hand=hand1))
+print(is_four_of_a_kind(board=board, hand=hand1))

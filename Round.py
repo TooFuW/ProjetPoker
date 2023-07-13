@@ -51,6 +51,7 @@ def is_royal_flush(hand : Hand, board : Board):
                             return True
     return False
 
+
 def is_straight_flush(hand : Hand, board : Board):
     board_list = board.get_board()
     hand_list = hand.get_hand()
@@ -141,6 +142,31 @@ def is_straight(board : Board, hand : Hand):
     liste = board.get_board()+hand.get_hand()
     return is_straight_list(liste)
     
+def is_four_of_a_kind(board : Board, hand : Hand):
+
+    board_list = board.get_board()
+    hand_list = hand.get_hand()
+    seven_cards_player = board_list+hand_list
+    seven_cards_player = sorted(seven_cards_player)
+
+    current_rank = seven_cards_player[0].get_rank()
+    current_count = 1
+
+    for i in range(len(seven_cards_player)-1):
+        print(current_rank,current_count)
+        if seven_cards_player[i].get_value() == seven_cards_player[i+1].get_value():
+            current_count += 1
+        else:
+            current_count = 1
+            current_rank = seven_cards_player[i+1].get_rank()
+    
+    if current_count == 4:
+        return True,current_rank
+    
+    return False
+
+
+
 
 
 
