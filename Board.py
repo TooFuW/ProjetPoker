@@ -1,5 +1,5 @@
-import Card
-import AlreadyExistingCard
+from Card import Card
+from AlreadyExistingCard import AlreadyExistingCard
 
 class Board :
     """
@@ -11,9 +11,12 @@ class Board :
         
         if type(board) == list:
             if only_cards(board):
-                self.board = board
+                if not is_card_duplicate(board):
+                    self.board = board
+                else:
+                    raise AlreadyExistingCard
             else:
-                raise AlreadyExistingCard
+                raise TypeError
         else:
             raise TypeError
 
@@ -67,11 +70,22 @@ class Board :
 
 
 def only_cards(liste):
+    print(liste)
     if liste == []:
         return True
     
     for i in liste:
-        if type(i) != Card:
+        if not type(i) == Card:
             return False
     return True
+
+def is_card_duplicate(liste : list):
+    if liste == []:
+        return False
+    
+    for i in liste:
+        if liste.count(i) > 1:
+            return True
+    
+    return False
 
