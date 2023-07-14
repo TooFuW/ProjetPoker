@@ -98,7 +98,7 @@ class Button:
 
 
 class ScrollBox:
-    """Classe ScrollBox pour créer des ScrollSox
+    """Classe ScrollBox pour créer des ScrollSox (classe compliquée, pas bien écrite mais fonctionne donc éviter de modifier xD)
     """
 
     def __init__(self, x : int, y : int, width : int, height : int, servers : list):
@@ -117,37 +117,68 @@ class ScrollBox:
         self.height = height
         self.servers = servers
         self.scroll_pos = 0
+        self.indentation = "                    "
+        self.hauteurbox = 50
 
     def draw(self):
         """Génération/affichage de la scrollbox
         """
-        # Dessin de la boîte
-        pygame.draw.rect(screen, "#D74B4B", (self.x, self.y, self.width, self.height))
+        # Créez une surface transparente
+        transparent_surface = pygame.Surface((self.width, self.height), pygame.SRCALPHA)
+        
+        # Dessinez le rectangle transparent sur la surface
+        pygame.draw.rect(transparent_surface, (0, 0, 0, 128), (0, 0, self.width, self.height))
+        
+        # Blittez la surface transparente sur l'écran
+        screen.blit(transparent_surface, (self.x, self.y))
 
         # Calcul de la zone d'affichage des éléments
         display_area = pygame.Rect(self.x, self.y, self.width, self.height)
 
-        # Décalage vertical initial
+        # Décalage initial
         item_offset_y = 0
 
         # Dessin des éléments visibles
-        indentation = "                    "
         for i, server in enumerate(self.servers[self.scroll_pos:]):
             item_y = self.y + item_offset_y
-            # Dessin de la zone de la scrollbox
-            item_rect = pygame.Rect(self.x, item_y, self.width, 40)
+            # Délimitation de la zone de la scrollbox
+            item_rect = pygame.Rect(self.x, item_y, self.width, self.hauteurbox)
             # Affichage des serveurs disponibles
             if item_rect.colliderect(display_area):
                 pygame.draw.rect(screen, "#475F77", item_rect)
                 font = pygame.font.Font(None, 24)
-                infos = server[0] + indentation + "Size of the table : " + str(server[1])
+                infos = server[0] + self.indentation + "Size of the table : " + str(server[1])
                 text = font.render(infos, True, (0, 0, 0))
                 text_rect = text.get_rect()
                 text_rect.topleft = (self.x + 5, item_y + 2)
                 screen.blit(text, text_rect)
-
             # Ajouter un padding entre chaque serveur
-            item_offset_y += 40 + 5  # Ajouter 5 pixels de padding
+            item_offset_y += self.hauteurbox + 10  # Ajouter 5 pixels de padding
+
+    def is_clicked(self, mouse_pos):
+        """Vérifie si le clic de souris se trouve dans une boîte de serveur.
+
+        Args:
+            mouse_pos (tuple): Coordonnées (x, y) du clic de souris.
+
+        Returns:
+            int or None: Index du serveur sur lequel l'utilisateur a cliqué, ou None si aucun serveur n'a été cliqué.
+        """
+        # Parcourez les boîtes de serveur visibles
+        for i, server in enumerate(self.servers[self.scroll_pos:]):
+            item_y = self.y + i * (self.hauteurbox + 10)
+            item_rect = pygame.Rect(self.x, item_y, self.width, self.hauteurbox)
+
+            # Vérifiez si le clic de souris se trouve dans la boîte de serveur
+            if item_rect.collidepoint(mouse_pos):
+                print("mouse_pos", mouse_pos[1])
+                print("item_y", item_y)
+                print("self.y", self.y)
+                print("self.x", self.x)
+                print("self.width", self.width)
+                print("self.height", self.height - self.x)
+                return self.scroll_pos + i
+        return None
 
     def scroll_up(self):
         """Pour scroller vers le haut
@@ -158,7 +189,8 @@ class ScrollBox:
     def scroll_down(self):
         """Pour scroller vers le bas
         """
-        if self.scroll_pos < len(self.servers) - (self.height // 40):
+        # IMPORTANT : 45 doit être égal à item_offset_y sinon ca ne marchera pas !
+        if self.scroll_pos < len(self.servers) - (self.height // 60):
             self.scroll_pos += 1
 
 
@@ -178,7 +210,9 @@ class HUD_State:
         """
         # Rassemblement de tout les événements
         for event in pygame.event.get():
-            pass
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
 
         # Dessine l'image de fond sur la screen de l'écran (IMPORANT CAR SE SUPERPOSE A L'INTERFACE PRECEDENT ET PERMET DE "L'EFFACER")
         screen.blit(fond, (0, 0))
@@ -207,14 +241,22 @@ class HUD_State:
     def lobbymenu(self):
         """lobbymenu est la fonction qui fait tourner/afficher le menu des lobbys
         """
-
         # Rassemblement de tout les événements
         for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == 4:  # Molette de la souris vers le haut
                     scrollbox.scroll_up()
                 elif event.button == 5:  # Molette de la souris vers le bas
                     scrollbox.scroll_down()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if event.button == 1:  # Clic gauche de la souris
+                    mouse_pos = pygame.mouse.get_pos()
+                    clicked_server = scrollbox.is_clicked(mouse_pos)
+                    if clicked_server != None:
+                        print("Serveur cliqué :", server_list[clicked_server][0])
 
         # Dessine l'image de fond sur la screen de l'écran
         screen.blit(fond, (0, 0))
@@ -224,12 +266,14 @@ class HUD_State:
         text_rect = text_surf.get_rect(center = pygame.Rect((30, 0), (150, 75)).center)
         screen.blit(text_surf, text_rect)
 
+        # Dessin de la scrollbox
+        scrollbox.draw()
+
         # Affichage des bouttons
         # Cliquer sur le bouton BACK ferme la fenêtre purement et simplement
         backbutton.draw()
-
-        # Dessin de la scrollbox
-        scrollbox.draw()
+        # Cliquer sur le bouton CREER TABLE crée une nouvelle table
+        createtablebutton.draw()
 
         # Met à jour l'affichage de l'interface
         pygame.display.update()
@@ -239,7 +283,9 @@ class HUD_State:
         """
         # Rassemblement de tout les événements
         for event in pygame.event.get():
-            pass
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
 
         # Dessine l'image de fond sur la screen de l'écran (IMPORANT CAR SE SUPERPOSE A L'INTERFACE PRECEDENT ET PERMET DE "L'EFFACER")
         screen.blit(fond, (0, 0))
@@ -262,7 +308,9 @@ class HUD_State:
         """
         # Rassemblement de tout les événements
         for event in pygame.event.get():
-            pass
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
 
         # Dessine l'image de fond sur la screen de l'écran (IMPORANT CAR SE SUPERPOSE A L'INTERFACE PRECEDENT ET PERMET DE "L'EFFACER")
         screen.blit(fond, (0, 0))
@@ -309,7 +357,7 @@ pygame.display.set_caption("Menu Jeu Poker")
 clock = pygame.time.Clock()
 
 # Récupération de la liste des lobbys disponibles et de leurs informations
-server_list = [["Table 1", 15], ["Table 2", 10], ["Table 3", 20], ["Table 4", 5], ["Table 5", 8], ["Table 6", 8], ["Table 7", 11], ["Table 8", 18], ["Table 9", 12], ["Table 10", 3], ["Table 1", 15], ["Table 2", 10], ["Table 3", 20], ["Table 4", 5], ["Table 5", 8], ["Table 6", 8], ["Table 7", 11], ["Table 8", 18], ["Table 9", 12], ["Table 10", 3]]
+server_list = [["Table 1", 15], ["Table 2", 10], ["Table 3", 20], ["Table 4", 5], ["Table 5", 8], ["Table 6", 8], ["Table 7", 11], ["Table 8", 18], ["Table 9", 12], ["Table 10", 3], ["Table 11", 15], ["Table 12", 10], ["Table 13", 20], ["Table 14", 5], ["Table 15", 8], ["Table 16", 8], ["Table 17", 11], ["Table 18", 18], ["Table 19", 12], ["Table 20", 3]]
 
 # Chargement de l'image de fond
 pokertablebackground = pygame.image.load("PokerBackground.jpg")
@@ -326,8 +374,11 @@ settingsbutton = Button("SETTINGS", "Roboto", 100, 425, 100, ((screen_width // 2
 exitbutton = Button("EXIT", "Roboto", 100, 425, 100, ((screen_width // 2)-(425//2), (screen_height // 2) + 230), 6)
 # Création de l'objet backbutton
 backbutton = Button("BACK", "Roboto", 100, 425, 100, ((screen_width // 2)-(425//2), (screen_height // 2) + 400), 6)
+# Création de l'objet createtablebutton
+createtablebutton = Button("CREATE TABLE", "Roboto", 70, 425, 100, ((screen_width - 500), (screen_height //2 - 300)), 6)
+
 # Création de l'objet scrollbox 
-scrollbox = ScrollBox(((screen_width/2)/2)/2, 100, screen_width/2 + ((screen_width/2)/2), screen_height/2 + ((screen_height/2)/2), server_list)
+scrollbox = ScrollBox(((screen_width/2)/2)/4, 150, screen_width/2 + ((screen_width/2)/2)/2, screen_height/2 + (screen_height/2)/3, server_list)
 
 # Gameloop
 while True:
