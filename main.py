@@ -142,43 +142,14 @@ class ScrollBox:
         for i, server in enumerate(self.servers[self.scroll_pos:]):
             item_y = self.y + item_offset_y
             # Délimitation de la zone de la scrollbox
-            item_rect = pygame.Rect(self.x, item_y, self.width, self.hauteurbox)
+            text = (server[0] + self.indentation + "Size of the table : " + str(server[1]))
+            item_rect = Button(text , "Roboto", 24, self.width, self.hauteurbox, (self.x, item_y), 3)
+            item_rect.check_click()
             # Affichage des serveurs disponibles
-            if item_rect.colliderect(display_area):
-                pygame.draw.rect(screen, "#475F77", item_rect)
-                font = pygame.font.Font(None, 24)
-                infos = server[0] + self.indentation + "Size of the table : " + str(server[1])
-                text = font.render(infos, True, (0, 0, 0))
-                text_rect = text.get_rect()
-                text_rect.topleft = (self.x + 5, item_y + 2)
-                screen.blit(text, text_rect)
+            if item_rect.top_rect.colliderect(display_area):
+                item_rect.draw()
             # Ajouter un padding entre chaque serveur
             item_offset_y += self.hauteurbox + 10  # Ajouter 5 pixels de padding
-
-    def is_clicked(self, mouse_pos):
-        """Vérifie si le clic de souris se trouve dans une boîte de serveur.
-
-        Args:
-            mouse_pos (tuple): Coordonnées (x, y) du clic de souris.
-
-        Returns:
-            int or None: Index du serveur sur lequel l'utilisateur a cliqué, ou None si aucun serveur n'a été cliqué.
-        """
-        # Parcourez les boîtes de serveur visibles
-        for i, server in enumerate(self.servers[self.scroll_pos:]):
-            item_y = self.y + i * (self.hauteurbox + 10)
-            item_rect = pygame.Rect(self.x, item_y, self.width, self.hauteurbox)
-
-            # Vérifiez si le clic de souris se trouve dans la boîte de serveur
-            if item_rect.collidepoint(mouse_pos):
-                print("mouse_pos", mouse_pos[1])
-                print("item_y", item_y)
-                print("self.y", self.y)
-                print("self.x", self.x)
-                print("self.width", self.width)
-                print("self.height", self.height - self.x)
-                return self.scroll_pos + i
-        return None
 
     def scroll_up(self):
         """Pour scroller vers le haut
@@ -251,12 +222,6 @@ class HUD_State:
                     scrollbox.scroll_up()
                 elif event.button == 5:  # Molette de la souris vers le bas
                     scrollbox.scroll_down()
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                if event.button == 1:  # Clic gauche de la souris
-                    mouse_pos = pygame.mouse.get_pos()
-                    clicked_server = scrollbox.is_clicked(mouse_pos)
-                    if clicked_server != None:
-                        print("Serveur cliqué :", server_list[clicked_server][0])
 
         # Dessine l'image de fond sur la screen de l'écran
         screen.blit(fond, (0, 0))
