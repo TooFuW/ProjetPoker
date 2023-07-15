@@ -226,6 +226,10 @@ def is_full_house(board : Board, hand : Hand):
         print("full aux ",three_of_a_kind," par les ",pair )
     return three_of_a_kind and pair
 
+
+def high_card(board: Board, hand : Hand):
+    liste = board.get_board()+hand.get_hand()
+    return max(liste)
             
 
         
