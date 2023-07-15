@@ -142,7 +142,8 @@ class ScrollBox:
         for i, server in enumerate(self.servers[self.scroll_pos:]):
             item_y = self.y + item_offset_y
             # Délimitation de la zone de la scrollbox
-            item_rect = Button((server[0] + self.indentation + "Size of the table : " + str(server[1])), "Roboto", 24, self.width, self.hauteurbox, (self.x, item_y), 3)
+            text = (server[0] + self.indentation + "Size of the table : " + str(server[1]))
+            item_rect = Button(text , "Roboto", 24, self.width, self.hauteurbox, (self.x, item_y), 3)
             item_rect.check_click()
             # Affichage des serveurs disponibles
             if item_rect.top_rect.colliderect(display_area):
