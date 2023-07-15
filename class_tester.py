@@ -107,3 +107,22 @@ hand1 = Hand([Card("club","ace"),Card("spade","ace")])
 print(is_straight_list(board.get_board()+hand1.get_hand()))
 print(is_straight_flush(board=board,hand=hand1))
 print(is_four_of_a_kind(board=board, hand=hand1))
+
+card = Card("spade","2")
+card2 = Card("spade","3")
+card3 = Card("diamond","ace")
+card4 = Card("spade","7")
+card5 = Card("heart","7")
+
+board = Board([card,card2,card3,card4,card5])
+
+hand1 = Hand([Card("club","ace"),Card("spade","ace")])
+
+print(is_full_house(board,hand1))
+
+print("\n\n")
+
+board1 = Board([Card("spade", "2"), Card("heart", "2"), Card("club", "3"), Card("diamond", "king"), Card("spade", "king")])
+hand1 = Hand([Card("heart", "queen"), Card("diamond", "queen")])
+
+print(is_full_house(board1,hand1))

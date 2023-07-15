@@ -171,10 +171,62 @@ def is_full_house(board : Board, hand : Hand):
     board_list = board.get_board()
     hand_list = hand.get_hand()
     seven_cards_player = board_list+hand_list
-    seven_cards_player = sorted(seven_cards_player).reverse()
+    seven_cards_player = sorted(seven_cards_player)
+    seven_cards_player.reverse()
+    print(seven_cards_player)
+
+    pair = False
+    three_of_a_kind = False
+
+    cpt = 1
 
     for i in range(len(seven_cards_player)-1):
-        pass
+        print(seven_cards_player[i],cpt)
+        if seven_cards_player[i+1].get_rank() == seven_cards_player[i].get_rank():
+            cpt += 1
+        else:
+            if cpt == 2 and not pair:
+                pair = True,seven_cards_player[i].get_rank()
+                print("paire de ",seven_cards_player[i].get_rank())
+                cpt = 1
+
+            if cpt >= 3:
+                if not three_of_a_kind:
+                    three_of_a_kind = True, seven_cards_player[i].get_rank()
+                    print("brelan ",seven_cards_player[i].get_rank())
+                    cpt = 1
+                elif not pair:
+                    pair = True,seven_cards_player[i].get_rank()
+                    print("paire de ",seven_cards_player[i].get_rank())
+
+            else:
+                cpt = 1
+
+            if three_of_a_kind and pair:
+                print("full aux ",three_of_a_kind," par les ",pair )
+                return three_of_a_kind and pair
+
+    if cpt == 2 and not pair:
+            pair = True,seven_cards_player[-1].get_rank()
+            print("paire de ",seven_cards_player[-1].get_rank())
+            cpt = 1
+
+    if cpt >= 3:
+        if not three_of_a_kind:
+            three_of_a_kind = True, seven_cards_player[-1].get_rank()
+            print("brelan ",seven_cards_player[-1].get_rank())
+            cpt = 1
+        else:
+            pair = True,seven_cards_player[-1].get_rank()
+            print("paire de ",seven_cards_player[-1].get_rank())
+
+
+    print(pair, three_of_a_kind)
+    if pair and three_of_a_kind:
+        print("full aux ",three_of_a_kind," par les ",pair )
+    return three_of_a_kind and pair
+
+            
 
         
 
