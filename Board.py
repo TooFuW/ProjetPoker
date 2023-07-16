@@ -70,7 +70,6 @@ class Board :
 
 
 def only_cards(liste):
-    print(liste)
     if liste == []:
         return True
     
