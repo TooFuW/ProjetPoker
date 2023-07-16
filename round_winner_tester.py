@@ -42,6 +42,7 @@ for i in range(100):
     print(combination)
     print("\n")
 
+print(sorted([(3,2),(8,1),(3,4),(7,4)]))
 
 combinations_list = sorted(combinations_list, reverse=True)
 for combination in combinations_list:
@@ -51,4 +52,6 @@ for combination in combinations_list:
             print(i)
     else:
         print(combination)
+
+
     

@@ -2,6 +2,7 @@ from Hand import Hand
 from Board import Board
 from Card import Card
 from Combination import Combination
+from HandCombination import HandCombination
 
 class Round:
     """
@@ -101,7 +102,7 @@ def is_royal_flush(hand : Hand, board : Board):
                 if Card(suit, "queen") in seven_cards_player:
                     if Card(suit, "jack") in seven_cards_player:
                         if Card(suit, "10") in seven_cards_player:
-                            return True,Combination("royal_flush","ace",suit)
+                            return True,HandCombination([Combination("royal_flush","ace",suit)])
     return False
 
 
@@ -130,22 +131,22 @@ def is_straight_flush(hand : Hand, board : Board):
     if len(heart_list) >= 5:
         is_straight = is_straight_list(heart_list)
         if is_straight:
-            return True,Combination("straight_flush",is_straight[1].high,"heart")
+            return True,HandCombination([Combination("straight_flush",is_straight[1].high,"heart")])
         
     if len(diamond_list) >= 5:
         is_straight = is_straight_list(diamond_list)
         if is_straight:
-            return True,Combination("straight_flush",is_straight[1].high,"diamond")
+            return True,HandCombination([Combination("straight_flush",is_straight[1].high,"diamond")])
 
     if len(club_list) >= 5:
         is_straight = is_straight_list(club_list)
         if is_straight:
-            return True,Combination("straight_flush",is_straight[1].high,"club")
+            return True,HandCombination([Combination("straight_flush",is_straight[1].high,"club")])
 
     if len(spade_list) >= 5:
         is_straight = is_straight_list(spade_list)
         if is_straight:
-            return True,Combination("straight_flush",is_straight[1].high,"spade")
+            return True,HandCombination([Combination("straight_flush",is_straight[1].high,"spade")])
         
     return False
 
@@ -167,10 +168,10 @@ def is_four_of_a_kind(board : Board, hand : Hand):
             
 
         if current_count == 4:
-            return True,Combination("four_of_a_kind",seven_cards_player[i])
+            return True,HandCombination([Combination("four_of_a_kind",seven_cards_player[i]),seven_cards_player[i-3]])  # retourne carré de ... ainsi que la 5eme carte de la main
     
     if current_count == 4:
-        return True,Combination("four_of_a_kind",seven_cards_player[-1])
+        return True,HandCombination([Combination("four_of_a_kind",seven_cards_player[-1]),seven_cards_player[-5]]) # retourne carré de ... ainsi que la 5eme carte de la main
     
     return False
 
@@ -208,7 +209,7 @@ def is_full_house(board : Board, hand : Hand):
                 cpt = 1
 
             if three_of_a_kind and pair:
-                return True,Combination("full_house",high=three_of_a_kind[1], second=pair[-1])
+                return True,HandCombination([Combination("full_house",high=three_of_a_kind[1], second=pair[-1])])
 
     if cpt == 2 and not pair:
             pair = True,seven_cards_player[-1]
@@ -223,7 +224,7 @@ def is_full_house(board : Board, hand : Hand):
 
     
     if three_of_a_kind and pair:
-        return True,Combination("full_house",high=three_of_a_kind[1], second=pair[-1])
+        return True,HandCombination([Combination("full_house",high=three_of_a_kind[1], second=pair[-1])])
     else:
         return False
     
@@ -235,7 +236,7 @@ def is_flush(board : Board, hand : Hand):
     for suit in suit_list:
         if suit_list.count(suit) >= 5:
             flush_cards = [card for card in liste if card.get_suit()==suit]
-            return True,Combination("flush",max(flush_cards),suit,cards=flush_cards)
+            return True,HandCombination([Combination("flush",max(flush_cards),suit,cards=flush_cards)])
         
     return False
 
@@ -254,19 +255,19 @@ def is_straight_list(seven_cards_player : list):   # Vérifie la présence d'une
 
         else:
             if cpt >= 4:
-                return True,Combination("straight",seven_cards_player[i])
+                return True,HandCombination([Combination("straight",seven_cards_player[i])])
 
             if cpt == 3 and seven_cards_player[i].get_value() == 5:
                 if seven_cards_player[-1].rank == "ace":
-                    return True,Combination("straight",seven_cards_player[i])
+                    return True,HandCombination([Combination("straight",seven_cards_player[i])])
             cpt = 0
 
     if cpt >= 4:
-        return True,Combination("straight",seven_cards_player[-1])
+        return True,HandCombination([Combination("straight",seven_cards_player[-1])])
 
     if cpt == 3 and seven_cards_player[-1].get_value() == 5:
         if seven_cards_player[-1].rank == "ace":
-            return True,Combination("straight",seven_cards_player[-1])
+            return True,HandCombination([Combination("straight",seven_cards_player[-1])])
         
     return False
 
@@ -289,10 +290,10 @@ def is_three_of_a_kind(board : Board, hand : Hand): #parcours la liste 1 fois et
             cpt = 1
         
         if cpt == 3:
-            return True,Combination("three_of_a_kind",liste[i])
+            return True,HandCombination([Combination("three_of_a_kind",liste[i])]+[card for card in liste if card.get_rank() != liste[i].get_rank()])
         
     if cpt == 3:
-            return True,Combination("three_of_a_kind",liste[i])
+            return True,[Combination("three_of_a_kind",liste[-1])]+[card for card in liste if card.get_rank() != liste[-1].get_rank()]
     
     return False
 
@@ -320,7 +321,7 @@ def is_two_pair(board : Board, hand : Hand):
 
         
         if high_pair and low_pair:
-            return True,Combination("two_pair",high=high_pair[1], second=low_pair[1])
+            return True,HandCombination([Combination("two_pair",high=high_pair[1], second=low_pair[1])]+[card for card in liste if card.get_rank() != high_pair[1].get_rank() and card.get_rank() != low_pair[1].get_rank()])
         
     if cpt >=2 :
                 if not high_pair:
@@ -330,7 +331,7 @@ def is_two_pair(board : Board, hand : Hand):
                     low_pair = True, liste[i-1]
 
     if high_pair and low_pair:
-            return True,Combination("two_pair",high=high_pair[1], second=low_pair[1])
+            return True,HandCombination([Combination("two_pair",high=high_pair[1], second=low_pair[1])]+[card for card in liste if card.get_rank() != high_pair[1].get_rank() and card.get_rank() != low_pair[1].get_rank()])
     else:      
         return False
 
@@ -347,14 +348,14 @@ def is_one_pair(board : Board, hand : Hand):
             if liste[i].get_rank() == liste[i+1].get_rank():
                 cpt +=1
         if cpt == 2:
-            return True,Combination("pair",liste[i])
+            return True,HandCombination([Combination("pair",liste[i])]+[card for card in liste if card.get_rank() != liste[i].get_rank()])
         
     return False
 
 
 def high_card(board: Board, hand : Hand):
     liste = board.get_board()+hand.get_hand()
-    return True,Combination("high_card",max(liste))
+    return True,HandCombination([Combination("high_card",max(liste))]+liste.copy().remove(max(liste)))
             
 
         

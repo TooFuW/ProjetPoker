@@ -123,7 +123,10 @@ class Combination:
                     return self.high == __value.high
                 
         else:
-            raise TypeError
+            if type(__value) == Card:
+                return False
+            else:
+                raise TypeError
         
     
     def __mt__(self, __value : object):
@@ -200,7 +203,10 @@ class Combination:
                         return self.high > __value.high
 
         else:
-            raise TypeError
+            if type(__value) == Card:
+                return True
+            else:
+                raise TypeError
 
 
     def __lt__(self, __value : object):
@@ -276,7 +282,10 @@ class Combination:
                         return self.high < __value.high
 
         else:
-            raise TypeError
+            if type(__value) == Card:
+                return False
+            else:
+                raise TypeError
         
 
 

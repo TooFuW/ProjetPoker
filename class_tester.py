@@ -136,3 +136,5 @@ print("\n")
 print(is_one_pair(board1,hand1))
 print("\n\n")
 print(get_best_combination(board=board1, hand=hand1))
+
+print(range(1,6))
