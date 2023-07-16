@@ -205,6 +205,8 @@ class HUD_State:
         accountbutton.draw()
         # Cliquer sur le bouton EXIT ferme la fenêtre purement et simplement
         exitbutton.draw()
+        # Cliquer sur le bouton GAMES HISTORY affiche l'historique des parties
+        gamehistorybutton.draw()
 
         # Met à jour l'affichage de l'interface
         pygame.display.update()
@@ -338,12 +340,14 @@ settingsbutton = Button("SETTINGS", "Roboto", 100, 425, 100, ((screen_width // 2
 # Création de l'objet quitbutton
 exitbutton = Button("EXIT", "Roboto", 100, 425, 100, ((screen_width // 2)-(425//2), (screen_height // 2) + 230), 6)
 # Création de l'objet backbutton
-backbutton = Button("BACK", "Roboto", 100, 425, 100, ((screen_width // 2)-(425//2), (screen_height // 2) + 400), 6)
+backbutton = Button("BACK", "Roboto", 100, 425, 100, ((screen_width // 2)-(425//2), (screen_height - 150)), 6)
 # Création de l'objet createtablebutton
-createtablebutton = Button("CREATE TABLE", "Roboto", 70, 425, 100, ((screen_width - 500), (screen_height //2 - 300)), 6)
+createtablebutton = Button("CREATE TABLE", "Roboto", 70, 425, 100, ((screen_width - 450), (screen_height //2 - 300)), 6)
+# Créaion de l'objet gamehistorybutton
+gamehistorybutton = Button("GAMES HISTORY", "Roboto", 70, 425, 100, ((screen_width - 450), (screen_height //2 - 300)), 6)
 
 # Création de l'objet scrollbox 
-scrollbox = ScrollBox(((screen_width/2)/2)/4, 150, screen_width/2 + ((screen_width/2)/2)/2, screen_height/2 + (screen_height/2)/3, server_list)
+scrollbox = ScrollBox(((screen_width/2)/2)/4, 100, screen_width/2 + ((screen_width/2)/2)/2, screen_height/2 + (screen_height/2)/3, server_list)
 
 # Gameloop
 while True:
