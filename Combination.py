@@ -1,7 +1,7 @@
 from Card import Card
 
 class Combination:
-    def __init__(self,nature : str,high : str,suit=None ,second=None, cards=None) -> None:
+    def __init__(self,nature : str,high : Card,suit=None ,second=None, cards=None) -> None:
         """_summary_
 
         Args:
@@ -18,29 +18,35 @@ class Combination:
         natures = ("high_card","pair","two_pair","three_of_a_kind","straight","flush","full_house","four_of_a_kind","straight_flush","royal_flush")
         highs = ("ace","2","3","4","5","6","7","8","9","10","jack","queen","king")
         display_highs = ("ace","two","three","four","five","six","seven","eight","nine","ten","jack","queen","king")
-        suits = ("club","heart","spade","diamond")
+        suits = ("club","heart","spade","diamond",None)
 
-        if nature not in natures or not high in highs or suit not in suits:
+        if not nature in natures or not high.get_rank() in highs or not suit in suits:
+            print(not nature in natures)
+            print(not high.get_rank() in highs)
+            print(not suit in suits)
             raise ValueError
         
         self.nature = nature
-        self.nature_value = nature.index(nature)+1          #une carte haute vaut 1, two pair vaut 3, full_house vaut 7 ...
+        self.nature_value = natures.index(nature)+1
+
         self.high = high
-        self.display_high = display_highs[highs.index(high)]
+
+        self.display_high = display_highs[highs.index(high.get_rank())]
         self.suit = suit
 
         if self.nature == "flush":
 
             if all([type(card) == Card for card in cards]):
                 self.cards = cards
+                self.cards = sorted(self.cards, reverse=True)
 
             else:
                 raise TypeError
         
         if self.nature in ("full_house","two_pair"):
-            if second in highs:
+            if second.get_rank() in highs:
                 self.second = second
-                self.display_second = display_highs[highs.index(second)]
+                self.display_second = display_highs[highs.index(second.get_rank())]
 
             else:
                 raise ValueError
@@ -57,7 +63,7 @@ class Combination:
                 return "pair of "+plural_display_high(self.display_high)
             
             case "two_pair":
-                return "two pairs, "+self.display_high+" and "+self.second
+                return "two pairs, "+self.display_high+" and "+self.display_second
             
             case "three_of_a_kind":
                 return "three of a kind, "+plural_display_high(self.display_high)
@@ -80,6 +86,198 @@ class Combination:
             case "royal_flush":
                 return "royal_flush in "+self.suit+"s"
             
+
+    def __eq__(self,__value : object):
+        if type(object) == __value:
+
+            match self.nature:
+
+                case "high_card":
+                    return self.high == __value.high
+                
+                case "pair":
+                    return self.high == __value.high
+                
+                case "two_pair":
+                    return self.high == __value.high and self.second == __value.second
+                
+                case "three_of_a_kind":
+                    return self.high == __value.high
+                
+                case "straight":
+                    return self.high == __value.high
+                
+                case "flush":
+                    return self.cards == __value.cards
+                
+                case "full_house":
+                    return self.high == __value.high and self.second == __value.second
+                
+                case "four_of_a_kind":
+                    return self.high == __value.high
+                
+                case "straight_flush":
+                    return self.high == __value.high
+                
+                case "royal_flush":
+                    return self.high == __value.high
+                
+        else:
+            raise TypeError
+        
+    
+    def __mt__(self, __value : object):
+        
+        if type(__value) == Combination:
+
+            if self.nature_value > __value.nature_value:
+                return True
+            elif self.nature_value < __value.nature_value:
+                return False
+            
+            else:
+
+                match self.nature:
+
+                    case "high_card":
+                        return self.high > __value.high
+                    
+                    case "pair":
+                        return self.high > __value.high
+                    
+                    case "two_pair":
+
+                        if self.high > __value.high:
+                            return True
+                        
+                        elif self.high < __value.high:
+                            return False
+                        
+                        else:
+
+                            if self.second > __value.second:
+                                return True
+                            elif self.second < __value.second:
+                                return False
+                            else:
+                                return False
+                    
+
+                    case "three_of_a_kind":
+                        return self.high > __value.high
+                    
+                    case "straight":
+                        return self.high >  __value.high
+                    
+                    case "flush":
+                        for i in range(len(self.cards)):
+                            if self.cards[i] > __value.cards[i]:
+                                return True
+                            elif self.cards[i] < __value.cards[i]:
+                                return False
+                        return False
+                    
+                    case "full_house":
+                        if self.high > __value.high:
+                            return True
+                        elif self.high < __value.high:
+                            return False
+                        else:
+                            if self.second > __value.second:
+                                return True
+                            elif self.second < __value.second:
+                                return False
+                            else:
+                                return False
+                    
+                    case "four_of_a_kind":
+                        return self.high > __value.high
+                    
+                    case "straight_flush":
+                        return self.high > __value.high
+                    
+                    case "royal_flush":
+                        return self.high > __value.high
+
+        else:
+            raise TypeError
+
+
+    def __lt__(self, __value : object):
+        if type(__value) == Combination:
+
+            if self.nature_value < __value.nature_value:
+                return True
+            elif self.nature_value > __value.nature_value:
+                return False
+            
+            else:
+
+                match self.nature:
+
+                    case "high_card":
+                        return self.high < __value.high
+                    
+                    case "pair":
+                        return self.high < __value.high
+                    
+                    case "two_pair":
+
+                        if self.high < __value.high:
+                            return True
+                        
+                        elif self.high > __value.high:
+                            return False
+                        
+                        else:
+
+                            if self.second < __value.second:
+                                return True
+                            elif self.second > __value.second:
+                                return False
+                            else:
+                                return False
+                    
+
+                    case "three_of_a_kind":
+                        return self.high < __value.high
+                    
+                    case "straight":
+                        return self.high <  __value.high
+                    
+                    case "flush":
+                        for i in range(len(self.cards)):
+                            if self.cards[i] < __value.cards[i]:
+                                return True
+                            elif self.cards[i] > __value.cards[i]:
+                                return False
+                        return False
+                    
+                    case "full_house":
+                        if self.high < __value.high:
+                            return True
+                        elif self.high > __value.high:
+                            return False
+                        else:
+                            if self.second < __value.second:
+                                return True
+                            elif self.second > __value.second:
+                                return False
+                            else:
+                                return False
+                    
+                    case "four_of_a_kind":
+                        return self.high < __value.high
+                    
+                    case "straight_flush":
+                        return self.high < __value.high
+                    
+                    case "royal_flush":
+                        return self.high < __value.high
+
+        else:
+            raise TypeError
+        
 
 
 
