@@ -236,7 +236,7 @@ def is_flush(board : Board, hand : Hand):
     return False
 
 
-def is_straight_list(seven_cards_player : list):   # Vérifie la présence d'une quinte avec un board et une main
+def is_straight_list(seven_cards_player : list):   # Vérifie la présence d'une quinte avec un board et une main 
 
     seven_cards_player = sorted(seven_cards_player)
     cpt = 0
