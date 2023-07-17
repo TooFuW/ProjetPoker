@@ -9,7 +9,7 @@ class Button:
     """Classe Button pour créer des boutons dynamiques (https://www.youtube.com/watch?v=8SzTzvrWaAA)
     """
 
-    def __init__(self, text : str, police : str, textsize : int, width : int, height : int, pos : tuple, elevation : int):
+    def __init__(self, text : str, police : str, textsize : int, width : int, height : int, pos : tuple, elevation : int, image : str = None):
         """Initialisation de la classe Button
 
         Args:
@@ -20,10 +20,11 @@ class Button:
             height (int): Hauteur du bouton
             pos (tuple): Position contenant deux valeurs x et y dans un tuple
             elevation (int): /!\ PLUS QUE 6 N'EST PAS RECOMMANDE /!\ Hauteur du bouton comparé au "sol" (purement cosmétique, pour donner un style "d'appui") (risque de bug si on appuie à un endroit qui ne va plus être le bouton lorsque celui-ci va se baisser)
+            image (str) (None par défaut): Le lien relatif de l'image s'il y en a une comme fond du bouton (None par défaut)
         """
-        # Attributs principaux
+        # Attributs généraux
         self.pressed = False
-        self.text = text
+
         # self.elevation sert à garder la valeur par défaut de l'élévation, on va plutôt utiliser self.dynamic_elevation dans le code
         self.elevation = elevation
         self.dynamic_elevation = elevation
@@ -39,10 +40,17 @@ class Button:
         self.bottom_color = "#354B5E"
 
         # Button text
+        self.text = text
         gui_font = pygame.font.SysFont(police, textsize, False, False)
         self.text_surf = gui_font.render(text, True, "#FFFFFF")
         self.text_rect = self.text_surf.get_rect(center = self.top_rect.center)
-    
+
+        # Button image
+        self.image = None
+        if image != None:
+            self.image = pygame.image.load(image)
+            self.image = pygame.transform.scale(self.image, (width, height))
+
     def draw(self):
         """Génération/affichage du bouton
         """
@@ -54,7 +62,10 @@ class Button:
         self.bottom_rect.height = self.top_rect.height + self.dynamic_elevation
         pygame.draw.rect(screen, self.bottom_color, self.bottom_rect, border_radius = 10)
         # Affichage du bouton à cliquer
-        pygame.draw.rect(screen, self.top_color, self.top_rect, border_radius = 10)
+        if self.image == None:
+            pygame.draw.rect(screen, self.top_color, self.top_rect, border_radius = 10)
+        else:
+            screen.blit(self.image, self.top_rect)
         screen.blit(self.text_surf, self.text_rect)
         # On appelle constamment check_click pour vérifier si l'utilisateur interagit avec le bouton
         self.check_click()
@@ -205,8 +216,6 @@ class HUD_State:
         accountbutton.draw()
         # Cliquer sur le bouton EXIT ferme la fenêtre purement et simplement
         exitbutton.draw()
-        # Cliquer sur le bouton GAMES HISTORY affiche l'historique des parties
-        gamehistorybutton.draw()
 
         # Met à jour l'affichage de l'interface
         pygame.display.update()
@@ -291,6 +300,8 @@ class HUD_State:
         # Affichage des bouttons
         # Cliquer sur le bouton BACK ferme la fenêtre purement et simplement
         backbutton.draw()
+        # Cliquer sur le bouton GAMES HISTORY affiche l'historique des parties
+        gamehistorybutton.draw()
 
         # Met à jour l'affichage de l'interface
         pygame.display.update()
@@ -344,7 +355,7 @@ backbutton = Button("BACK", "Roboto", 100, 425, 100, ((screen_width // 2)-(425//
 # Création de l'objet createtablebutton
 createtablebutton = Button("CREATE TABLE", "Roboto", 70, 425, 100, ((screen_width - 450), (screen_height //2 - 300)), 6)
 # Créaion de l'objet gamehistorybutton
-gamehistorybutton = Button("GAMES HISTORY", "Roboto", 70, 425, 100, ((screen_width - 450), (screen_height //2 - 300)), 6)
+gamehistorybutton = Button("GAMES HISTORY", "Roboto", 30, 175, 75, ((screen_width - 200), (20)), 3)
 
 # Création de l'objet scrollbox 
 scrollbox = ScrollBox(((screen_width/2)/2)/4, 100, screen_width/2 + ((screen_width/2)/2)/2, screen_height/2 + (screen_height/2)/3, server_list)
