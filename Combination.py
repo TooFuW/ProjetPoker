@@ -155,7 +155,7 @@ class Combination:
                         return self.high > __value.high
                     
                     case "pair":
-                        return self.high > __value.high
+                        return self.high.get_value() > __value.high.get_value()
                     
                     case "two_pair":
 
