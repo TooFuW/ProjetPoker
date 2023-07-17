@@ -38,45 +38,45 @@ def get_best_combination(board : Board, hand : Hand):
     best_combination = is_straight_flush(board=board,hand=hand)
 
     if best_combination:
-        return "straight_flush",best_combination
+        return "straight_flush",best_combination[1]
     
     best_combination = is_four_of_a_kind(board=board,hand=hand)
 
     if best_combination:
-        return "four of a kind",best_combination
+        return "four of a kind",best_combination[1]
     
     best_combination = is_full_house(board=board,hand=hand)
 
     if best_combination:
-        return "full house",best_combination
+        return "full house",best_combination[1]
     
     best_combination = is_flush(board=board,hand=hand)
 
     if best_combination:
-        return "flush",best_combination
+        return "flush",best_combination[1]
     
     best_combination = is_straight(board=board,hand=hand)
 
     if best_combination:
-        return "straight",best_combination
+        return "straight",best_combination[1]
 
     best_combination = is_three_of_a_kind(board=board,hand=hand)
 
     if best_combination:
-        return "three of a kind",best_combination
+        return "three of a kind",best_combination[1]
     
     best_combination = is_two_pair(board=board,hand=hand)
 
     if best_combination:
-        return "two pair",best_combination
+        return "two pair",best_combination[1]
     
     best_combination = is_one_pair(board=board,hand=hand)
 
     if best_combination:
-        return "one pair",best_combination
+        return "one pair",best_combination[1]
     
     best_combination = high_card(board=board,hand=hand)
-    return "high card", best_combination
+    return "high card", best_combination[1]
 
 
 
@@ -102,7 +102,7 @@ def is_royal_flush(hand : Hand, board : Board):
                 if Card(suit, "queen") in seven_cards_player:
                     if Card(suit, "jack") in seven_cards_player:
                         if Card(suit, "10") in seven_cards_player:
-                            return True,HandCombination([Combination("royal_flush","ace",suit)])
+                            return True,HandCombination([Combination("royal_flush",Card(suit,"ace"),suit)])
     return False
 
 
@@ -131,22 +131,22 @@ def is_straight_flush(hand : Hand, board : Board):
     if len(heart_list) >= 5:
         is_straight = is_straight_list(heart_list)
         if is_straight:
-            return True,HandCombination([Combination("straight_flush",is_straight[1].high,"heart")])
+            return True,HandCombination([Combination("straight_flush",is_straight[1].hand_combination[0].high,"heart")])
         
     if len(diamond_list) >= 5:
         is_straight = is_straight_list(diamond_list)
         if is_straight:
-            return True,HandCombination([Combination("straight_flush",is_straight[1].high,"diamond")])
+            return True,HandCombination([Combination("straight_flush",is_straight[1].hand_combination[0].high,"diamond")])
 
     if len(club_list) >= 5:
         is_straight = is_straight_list(club_list)
         if is_straight:
-            return True,HandCombination([Combination("straight_flush",is_straight[1].high,"club")])
+            return True,HandCombination([Combination("straight_flush",is_straight[1].hand_combination[0].high,"club")])
 
     if len(spade_list) >= 5:
         is_straight = is_straight_list(spade_list)
         if is_straight:
-            return True,HandCombination([Combination("straight_flush",is_straight[1].high,"spade")])
+            return True,HandCombination([Combination("straight_flush",is_straight[1].hand_combination[0].high,"spade")])
         
     return False
 
@@ -348,6 +348,7 @@ def is_one_pair(board : Board, hand : Hand):
             if liste[i].get_rank() == liste[i+1].get_rank():
                 cpt +=1
         if cpt == 2:
+            print(liste, "YOOOO")
             return True,HandCombination([Combination("pair",liste[i])]+[card for card in liste if card.get_rank() != liste[i].get_rank()])
         
     return False
@@ -355,7 +356,8 @@ def is_one_pair(board : Board, hand : Hand):
 
 def high_card(board: Board, hand : Hand):
     liste = board.get_board()+hand.get_hand()
-    return True,HandCombination([Combination("high_card",max(liste))]+liste.copy().remove(max(liste)))
+    max_liste = max(liste)
+    return True,HandCombination([Combination("high_card",max_liste)]+[card for card in liste if card.get_rank() != max_liste.get_rank()])
             
 
         

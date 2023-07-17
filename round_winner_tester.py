@@ -5,12 +5,14 @@ import AlreadyExistingCard
 from Player import Player
 from Round import *
 from Board import Board
+from Combination import Combination
+from HandCombination import HandCombination
 import random
 
 suits = ("spade","club","heart","diamond")
 ranks = ("ace","2","3","4","5","6","7","8","9","10","jack","queen","king")
 duo_list = []
-combinations_list = []
+handcombinations_list = []
 print("\n")
 for i in range(100):
     cards_used = []
@@ -37,18 +39,19 @@ for i in range(100):
 
     print(f"Duo number {i+1}")
     print(duo_list[i][0],"   ", duo_list[i][1], "   ")
-    combination = get_best_combination(duo_list[i][0],duo_list[i][1])[1][1]
-    combinations_list.append(combination)
-    print(combination)
+    handcombination = get_best_combination(duo_list[i][0],duo_list[i][1])[1]
+    handcombinations_list.append(handcombination)
+    print(handcombination, type(handcombination))
     print("\n")
 
-print(sorted([(3,2),(8,1),(3,4),(7,4)]))
+    if handcombination.get_combination().nature == "royal_flush":
+        break
 
-combinations_list = sorted(combinations_list, reverse=True)
-for combination in combinations_list:
-    if combination.nature == "flush":
+handcombinations_list = sorted(handcombinations_list, reverse=True)
+for combination in handcombinations_list:
+    if combination.get_combination().nature == "flush":
         print(combination)
-        for i in combination.cards:
+        for i in combination.get_combination().cards:
             print(i)
     else:
         print(combination)

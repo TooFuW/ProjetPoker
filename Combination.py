@@ -16,6 +16,7 @@ class Combination:
         """
 
         natures = ("high_card","pair","two_pair","three_of_a_kind","straight","flush","full_house","four_of_a_kind","straight_flush","royal_flush")
+        natures_card_occupation = (1,2,4,3,5,5,5,4,5,5)
         highs = ("ace","2","3","4","5","6","7","8","9","10","jack","queen","king")
         display_highs = ("ace","two","three","four","five","six","seven","eight","nine","ten","jack","queen","king")
         suits = ("club","heart","spade","diamond",None)
@@ -28,6 +29,7 @@ class Combination:
         
         self.nature = nature
         self.nature_value = natures.index(nature)+1
+        self.nature_card_occupation = natures_card_occupation[natures.index(self.nature)]
 
         self.high = high
 
@@ -88,39 +90,46 @@ class Combination:
             
 
     def __eq__(self,__value : object):
-        if type(object) == __value:
+        if type(__value) == Combination:
 
-            match self.nature:
+            if self.nature == __value.nature:
 
-                case "high_card":
-                    return self.high == __value.high
-                
-                case "pair":
-                    return self.high == __value.high
-                
-                case "two_pair":
-                    return self.high == __value.high and self.second == __value.second
-                
-                case "three_of_a_kind":
-                    return self.high == __value.high
-                
-                case "straight":
-                    return self.high == __value.high
-                
-                case "flush":
-                    return self.cards == __value.cards
-                
-                case "full_house":
-                    return self.high == __value.high and self.second == __value.second
-                
-                case "four_of_a_kind":
-                    return self.high == __value.high
-                
-                case "straight_flush":
-                    return self.high == __value.high
-                
-                case "royal_flush":
-                    return self.high == __value.high
+                match self.nature:
+
+                    case "high_card":
+                        return self.high.get_rank() == __value.high.get_rank()
+                    
+                    case "pair":
+                        return self.high.get_rank() == __value.high.get_rank()
+                    
+                    case "two_pair":
+                        return self.high.get_rank() == __value.high.get_rank() and self.second.get_rank() == __value.second.get_rank()
+                    
+                    case "three_of_a_kind":
+                        return self.high.get_rank() == __value.high.get_rank()
+                    
+                    case "straight":
+                        return self.high.get_rank() == __value.high.get_rank()
+                    
+                    case "flush":
+                        for i in range(len(self.cards)):
+                            if self.cards[i].get_rank() != __value.cards[i].get_rank():
+                                return False
+                        return True
+                    
+                    case "full_house":
+                        return self.high.get_rank() == __value.high.get_rank() and self.second.get_rank() == __value.second.get_rank()
+                    
+                    case "four_of_a_kind":
+                        return self.high.get_rank() == __value.high.get_rank()
+                    
+                    case "straight_flush":
+                        return self.high.get_rank() == __value.high.get_rank()
+                    
+                    case "royal_flush":
+                        return self.high.get_rank() == __value.high.get_rank()
+            else:
+                return False
                 
         else:
             if type(__value) == Card:

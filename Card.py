@@ -1,5 +1,4 @@
 
-from Combination import Combination
 
 class Card():
 
@@ -27,7 +26,7 @@ class Card():
     def __eq__(self, __value: object) -> bool:
 
         if type(__value) == Card:
-            if (__value.rank == self.rank):
+            if (__value.rank == self.rank) and __value.suit == self.suit:
                 return True
         return False
     
@@ -39,16 +38,12 @@ class Card():
         if type(card) == Card:
             return self.value < card.get_value()
         else:
-            if type(card) == Combination:
-                return True
-        raise TypeError
+            return True
     
     def __mt__(self,card):
         if type(card) == Card:
             return self.value > card.get_value()
-        if type(card) == Combination:
-                return False
-        raise TypeError
+        return False
     
     def get_suit(self):
         copy = self.suit
