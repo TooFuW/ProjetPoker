@@ -24,6 +24,13 @@ class Lobby :
     def listen_connections(self):
         pass
 
+    def on_new_connection(self):
+        pass
+    
+    def send_packet(self,packet):
+        pass
+    
+
     def add_player(self,player : Player):
         pass
 
@@ -34,6 +41,12 @@ class Lobby :
         pass
     
     def redirect_player_to_main(self):
+        pass
+
+    def broadcast_new_connection(self):
+        pass
+
+    def see_connected_players(self):
         pass
 
 
