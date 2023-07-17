@@ -128,7 +128,7 @@ class ScrollBox:
         self.height = height
         self.servers = servers
         self.scroll_pos = 0
-        self.indentation = "                    "
+        self.indentation = "          "
         self.hauteurbox = 50
 
     def draw(self):
@@ -153,7 +153,7 @@ class ScrollBox:
         for i, server in enumerate(self.servers[self.scroll_pos:]):
             item_y = self.y + item_offset_y
             # Délimitation de la zone de la scrollbox
-            text = (server[0] + self.indentation + "Size of the table : " + str(server[1]))
+            text = (server[0] + self.indentation + str(server[1]) + self.indentation + server[2] + self.indentation + server[3] + self.indentation + server[4] + self.indentation + server[5])
             item_rect = Button(text , "Roboto", 24, self.width, self.hauteurbox, (self.x, item_y), 3)
             item_rect.check_click()
             # Affichage des serveurs disponibles
@@ -334,8 +334,8 @@ screen = pygame.display.set_mode((screen_width, screen_height), pygame.FULLSCREE
 pygame.display.set_caption("Menu Jeu Poker")
 clock = pygame.time.Clock()
 
-# Récupération de la liste des lobbys disponibles et de leurs informations
-server_list = [["Table 1", 15], ["Table 2", 10], ["Table 3", 20], ["Table 4", 5], ["Table 5", 8], ["Table 6", 8], ["Table 7", 11], ["Table 8", 18], ["Table 9", 12], ["Table 10", 3], ["Table 11", 15], ["Table 12", 10], ["Table 13", 20], ["Table 14", 5], ["Table 15", 8], ["Table 16", 8], ["Table 17", 11], ["Table 18", 18], ["Table 19", 12], ["Table 20", 3]]
+# Récupération de la liste des lobbys disponibles et de leurs informations ([0] = Nom de la table, [1] = Nombre de joueurs/nombre de joueurs max, [2] = Montant de la mise, [3] = Pot moyen, [4] = Tapis moyen)
+server_list = [["Table 1", "0/5", "50/100", "15K", "25K", "ID1"], ["Table 2", "1/6", "50/100", "10K", "20K", "ID2"], ["Table 3", "2/7", "50/100", "20K", "30K", "ID3"], ["Table 4", "3/8", "50/100", "5K", "15K", "ID4"], ["Table 5", "4/9", "50/100", "8K", "18K", "ID5"], ["Table 6", "5/9", "50/100", "8K", "18K", "ID6"], ["Table 7", "6/9", "50/100", "11K", "21K", "ID7"], ["Table 8", "7/9", "50/100", "18K", "28K", "ID8"], ["Table 9", "8/9", "50/100", "12K", "22K", "ID9"], ["Table 10", "9/9", "50/100", "3K", "13K", "ID10"], ["Table 11", "0/6", "50/100", "15K", "25K", "ID11"], ["Table 12", "1/7", "50/100", "10K", "20K", "ID12"], ["Table 13", "2/8", "50/100", "20K", "30K", "ID13"], ["Table 14", "3/9", "50/100", "5K", "15K", "ID14"], ["Table 15", "4/9", "50/100", "8K", "18K", "ID15"], ["Table 16", "5/9", "50/100", "8K", "18K", "ID16"], ["Table 17", "6/9", "50/100", "11K", "21K", "ID17"], ["Table 18", "7/9", "50/100", "18K", "28K", "ID18"], ["Table 19", "8/9", "50/100", "12K", "22K", "ID19"], ["Table 20", "9/9", "50/100", "3K", "13K", "ID20"]]
 
 # Chargement de l'image de fond
 pokertablebackground = pygame.image.load("PokerBackground.jpg")
