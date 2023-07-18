@@ -1,6 +1,7 @@
 from socket import *
 from Lobby import *
 from Player import *
+from threading import *
 
 
 class Main:
@@ -19,16 +20,19 @@ class Main:
 
 
     def start(self):   #lance l'écoute serveur et le script
-    
-        self.server_socket = socket(AF_INET, SOCK_STREAM)
-        self.server_socket.bind((self.host, self.port))
-        self.server_socket.listen(5)
-        print(f"\nServer is listenning for connections on {self.host}:{self.port}")
-        self.server_on = True
+        try:
+            self.server_socket = socket(AF_INET, SOCK_STREAM)
+            self.server_socket.bind((self.host, self.port))
+            self.server_socket.listen(5)
+            print(f"\nServer is listenning for connections on {self.host}:{self.port}")
+            self.server_on = True
 
-        while self.server_on:
-            self.client_socket, self.client_address = self.server_socket.accept()
-            self.on_new_connection(socket=self.client_socket)
+            while self.server_on:
+                self.client_socket, self.client_address = self.server_socket.accept()
+                self.on_new_connection(socket=self.client_socket)
+
+        except:
+            print("server closed")
     
 
     def listen_connections(self):
@@ -41,7 +45,8 @@ class Main:
         pass
 
     def close_server(self):
-        pass
+        pass #procédé fermeture serveur
+        self.server_on = False
 
 
 def send_packet(packet : str, conn : socket):
@@ -50,9 +55,9 @@ def send_packet(packet : str, conn : socket):
 def send_lobbys(conn : socket, lobbys : list):
     pass
 
-def create_lobby(cave : int, is_private : bool):
+def create_lobby(id : int,cave : int, is_private : bool, host : int, port : int):
     try:
-        return Lobby(cave,is_private)
+        return Lobby(id,cave,is_private,host,port)
     
     except TypeError:
         return False
