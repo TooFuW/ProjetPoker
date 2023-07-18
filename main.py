@@ -128,7 +128,7 @@ class ScrollBox:
         self.height = height
         self.servers = servers
         self.scroll_pos = 0
-        self.indentation = "          "
+        self.indentation = "          "# Len = 10
         self.hauteurbox = 50
 
     def draw(self):
