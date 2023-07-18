@@ -216,6 +216,8 @@ class HUD_State:
         accountbutton.draw()
         # Cliquer sur le bouton EXIT ferme la fenêtre purement et simplement
         exitbutton.draw()
+        # Cliquer sur le bouton GAMES HISTORY affiche l'historique des parties
+        gamehistorybutton.draw()
 
         # Met à jour l'affichage de l'interface
         pygame.display.update()
@@ -300,8 +302,6 @@ class HUD_State:
         # Affichage des bouttons
         # Cliquer sur le bouton BACK ferme la fenêtre purement et simplement
         backbutton.draw()
-        # Cliquer sur le bouton GAMES HISTORY affiche l'historique des parties
-        gamehistorybutton.draw()
 
         # Met à jour l'affichage de l'interface
         pygame.display.update()

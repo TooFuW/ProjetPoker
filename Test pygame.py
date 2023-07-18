@@ -216,6 +216,8 @@ class HUD_State:
         accountbutton.draw()
         # Cliquer sur le bouton EXIT ferme la fenêtre purement et simplement
         exitbutton.draw()
+        # Cliquer sur le bouton GAMES HISTORY affiche l'historique des parties
+        gamehistorybutton.draw()
 
         # Met à jour l'affichage de l'interface
         pygame.display.update()
@@ -300,8 +302,6 @@ class HUD_State:
         # Affichage des bouttons
         # Cliquer sur le bouton BACK ferme la fenêtre purement et simplement
         backbutton.draw()
-        # Cliquer sur le bouton GAMES HISTORY affiche l'historique des parties
-        gamehistorybutton.draw()
 
         # Met à jour l'affichage de l'interface
         pygame.display.update()
@@ -343,19 +343,19 @@ fond = pygame.transform.scale(pokertablebackground, (screen_width, screen_height
 
 # Création de tout les boutons utilisés
 # Création de l'objet accountbutton
-accountbutton = Button("ACCOUNT", "Roboto", 30, 150, 75, ((screen_width - 170), (20)), 3)
+accountbutton = Button("ACCOUNT", "Roboto", 30, 150, 75, ((screen_width//2) + (1600//2), (screen_height // 2) - (1050//2)), 3)
 # Création de l'objet playbutton
-playbutton = Button("PLAY", "Roboto", 100, 425, 100, ((screen_width // 2)-(425//2), (screen_height // 2) - 30), 6)
+playbutton = Button("PLAY", "Roboto", 150, 500, 500, ((screen_width // 2) - (500//2), (screen_height // 2) - (300//2)), 6)
 # Création de l'objet settingsbutton
-settingsbutton = Button("SETTINGS", "Roboto", 100, 425, 100, ((screen_width // 2)-(425//2), (screen_height // 2) + 100), 6)
+settingsbutton = Button("SETTINGS", "Roboto", 70, 300, 500, ((screen_width // 2) - (1300//2), (screen_height // 2) - (300//2)), 6)
 # Création de l'objet quitbutton
-exitbutton = Button("EXIT", "Roboto", 100, 425, 100, ((screen_width // 2)-(425//2), (screen_height // 2) + 230), 6)
+exitbutton = Button("EXIT", "Roboto", 70, 425, 100, ((screen_width // 2) - (425//2), (screen_height // 2) + (800//2)), 6)
 # Création de l'objet backbutton
-backbutton = Button("BACK", "Roboto", 100, 425, 100, ((screen_width // 2)-(425//2), (screen_height - 150)), 6)
+backbutton = Button("BACK", "Roboto", 70, 425, 100, ((screen_width // 2)-(425//2), (screen_height - 150)), 6)
 # Création de l'objet createtablebutton
 createtablebutton = Button("CREATE TABLE", "Roboto", 70, 425, 100, ((screen_width - 450), (screen_height //2 - 300)), 6)
 # Créaion de l'objet gamehistorybutton
-gamehistorybutton = Button("GAMES HISTORY", "Roboto", 30, 175, 75, ((screen_width - 200), (20)), 3)
+gamehistorybutton = Button("HISTORY", "Roboto", 70, 300, 500, ((screen_width // 2) + (700//2), (screen_height // 2) - (300//2)), 6)
 
 # Création de l'objet scrollbox 
 scrollbox = ScrollBox(((screen_width/2)/2)/4, 100, screen_width/2 + ((screen_width/2)/2)/2, screen_height/2 + (screen_height/2)/3, server_list)
