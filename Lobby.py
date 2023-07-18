@@ -23,9 +23,9 @@ class Lobby :
             raise TypeError
         
     def start(self):
-        server_socket = socket(AF_INET, SOCK_STREAM)
-        server_socket.bind((self.host, self.port))
-        server_socket.listen(5)
+        self.server_socket = socket(AF_INET, SOCK_STREAM)
+        self.server_socket.bind((self.host, self.port))
+        self.server_socket.listen(5)
         print(f"\nLobby waiting for connections on {self.host}:{self.port}")
 
         listen_connections = Thread(target=self.listen_connections, args=[])
@@ -35,9 +35,11 @@ class Lobby :
 
     def listen_player(self,player : Player):
         pass
-
+        
     def listen_connections(self):
-        pass
+        while self.lobby_on:
+            self.client_socket, self.client_address = self.server_socket.accept()
+            self.on_new_connection(socket=self.client_socket)
 
     def on_new_connection(self):
         pass
