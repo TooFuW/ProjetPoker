@@ -4,7 +4,9 @@ from Player import *
 from threading import *
 from sqlite3 import *
 from strtotuple import strtotuple
-
+import sys
+a = []
+print(sys.getsizeof(a))
 
 class Main:
     
@@ -33,8 +35,8 @@ class Main:
                 self.client_socket, self.client_address = self.server_socket.accept()
                 self.on_new_connection(socket=self.client_socket, address=self.client_address)
 
-        except:
-            print("server closed")
+        except Exception as ex :
+            print("server closed", ex)
     
 
     def handle_client(self,socket : socket, address, id_thread : int):
@@ -44,15 +46,28 @@ class Main:
             try :
                 data = socket.recv(1024)
                 data = data.decode("utf8")
-                self.manage_data(data, )
+                self.manage_data(data,socket )
 
             except:
                 connected = False
 
         #protocole de déconnexion here
 
-    def manage_data(self,packet):
-        pass
+    def manage_data(self,packet : str, socket : socket):
+        try:
+            data = strtotuple(packet)
+            header,body = data[0],data[1]
+            
+            match header:
+                #plein de headers et leur gestion
+
+                case "get_lobbys":
+                    print("envoi lobbys",socket)
+                    socket.sendall("lobbys="+str(self.lobbys).encode("utf8"))
+
+
+        except:
+            raise TypeError
 
 
     def on_new_connection(self,socket : socket,address):
@@ -88,9 +103,9 @@ def send_packet(packet : str, conn : socket):
 def send_lobbys(conn : socket, lobbys : list):
     pass
 
-def create_lobby(id : int,cave : int, is_private : bool, host : int, port : int):
+def create_lobby(id : int,name : str, capacity : int, cave : int, is_private : bool, host : int, port : int):
     try:
-        return Lobby(id,cave,is_private,host,port)
+        return Lobby(id,name,capacity,cave,is_private,host,port)
     
     except TypeError:
         raise TypeError

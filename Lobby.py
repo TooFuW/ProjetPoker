@@ -9,7 +9,7 @@ class Lobby :
         Manage packet interactions in Games
 
     """
-    def __init__(self,id : int,cave : int, is_private : bool, host : int,port : int) -> None:
+    def __init__(self,id : int, name : str,  capacity : int, cave : int, is_private : bool, host : int,port : int) -> None:
         self.players = []
         self.lobby_on = False
 
