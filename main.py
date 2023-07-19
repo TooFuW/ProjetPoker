@@ -44,7 +44,7 @@ class Main:
             try :
                 data = socket.recv(1024)
                 data = data.decode("utf8")
-                self.manage_data()
+                self.manage_data(data, )
 
             except:
                 connected = False
