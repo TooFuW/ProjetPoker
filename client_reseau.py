@@ -5,6 +5,8 @@ from strtotuple import *
 # ceci est le script qui représente les intéractions avec le serveur, il sera transposé avec la partie graphique
 host, port = ('localhost', 5566)
 
+lobbys = []
+
 def envoi_message(client_socket : socket, msg : str):
     client_socket.send(msg.encode("utf8"))
 
@@ -12,14 +14,13 @@ def envoi_message(client_socket : socket, msg : str):
 #reception continue de messages
 def receive_messages(client_socket : socket):
     connecte = True
+    print("ecoute")
     while connecte:
         try:
             data = client_socket.recv(1024)
-            if not data:
-                break
+            #
 
             message = data.decode("utf-8")
-            print("message")
 
             entete = strtotuple(message)[0]
             message = strtotuple(message)[1]
@@ -35,6 +36,12 @@ def receive_messages(client_socket : socket):
 
             elif entete=="lobbys":
                 print(message)
+                try:
+                    global lobbys
+                    lobbys = str_to_list(message)
+                except:
+                    lobbys = []
+                    
             else:
                 print("\n[Server]: ", message)
             # Ici, vous pouvez ajouter le code pour traiter le message côté client
@@ -95,3 +102,10 @@ def main():
 if __name__ == "__main__":
     packet_pseudo = "pseudo="+input("Quel est votre pseudo : \n> ")
     main()
+
+
+def str_to_list(string: str):   #fonctionne seulement sur une liste supposée valide
+    string = string.removeprefix("[")
+    string = string.removesuffix("]")
+
+    return string.split(",")

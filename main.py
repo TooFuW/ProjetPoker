@@ -12,7 +12,7 @@ class Main:
     
 
     def __init__(self) -> None:  #initialise les variables principales
-        self.lobbys = []
+        self.lobbys = [3,4,5,6,8]
         self.players = []
         self.threads = []
 
@@ -63,7 +63,8 @@ class Main:
 
                 case "get_lobbys":
                     print("envoi lobbys",socket)
-                    socket.sendall("lobbys="+str(self.lobbys).encode("utf8"))
+                    envoi_packet = Thread(target=send_packet, args=("lobbys="+str(self.lobbys), socket))
+                    envoi_packet.start()
 
 
         except:
@@ -98,7 +99,10 @@ class Main:
 
 
 def send_packet(packet : str, conn : socket):
-    pass
+    try:
+        conn.send(packet.encode("utf8"))
+    except Exception as el:
+        print(el)
 
 def send_lobbys(conn : socket, lobbys : list):
     pass
