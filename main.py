@@ -3,13 +3,14 @@
 
 import pygame
 import sys
+import webbrowser
 
 
 class Button:
     """Classe Button pour créer des boutons dynamiques (https://www.youtube.com/watch?v=8SzTzvrWaAA)
     """
 
-    def __init__(self, text : str, police : str, textsize : int, width : int, height : int, pos : tuple, elevation : int, image : str = None):
+    def __init__(self, fonction : str, text : str, police : str, textsize : int, width : int, height : int, pos : tuple, elevation : int, image : str = None):
         """Initialisation de la classe Button
 
         Args:
@@ -24,6 +25,7 @@ class Button:
         """
         # Attributs généraux
         self.pressed = False
+        self.fonction = fonction
 
         # self.elevation sert à garder la valeur par défaut de l'élévation, on va plutôt utiliser self.dynamic_elevation dans le code
         self.elevation = elevation
@@ -62,9 +64,8 @@ class Button:
         self.bottom_rect.height = self.top_rect.height + self.dynamic_elevation
         pygame.draw.rect(screen, self.bottom_color, self.bottom_rect, border_radius = 10)
         # Affichage du bouton à cliquer
-        if self.image == None:
-            pygame.draw.rect(screen, self.top_color, self.top_rect, border_radius = 10)
-        else:
+        pygame.draw.rect(screen, self.top_color, self.top_rect, border_radius = 10)
+        if self.image != None:
             screen.blit(self.image, self.top_rect)
         screen.blit(self.text_surf, self.text_rect)
         # On appelle constamment check_click pour vérifier si l'utilisateur interagit avec le bouton
@@ -77,7 +78,7 @@ class Button:
         mouse_pos = pygame.mouse.get_pos()
         # On vérifie si la position de la souris est sur le bouton
         if self.top_rect.collidepoint(mouse_pos):
-            #On change la couleur du bouton lorsque la souris est dessus
+            # On change la couleur du bouton lorsque la souris est dessus
             self.top_color = "#D74B4B"
             # On vérifie si l'utilisateur clique sur le clic gauche ([0] = gauche, [1] = molette, [2] = droit)
             if pygame.mouse.get_pressed()[0]:
@@ -90,17 +91,19 @@ class Button:
                 self.dynamic_elevation = self.elevation
                 if self.pressed == True:
                     self.pressed = False
-                    if self.text == "PLAY":
+                    if self.fonction == "play":
                         game_state.state = "Lobby Menu"
-                    elif self.text == "SETTINGS":
+                    elif self.fonction == "settings":
                         game_state.state = "Setting Menu"
-                    elif self.text == "ACCOUNT":
+                    elif self.fonction == "account":
                         game_state.state = "Account Menu"
-                    elif self.text == "EXIT":
+                    elif self.fonction == "exit":
                         pygame.quit()
                         sys.exit()
-                    elif self.text == "BACK":
+                    elif self.fonction == "back":
                         game_state.state = "Main Menu"
+                    elif self.fonction == "history":
+                        game_state.state = "History Menu"
         # Le else est là pour reset l'état du bouton lorsqu'il n'y a plus aucune interaction
         else:
             self.dynamic_elevation = self.elevation
@@ -154,13 +157,13 @@ class ScrollBox:
             item_y = self.y + item_offset_y
             # Délimitation de la zone de la scrollbox
             text = (server[0] + self.indentation + str(server[1]) + self.indentation + server[2] + self.indentation + server[3] + self.indentation + server[4] + self.indentation + server[5])
-            item_rect = Button(text , "Roboto", 24, self.width, self.hauteurbox, (self.x, item_y), 3)
+            item_rect = Button("scrollbox", text , "Roboto", 24, self.width, self.hauteurbox, (self.x, item_y), 3)
             item_rect.check_click()
             # Affichage des serveurs disponibles
             if item_rect.top_rect.colliderect(display_area):
                 item_rect.draw()
             # Ajouter un padding entre chaque serveur
-            item_offset_y += self.hauteurbox + 10  # Ajouter 5 pixels de padding
+            item_offset_y += self.hauteurbox + 10  # Ajouter 10 pixels de padding
 
     def scroll_up(self):
         """Pour scroller vers le haut
@@ -171,8 +174,7 @@ class ScrollBox:
     def scroll_down(self):
         """Pour scroller vers le bas
         """
-        # IMPORTANT : 45 doit être égal à item_offset_y sinon ca ne marchera pas !
-        if self.scroll_pos < len(self.servers) - (self.height // 60):
+        if self.scroll_pos < (len(self.servers) - 1) - (self.height // (self.hauteurbox + 10)):
             self.scroll_pos += 1
 
 
@@ -185,7 +187,7 @@ class HUD_State:
         """
         # self.state définit l'état actuel de l'interface (qui est par défaut Main Menu)
         self.state = "Main Menu"
-        self.lobbyycreated = False
+        self.is_pressing_logomwte = False
     
     def mainmenu(self):
         """mainmenu est la fonction qui fait tourner/afficher le menu principal
@@ -199,13 +201,24 @@ class HUD_State:
         # Dessine l'image de fond sur la screen de l'écran (IMPORANT CAR SE SUPERPOSE A L'INTERFACE PRECEDENT ET PERMET DE "L'EFFACER")
         screen.blit(fond, (0, 0))
         # Dessine le logo du jeu
-        logojeu = pygame.image.load("PokerBackground.jpg")
-        logojeu = pygame.transform.scale(logojeu, (250, 250))
-        screen.blit(logojeu, ((screen_width // 2) - 125, 25))
+        screen.blit(logojeu, ((screen_width // 2) - (250 // 2), (screen_height // 2) - (1000 // 2)))
         # Dessine le logo MWTE
-        logomwte = pygame.image.load("logo mwte.jpg")
-        logomwte = pygame.transform.scale(logomwte, (150, 150))
-        screen.blit(logomwte, (25, screen_height - 160))
+        screen.blit(logomwte, logomwte_rect)
+
+        # On récupére la position de la souris
+        mouse_pos = pygame.mouse.get_pos()
+        # On vérifie si la position de la souris est sur le bouton
+        if logomwte_rect.collidepoint(mouse_pos):
+            gui_font = pygame.font.SysFont("Roboto", 20, False, True)
+            text_surf = gui_font.render("Aller sur le site officiel MWTE", True, "#000000")
+            pygame.draw.rect(screen, "#FFFFFF", pygame.Rect((mouse_pos[0], mouse_pos[1] + 15), (200, 20)))
+            screen.blit(text_surf, (mouse_pos[0], mouse_pos[1] + 20))
+            if pygame.mouse.get_pressed()[0]:
+                self.is_pressing_logomwte = True
+            else:
+                if self.is_pressing_logomwte == True:
+                    self.is_pressing_logomwte = False
+                    webbrowser.open("https://mwtestudio.wixsite.com/mwte-studio")
 
         # Affichage des bouttons
         # Cliquer sur le bouton PLAY ouvre l'interface présentant les lobbys disponibles
@@ -306,20 +319,44 @@ class HUD_State:
         # Met à jour l'affichage de l'interface
         pygame.display.update()
 
+    def historymenu(self):
+        """historymenu est la fonction qui fait tourner/afficher le menu de l'historique des parties du compte actif
+        """
+        # Rassemblement de tout les événements
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+
+        # Dessine l'image de fond sur la screen de l'écran (IMPORANT CAR SE SUPERPOSE A L'INTERFACE PRECEDENT ET PERMET DE "L'EFFACER")
+        screen.blit(fond, (0, 0))
+
+        # Affichage du titre de la page en haut à gauche
+        gui_font = pygame.font.SysFont("Roboto", 50, False, True)
+        text_surf = gui_font.render("Games History", True, "#FFFFFF")
+        text_rect = text_surf.get_rect(center = pygame.Rect((60, 0), (150, 75)).center)
+        screen.blit(text_surf, text_rect)
+
+        # Affichage des bouttons
+        # Cliquer sur le bouton BACK ferme la fenêtre purement et simplement
+        backbutton.draw()
+
+        # Met à jour l'affichage de l'interface
+        pygame.display.update()
+    
     def state_manager(self):
         """state_manager se charge d'afficher la bonne interface en fonction de l'état de l'interface
         """
         if self.state == "Main Menu":
-            self.lobbyycreated = False
             self.mainmenu()
         elif self.state == "Lobby Menu":
             self.lobbymenu()
         elif self.state == "Setting Menu":
-            self.lobbyycreated = False
             self.settingmenu()
         elif self.state == "Account Menu":
-            self.lobbyycreated = False
             self.accountmenu()
+        elif self.state == "History Menu":
+            self.historymenu()
 
 
 # Pygame setup
@@ -341,24 +378,34 @@ server_list = [["Table 1", "0/5", "50/100", "15K", "25K", "ID1"], ["Table 2", "1
 pokertablebackground = pygame.image.load("PokerBackground.jpg")
 fond = pygame.transform.scale(pokertablebackground, (screen_width, screen_height))
 
+# Chargement du logo du jeu
+logojeu = pygame.image.load("PokerBackground.jpg")
+logojeu = pygame.transform.scale(logojeu, (250, 250))
+
+# Chargement du logo MWTE
+logomwte = pygame.image.load("logo mwte.jpg")
+logomwte = pygame.transform.scale(logomwte, (175, 175))
+logomwte_rect = logomwte.get_rect()
+logomwte_rect.topleft = ((screen_width // 2) - (1900 // 2), (screen_height // 2) + (700 // 2))
+
 # Création de tout les boutons utilisés
 # Création de l'objet accountbutton
-accountbutton = Button("ACCOUNT", "Roboto", 30, 150, 75, ((screen_width - 170), (20)), 3)
+accountbutton = Button("account", "ACCOUNT", "Roboto", 30, 150, 75, ((screen_width // 2) + (1600 // 2), (screen_height // 2) - (1050 // 2)), 3)
 # Création de l'objet playbutton
-playbutton = Button("PLAY", "Roboto", 100, 425, 100, ((screen_width // 2)-(425//2), (screen_height // 2) - 30), 6)
+playbutton = Button("play", "PLAY", "Roboto", 150, 500, 500, ((screen_width // 2) - (500 // 2), (screen_height // 2) - (350 // 2)), 6)
 # Création de l'objet settingsbutton
-settingsbutton = Button("SETTINGS", "Roboto", 100, 425, 100, ((screen_width // 2)-(425//2), (screen_height // 2) + 100), 6)
+settingsbutton = Button("settings", "SETTINGS", "Roboto", 70, 300, 500, ((screen_width // 2) - (1300 // 2), (screen_height // 2) - (350 // 2)), 6)
 # Création de l'objet quitbutton
-exitbutton = Button("EXIT", "Roboto", 100, 425, 100, ((screen_width // 2)-(425//2), (screen_height // 2) + 230), 6)
+exitbutton = Button("exit", "EXIT", "Roboto", 70, 425, 100, ((screen_width // 2) - (425 // 2), (screen_height // 2) + (800 // 2)), 6)
 # Création de l'objet backbutton
-backbutton = Button("BACK", "Roboto", 100, 425, 100, ((screen_width // 2)-(425//2), (screen_height - 150)), 6)
+backbutton = Button("back", "", "Roboto", 70, 200, 200, ((screen_width // 2)-(200 // 2), (screen_height // 2) + (600 // 2)), 6, "backarrow.png")
 # Création de l'objet createtablebutton
-createtablebutton = Button("CREATE TABLE", "Roboto", 70, 425, 100, ((screen_width - 450), (screen_height //2 - 300)), 6)
+createtablebutton = Button("create table", "CREATE TABLE", "Roboto", 70, 425, 100, ((screen_width // 2) + (900 // 2), (screen_height // 2) - (700 // 2)), 6)
 # Créaion de l'objet gamehistorybutton
-gamehistorybutton = Button("GAMES HISTORY", "Roboto", 30, 175, 75, ((screen_width - 200), (20)), 3)
+gamehistorybutton = Button("history", "HISTORY", "Roboto", 70, 300, 500, ((screen_width // 2) + (700 // 2), (screen_height // 2) - (350 // 2)), 6)
 
 # Création de l'objet scrollbox 
-scrollbox = ScrollBox(((screen_width/2)/2)/4, 100, screen_width/2 + ((screen_width/2)/2)/2, screen_height/2 + (screen_height/2)/3, server_list)
+scrollbox = ScrollBox((screen_width // 2) - (1800 // 2), (screen_height // 2) - (900 // 2), 1300, 710, server_list)
 
 # Gameloop
 while True:
@@ -370,7 +417,7 @@ while True:
     # Cet appel permet de gérer l'interface active
     game_state.state_manager()
     # Limite les FPS à 60
-    clock.tick(60)
+    clock.tick(120)
 
 
 

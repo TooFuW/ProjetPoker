@@ -78,8 +78,6 @@ class Button:
         mouse_pos = pygame.mouse.get_pos()
         # On vérifie si la position de la souris est sur le bouton
         if self.top_rect.collidepoint(mouse_pos):
-            # On change le curseur en la main si on peut cliquer sur l'objet que touche la souris
-            pygame.mouse.set_system_cursor(pygame.SYSTEM_CURSOR_HAND)
             # On change la couleur du bouton lorsque la souris est dessus
             self.top_color = "#D74B4B"
             # On vérifie si l'utilisateur clique sur le clic gauche ([0] = gauche, [1] = molette, [2] = droit)
@@ -111,7 +109,6 @@ class Button:
             self.dynamic_elevation = self.elevation
             self.top_color = "#475F77"
             self.pressed = False
-            pygame.mouse.set_system_cursor(pygame.SYSTEM_CURSOR_ARROW)
 
 
 class ScrollBox:
@@ -190,6 +187,7 @@ class HUD_State:
         """
         # self.state définit l'état actuel de l'interface (qui est par défaut Main Menu)
         self.state = "Main Menu"
+        self.is_pressing_logomwte = False
     
     def mainmenu(self):
         """mainmenu est la fonction qui fait tourner/afficher le menu principal
@@ -203,22 +201,24 @@ class HUD_State:
         # Dessine l'image de fond sur la screen de l'écran (IMPORANT CAR SE SUPERPOSE A L'INTERFACE PRECEDENT ET PERMET DE "L'EFFACER")
         screen.blit(fond, (0, 0))
         # Dessine le logo du jeu
-        logojeu = pygame.image.load("PokerBackground.jpg")
-        logojeu = pygame.transform.scale(logojeu, (250, 250))
         screen.blit(logojeu, ((screen_width // 2) - (250 // 2), (screen_height // 2) - (1000 // 2)))
         # Dessine le logo MWTE
-        logomwte = pygame.image.load("logo mwte.jpg")
-        logomwte = pygame.transform.scale(logomwte, (175, 175))
-        logomwte_rect = logomwte.get_rect()
-        logomwte_rect.topleft = ((screen_width // 2) - (1900 // 2), (screen_height // 2) + (700 // 2))
         screen.blit(logomwte, logomwte_rect)
 
         # On récupére la position de la souris
         mouse_pos = pygame.mouse.get_pos()
         # On vérifie si la position de la souris est sur le bouton
         if logomwte_rect.collidepoint(mouse_pos):
+            gui_font = pygame.font.SysFont("Roboto", 20, False, True)
+            text_surf = gui_font.render("Aller sur le site officiel MWTE", True, "#000000")
+            pygame.draw.rect(screen, "#FFFFFF", pygame.Rect((mouse_pos[0], mouse_pos[1] + 15), (200, 20)))
+            screen.blit(text_surf, (mouse_pos[0], mouse_pos[1] + 20))
             if pygame.mouse.get_pressed()[0]:
-                webbrowser.open("https://mwtestudio.wixsite.com/mwte-studio")
+                self.is_pressing_logomwte = True
+            else:
+                if self.is_pressing_logomwte == True:
+                    self.is_pressing_logomwte = False
+                    webbrowser.open("https://mwtestudio.wixsite.com/mwte-studio")
 
         # Affichage des bouttons
         # Cliquer sur le bouton PLAY ouvre l'interface présentant les lobbys disponibles
@@ -378,6 +378,16 @@ server_list = [["Table 1", "0/5", "50/100", "15K", "25K", "ID1"], ["Table 2", "1
 pokertablebackground = pygame.image.load("PokerBackground.jpg")
 fond = pygame.transform.scale(pokertablebackground, (screen_width, screen_height))
 
+# Chargement du logo du jeu
+logojeu = pygame.image.load("PokerBackground.jpg")
+logojeu = pygame.transform.scale(logojeu, (250, 250))
+
+# Chargement du logo MWTE
+logomwte = pygame.image.load("logo mwte.jpg")
+logomwte = pygame.transform.scale(logomwte, (175, 175))
+logomwte_rect = logomwte.get_rect()
+logomwte_rect.topleft = ((screen_width // 2) - (1900 // 2), (screen_height // 2) + (700 // 2))
+
 # Création de tout les boutons utilisés
 # Création de l'objet accountbutton
 accountbutton = Button("account", "ACCOUNT", "Roboto", 30, 150, 75, ((screen_width // 2) + (1600 // 2), (screen_height // 2) - (1050 // 2)), 3)
@@ -407,4 +417,4 @@ while True:
     # Cet appel permet de gérer l'interface active
     game_state.state_manager()
     # Limite les FPS à 60
-    clock.tick(60)
+    clock.tick(120)
