@@ -40,6 +40,19 @@ class Main:
     def handle_client(self,socket : socket, address, id_thread : int):
         connected = True
         print("Etablished connexion with ",address)
+        while connected:
+            try :
+                data = socket.recv(1024)
+                data = data.decode("utf8")
+                self.manage_data()
+
+            except:
+                connected = False
+
+        #protocole de déconnexion here
+
+    def manage_data(self,packet):
+        pass
 
 
     def on_new_connection(self,socket : socket,address):
