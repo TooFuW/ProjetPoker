@@ -78,7 +78,9 @@ class Button:
         mouse_pos = pygame.mouse.get_pos()
         # On vérifie si la position de la souris est sur le bouton
         if self.top_rect.collidepoint(mouse_pos):
-            #On change la couleur du bouton lorsque la souris est dessus
+            # On change le curseur en la main si on peut cliquer sur l'objet que touche la souris
+            pygame.mouse.set_system_cursor(pygame.SYSTEM_CURSOR_HAND)
+            # On change la couleur du bouton lorsque la souris est dessus
             self.top_color = "#D74B4B"
             # On vérifie si l'utilisateur clique sur le clic gauche ([0] = gauche, [1] = molette, [2] = droit)
             if pygame.mouse.get_pressed()[0]:
@@ -109,6 +111,7 @@ class Button:
             self.dynamic_elevation = self.elevation
             self.top_color = "#475F77"
             self.pressed = False
+            pygame.mouse.set_system_cursor(pygame.SYSTEM_CURSOR_ARROW)
 
 
 class ScrollBox:
