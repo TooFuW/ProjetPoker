@@ -178,8 +178,50 @@ class ScrollBox:
             self.scroll_pos += 1
 
 
+class TextInputBox:
+    """Classe TextInputBox pour gérer des input de texte (https://www.youtube.com/watch?v=Rvcyf4HsWiw&t=323s)
+    """
+
+    def __init__(self, size : int, pos : tuple, width : int, height : int, active_color : str, passive_color : str):
+        """Initialisation des paramètres des TextInputBox
+
+        Args:
+            size (int): Taille du texte
+            pos (tuple): Position x, y de la boîte
+            width (int): Largeur de la boîte
+            height (int): Hauteur de la boîte
+            active_color (str): Couleur de la boîte lorsque l'on peut écrire dedans
+            passive_color (str): Couleur de la boîte lorsque l'on ne peut pas écrire dedans
+        """
+        self.base_font = pygame.font.SysFont("Roboto", size)
+        self.user_text = ""
+        self.input_rect = pygame.Rect(pos[0], pos[1], width, height)
+        self.color_active = active_color
+        self.color_passive = passive_color
+        self.color = self.color_passive
+        self.active = False
+    
+    def draw(self):
+        # On récupére la position de la souris
+        mouse_pos = pygame.mouse.get_pos()
+        # TextInputBox
+        if pygame.mouse.get_pressed()[0]:
+            if self.input_rect.collidepoint(mouse_pos):
+                self.active = True
+            else:
+                self.active = False
+        if self.active == True:
+                self.color = self.color_active
+        else:
+            self.color = self.color_passive
+        pygame.draw.rect(screen, self.color, self.input_rect)
+        text_surface = self.base_font.render(self.user_text, True, "#FFFFFF")
+        screen.blit(text_surface, (self.input_rect.x + 5, self.input_rect.y + 5))
+        self.input_rect.w = max(200, text_surface.get_width() + 10)
+
+
 class HUD_State:
-    """Classe HUD_State créée pour gérer l'interface active (https://www.youtube.com/watch?v=j9yMFG3D7fg)
+    """Classe HUD_State pour gérer l'interface active (https://www.youtube.com/watch?v=j9yMFG3D7fg)
     """
 
     def __init__(self):
@@ -243,6 +285,12 @@ class HUD_State:
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
+            if tablecodeinput.active == True:
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_BACKSPACE:
+                        tablecodeinput.user_text = tablecodeinput.user_text[:-1]
+                    else:
+                        tablecodeinput.user_text += event.unicode
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == 4:  # Molette de la souris vers le haut
                     scrollbox.scroll_up()
@@ -265,6 +313,9 @@ class HUD_State:
         backbutton.draw()
         # Cliquer sur le bouton CREER TABLE crée une nouvelle table
         createtablebutton.draw()
+
+        # On crée la box dans laquelle on pourra écrire un code de partie pour rejoindre
+        tablecodeinput.draw()
 
         # Met à jour l'affichage de l'interface
         pygame.display.update()
@@ -406,6 +457,9 @@ gamehistorybutton = Button("history", "HISTORY", "Roboto", 70, 300, 500, ((scree
 
 # Création de l'objet scrollbox 
 scrollbox = ScrollBox((screen_width // 2) - (1800 // 2), (screen_height // 2) - (900 // 2), 1300, 710, server_list)
+
+#Création de l'objet tablecodeinput
+tablecodeinput = TextInputBox(32, ((screen_width // 2) + (950 // 2), (screen_height // 2) + (400 // 2)), 140, 32, "#333333", "#D3D3D3")
 
 # Gameloop
 while True:
