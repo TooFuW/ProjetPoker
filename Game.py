@@ -40,7 +40,7 @@ def buy_in(player : Player, cave : int):
     player.bank_remove(cave)
     player.chips += cave
 
-def claim_chips(player : Player):
+def sell_out(player : Player):
     if type(player) == Player:
         player.bank_add(player.chips)
         player.chips = 0
