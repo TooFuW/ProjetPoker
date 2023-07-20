@@ -273,7 +273,7 @@ class HUD_State:
         if logomwte_rect.collidepoint(mouse_pos):
             gui_font = pygame.font.SysFont("Roboto", 20, False, True)
             text_surf = gui_font.render("Aller sur le site officiel MWTE", True, "#000000")
-            pygame.draw.rect(screen, "#FFFFFF", pygame.Rect((mouse_pos[0], mouse_pos[1] + 15), (200, 20)))
+            pygame.draw.rect(screen, "#FFFFFF", pygame.Rect((mouse_pos[0], mouse_pos[1] + 15), (200, 20)), border_radius = 3)
             screen.blit(text_surf, (mouse_pos[0], mouse_pos[1] + 20))
             if pygame.mouse.get_pressed()[0]:
                 self.is_pressing_logomwte = True
@@ -289,6 +289,10 @@ class HUD_State:
         settingsbutton.draw()
         # Cliquer sur le bouton ACCOUNT ouvre l'interface présentant les informations du compte actif
         accountbutton.draw()
+        gui_font = pygame.font.SysFont("Roboto", 50)
+        text_surf = gui_font.render("Money", True, "#000000")
+        pygame.draw.rect(screen, "#555555", pygame.Rect(((screen_width // 2) + (1150 // 2), (screen_height // 2) - (1050 // 2)), (200, 50)), border_radius = 3)
+        screen.blit(text_surf, ((screen_width // 2) + (1150 // 2), (screen_height // 2) - (1050 // 2)))
         # Cliquer sur le bouton EXIT ferme la fenêtre purement et simplement
         exitbutton.draw()
         # Cliquer sur le bouton GAMES HISTORY affiche l'historique des parties
@@ -499,7 +503,7 @@ gamehistorybutton = Button("history", "HISTORY", "Roboto", 70, 300, 500, ((scree
 scrollbox = ScrollBox((screen_width // 2) - (1800 // 2), (screen_height // 2) - (900 // 2), 1300, 710, server_list)
 
 #Création de l'objet tablecodeinput
-tablecodeinput = TextInputBox(120, ((screen_width // 2) + (950 // 2), (screen_height // 2) + (300 // 2)), 305, 100, "#333333", "#D3D3D3", 305, False, True)
+tablecodeinput = TextInputBox(120, ((screen_width // 2) + (1000 // 2), (screen_height // 2) + (300 // 2)), 305, 100, "#333333", "#D3D3D3", 305, False, True)
 
 # Gameloop
 while True:
