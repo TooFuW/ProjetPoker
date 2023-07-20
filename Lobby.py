@@ -2,6 +2,7 @@ from Player import Player
 from socket import *
 from Game import Game
 from threading import *
+from Hand import Hand
 
 class Lobby :
     """
@@ -69,3 +70,9 @@ class Lobby :
 
 def on_player_deconnect(player : Player):
     pass
+
+def create_player(id : int, pseudo : str, conn : socket, is_alive : bool, hand : Hand, bank : int):
+    try:
+        return Player(id,pseudo,conn,is_alive,hand,bank)
+    except:
+        raise TypeError

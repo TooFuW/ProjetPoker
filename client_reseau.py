@@ -1,6 +1,8 @@
 from socket import *
 from threading import *
 from strtotuple import *
+from random import *
+
 
 # ceci est le script qui représente les intéractions avec le serveur, il sera transposé avec la partie graphique
 host, port = ('localhost', 5566)
@@ -60,8 +62,13 @@ def receive_messages(client_socket : socket):
 def send_message(client_socket):
     connecte = True
     while connecte:
+        entete = input("Entrez une entete (/disconnect pour quitter) : \n> ")
         message = input("Entrez un message (/disconnect pour quitter) : \n> ")
-        message = "get_lobbys="+message
+
+        if message == "get_lobbys=/disconnect":
+            break
+
+        message = entete+message
         print("message envoyé")
         if message == "get_lobbys=/disconnect":
             break

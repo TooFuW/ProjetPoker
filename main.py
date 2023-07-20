@@ -62,9 +62,11 @@ class Main:
                 #plein de headers et leur gestion
 
                 case "get_lobbys":
-                    print("envoi lobbys",socket)
-                    envoi_packet = Thread(target=send_packet, args=("lobbys="+str(self.lobbys), socket))
-                    envoi_packet.start()
+                    lobbys = [lobby for lobby in self.lobbys if type(lobby) == int or (type(lobby) == Lobby and not lobby.is_private)]
+                    lobbys = str(lobbys)
+                    send_lobbys_public = Thread(target=send_lobbys, args=(socket, lobbys))
+                    send_lobbys_public.start()
+                    
 
 
         except:
@@ -98,14 +100,18 @@ class Main:
         conn.close()
 
 
+
 def send_packet(packet : str, conn : socket):
     try:
         conn.send(packet.encode("utf8"))
     except Exception as el:
         print(el)
 
-def send_lobbys(conn : socket, lobbys : list):
-    pass
+def send_lobbys(conn : socket, lobbys_display : list):
+    print("envoi lobbys",socket)
+    #partie qui prends les infos des lobbys et les range dans la liste sous forme de str
+    envoi_packet = Thread(target=send_packet, args=("lobbys="+str(lobbys_display), conn))
+    envoi_packet.start()
 
 def create_lobby(id : int,name : str, capacity : int, cave : int, is_private : bool, host : int, port : int):
     try:
@@ -114,11 +120,6 @@ def create_lobby(id : int,name : str, capacity : int, cave : int, is_private : b
     except TypeError:
         raise TypeError
     
-def create_player(id : int, pseudo : str, conn : socket, is_alive : bool, hand : Hand, bank : int):
-    try:
-        return Player(id,pseudo,conn,is_alive,hand,bank)
-    except:
-        raise TypeError
     
 def set_conn(player : Player, conn : socket):
         try:
