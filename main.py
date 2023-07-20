@@ -259,13 +259,14 @@ class HUD_State:
                 pygame.quit()
                 sys.exit()
 
-        # Dessine l'image de fond sur la screen de l'écran (IMPORANT CAR SE SUPERPOSE A L'INTERFACE PRECEDENT ET PERMET DE "L'EFFACER")
+        # Dessine l'image de fond sur le screen de l'écran
         screen.blit(fond, (0, 0))
         # Dessine le logo du jeu
         screen.blit(logojeu, ((screen_width // 2) - (250 // 2), (screen_height // 2) - (1000 // 2)))
         # Dessine le logo MWTE
         screen.blit(logomwte, logomwte_rect)
 
+        # Lien associé au logo MWTE
         # On récupére la position de la souris
         mouse_pos = pygame.mouse.get_pos()
         # On vérifie si la position de la souris est sur le bouton
