@@ -182,7 +182,7 @@ class TextInputBox:
     """Classe TextInputBox pour gérer des input de texte (https://www.youtube.com/watch?v=Rvcyf4HsWiw&t=323s)
     """
 
-    def __init__(self, size : int, pos : tuple, width : int, height : int, active_color : str, passive_color : str):
+    def __init__(self, size : int, pos : tuple, width : int, height : int, active_color : str, passive_color : str, base_size : int, adaptative : bool = True, num_only : bool = False):
         """Initialisation des paramètres des TextInputBox
 
         Args:
@@ -192,32 +192,51 @@ class TextInputBox:
             height (int): Hauteur de la boîte
             active_color (str): Couleur de la boîte lorsque l'on peut écrire dedans
             passive_color (str): Couleur de la boîte lorsque l'on ne peut pas écrire dedans
+            base_size (int): Taille minimum de la box (DOIT ETRE EGAL A WIDTH SI ADAPTATIVE = FALSE)
+            adaptative (bool) = True: True si la taille de la boîte peut changer en fonction de la taille du texte, False si elle est fixe (le texte ne pourra alors pas dépasser de la boîte)
         """
+        # Paramères du texte
         self.base_font = pygame.font.SysFont("Roboto", size)
         self.user_text = ""
+        # Position du texte
         self.input_rect = pygame.Rect(pos[0], pos[1], width, height)
+        # Couleur de la box en fonction si elle est sélecionnée ou non
         self.color_active = active_color
         self.color_passive = passive_color
         self.color = self.color_passive
         self.active = False
+        self.base_size = base_size
+        self.adaptative_size = adaptative
+        self.text_size = 0
+        self.num_only = num_only
     
     def draw(self):
+        """On dessine la box et le texte écrit par l'utilisateur
+        """
         # On récupére la position de la souris
         mouse_pos = pygame.mouse.get_pos()
-        # TextInputBox
+        # On vérifie si la box a été sélectionnée
         if pygame.mouse.get_pressed()[0]:
             if self.input_rect.collidepoint(mouse_pos):
                 self.active = True
             else:
                 self.active = False
+        # On définit la couleur de la box en fonction de si elle est sélectionnée ou non
         if self.active == True:
                 self.color = self.color_active
         else:
             self.color = self.color_passive
-        pygame.draw.rect(screen, self.color, self.input_rect)
+        # On dessine le texte et la box
+        pygame.draw.rect(screen, self.color, self.input_rect, border_radius = 10)
         text_surface = self.base_font.render(self.user_text, True, "#FFFFFF")
+        self.text_size = text_surface.get_width() + 25
         screen.blit(text_surface, (self.input_rect.x + 5, self.input_rect.y + 5))
-        self.input_rect.w = max(200, text_surface.get_width() + 10)
+        # On crée une taille de box adaptative
+        if self.adaptative_size == True:
+            # Taille de la box qui est de base 200 et qui augmente si le texte dépasse
+            self.input_rect.w = max(self.base_size, text_surface.get_width() + 10)
+        else:
+            self.input_rect.w = self.base_size
 
 
 class HUD_State:
@@ -285,16 +304,36 @@ class HUD_State:
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
+            # Si on a sélectionne la TextInputBox
             if tablecodeinput.active == True:
                 if event.type == pygame.KEYDOWN:
+                    # Si on clique sur delete
                     if event.key == pygame.K_BACKSPACE:
                         tablecodeinput.user_text = tablecodeinput.user_text[:-1]
+                    # Si on clique sur entrer
+                    elif event.key == pygame.K_RETURN:
+                        tablecodeinput.user_text = ""
+                    # Si on clique sur n'importe quoi d'autre
                     else:
-                        tablecodeinput.user_text += event.unicode
+                        if tablecodeinput.num_only == True:
+                            if event.key in [pygame.K_0, pygame.K_1, pygame.K_2, pygame.K_3, pygame.K_4, pygame.K_5, pygame.K_6, pygame.K_7, pygame.K_8, pygame.K_9]:
+                                if tablecodeinput.adaptative_size == False:
+                                    if tablecodeinput.text_size < tablecodeinput.base_size:
+                                        tablecodeinput.user_text += event.unicode
+                                else:
+                                    tablecodeinput.user_text += event.unicode
+                        elif tablecodeinput.num_only == False:
+                            if tablecodeinput.adaptative_size == False:
+                                if tablecodeinput.text_size < tablecodeinput.base_size:
+                                    tablecodeinput.user_text += event.unicode
+                                else:
+                                    tablecodeinput.user_text += event.unicode
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if event.button == 4:  # Molette de la souris vers le haut
+                # Molette de la souris vers le haut
+                if event.button == 4:
                     scrollbox.scroll_up()
-                elif event.button == 5:  # Molette de la souris vers le bas
+                # Molette de la souris vers le bas    
+                elif event.button == 5:
                     scrollbox.scroll_down()
 
         # Dessine l'image de fond sur la screen de l'écran
@@ -422,7 +461,7 @@ screen = pygame.display.set_mode((screen_width, screen_height), pygame.FULLSCREE
 pygame.display.set_caption("Menu Jeu Poker")
 clock = pygame.time.Clock()
 
-# Récupération de la liste des lobbys disponibles et de leurs informations ([0] = Nom de la table, [1] = Nombre de joueurs/nombre de joueurs max, [2] = Montant de la mise, [3] = Pot moyen, [4] = Tapis moyen)
+# Récupération de la liste des lobbys disponibles et de leurs informations ([0] = Nom de la table, [1] = Nombre de joueurs/nombre de joueurs max, [2] = Montant de la mise, [3] = Pot moyen, [4] = Tapis moyen, [5] = ID de la table)
 server_list = [["Table 1", "0/5", "50/100", "15K", "25K", "ID1"], ["Table 2", "1/6", "50/100", "10K", "20K", "ID2"], ["Table 3", "2/7", "50/100", "20K", "30K", "ID3"], ["Table 4", "3/8", "50/100", "5K", "15K", "ID4"], ["Table 5", "4/9", "50/100", "8K", "18K", "ID5"], ["Table 6", "5/9", "50/100", "8K", "18K", "ID6"], ["Table 7", "6/9", "50/100", "11K", "21K", "ID7"], ["Table 8", "7/9", "50/100", "18K", "28K", "ID8"], ["Table 9", "8/9", "50/100", "12K", "22K", "ID9"], ["Table 10", "9/9", "50/100", "3K", "13K", "ID10"], ["Table 11", "0/6", "50/100", "15K", "25K", "ID11"], ["Table 12", "1/7", "50/100", "10K", "20K", "ID12"], ["Table 13", "2/8", "50/100", "20K", "30K", "ID13"], ["Table 14", "3/9", "50/100", "5K", "15K", "ID14"], ["Table 15", "4/9", "50/100", "8K", "18K", "ID15"], ["Table 16", "5/9", "50/100", "8K", "18K", "ID16"], ["Table 17", "6/9", "50/100", "11K", "21K", "ID17"], ["Table 18", "7/9", "50/100", "18K", "28K", "ID18"], ["Table 19", "8/9", "50/100", "12K", "22K", "ID19"], ["Table 20", "9/9", "50/100", "3K", "13K", "ID20"]]
 
 # Chargement de l'image de fond
@@ -459,7 +498,7 @@ gamehistorybutton = Button("history", "HISTORY", "Roboto", 70, 300, 500, ((scree
 scrollbox = ScrollBox((screen_width // 2) - (1800 // 2), (screen_height // 2) - (900 // 2), 1300, 710, server_list)
 
 #Création de l'objet tablecodeinput
-tablecodeinput = TextInputBox(32, ((screen_width // 2) + (950 // 2), (screen_height // 2) + (400 // 2)), 140, 32, "#333333", "#D3D3D3")
+tablecodeinput = TextInputBox(120, ((screen_width // 2) + (950 // 2), (screen_height // 2) + (300 // 2)), 305, 100, "#333333", "#D3D3D3", 305, False, True)
 
 # Gameloop
 while True:
