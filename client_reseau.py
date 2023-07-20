@@ -65,11 +65,12 @@ def send_message(client_socket):
         entete = input("Entrez une entete (/disconnect pour quitter) : \n> ")
         message = input("Entrez un message (/disconnect pour quitter) : \n> ")
 
-        if message == "get_lobbys=/disconnect":
+        if message == "/disconnect":
             break
 
-        message = entete+message
+        message = entete+"="+message
         print("message envoyé")
+        
         if message == "get_lobbys=/disconnect":
             break
         else:

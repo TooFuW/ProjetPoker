@@ -66,6 +66,12 @@ class Main:
                     lobbys = str(lobbys)
                     send_lobbys_public = Thread(target=send_lobbys, args=(socket, lobbys))
                     send_lobbys_public.start()
+
+                case "connect_to_lobby":
+                    try :
+                        int(body)
+                    except:
+                        pass # envoi packet error
                     
 
 
