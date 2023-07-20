@@ -316,7 +316,7 @@ class HUD_State:
                     # Si on clique sur n'importe quoi d'autre
                     else:
                         if tablecodeinput.num_only == True:
-                            if event.key in [pygame.K_0, pygame.K_1, pygame.K_2, pygame.K_3, pygame.K_4, pygame.K_5, pygame.K_6, pygame.K_7, pygame.K_8, pygame.K_9]:
+                            if event.unicode in ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]:
                                 if tablecodeinput.adaptative_size == False:
                                     if tablecodeinput.text_size < tablecodeinput.base_size:
                                         tablecodeinput.user_text += event.unicode
