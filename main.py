@@ -164,7 +164,7 @@ class ScrollBox:
             item_y = self.y + item_offset_y
             # Délimitation de la zone de la scrollbox
             text = (server[0] + self.indentation + str(server[1]) + self.indentation + server[2] + self.indentation + server[3] + self.indentation + server[4] + self.indentation + server[5])
-            item_rect = Button("scrollbox", text , "Roboto", 24, "#475F77", "#354B5E", self.width, self.hauteurbox, (self.x, item_y), 3)
+            item_rect = Button("scrollbox", text, "Roboto", 24, "#475F77", "#354B5E", self.width, self.hauteurbox, (self.x, item_y), 3)
             item_rect.check_click()
             # Affichage des serveurs disponibles
             if item_rect.top_rect.colliderect(display_area):
@@ -189,11 +189,11 @@ class TextInputBox:
     """Classe TextInputBox pour gérer des input de texte (https://www.youtube.com/watch?v=Rvcyf4HsWiw&t=323s)
     """
 
-    def __init__(self, size : int, pos : tuple, width : int, height : int, active_color : str, passive_color : str, base_size : int, adaptative : bool = True, num_only : bool = False):
+    def __init__(self, text_size : int, pos : tuple, width : int, height : int, active_color : str, passive_color : str, base_size : int, adaptative : bool = True, max_caracteres : int = -1, num_only : bool = False):
         """Initialisation des paramètres des TextInputBox
 
         Args:
-            size (int): Taille du texte
+            text_size (int): Taille du texte
             pos (tuple): Position x, y de la boîte
             width (int): Largeur de la boîte
             height (int): Hauteur de la boîte
@@ -201,10 +201,13 @@ class TextInputBox:
             passive_color (str): Couleur de la boîte lorsque l'on ne peut pas écrire dedans
             base_size (int): Taille minimum de la box (DOIT ETRE EGAL A WIDTH SI ADAPTATIVE = FALSE)
             adaptative (bool) = True: True si la taille de la boîte peut changer en fonction de la taille du texte, False si elle est fixe (le texte ne pourra alors pas dépasser de la boîte)
+            max_caractere (int) = -1: -1 si les caractères sont illimités, entier positif sinon
+            num_only (bool) = False: True si on ne peut entrer que des chiffres, False sinon
         """
         # Paramères du texte
-        self.base_font = pygame.font.SysFont("Roboto", size)
+        self.base_font = pygame.font.SysFont("Roboto", text_size)
         self.user_text = ""
+        self.max_caracteres = max_caracteres
         # Position du texte
         self.input_rect = pygame.Rect(pos[0], pos[1], width, height)
         # Couleur de la box en fonction si elle est sélecionnée ou non
@@ -331,17 +334,21 @@ class HUD_State:
                     else:
                         if tablecodeinput.num_only == True:
                             if event.unicode in ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]:
-                                if tablecodeinput.adaptative_size == False:
-                                    if tablecodeinput.text_size < tablecodeinput.base_size:
-                                        tablecodeinput.user_text += event.unicode
-                                else:
-                                    tablecodeinput.user_text += event.unicode
-                        elif tablecodeinput.num_only == False:
-                            if tablecodeinput.adaptative_size == False:
-                                if tablecodeinput.text_size < tablecodeinput.base_size:
-                                    tablecodeinput.user_text += event.unicode
-                                else:
-                                    tablecodeinput.user_text += event.unicode
+                                if tablecodeinput.max_caracteres > 0:
+                                    if len(tablecodeinput.user_text) < tablecodeinput.max_caracteres:
+                                        if tablecodeinput.adaptative_size == False:
+                                            if tablecodeinput.text_size < tablecodeinput.base_size:
+                                                tablecodeinput.user_text += event.unicode
+                                        else:
+                                            tablecodeinput.user_text += event.unicode
+                        else:
+                            if tablecodeinput.max_caracteres > 0:
+                                if len(tablecodeinput.user_text) < tablecodeinput.max_caracteres:
+                                    if tablecodeinput.adaptative_size == False:
+                                        if tablecodeinput.text_size < tablecodeinput.base_size:
+                                            tablecodeinput.user_text += event.unicode
+                                        else:
+                                            tablecodeinput.user_text += event.unicode
             if event.type == pygame.MOUSEBUTTONDOWN:
                 # Molette de la souris vers le haut
                 if event.button == 4:
@@ -352,11 +359,6 @@ class HUD_State:
 
         # Dessine l'image de fond sur la screen de l'écran
         screen.blit(fond, (0, 0))
-        # Affichage du titre de la page en haut à gauche
-        gui_font = pygame.font.SysFont("Roboto", 50, False, True)
-        text_surf = gui_font.render("Table List", True, "#FFFFFF")
-        text_rect = text_surf.get_rect(center = pygame.Rect((30, 0), (150, 75)).center)
-        screen.blit(text_surf, text_rect)
 
         # Dessin de la scrollbox
         scrollbox.draw()
@@ -376,6 +378,11 @@ class HUD_State:
 
         # On crée la box dans laquelle on pourra écrire un code de partie pour rejoindre
         tablecodeinput.draw()
+        # On affiche un texte au-dessus de la box qui indique ce que cette dernière fait
+        gui_font = pygame.font.SysFont("Roboto", 50)
+        text_surf = gui_font.render("Private Table Code", True, "#000000")
+        text_rect = text_surf.get_rect(center = pygame.Rect(((screen_width // 2) + (1025 // 2), (screen_height // 2) + (390 // 2)), (150, 75)).center)
+        screen.blit(text_surf, text_rect)
 
         # Met à jour l'affichage de l'interface
         pygame.display.update()
@@ -391,12 +398,6 @@ class HUD_State:
 
         # Dessine l'image de fond sur la screen de l'écran (IMPORANT CAR SE SUPERPOSE A L'INTERFACE PRECEDENT ET PERMET DE "L'EFFACER")
         screen.blit(fond, (0, 0))
-
-        # Affichage du titre de la page en haut à gauche
-        gui_font = pygame.font.SysFont("Roboto", 50, False, True)
-        text_surf = gui_font.render("Settings Menu", True, "#FFFFFF")
-        text_rect = text_surf.get_rect(center = pygame.Rect((70, 0), (150, 75)).center)
-        screen.blit(text_surf, text_rect)
 
         # Affichage des bouttons
         # Cliquer sur le bouton BACK ferme la fenêtre purement et simplement
@@ -424,12 +425,6 @@ class HUD_State:
         # Dessine l'image de fond sur la screen de l'écran (IMPORANT CAR SE SUPERPOSE A L'INTERFACE PRECEDENT ET PERMET DE "L'EFFACER")
         screen.blit(fond, (0, 0))
 
-        # Affichage du titre de la page en haut à gauche
-        gui_font = pygame.font.SysFont("Roboto", 50, False, True)
-        text_surf = gui_font.render("Your Account", True, "#FFFFFF")
-        text_rect = text_surf.get_rect(center = pygame.Rect((50, 0), (150, 75)).center)
-        screen.blit(text_surf, text_rect)
-
         # Affichage des bouttons
         # Cliquer sur le bouton BACK ferme la fenêtre purement et simplement
         backbutton.draw()
@@ -449,12 +444,6 @@ class HUD_State:
         # Dessine l'image de fond sur la screen de l'écran (IMPORANT CAR SE SUPERPOSE A L'INTERFACE PRECEDENT ET PERMET DE "L'EFFACER")
         screen.blit(fond, (0, 0))
 
-        # Affichage du titre de la page en haut à gauche
-        gui_font = pygame.font.SysFont("Roboto", 50, False, True)
-        text_surf = gui_font.render("Games History", True, "#FFFFFF")
-        text_rect = text_surf.get_rect(center = pygame.Rect((60, 0), (150, 75)).center)
-        screen.blit(text_surf, text_rect)
-
         # Affichage des bouttons
         # Cliquer sur le bouton BACK ferme la fenêtre purement et simplement
         backbutton.draw()
@@ -470,7 +459,7 @@ class HUD_State:
         pygame.display.update()
     
     def state_manager(self):
-        """state_manager se charge d'afficher la bonne interface en fonction de l'état de l'interface
+        """state_manager se charge d'afficher la bonne interface en fonction de l'état de self.state
         """
         if self.state == "Main Menu":
             self.mainmenu()
@@ -523,17 +512,17 @@ settingsbutton = Button("settings", "SETTINGS", "Roboto", 70, "#475F77", "#354B5
 # Création de l'objet quitbutton
 exitbutton = Button("exit", "EXIT", "Roboto", 70, "#475F77", "#354B5E", 425, 100, ((screen_width // 2) - (425 // 2), (screen_height // 2) + (800 // 2)), 6)
 # Création de l'objet backbutton
-backbutton = Button("back", "", "Roboto", 70, "#475F77", "#354B5E", 200, 200, ((screen_width // 2)-(200 // 2), (screen_height // 2) + (600 // 2)), 6, "backarrow.png")
+backbutton = Button("back", "", "Roboto", 0, "#475F77", "#354B5E", 125, 125, ((screen_width // 2) - (1850 // 2), (screen_height // 2) - (1000 // 2)), 6, "backarrow.png")
 # Création de l'objet createtablebutton
-createtablebutton = Button("create table", "CREATE TABLE", "Roboto", 70, "#475F77", "#354B5E", 425, 100, ((screen_width // 2) + (900 // 2), (screen_height // 2) - (700 // 2)), 6)
+createtablebutton = Button("create table", "CREATE TABLE", "Roboto", 70, "#475F77", "#354B5E", 425, 100, ((screen_width // 2) - (1500 // 2), (screen_height // 2) - (950 // 2)), 6)
 # Créaion de l'objet gamehistorybutton
 gamehistorybutton = Button("history", "HISTORY", "Roboto", 70, "#475F77", "#354B5E", 300, 500, ((screen_width // 2) + (700 // 2), (screen_height // 2) - (350 // 2)), 6)
 
 # Création de l'objet scrollbox 
-scrollbox = ScrollBox((screen_width // 2) - (1800 // 2), (screen_height // 2) - (900 // 2), 1300, 710, server_list)
+scrollbox = ScrollBox((screen_width // 2) - (1500 // 2), (screen_height // 2) - (650 // 2), 1000, 760, server_list)
 
 #Création de l'objet tablecodeinput
-tablecodeinput = TextInputBox(120, ((screen_width // 2) + (1000 // 2), (screen_height // 2) + (300 // 2)), 305, 100, "#333333", "#D3D3D3", 305, False, True)
+tablecodeinput = TextInputBox(150, ((screen_width // 2) + (850 // 2), (screen_height // 2) + (500 // 2)), 400, 100, "#333333", "#888888", 400, False, 6, True)
 
 # Gameloop
 while True:
