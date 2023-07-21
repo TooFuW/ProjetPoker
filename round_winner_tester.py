@@ -55,6 +55,3 @@ for combination in handcombinations_list:
             print(i)
     else:
         print(combination)
-
-
-    

@@ -4,7 +4,10 @@ from Player import *
 from threading import *
 from sqlite3 import *
 from strtotuple import strtotuple
+from str_to_list import str_to_list
+from random import randint
 import sys
+
 a = []
 print(sys.getsizeof(a))
 
@@ -12,11 +15,14 @@ class Main:
     
 
     def __init__(self) -> None:  #initialise les variables principales
-        self.lobbys = [3,4,5,6,8]
+
+        self.lobbys_ports = (5567,5568,5569,5570,5571,5572,5573,5574,5575,5576,5577,5578,5579,5580)
+        self.lobbys = [Lobby(randint(100000,999999),"lobby_"+str(i+1),randint(3,10),int(randint(25,1000)*10),False,"localhost",self.lobbys_ports[i]) for i in range(14)]
+        print(self.lobbys)
         self.players = []
         self.threads = []
 
-        self.lobbys_ports = (5567,5568,5569,5570,5571,5572,5573,5574,5575,5576,5577,5578,5579,5580)
+        
         self.next_port_index = 0
 
         self.host,self.port = "localhost",5566
@@ -63,7 +69,7 @@ class Main:
 
                 case "get_lobbys":
                     lobbys = [lobby for lobby in self.lobbys if type(lobby) == int or (type(lobby) == Lobby and not lobby.is_private)]
-                    lobbys = str(lobbys)
+                    lobbys = lobbys
                     send_lobbys_public = Thread(target=send_lobbys, args=(socket, lobbys))
                     send_lobbys_public.start()
 
@@ -72,6 +78,15 @@ class Main:
                         int(body)
                     except:
                         pass # envoi packet error
+
+                case "create_lobby":
+                    try:
+                        body = str_to_list(body)
+                        name,capacityr,cave, is_private = body[0],body[1],body[2],body[3]
+                        lobby_ids = [lobby.get_id() for lobby in self.lobbys if type(lobby) == Lobby]
+
+                    except:
+                        pass #packet erreur
                     
 
 
@@ -115,6 +130,7 @@ def send_packet(packet : str, conn : socket):
 
 def send_lobbys(conn : socket, lobbys_display : list):
     print("envoi lobbys",socket)
+    lobbys_display = [str(lobby) for lobby in lobbys_display]
     #partie qui prends les infos des lobbys et les range dans la liste sous forme de str
     envoi_packet = Thread(target=send_packet, args=("lobbys="+str(lobbys_display), conn))
     envoi_packet.start()

@@ -10,18 +10,23 @@ class Lobby :
         Manage packet interactions in Games
 
     """
-    def __init__(self,id : int, name : str,  capacity : int, cave : int, is_private : bool, host : int,port : int) -> None:
+    def __init__(self,id : int, name : str,  capacity : int, cave : int, is_private : bool, host : str,port : int) -> None:
         self.players = []
         self.lobby_on = False
 
-        if type(cave) == int and type(is_private) == bool and type(host) == int and type(port) == int and type(id) == int:
+        if type(name) == str and type(capacity) == int and type(cave) == int and type(is_private) == bool and type(host) == str and type(port) == int and type(id) == int:
             self.id = id
             self.cave = cave
             self.is_private = is_private
             self.host, self.port = host,port
+            self.name = name
+            self.capacity = capacity
 
         else:
             raise TypeError
+        
+    def __str__(self):
+        return f"({self.id}, {self.name}, {self.capacity},{self.cave}, {self.is_private}, {self.host}, {self.port})"
         
     def start(self):
         self.server_socket = socket(AF_INET, SOCK_STREAM)
@@ -42,6 +47,10 @@ class Lobby :
             self.client_socket, self.client_address = self.server_socket.accept()
             self.on_new_connection(socket=self.client_socket)
 
+    def get_id(self):
+        copy = self.id
+        return copy
+    
     def on_new_connection(self):
         pass
     
