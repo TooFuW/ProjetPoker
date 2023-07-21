@@ -10,18 +10,21 @@ class Button:
     """Classe Button pour créer des boutons dynamiques (https://www.youtube.com/watch?v=8SzTzvrWaAA)
     """
 
-    def __init__(self, fonction : str, text : str, police : str, textsize : int, width : int, height : int, pos : tuple, elevation : int, image : str = None):
+    def __init__(self, fonction : str, text : str, police : str, textsize : int, top_color : str, bottom_color : str, width : int, height : int, pos : tuple, elevation : int, image : str = None):
         """Initialisation de la classe Button
 
         Args:
+            fonction (str) : Usage de la fonction, à utiliser dans self.check_click pour lier des actions au bouton correspondant
             text (str): Texte d'affichage du bouton
             police (str): Police d'affichage du texte (seulement parmis les polices système disponibles)
             textsize (int): Taille du texte
+            top_color (str): Couleur de la partie haute du bouton (en hexadécimal)
+            bottom_color (str): Couleur de la partie basse du bouton (en hexadécimal)
             width (int): Largeur du bouton
             height (int): Hauteur du bouton
             pos (tuple): Position contenant deux valeurs x et y dans un tuple
             elevation (int): /!\ PLUS QUE 6 N'EST PAS RECOMMANDE /!\ Hauteur du bouton comparé au "sol" (purement cosmétique, pour donner un style "d'appui") (risque de bug si on appuie à un endroit qui ne va plus être le bouton lorsque celui-ci va se baisser)
-            image (str) (None par défaut): Le lien relatif de l'image s'il y en a une comme fond du bouton (None par défaut)
+            image (str) = None: Le lien relatif de l'image s'il y en a une comme fond du bouton (None par défaut)
         """
         # Attributs généraux
         self.pressed = False
@@ -35,11 +38,11 @@ class Button:
 
         # Top rectangle
         self.top_rect = pygame.Rect(pos, (width, height))
-        self.top_color = "#475F77"
+        self.top_color = top_color
 
         # Bottom rectangle
         self.bottom_rect = pygame.Rect(pos, (width, elevation))
-        self.bottom_color = "#354B5E"
+        self.bottom_color = bottom_color
 
         # Button text
         self.text = text
@@ -92,17 +95,21 @@ class Button:
                 if self.pressed == True:
                     self.pressed = False
                     if self.fonction == "play":
+                        game_state.back_pile.append(game_state.state)
                         game_state.state = "Lobby Menu"
                     elif self.fonction == "settings":
+                        game_state.back_pile.append(game_state.state)
                         game_state.state = "Setting Menu"
                     elif self.fonction == "account":
+                        game_state.back_pile.append(game_state.state)
                         game_state.state = "Account Menu"
                     elif self.fonction == "exit":
                         pygame.quit()
                         sys.exit()
                     elif self.fonction == "back":
-                        game_state.state = "Main Menu"
+                        game_state.state = game_state.back_pile.pop()
                     elif self.fonction == "history":
+                        game_state.back_pile.append(game_state.state)
                         game_state.state = "History Menu"
         # Le else est là pour reset l'état du bouton lorsqu'il n'y a plus aucune interaction
         else:
@@ -157,7 +164,7 @@ class ScrollBox:
             item_y = self.y + item_offset_y
             # Délimitation de la zone de la scrollbox
             text = (server[0] + self.indentation + str(server[1]) + self.indentation + server[2] + self.indentation + server[3] + self.indentation + server[4] + self.indentation + server[5])
-            item_rect = Button("scrollbox", text , "Roboto", 24, self.width, self.hauteurbox, (self.x, item_y), 3)
+            item_rect = Button("scrollbox", text , "Roboto", 24, "#475F77", "#354B5E", self.width, self.hauteurbox, (self.x, item_y), 3)
             item_rect.check_click()
             # Affichage des serveurs disponibles
             if item_rect.top_rect.colliderect(display_area):
@@ -248,6 +255,7 @@ class HUD_State:
         """
         # self.state définit l'état actuel de l'interface (qui est par défaut Main Menu)
         self.state = "Main Menu"
+        self.back_pile = []
         self.is_pressing_logomwte = False
     
     def mainmenu(self):
@@ -289,10 +297,11 @@ class HUD_State:
         settingsbutton.draw()
         # Cliquer sur le bouton ACCOUNT ouvre l'interface présentant les informations du compte actif
         accountbutton.draw()
-        gui_font = pygame.font.SysFont("Roboto", 50)
-        text_surf = gui_font.render("Money", True, "#000000")
-        pygame.draw.rect(screen, "#555555", pygame.Rect(((screen_width // 2) + (1150 // 2), (screen_height // 2) - (1050 // 2)), (200, 50)), border_radius = 3)
-        screen.blit(text_surf, ((screen_width // 2) + (1150 // 2), (screen_height // 2) - (1050 // 2)))
+        # Affichage des chips de l'utilisateur à droite du bouton ACCOUNT
+        gui_font = pygame.font.SysFont("Roboto", 40)
+        text_surf = gui_font.render("Chips : ", True, "#FFFFFF")
+        pygame.draw.rect(screen, "#475F77", pygame.Rect(((screen_width // 2) + (1175 // 2), (screen_height // 2) - (1025 // 2)), (200, 50)), border_radius = 3)
+        screen.blit(text_surf, ((screen_width // 2) + (1200 // 2), (screen_height // 2) - (1000 // 2)))
         # Cliquer sur le bouton EXIT ferme la fenêtre purement et simplement
         exitbutton.draw()
         # Cliquer sur le bouton GAMES HISTORY affiche l'historique des parties
@@ -357,6 +366,13 @@ class HUD_State:
         backbutton.draw()
         # Cliquer sur le bouton CREER TABLE crée une nouvelle table
         createtablebutton.draw()
+        # Cliquer sur le bouton ACCOUNT ouvre l'interface présentant les informations du compte actif
+        accountbutton.draw()
+        # Affichage des chips de l'utilisateur à droite du bouton ACCOUNT
+        gui_font = pygame.font.SysFont("Roboto", 40)
+        text_surf = gui_font.render("Chips : ", True, "#FFFFFF")
+        pygame.draw.rect(screen, "#475F77", pygame.Rect(((screen_width // 2) + (1175 // 2), (screen_height // 2) - (1025 // 2)), (200, 50)), border_radius = 3)
+        screen.blit(text_surf, ((screen_width // 2) + (1200 // 2), (screen_height // 2) - (1000 // 2)))
 
         # On crée la box dans laquelle on pourra écrire un code de partie pour rejoindre
         tablecodeinput.draw()
@@ -385,6 +401,13 @@ class HUD_State:
         # Affichage des bouttons
         # Cliquer sur le bouton BACK ferme la fenêtre purement et simplement
         backbutton.draw()
+        # Cliquer sur le bouton ACCOUNT ouvre l'interface présentant les informations du compte actif
+        accountbutton.draw()
+        # Affichage des chips de l'utilisateur à droite du bouton ACCOUNT
+        gui_font = pygame.font.SysFont("Roboto", 40)
+        text_surf = gui_font.render("Chips : ", True, "#FFFFFF")
+        pygame.draw.rect(screen, "#475F77", pygame.Rect(((screen_width // 2) + (1175 // 2), (screen_height // 2) - (1025 // 2)), (200, 50)), border_radius = 3)
+        screen.blit(text_surf, ((screen_width // 2) + (1200 // 2), (screen_height // 2) - (1000 // 2)))
 
         # Met à jour l'affichage de l'interface
         pygame.display.update()
@@ -435,6 +458,13 @@ class HUD_State:
         # Affichage des bouttons
         # Cliquer sur le bouton BACK ferme la fenêtre purement et simplement
         backbutton.draw()
+        # Cliquer sur le bouton ACCOUNT ouvre l'interface présentant les informations du compte actif
+        accountbutton.draw()
+        # Affichage des chips de l'utilisateur à droite du bouton ACCOUNT
+        gui_font = pygame.font.SysFont("Roboto", 40)
+        text_surf = gui_font.render("Chips : ", True, "#FFFFFF")
+        pygame.draw.rect(screen, "#475F77", pygame.Rect(((screen_width // 2) + (1175 // 2), (screen_height // 2) - (1025 // 2)), (200, 50)), border_radius = 3)
+        screen.blit(text_surf, ((screen_width // 2) + (1200 // 2), (screen_height // 2) - (1000 // 2)))
 
         # Met à jour l'affichage de l'interface
         pygame.display.update()
@@ -485,19 +515,19 @@ logomwte_rect.topleft = ((screen_width // 2) - (1900 // 2), (screen_height // 2)
 
 # Création de tout les boutons utilisés
 # Création de l'objet accountbutton
-accountbutton = Button("account", "ACCOUNT", "Roboto", 30, 150, 75, ((screen_width // 2) + (1600 // 2), (screen_height // 2) - (1050 // 2)), 3)
+accountbutton = Button("account", "ACCOUNT", "Roboto", 30, "#475F77", "#354B5E", 150, 75, ((screen_width // 2) + (1600 // 2), (screen_height // 2) - (1050 // 2)), 3)
 # Création de l'objet playbutton
-playbutton = Button("play", "PLAY", "Roboto", 150, 500, 500, ((screen_width // 2) - (500 // 2), (screen_height // 2) - (350 // 2)), 6)
+playbutton = Button("play", "PLAY", "Roboto", 150, "#475F77", "#354B5E", 500, 500, ((screen_width // 2) - (500 // 2), (screen_height // 2) - (350 // 2)), 6)
 # Création de l'objet settingsbutton
-settingsbutton = Button("settings", "SETTINGS", "Roboto", 70, 300, 500, ((screen_width // 2) - (1300 // 2), (screen_height // 2) - (350 // 2)), 6)
+settingsbutton = Button("settings", "SETTINGS", "Roboto", 70, "#475F77", "#354B5E", 300, 500, ((screen_width // 2) - (1300 // 2), (screen_height // 2) - (350 // 2)), 6)
 # Création de l'objet quitbutton
-exitbutton = Button("exit", "EXIT", "Roboto", 70, 425, 100, ((screen_width // 2) - (425 // 2), (screen_height // 2) + (800 // 2)), 6)
+exitbutton = Button("exit", "EXIT", "Roboto", 70, "#475F77", "#354B5E", 425, 100, ((screen_width // 2) - (425 // 2), (screen_height // 2) + (800 // 2)), 6)
 # Création de l'objet backbutton
-backbutton = Button("back", "", "Roboto", 70, 200, 200, ((screen_width // 2)-(200 // 2), (screen_height // 2) + (600 // 2)), 6, "backarrow.png")
+backbutton = Button("back", "", "Roboto", 70, "#475F77", "#354B5E", 200, 200, ((screen_width // 2)-(200 // 2), (screen_height // 2) + (600 // 2)), 6, "backarrow.png")
 # Création de l'objet createtablebutton
-createtablebutton = Button("create table", "CREATE TABLE", "Roboto", 70, 425, 100, ((screen_width // 2) + (900 // 2), (screen_height // 2) - (700 // 2)), 6)
+createtablebutton = Button("create table", "CREATE TABLE", "Roboto", 70, "#475F77", "#354B5E", 425, 100, ((screen_width // 2) + (900 // 2), (screen_height // 2) - (700 // 2)), 6)
 # Créaion de l'objet gamehistorybutton
-gamehistorybutton = Button("history", "HISTORY", "Roboto", 70, 300, 500, ((screen_width // 2) + (700 // 2), (screen_height // 2) - (350 // 2)), 6)
+gamehistorybutton = Button("history", "HISTORY", "Roboto", 70, "#475F77", "#354B5E", 300, 500, ((screen_width // 2) + (700 // 2), (screen_height // 2) - (350 // 2)), 6)
 
 # Création de l'objet scrollbox 
 scrollbox = ScrollBox((screen_width // 2) - (1800 // 2), (screen_height // 2) - (900 // 2), 1300, 710, server_list)
