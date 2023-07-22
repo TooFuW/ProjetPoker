@@ -150,7 +150,7 @@ class ScrollBox:
         # Dessinez le rectangle transparent sur la surface
         pygame.draw.rect(transparent_surface, (0, 0, 0, 128), (0, 0, self.width, self.height))
         
-        # Blittez la surface transparente sur l'écran
+        # Afficher la surface transparente sur l'écran
         screen.blit(transparent_surface, (self.x, self.y))
 
         # Calcul de la zone d'affichage des éléments
@@ -164,7 +164,7 @@ class ScrollBox:
             item_y = self.y + item_offset_y
             # Délimitation de la zone de la scrollbox
             text = (server[0] + self.indentation + str(server[1]) + self.indentation + server[2] + self.indentation + server[3] + self.indentation + server[4] + self.indentation + server[5])
-            item_rect = Button("scrollbox", text, "Roboto", 24, "#475F77", "#354B5E", self.width, self.hauteurbox, (self.x, item_y), 3)
+            item_rect = Button("server", text, "Roboto", 24, "#475F77", "#354B5E", self.width, self.hauteurbox, (self.x, item_y), 3)
             item_rect.check_click()
             # Affichage des serveurs disponibles
             if item_rect.top_rect.colliderect(display_area):
@@ -247,6 +247,49 @@ class TextInputBox:
             self.input_rect.w = max(self.base_size, text_surface.get_width() + 10)
         else:
             self.input_rect.w = self.base_size
+
+
+class Preview_Table:
+    """Classe Preview_Table pour afficher des previews de tables
+    """
+
+    def __init__(self, table_name : str, joueurs : list, joueurs_max : int, mise : int, pot_moyen : int, tapis_moyen : int, table_code : str, pos : tuple, scale : float):
+        """Initialisation des paramètres des previews
+
+        Args:
+            table_name (str): Nom de la table
+            joueurs (list): Infos de tous les joueurs présents à la table
+            joueurs_max (int): Joueurs max de la table
+            mise (int): Mise de la table
+            pot_moyen (int): Pot moyen de la table
+            tapis_moyen (int): Tapis moyen de la table
+            table_code (str): Code/ID de la table
+            pos (tuple): Position x, y de la preview
+            scale (float): Multiplicateur de taille de la preview
+        """
+        self.table_name = table_name
+        self.joueurs = joueurs
+        self.joueurs_max = joueurs_max
+        self.mise = mise
+        self.pot_moyen = pot_moyen
+        self.tapis_moyen = tapis_moyen
+        self.table_code = table_code
+        self.pos = pos
+        self.width = 500*scale
+        self.height = 500*scale
+
+    def draw(self):
+        """Génération/affichage de la preview
+        """
+        # Créez une surface
+        surface = pygame.Surface((self.width, self.height))
+        
+        # Dessinez le rectangle transparent sur la surface
+        pygame.draw.rect(surface, "#006400", (0, 0, self.width, self.height))
+        
+        # Afficher la surface transparente sur l'écran
+        screen.blit(surface, (self.pos[0], self.pos[1]))
+
 
 
 class HUD_State:
@@ -384,6 +427,9 @@ class HUD_State:
         text_rect = text_surf.get_rect(center = pygame.Rect(((screen_width // 2) + (1025 // 2), (screen_height // 2) + (390 // 2)), (150, 75)).center)
         screen.blit(text_surf, text_rect)
 
+        # On crée la preview des tables
+        previewlobbys.draw()
+        
         # Met à jour l'affichage de l'interface
         pygame.display.update()
     
@@ -523,6 +569,9 @@ scrollbox = ScrollBox((screen_width // 2) - (1500 // 2), (screen_height // 2) - 
 
 #Création de l'objet tablecodeinput
 tablecodeinput = TextInputBox(150, ((screen_width // 2) + (850 // 2), (screen_height // 2) + (500 // 2)), 400, 100, "#333333", "#888888", 400, False, 6, True)
+
+# Création de l'objet previewlobbys
+previewlobbys = Preview_Table("Jojo's Table", ["Albert", "Sam", "Astrid"], 10, 5000, 10000, 20000, 452978, ((screen_width // 2) + (700 // 2), (screen_height // 2) - (650 // 2)), 1)
 
 # Gameloop
 while True:
