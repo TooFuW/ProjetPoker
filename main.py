@@ -140,6 +140,7 @@ class ScrollBox:
         self.scroll_pos = 0
         self.indentation = "          "# Len = 10
         self.hauteurbox = 50
+        self.selected = False
 
     def draw(self):
         """Génération/affichage de la scrollbox
@@ -166,6 +167,16 @@ class ScrollBox:
             text = (server[0] + self.indentation + str(server[1]) + self.indentation + server[2] + self.indentation + server[3] + self.indentation + server[4] + self.indentation + server[5])
             item_rect = Button("server", text, "Roboto", 24, "#475F77", "#354B5E", self.width, self.hauteurbox, (self.x, item_y), 3)
             item_rect.check_click()
+            mouse_pos = pygame.mouse.get_pos()
+            if pygame.mouse.get_pressed()[0]:
+                if item_rect.top_rect.collidepoint(mouse_pos):
+                    self.selected = True
+                else:
+                    if self.selected == True:
+                        # CODE POUR QUAND LES BOUTONS DE SERVEURS SONT CLIQUES /!\ NE PAS LES METTRE DANS LA CLASSE BUTTON CA NE FONCTIONNE PAS /!\
+                        print(item_rect.text)
+            else:
+                self.selected = False
             # Affichage des serveurs disponibles
             if item_rect.top_rect.colliderect(display_area):
                 item_rect.draw()
@@ -281,14 +292,9 @@ class Preview_Table:
     def draw(self):
         """Génération/affichage de la preview
         """
-        # Créez une surface
-        surface = pygame.Surface((self.width, self.height))
         
-        # Dessinez le rectangle transparent sur la surface
-        pygame.draw.rect(surface, "#006400", (0, 0, self.width, self.height))
-        
-        # Afficher la surface transparente sur l'écran
-        screen.blit(surface, (self.pos[0], self.pos[1]))
+        # Dessinez la zone de la preview sur l'écran
+        pygame.draw.rect(screen, "#006400", ((screen_width // 2) + (700 // 2), (screen_height // 2) - (650 // 2), self.width, self.height), border_radius = 10)
 
 
 
@@ -428,7 +434,7 @@ class HUD_State:
         screen.blit(text_surf, text_rect)
 
         # On crée la preview des tables
-        previewlobbys.draw()
+        #previewlobbys.draw()
         
         # Met à jour l'affichage de l'interface
         pygame.display.update()
