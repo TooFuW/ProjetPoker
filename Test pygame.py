@@ -401,16 +401,16 @@ class HUD_State:
             if event.type == pygame.MOUSEBUTTONDOWN:
                 # Molette de la souris vers le haut
                 if event.button == 4:
-                    scrollbox.scroll_up()
+                    serverscrollbox.scroll_up()
                 # Molette de la souris vers le bas    
                 elif event.button == 5:
-                    scrollbox.scroll_down()
+                    serverscrollbox.scroll_down()
 
         # Dessine l'image de fond sur la screen de l'écran
         screen.blit(fond, (0, 0))
 
         # Dessin de la scrollbox
-        scrollbox.draw()
+        serverscrollbox.draw()
 
         # Affichage des bouttons
         # Cliquer sur le bouton BACK ferme la fenêtre purement et simplement
@@ -492,9 +492,19 @@ class HUD_State:
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                # Molette de la souris vers le haut
+                if event.button == 4:
+                    historyscrollbox.scroll_up()
+                # Molette de la souris vers le bas    
+                elif event.button == 5:
+                    historyscrollbox.scroll_down()
 
         # Dessine l'image de fond sur la screen de l'écran (IMPORANT CAR SE SUPERPOSE A L'INTERFACE PRECEDENT ET PERMET DE "L'EFFACER")
         screen.blit(fond, (0, 0))
+
+        # Dessin de la scrollbox
+        historyscrollbox.draw()  
 
         # Affichage des bouttons
         # Cliquer sur le bouton BACK ferme la fenêtre purement et simplement
@@ -570,8 +580,10 @@ createtablebutton = Button("create table", "CREATE TABLE", "Roboto", 70, "#475F7
 # Créaion de l'objet gamehistorybutton
 gamehistorybutton = Button("history", "HISTORY", "Roboto", 70, "#475F77", "#354B5E", 300, 500, ((screen_width // 2) + (700 // 2), (screen_height // 2) - (350 // 2)), 6)
 
-# Création de l'objet scrollbox 
-scrollbox = ScrollBox((screen_width // 2) - (1500 // 2), (screen_height // 2) - (650 // 2), 1000, 760, server_list)
+# Création des scrollboxs
+# Création de l'objet serverscrollbox 
+serverscrollbox = ScrollBox((screen_width // 2) - (1500 // 2), (screen_height // 2) - (650 // 2), 1000, 760, server_list)
+historyscrollbox = ScrollBox((screen_width // 2) - (1500 // 2), (screen_height // 2) - (650 // 2), 1000, 760, server_list)
 
 #Création de l'objet tablecodeinput
 tablecodeinput = TextInputBox(150, ((screen_width // 2) + (850 // 2), (screen_height // 2) + (500 // 2)), 400, 100, "#333333", "#888888", 400, False, 6, True)
