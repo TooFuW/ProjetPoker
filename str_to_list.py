@@ -23,4 +23,13 @@ def str_to_lists_in_list(string : str):
             current_string += i
     return current_list
 
-    
+def list_lobbys_convert_str(liste : list):
+    for list_lobby in liste:
+        try:
+            list_lobby[0] = int(list_lobby[0])
+            list_lobby[2] = int(list_lobby[2])
+            list_lobby[3] = int(list_lobby[3])
+            list_lobby[4] = not bool(list_lobby[4])
+            list_lobby[6] = int(list_lobby[6])
+        except:
+            raise TypeError

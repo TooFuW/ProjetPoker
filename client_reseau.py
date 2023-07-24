@@ -41,6 +41,7 @@ def receive_messages(client_socket : socket):
                 try:
                     global lobbys
                     lobbys = str_to_lists_in_list(message)
+                    list_lobbys_convert_str(lobbys)
                     print(lobbys, type(lobbys))
                     for i in lobbys:
                         print(i, type(i))
