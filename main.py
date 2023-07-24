@@ -85,6 +85,7 @@ class Main:
                     try:
                         body = str_to_list(body)
                         name,capacity,cave, is_private = body[0],int(body[1]),int(body[2]),str_to_bool(body[3])
+                        print(body)
                     
                         # conditions vérification paramètres ...
                         new_lobby = self.create_lobby(name,capacity,cave,is_private,"localhost")
@@ -134,6 +135,7 @@ class Main:
             id_new_lobby = randint(100000,999999)
             while id_new_lobby in self.lobby_ids:
                 id_new_lobby = randint(100000,999999)
+            self.lobby_ids.append(id_new_lobby)
             return Lobby(id_new_lobby,name,capacity,cave,is_private,host,self.next_lobby_port())
         
         except TypeError:
@@ -143,6 +145,9 @@ class Main:
         new_port = self.lobbys_ports[self.port_id]
         self.port_id += 1
         return new_port
+    
+    def is_listenning(self) -> bool:
+        return self.server_on
 
 
 
@@ -166,6 +171,8 @@ def set_conn(player : Player, conn : socket):
             player.set_conn(conn)
         except:
             raise TypeError
+        
+
 
 
 def register(username,password):

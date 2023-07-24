@@ -21,6 +21,7 @@ def str_to_lists_in_list(string : str):
 
         if append:
             current_string += i
+
     return current_list
 
 def list_lobbys_convert_str(liste : list):
@@ -35,4 +36,4 @@ def list_lobbys_convert_str(liste : list):
             raise TypeError
 
 def str_to_bool(string : str):
-    return string == "True"
+    return string.lstrip() == "True"
