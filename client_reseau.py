@@ -2,6 +2,7 @@ from socket import *
 from threading import *
 from strtotuple import *
 from random import *
+from str_to_list import *
 
 
 # ceci est le script qui représente les intéractions avec le serveur, il sera transposé avec la partie graphique
@@ -37,10 +38,12 @@ def receive_messages(client_socket : socket):
                 print("demarrage game") #a completer
 
             elif entete=="lobbys":
-                print(message)
                 try:
                     global lobbys
-                    lobbys = str_to_list(message)
+                    lobbys = str_to_lists_in_list(message)
+                    print(lobbys, type(lobbys))
+                    for i in lobbys:
+                        print(i, type(i))
                 except:
                     lobbys = []
                     
@@ -110,10 +113,3 @@ def main():
 if __name__ == "__main__":
     packet_pseudo = "pseudo="+input("Quel est votre pseudo : \n> ")
     main()
-
-
-def str_to_list(string: str):   #fonctionne seulement sur une liste supposée valide
-    string = string.removeprefix("[")
-    string = string.removesuffix("]")
-
-    return string.split(",")

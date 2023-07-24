@@ -26,7 +26,7 @@ class Lobby :
             raise TypeError
         
     def __str__(self):
-        return f"({self.id}, {self.name}, {self.capacity},{self.cave}, {self.is_private}, {self.host}, {self.port})"
+        return f"[{self.id}, {self.name}, {self.capacity},{self.cave}, {self.is_private}, {self.host}, {self.port}]"
         
     def start(self):
         self.server_socket = socket(AF_INET, SOCK_STREAM)
