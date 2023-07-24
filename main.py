@@ -434,7 +434,7 @@ class HUD_State:
         screen.blit(text_surf, text_rect)
 
         # On crée la preview des tables
-        #previewlobbys.draw()
+        previewlobbys.draw()
         
         # Met à jour l'affichage de l'interface
         pygame.display.update()
@@ -481,6 +481,15 @@ class HUD_State:
         # Cliquer sur le bouton BACK ferme la fenêtre purement et simplement
         backbutton.draw()
 
+        # Dessin des infos du compte
+        # Affichage des chips de l'utilisateur
+        gui_font = pygame.font.SysFont("Roboto", 40)
+        text_surf = gui_font.render("Chips : ", True, "#FFFFFF")
+        pygame.draw.rect(screen, "#475F77", pygame.Rect(((screen_width // 2) - (500 // 2), (screen_height // 2) - (375 // 2)), (200, 50)), border_radius = 3)
+        screen.blit(text_surf, ((screen_width // 2) - (800 // 2), (screen_height // 2)))
+        # Affichage de la pdp de l'utilisateur
+        screen.blit(pdpplayer, ((screen_width // 2) - (600 // 2), (screen_height // 2) - (1000 // 2)))
+        
         # Met à jour l'affichage de l'interface
         pygame.display.update()
 
@@ -505,6 +514,9 @@ class HUD_State:
 
         # Dessin de la scrollbox
         historyscrollbox.draw()  
+
+        # On crée la preview des tables
+        previewhistory.draw()
 
         # Affichage des bouttons
         # Cliquer sur le bouton BACK ferme la fenêtre purement et simplement
@@ -564,6 +576,10 @@ logomwte = pygame.transform.scale(logomwte, (175, 175))
 logomwte_rect = logomwte.get_rect()
 logomwte_rect.topleft = ((screen_width // 2) - (1900 // 2), (screen_height // 2) + (700 // 2))
 
+# Chargement de la photo de profil du joueur
+pdpplayer = pygame.image.load("logo mwte.jpeg")
+pdpplayer = pygame.transform.scale(pdpplayer, (200, 200))
+
 # Création de tout les boutons utilisés
 # Création de l'objet accountbutton
 accountbutton = Button("account", "ACCOUNT", "Roboto", 30, "#475F77", "#354B5E", 150, 75, ((screen_width // 2) + (1600 // 2), (screen_height // 2) - (1050 // 2)), 3)
@@ -588,11 +604,18 @@ historyscrollbox = ScrollBox((screen_width // 2) - (1500 // 2), (screen_height /
 #Création de l'objet tablecodeinput
 tablecodeinput = TextInputBox(150, ((screen_width // 2) + (850 // 2), (screen_height // 2) + (500 // 2)), 400, 100, "#333333", "#888888", 400, False, 6, True)
 
+# Création des previews de tables
 # Création de l'objet previewlobbys
 previewlobbys = Preview_Table("Jojo's Table", ["Albert", "Sam", "Astrid"], 10, 5000, 10000, 20000, 452978, ((screen_width // 2) + (700 // 2), (screen_height // 2) - (650 // 2)), 1)
+previewhistory = Preview_Table("Jojo's Table", ["Albert", "Sam", "Astrid"], 10, 5000, 10000, 20000, 452978, ((screen_width // 2) + (700 // 2), (screen_height // 2) - (650 // 2)), 1)
 
 # Gameloop
 while True:
+    for event in pygame.event.get():
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_ESCAPE:
+                pygame.quit()
+                sys.exit()
     # Chargement de la musique de fond et mise en boucle
     if pygame.mixer.music.get_busy() != True:
         pygame.mixer.music.load("mainmenu_soundtrack.mp3")
