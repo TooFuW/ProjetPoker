@@ -4,7 +4,7 @@ from Player import *
 from threading import *
 from sqlite3 import *
 from strtotuple import strtotuple
-from str_to_list import str_to_list
+from str_to_list import *
 from random import randint
 import sys
 
@@ -16,7 +16,7 @@ class Main:
 
     def __init__(self) -> None:  #initialise les variables principales
 
-        self.lobbys_ports = (5567,5568,5569,5570,5571,5572,5573,5574,5575,5576,5577,5578,5579,5580,)
+        self.lobbys_ports = (5567,5568,5569,5570,5571,5572,5573,5574,5575,5576,5577,5578,5579,5580,5581,5582,5583,5584,5585,5586,5587)
         self.lobbys = [Lobby(randint(100000,999999),"lobby_"+str(i+1),randint(3,10),int(randint(25,1000)*10),False,"localhost",self.lobbys_ports[i]) for i in range(14)]
         self.lobby_ids = [lobby.get_id() for lobby in self.lobbys if type(lobby) == Lobby]
         self.port_id = 14
@@ -84,7 +84,7 @@ class Main:
                 case "create_lobby":
                     try:
                         body = str_to_list(body)
-                        name,capacity,cave, is_private = body[0],int(body[1]),int(body[2]),not bool(body[3])
+                        name,capacity,cave, is_private = body[0],int(body[1]),int(body[2]),str_to_bool(body[3])
                     
                         # conditions vérification paramètres ...
                         new_lobby = self.create_lobby(name,capacity,cave,is_private,"localhost")
@@ -92,8 +92,9 @@ class Main:
                         self.lobbys.append(new_lobby)
                         
 
-                    except:
+                    except Exception as e:
                         pass #packet erreur
+                        print(e)
                     
 
 
@@ -127,13 +128,13 @@ class Main:
     def kick(self,conn : socket):
         conn.close()
 
-    def create_lobby(self, name : str, capacity : int, cave : int, is_private : bool, host : int):
+    def create_lobby(self, name : str, capacity : int, cave : int, is_private : bool, host : str):
         try:
             # conditions vérification paramètres ...
             id_new_lobby = randint(100000,999999)
             while id_new_lobby in self.lobby_ids:
                 id_new_lobby = randint(100000,999999)
-            return Lobby(id,name,capacity,cave,is_private,host,self.next_lobby_port())
+            return Lobby(id_new_lobby,name,capacity,cave,is_private,host,self.next_lobby_port())
         
         except TypeError:
             raise TypeError
