@@ -577,7 +577,7 @@ logomwte_rect = logomwte.get_rect()
 logomwte_rect.topleft = ((screen_width // 2) - (1900 // 2), (screen_height // 2) + (700 // 2))
 
 # Chargement de la photo de profil du joueur
-pdpplayer = pygame.image.load("logo mwte.jpeg")
+pdpplayer = pygame.image.load("logo mwte.jpg")
 pdpplayer = pygame.transform.scale(pdpplayer, (200, 200))
 
 # Création de tout les boutons utilisés
