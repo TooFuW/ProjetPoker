@@ -100,6 +100,7 @@ class Button:
                     elif self.fonction == "settings":
                         game_state.back_pile.append(game_state.state)
                         game_state.state = "Setting Menu"
+                        game_state.setting_page = 1
                     elif self.fonction == "account":
                         game_state.back_pile.append(game_state.state)
                         game_state.state = "Account Menu"
@@ -111,6 +112,12 @@ class Button:
                     elif self.fonction == "history":
                         game_state.back_pile.append(game_state.state)
                         game_state.state = "History Menu"
+                    elif self.fonction == "setting page 1":
+                        game_state.setting_page = 1
+                    elif self.fonction == "setting page 2":
+                        game_state.setting_page = 2
+                    elif self.fonction == "setting page 3":
+                        game_state.setting_page = 3
         # Le else est là pour reset l'état du bouton lorsqu'il n'y a plus aucune interaction
         else:
             self.dynamic_elevation = self.elevation
@@ -295,6 +302,7 @@ class HUD_State:
         self.state = "Main Menu"
         self.back_pile = []
         self.is_pressing_logomwte = False
+        self.setting_page = 1
     
     def mainmenu(self):
         """mainmenu est la fonction qui fait tourner/afficher le menu principal
@@ -416,7 +424,7 @@ class HUD_State:
         # On affiche un texte au-dessus de la box qui indique ce que cette dernière fait
         gui_font = pygame.font.SysFont("Roboto", 50)
         text_surf = gui_font.render("Private Table Code", True, "#000000")
-        text_rect = text_surf.get_rect(center = pygame.Rect(((screen_width // 2) + (1025 // 2), (screen_height // 2) + (390 // 2)), (150, 75)).center)
+        text_rect = text_surf.get_rect(center = pygame.Rect(((screen_width // 2) + (975 // 2), (screen_height // 2) + (390 // 2)), (150, 75)).center)
         screen.blit(text_surf, text_rect)
 
         # On crée la preview des tables
@@ -447,6 +455,32 @@ class HUD_State:
         text_surf = gui_font.render("Chips : ", True, "#FFFFFF")
         pygame.draw.rect(screen, "#475F77", pygame.Rect(((screen_width // 2) + (1175 // 2), (screen_height // 2) - (1025 // 2)), (200, 50)), border_radius = 3)
         screen.blit(text_surf, ((screen_width // 2) + (1200 // 2), (screen_height // 2) - (1000 // 2)))
+
+        # Affichage des boutons de pages de paramètres
+        settingpage1button.draw()
+        settingpage2button.draw()
+        settingpage3button.draw()
+        # Affichage des pages de paramètres
+        transparent_surface = pygame.Surface((1500, 850), pygame.SRCALPHA)
+        pygame.draw.rect(transparent_surface, (0, 0, 0, 128), (0, 0, 1500, 850), border_radius = 5)
+        screen.blit(transparent_surface, ((screen_width // 2) - (1400 // 2), (screen_height // 2) - (760 // 2)))
+        screen.blit(transparent_surface, ((screen_width // 2) - (1400 // 2), (screen_height // 2) - (760 // 2)))
+        screen.blit(transparent_surface, ((screen_width // 2) - (1400 // 2), (screen_height // 2) - (760 // 2)))
+        # Page 1
+        if self.setting_page == 1:
+            gui_font = pygame.font.SysFont("Roboto", 40)
+            settingtext_surf = gui_font.render("Page 1 des paramètres", True, "#FFFFFF")
+            screen.blit(settingtext_surf, ((screen_width // 2) - (1380 // 2), (screen_height // 2) - (740 // 2)))
+        # Page 2
+        elif self.setting_page == 2:
+            gui_font = pygame.font.SysFont("Roboto", 40)
+            settingtext_surf = gui_font.render("Page 2 des paramètres", True, "#FFFFFF")
+            screen.blit(settingtext_surf, ((screen_width // 2) - (1380 // 2), (screen_height // 2) - (740 // 2)))
+        # Page 3
+        elif self.setting_page == 3:
+            gui_font = pygame.font.SysFont("Roboto", 40)
+            settingtext_surf = gui_font.render("Page 3 des paramètres", True, "#FFFFFF")
+            screen.blit(settingtext_surf, ((screen_width // 2) - (1380 // 2), (screen_height // 2) - (740 // 2)))
 
         # Met à jour l'affichage de l'interface
         pygame.display.update()
@@ -599,6 +633,12 @@ gamehistorybutton = Button("history", "HISTORY", "Roboto", 70, "#475F77", "#354B
 deconnexionbutton = Button("deconnexion", "LOG OUT", "Roboto", 70, "#475F77", "#354B5E", 400, 100, ((screen_width // 2) + (1000 // 2), (screen_height // 2) + (700 // 2)), 6)
 # Créaion de l'objet accountsettingsbutton
 accountsettingsbutton = Button("account settings", "", "Roboto", 0, "#475F77", "#354B5E", 125, 125, ((screen_width // 2) + (1600 // 2), (screen_height // 2) - (1000 // 2)), 6,"backarrow.png")
+# Créaion de l'objet settingpage1button
+settingpage1button = Button("setting page 1", "PAGE 1", "Roboto", 50, "#475F77", "#354B5E", 200, 70, ((screen_width // 2) - (1400 // 2), (screen_height // 2) - (900 // 2)), 4)
+# Créaion de l'objet settingpage1button
+settingpage2button = Button("setting page 2", "PAGE 2", "Roboto", 50, "#475F77", "#354B5E", 200, 70, ((screen_width // 2) - (975 // 2), (screen_height // 2) - (900 // 2)), 4)
+# Créaion de l'objet settingpage1button
+settingpage3button = Button("setting page 3", "PAGE 3", "Roboto", 50, "#475F77", "#354B5E", 200, 70, ((screen_width // 2) - (550 // 2), (screen_height // 2) - (900 // 2)), 4)
 
 # Création des scrollboxs
 # Création de l'objet serverscrollbox 
@@ -607,7 +647,7 @@ serverscrollbox = ScrollBox((screen_width // 2) - (1500 // 2), (screen_height //
 historyscrollbox = ScrollBox((screen_width // 2) - (1500 // 2), (screen_height // 2) - (650 // 2), 1000, 760, server_list)
 
 #Création de l'objet tablecodeinput
-tablecodeinput = TextInputBox(150, ((screen_width // 2) + (850 // 2), (screen_height // 2) + (500 // 2)), 400, 100, "#333333", "#888888", 400, False, 6, True)
+tablecodeinput = TextInputBox(150, ((screen_width // 2) + (800 // 2), (screen_height // 2) + (500 // 2)), 400, 100, "#333333", "#888888", 400, False, 6, True)
 
 # Création des previews de tables
 # Création de l'objet previewlobbys
