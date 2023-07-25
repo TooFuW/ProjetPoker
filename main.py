@@ -264,27 +264,13 @@ class Preview_Table:
     """Classe Preview_Table pour afficher des previews de tables
     """
 
-    def __init__(self, table_name : str, joueurs : list, joueurs_max : int, mise : int, pot_moyen : int, tapis_moyen : int, table_code : str, pos : tuple, scale : float):
+    def __init__(self, pos : tuple, scale : float = 1):
         """Initialisation des paramètres des previews
 
         Args:
-            table_name (str): Nom de la table
-            joueurs (list): Infos de tous les joueurs présents à la table
-            joueurs_max (int): Joueurs max de la table
-            mise (int): Mise de la table
-            pot_moyen (int): Pot moyen de la table
-            tapis_moyen (int): Tapis moyen de la table
-            table_code (str): Code/ID de la table
             pos (tuple): Position x, y de la preview
-            scale (float): Multiplicateur de taille de la preview
+            scale (float) = 1: Multiplicateur de taille de la preview (1 par défaut)
         """
-        self.table_name = table_name
-        self.joueurs = joueurs
-        self.joueurs_max = joueurs_max
-        self.mise = mise
-        self.pot_moyen = pot_moyen
-        self.tapis_moyen = tapis_moyen
-        self.table_code = table_code
         self.pos = pos
         self.width = 500*scale
         self.height = 500*scale
@@ -482,13 +468,27 @@ class HUD_State:
         backbutton.draw()
 
         # Dessin des infos du compte
+        # Affichage de la pdp de l'utilisateur
+        screen.blit(pdpplayer, ((screen_width // 2) - (1200 // 2), (screen_height // 2) - (700 // 2)))
         # Affichage des chips de l'utilisateur
         gui_font = pygame.font.SysFont("Roboto", 40)
         text_surf = gui_font.render("Chips : ", True, "#FFFFFF")
-        pygame.draw.rect(screen, "#475F77", pygame.Rect(((screen_width // 2) - (500 // 2), (screen_height // 2) - (375 // 2)), (200, 50)), border_radius = 3)
-        screen.blit(text_surf, ((screen_width // 2) - (800 // 2), (screen_height // 2)))
-        # Affichage de la pdp de l'utilisateur
-        screen.blit(pdpplayer, ((screen_width // 2) - (600 // 2), (screen_height // 2) - (1000 // 2)))
+        pygame.draw.rect(screen, "#475F77", pygame.Rect(((screen_width // 2) - (1125 // 2), (screen_height // 2) - (150 // 2)), (225, 50)), border_radius = 3)
+        screen.blit(text_surf, ((screen_width // 2) - (1100 // 2), (screen_height // 2) - (130 // 2)))
+        # Affichage du pseudo de l'utilisateur
+        gui_font = pygame.font.SysFont("Roboto", 60)
+        text_surf = gui_font.render("PSEUDO", True, "#FFFFFF")
+        pygame.draw.rect(screen, "#475F77", pygame.Rect(((screen_width // 2) - (550 // 2), (screen_height // 2) - (700 // 2)), (600, 100)), border_radius = 3)
+        screen.blit(text_surf, ((screen_width // 2) - (530 // 2), (screen_height // 2) - (640 // 2)))
+        # Affichage des infos de l'utilisateur
+        gui_font = pygame.font.SysFont("Roboto", 60)
+        text_surf = gui_font.render("INFORMATIONS", True, "#FFFFFF")
+        pygame.draw.rect(screen, "#475F77", pygame.Rect(((screen_width // 2) - (550 // 2), (screen_height // 2) - (450 // 2)), (600, 650)), border_radius = 3)
+        screen.blit(text_surf, ((screen_width // 2) - (530 // 2), (screen_height // 2) - (430 // 2)))
+        # Affichage du bouton de déconnexion de l'utilisateur
+        deconnexionbutton.draw()
+        # Affichage du bouton de paramètres du compte de l'utilisateur
+        accountsettingsbutton.draw()
         
         # Met à jour l'affichage de l'interface
         pygame.display.update()
@@ -578,7 +578,7 @@ logomwte_rect.topleft = ((screen_width // 2) - (1900 // 2), (screen_height // 2)
 
 # Chargement de la photo de profil du joueur
 pdpplayer = pygame.image.load("logo mwte.jpg")
-pdpplayer = pygame.transform.scale(pdpplayer, (200, 200))
+pdpplayer = pygame.transform.scale(pdpplayer, (300, 300))
 
 # Création de tout les boutons utilisés
 # Création de l'objet accountbutton
@@ -595,10 +595,15 @@ backbutton = Button("back", "", "Roboto", 0, "#475F77", "#354B5E", 125, 125, ((s
 createtablebutton = Button("create table", "CREATE TABLE", "Roboto", 70, "#475F77", "#354B5E", 425, 100, ((screen_width // 2) - (1500 // 2), (screen_height // 2) - (950 // 2)), 6)
 # Créaion de l'objet gamehistorybutton
 gamehistorybutton = Button("history", "HISTORY", "Roboto", 70, "#475F77", "#354B5E", 300, 500, ((screen_width // 2) + (700 // 2), (screen_height // 2) - (350 // 2)), 6)
+# Créaion de l'objet deconnexionbutton
+deconnexionbutton = Button("deconnexion", "LOG OUT", "Roboto", 70, "#475F77", "#354B5E", 400, 100, ((screen_width // 2) + (1000 // 2), (screen_height // 2) + (700 // 2)), 6)
+# Créaion de l'objet accountsettingsbutton
+accountsettingsbutton = Button("account settings", "", "Roboto", 0, "#475F77", "#354B5E", 125, 125, ((screen_width // 2) + (1600 // 2), (screen_height // 2) - (1000 // 2)), 6,"backarrow.png")
 
 # Création des scrollboxs
 # Création de l'objet serverscrollbox 
 serverscrollbox = ScrollBox((screen_width // 2) - (1500 // 2), (screen_height // 2) - (650 // 2), 1000, 760, server_list)
+# Création de l'objet historyscrollbox
 historyscrollbox = ScrollBox((screen_width // 2) - (1500 // 2), (screen_height // 2) - (650 // 2), 1000, 760, server_list)
 
 #Création de l'objet tablecodeinput
@@ -606,8 +611,9 @@ tablecodeinput = TextInputBox(150, ((screen_width // 2) + (850 // 2), (screen_he
 
 # Création des previews de tables
 # Création de l'objet previewlobbys
-previewlobbys = Preview_Table("Jojo's Table", ["Albert", "Sam", "Astrid"], 10, 5000, 10000, 20000, 452978, ((screen_width // 2) + (700 // 2), (screen_height // 2) - (650 // 2)), 1)
-previewhistory = Preview_Table("Jojo's Table", ["Albert", "Sam", "Astrid"], 10, 5000, 10000, 20000, 452978, ((screen_width // 2) + (700 // 2), (screen_height // 2) - (650 // 2)), 1)
+previewlobbys = Preview_Table(((screen_width // 2) + (700 // 2), (screen_height // 2) - (650 // 2)))
+# Création de l'objet previewhistory
+previewhistory = Preview_Table(((screen_width // 2) + (700 // 2), (screen_height // 2) - (650 // 2)))
 
 # Gameloop
 while True:
