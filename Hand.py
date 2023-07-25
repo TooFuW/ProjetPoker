@@ -4,7 +4,7 @@ from Board import Board
 
 class Hand:
 
-    def __init__(self,hand : list) -> None:
+    def __init__(self,hand = []) -> None:
 
         if type(hand) != list:          # hand must be a list
             raise TypeError

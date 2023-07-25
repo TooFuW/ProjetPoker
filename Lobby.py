@@ -65,9 +65,15 @@ class Lobby :
             self.client_socket, self.client_address = self.server_socket.accept()
             self.on_new_connection(socket=self.client_socket)
     
-    def on_new_connection(self,socket : socket, address):
+    def on_new_connection(self,conn : socket, address):
         id_thread = len(self.threads)
-        self.threads.append(Thread(target=self.handle_client, args=(socket,address,id_thread)))
+        self.threads.append(Thread(target=self.handle_client, args=(conn,address,id_thread)))
+
+        if not self.socket_in_players(conn):
+            new_player = self.create_player("dummy",conn,True,1800)  #gestion de bdd pour la bank
+            self.players.append(new_player)
+
+
         self.threads[id_thread].start()
     
     def manage_data(self, socket : socket, data : str):
@@ -77,15 +83,22 @@ class Lobby :
         pass
 
 
-    def create_player(self,pseudo : str, conn : socket, is_alive : bool, hand : Hand, bank : int):
+    def create_player(self,pseudo : str, conn : socket, is_alive : bool, bank : int, hand = None):
+
         newid = randint(100000,999999)
         while newid in self.players_ids:
             newid = randint(100000,999999)
         self.players_ids.append(newid)
+
         try:
-            return Player(newid,pseudo,conn,is_alive,hand,bank)
+            if hand is not None:
+                return Player(newid,pseudo,conn,is_alive,bank,hand)
+            else:
+                return Player(newid,pseudo,conn,is_alive,bank)
+
         except:
             raise TypeError    
+        
 
     def add_player(self,player : Player):
         pass
@@ -112,6 +125,10 @@ class Lobby :
     def is_listenning(self):
         return self.lobby_on
 
+    def socket_in_players(self,conn : socket):
+        if type(conn) == socket:
+            return conn in [player.get_conn for player in self.players]
+        
 
 def on_player_deconnect(player : Player):
     pass
