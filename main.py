@@ -99,7 +99,7 @@ class Main:
                         print("New lobby ! : ", str(new_lobby))
                         self.lobbys.append(new_lobby)
                         lobby_start = Thread(target=self.lobbys[-1].start, args=())
-                        lobby_start.start()
+                    
                         
 
                     except Exception as e:

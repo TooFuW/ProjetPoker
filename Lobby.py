@@ -51,7 +51,7 @@ class Lobby :
             try :
                 data = socket.recv(1024)
                 data = data.decode("utf8")
-                self.manage_data(data,socket )
+                self.manage_data(data=data,socket=socket )
 
             except:
                 connected = False
@@ -63,7 +63,7 @@ class Lobby :
         self.lobby_on = True
         while self.lobby_on:
             self.client_socket, self.client_address = self.server_socket.accept()
-            self.on_new_connection(socket=self.client_socket)
+            self.on_new_connection(self.client_socket, self.client_address)
     
     def on_new_connection(self,conn : socket, address):
         id_thread = len(self.threads)
@@ -80,7 +80,8 @@ class Lobby :
         self.threads[id_thread].start()
     
     def manage_data(self, socket : socket, data : str):
-        pass
+        print(socket)
+        print(data)
 
     def send_packet(self,packet):
         pass
@@ -94,7 +95,7 @@ class Lobby :
         self.players_ids.append(newid)
 
         try:
-            if hand is not None:
+            if not hand is None:
                 return Player(newid,pseudo,conn,is_alive,bank,hand)
             else:
                 return Player(newid,pseudo,conn,is_alive,bank)

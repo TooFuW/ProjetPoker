@@ -10,6 +10,9 @@ host, port = ('localhost', 5566)
 
 lobbys = []
 
+global socket_lobby
+socket_lobby = None
+
 def envoi_message(client_socket : socket, msg : str):
     client_socket.send(msg.encode("utf8"))
 
@@ -17,7 +20,7 @@ def envoi_message(client_socket : socket, msg : str):
 #reception continue de messages
 def receive_messages(client_socket : socket):
     connecte = True
-    print("ecoute")
+    print("écoute, sur", client_socket)
     while connecte:
         try:
             data = client_socket.recv(1024)
@@ -52,7 +55,17 @@ def receive_messages(client_socket : socket):
 
                 case "redirect":
                     try:
+                        message = message.split(":")
+                        host,port = message[0],int(message[1])
                         client_socket_lobby = socket(AF_INET, SOCK_STREAM)
+                        client_socket_lobby.connect((host, port))
+                        print("Connecté au lobby.", host, port)
+                        listen_lobby = Thread(target=receive_messages, args=[client_socket_lobby])
+                        global socket_lobby
+                        socket_lobby = client_socket_lobby
+                        
+                        client_socket.close()
+
                         # a suivre ...
 
                     
@@ -63,11 +76,16 @@ def receive_messages(client_socket : socket):
             # Ici, vous pouvez ajouter le code pour traiter le message côté client
         except:
             print('Echec de réception.')
-            break
+            connecte = False
 
     try :
         print("Fin d'ecoute du serveur ...")
         connecte = False
+        try:
+            print("ecoute des packets en provenance du lobby")
+            listen_lobby.start()
+        except:
+            print("echec de connexion au lobby")
     except:
         connecte = False
 
@@ -75,6 +93,7 @@ def receive_messages(client_socket : socket):
 #envoi continu de messages
 def send_message(client_socket):
     connecte = True
+    print("envoi, sur", client_socket)
     while connecte:
         entete = input("Entrez une entete (/disconnect pour quitter) : \n> ")
         message = input("Entrez un message (/disconnect pour quitter) : \n> ")
@@ -88,12 +107,24 @@ def send_message(client_socket):
         if message == "get_lobbys=/disconnect":
             break
         else:
-            client_socket.send(message.encode("utf-8"))
+            try:
+                client_socket.send(message.encode("utf-8"))
+            except:
+                print("echec d'envoi de message")
+                break
         
     try:
-        connecte = False
-        print('Deconnexion ...')
-        client_socket.close()
+        global socket_lobby
+        if not socket_lobby is None :
+            print(socket_lobby)
+            send_message_lobby = Thread(target=send_message, args=[socket_lobby])
+            socket_lobby = None
+            send_message_lobby.start()
+
+        else: 
+            connecte = False
+            print('Deconnexion ...')
+            client_socket.close()
     except:
         connecte = False
 
