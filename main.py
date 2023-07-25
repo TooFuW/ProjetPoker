@@ -75,9 +75,16 @@ class Main:
                     send_lobbys_public = Thread(target=send_lobbys, args=(socket, lobbys))
                     send_lobbys_public.start()
 
-                case "connect_to_lobby":
+                case "join_lobby":
                     try :
-                        int(body)
+                        
+                        lobby_existe = int(body.lstrip()) in [lobby.get_id() for lobby in self.lobbys if type(lobby) == Lobby]
+                        if lobby_existe:
+                            redirect_thread = Thread(target=self.redirect_to_lobby, args=(self.get_lobby_by_id(int(body)), socket))
+                            redirect_thread.start()
+
+
+
                     except:
                         pass # envoi packet error
 
@@ -91,6 +98,8 @@ class Main:
                         new_lobby = self.create_lobby(name,capacity,cave,is_private,"localhost")
                         print("New lobby ! : ", str(new_lobby))
                         self.lobbys.append(new_lobby)
+                        lobby_start = Thread(target=self.lobbys[-1].start, args=())
+                        lobby_start.start()
                         
 
                     except Exception as e:
@@ -110,8 +119,10 @@ class Main:
         self.threads[id_thread].start()
 
 
-    def redirect_to_lobby(self,lobby : Lobby, player : Player):
-        pass
+    def redirect_to_lobby(self,lobby : Lobby, conn : socket):
+        packet_redirect = "redirect="+str(lobby.host)+":"+str(lobby.port)
+        redirect_thread = Thread(target=send_packet,args=(packet_redirect, conn))
+        redirect_thread.start()
 
     def close_server(self):
         pass #procédé fermeture serveur
@@ -148,6 +159,16 @@ class Main:
     
     def is_listenning(self) -> bool:
         return self.server_on
+    
+    def get_lobby_by_id(self, id : int):
+        try:
+            id = int(id)
+            for lobby in self.lobbys:
+                if lobby.get_id() == id:
+                    return lobby
+            return
+        except:
+            raise TypeError
 
 
 

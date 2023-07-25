@@ -28,28 +28,38 @@ def receive_messages(client_socket : socket):
             entete = strtotuple(message)[0]
             message = strtotuple(message)[1]
 
-            if entete == "deconnect":
-                break
+            match entete:
 
-            elif entete == "newplayerconnect":
-                print("\n\n <<  "+message+"  >> \n\n")
-            
-            elif entete == "startgame":
-                print("demarrage game") #a completer
+                case "deconnect":
+                    break
 
-            elif entete=="lobbys":
-                try:
-                    global lobbys
-                    lobbys = str_to_lists_in_list(message)
-                    list_lobbys_convert_str(lobbys)
-                    print(lobbys, type(lobbys))
-                    for i in lobbys:
-                        print(i, type(i))
-                except:
-                    lobbys = []
+                case "newplayerconnect":
+                    print("\n\n <<  "+message+"  >> \n\n")
+                
+                case "startgame":
+                    print("demarrage game") #a completer
+
+                case "lobbys":
+                    try:
+                        global lobbys
+                        lobbys = str_to_lists_in_list(message)
+                        list_lobbys_convert_str(lobbys)
+                        print(lobbys, type(lobbys))
+                        for i in lobbys:
+                            print(i, type(i))
+                    except:
+                        lobbys = []
+
+                case "redirect":
+                    try:
+                        client_socket_lobby = socket(AF_INET, SOCK_STREAM)
+                        # a suivre ...
+
                     
-            else:
-                print("\n[Server]: ", message)
+                    except:
+                        pass #packet echec
+                    
+    
             # Ici, vous pouvez ajouter le code pour traiter le message côté client
         except:
             print('Echec de réception.')

@@ -70,7 +70,10 @@ class Lobby :
         self.threads.append(Thread(target=self.handle_client, args=(conn,address,id_thread)))
 
         if not self.socket_in_players(conn):
-            new_player = self.create_player("dummy",conn,True,1800)  #gestion de bdd pour la bank
+            new_player_thread = Thread(target=self.create_player, args=("dummy",conn,True,1800))  #gestion de bdd pour la bank
+            new_player = new_player_thread.start()
+            
+            new_player_thread.join()
             self.players.append(new_player)
 
 
