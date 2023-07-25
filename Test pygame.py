@@ -577,7 +577,7 @@ logomwte_rect = logomwte.get_rect()
 logomwte_rect.topleft = ((screen_width // 2) - (1900 // 2), (screen_height // 2) + (700 // 2))
 
 # Chargement de la photo de profil du joueur
-pdpplayer = pygame.image.load("logo mwte.jpeg")
+pdpplayer = pygame.image.load("logo mwte.jpg")
 pdpplayer = pygame.transform.scale(pdpplayer, (200, 200))
 
 # Création de tout les boutons utilisés
@@ -611,11 +611,6 @@ previewhistory = Preview_Table("Jojo's Table", ["Albert", "Sam", "Astrid"], 10, 
 
 # Gameloop
 while True:
-    for event in pygame.event.get():
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_ESCAPE:
-                pygame.quit()
-                sys.exit()
     # Chargement de la musique de fond et mise en boucle
     if pygame.mixer.music.get_busy() != True:
         pygame.mixer.music.load("mainmenu_soundtrack.mp3")

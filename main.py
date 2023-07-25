@@ -611,11 +611,6 @@ previewhistory = Preview_Table("Jojo's Table", ["Albert", "Sam", "Astrid"], 10, 
 
 # Gameloop
 while True:
-    for event in pygame.event.get():
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_ESCAPE:
-                pygame.quit()
-                sys.exit()
     # Chargement de la musique de fond et mise en boucle
     if pygame.mixer.music.get_busy() != True:
         pygame.mixer.music.load("mainmenu_soundtrack.mp3")
