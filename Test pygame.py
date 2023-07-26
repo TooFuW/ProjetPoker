@@ -180,8 +180,8 @@ class ScrollBox:
                     self.selected = True
                 else:
                     if self.selected == True:
-                        # CODE POUR QUAND LES BOUTONS DE SERVEURS SONT CLIQUES /!\ NE PAS LES METTRE DANS LA CLASSE BUTTON CA NE FONCTIONNE PAS /!\
-                        print(item_rect.text)
+                        # CODE POUR QUAND LES BOUTONS DE SERVEURS SONT CLIQUES /!\ NE PAS LES METTRE DANS LA CLASSE BUTTON CA NE FONCTIONNE PAS /
+                        pass
             else:
                 self.selected = False
             # Affichage des serveurs disponibles
@@ -616,21 +616,21 @@ pdpplayer = pygame.transform.scale(pdpplayer, (300, 300))
 
 # Création de tout les boutons utilisés
 # Création de l'objet accountbutton
-accountbutton = Button("account", "ACCOUNT", "Roboto", 30, "#475F77", "#354B5E", 150, 75, ((screen_width // 2) + (1600 // 2), (screen_height // 2) - (1050 // 2)), 3)
+accountbutton = Button("account", "ACCOUNT", "Roboto", 30, "#475F77", "#354B5E", 150, 75, (screen_width - 170, 20), 3)
 # Création de l'objet playbutton
-playbutton = Button("play", "PLAY", "Roboto", 150, "#475F77", "#354B5E", 500, 500, ((screen_width // 2) - (500 // 2), (screen_height // 2) - (350 // 2)), 6)
+playbutton = Button("play", "PLAY", "Roboto", 150, "#475F77", "#354B5E", 500, 500, ((screen_width // 2) - 250, (screen_height // 2) - 175), 6)
 # Création de l'objet settingsbutton
-settingsbutton = Button("settings", "SETTINGS", "Roboto", 70, "#475F77", "#354B5E", 300, 500, ((screen_width // 2) - (1300 // 2), (screen_height // 2) - (350 // 2)), 6)
+settingsbutton = Button("settings", "SETTINGS", "Roboto", 70, "#475F77", "#354B5E", 300, 500, ((screen_width // 2) - 650, (screen_height // 2) - 175), 6)
 # Création de l'objet quitbutton
-exitbutton = Button("exit", "EXIT", "Roboto", 70, "#475F77", "#354B5E", 425, 100, ((screen_width // 2) - (425 // 2), (screen_height // 2) + (800 // 2)), 6)
+exitbutton = Button("exit", "EXIT", "Roboto", 70, "#475F77", "#354B5E", 425, 100, ((screen_width // 2) - (425 // 2), screen_height - 115), 6)
 # Création de l'objet backbutton
-backbutton = Button("back", "", "Roboto", 0, "#475F77", "#354B5E", 125, 125, ((screen_width // 2) - (1850 // 2), (screen_height // 2) - (1000 // 2)), 6, "backarrow.png")
+backbutton = Button("back", "", "Roboto", 0, "#475F77", "#354B5E", 125, 125, (25, 25), 6, "backarrow.png")
 # Création de l'objet createtablebutton
-createtablebutton = Button("create table", "CREATE TABLE", "Roboto", 70, "#475F77", "#354B5E", 425, 100, ((screen_width // 2) - (1500 // 2), (screen_height // 2) - (950 // 2)), 6)
+createtablebutton = Button("create table", "CREATE TABLE", "Roboto", 70, "#475F77", "#354B5E", 425, 100, (175, 50), 6)
 # Créaion de l'objet gamehistorybutton
-gamehistorybutton = Button("history", "HISTORY", "Roboto", 70, "#475F77", "#354B5E", 300, 500, ((screen_width // 2) + (700 // 2), (screen_height // 2) - (350 // 2)), 6)
+gamehistorybutton = Button("history", "HISTORY", "Roboto", 70, "#475F77", "#354B5E", 300, 500, ((screen_width // 2) + 350, (screen_height // 2) - 175), 6)
 # Créaion de l'objet deconnexionbutton
-deconnexionbutton = Button("deconnexion", "LOG OUT", "Roboto", 70, "#475F77", "#354B5E", 400, 100, ((screen_width // 2) + (1000 // 2), (screen_height // 2) + (700 // 2)), 6)
+deconnexionbutton = Button("deconnexion", "LOG OUT", "Roboto", 70, "#475F77", "#354B5E", 400, 100, (screen_width - 415, screen_height - 115), 6)
 # Créaion de l'objet accountsettingsbutton
 accountsettingsbutton = Button("account settings", "", "Roboto", 0, "#475F77", "#354B5E", 125, 125, ((screen_width // 2) + (1600 // 2), (screen_height // 2) - (1000 // 2)), 6,"backarrow.png")
 # Créaion de l'objet settingpage1button
