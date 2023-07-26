@@ -10,7 +10,7 @@ class Button:
     """Classe Button pour créer des boutons dynamiques (https://www.youtube.com/watch?v=8SzTzvrWaAA)
     """
 
-    def __init__(self, fonction : str, text : str, police : str, textsize : int, top_color : str, bottom_color : str, width : int, height : int, pos : tuple, elevation : int, image : str = None):
+    def __init__(self, fonction : str, text : str, police : str, textsize : int, top_color : str, bottom_color : str, width : int, height : int, pos : tuple, elevation : int, round_border : int, image : str = None):
         """Initialisation de la classe Button
 
         Args:
@@ -24,11 +24,13 @@ class Button:
             height (int): Hauteur du bouton
             pos (tuple): Position contenant deux valeurs x et y dans un tuple
             elevation (int): /!\ PLUS QUE 6 N'EST PAS RECOMMANDE /!\ Hauteur du bouton comparé au "sol" (purement cosmétique, pour donner un style "d'appui") (risque de bug si on appuie à un endroit qui ne va plus être le bouton lorsque celui-ci va se baisser)
+            round_border (int): Puissance de la courbure du bouton
             image (str) = None: Le lien relatif de l'image s'il y en a une comme fond du bouton (None par défaut)
         """
         # Attributs généraux
         self.pressed = False
         self.fonction = fonction
+        self.courbure = round_border
 
         # self.elevation sert à garder la valeur par défaut de l'élévation, on va plutôt utiliser self.dynamic_elevation dans le code
         self.elevation = elevation
@@ -65,9 +67,9 @@ class Button:
         # Affichage de "l'ombre" du bouton qui est sur le "sol"
         self.bottom_rect.midtop = self.top_rect.midtop
         self.bottom_rect.height = self.top_rect.height + self.dynamic_elevation
-        pygame.draw.rect(screen, self.bottom_color, self.bottom_rect, border_radius = 10)
+        pygame.draw.rect(screen, self.bottom_color, self.bottom_rect, border_radius = self.courbure)
         # Affichage du bouton à cliquer
-        pygame.draw.rect(screen, self.top_color, self.top_rect, border_radius = 10)
+        pygame.draw.rect(screen, self.top_color, self.top_rect, border_radius = self.courbure)
         if self.image != None:
             screen.blit(self.image, self.top_rect)
         screen.blit(self.text_surf, self.text_rect)
@@ -108,7 +110,10 @@ class Button:
                         pygame.quit()
                         sys.exit()
                     elif self.fonction == "back":
+                        if game_state.back_pile[-1] == "Setting Menu":
+                            game_state.setting_page = 1
                         game_state.state = game_state.back_pile.pop()
+
                     elif self.fonction == "history":
                         game_state.back_pile.append(game_state.state)
                         game_state.state = "History Menu"
@@ -172,7 +177,7 @@ class ScrollBox:
             item_y = self.y + item_offset_y
             # Délimitation de la zone de la scrollbox
             text = (server[0] + self.indentation + str(server[1]) + self.indentation + server[2] + self.indentation + server[3] + self.indentation + server[4] + self.indentation + server[5])
-            item_rect = Button("server", text, "Roboto", 24, "#475F77", "#354B5E", self.width, self.hauteurbox, (self.x, item_y), 3)
+            item_rect = Button("server", text, "Roboto", 24, "#475F77", "#354B5E", self.width, self.hauteurbox, (self.x, item_y), 3, 0)
             item_rect.check_click()
             mouse_pos = pygame.mouse.get_pos()
             if pygame.mouse.get_pressed()[0]:
@@ -316,7 +321,7 @@ class HUD_State:
         # Dessine l'image de fond sur le screen de l'écran
         screen.blit(fond, (0, 0))
         # Dessine le logo du jeu
-        screen.blit(logojeu, ((screen_width // 2) - (250 // 2), (screen_height // 2) - (1000 // 2)))
+        screen.blit(logojeu, ((screen_width // 2) - 125, (screen_height // 2) - 500))
         # Dessine le logo MWTE
         screen.blit(logomwte, logomwte_rect)
 
@@ -346,8 +351,8 @@ class HUD_State:
         # Affichage des chips de l'utilisateur à droite du bouton ACCOUNT
         gui_font = pygame.font.SysFont("Roboto", 40)
         text_surf = gui_font.render("Chips : ", True, "#FFFFFF")
-        pygame.draw.rect(screen, "#475F77", pygame.Rect(((screen_width // 2) + (1175 // 2), (screen_height // 2) - (1025 // 2)), (200, 50)), border_radius = 3)
-        screen.blit(text_surf, ((screen_width // 2) + (1200 // 2), (screen_height // 2) - (1000 // 2)))
+        pygame.draw.rect(screen, "#475F77", pygame.Rect(((screen_width // 2) + 580, (screen_height // 2) - 510), (200, 50)), border_radius = 3)
+        screen.blit(text_surf, ((screen_width // 2) + 590, (screen_height // 2) - 500))
         # Cliquer sur le bouton EXIT ferme la fenêtre purement et simplement
         exitbutton.draw()
         # Cliquer sur le bouton GAMES HISTORY affiche l'historique des parties
@@ -416,15 +421,15 @@ class HUD_State:
         # Affichage des chips de l'utilisateur à droite du bouton ACCOUNT
         gui_font = pygame.font.SysFont("Roboto", 40)
         text_surf = gui_font.render("Chips : ", True, "#FFFFFF")
-        pygame.draw.rect(screen, "#475F77", pygame.Rect(((screen_width // 2) + (1175 // 2), (screen_height // 2) - (1025 // 2)), (200, 50)), border_radius = 3)
-        screen.blit(text_surf, ((screen_width // 2) + (1200 // 2), (screen_height // 2) - (1000 // 2)))
+        pygame.draw.rect(screen, "#475F77", pygame.Rect(((screen_width // 2) + 580, (screen_height // 2) - 510), (200, 50)), border_radius = 3)
+        screen.blit(text_surf, ((screen_width // 2) + 590, (screen_height // 2) - 500))
 
         # On crée la box dans laquelle on pourra écrire un code de partie pour rejoindre
         tablecodeinput.draw()
         # On affiche un texte au-dessus de la box qui indique ce que cette dernière fait
         gui_font = pygame.font.SysFont("Roboto", 50)
         text_surf = gui_font.render("Private Table Code", True, "#000000")
-        text_rect = text_surf.get_rect(center = pygame.Rect(((screen_width // 2) + (975 // 2), (screen_height // 2) + (390 // 2)), (150, 75)).center)
+        text_rect = text_surf.get_rect(center = pygame.Rect(((screen_width // 2) + 485, (screen_height // 2) + 195), (150, 75)).center)
         screen.blit(text_surf, text_rect)
 
         # On crée la preview des tables
@@ -453,8 +458,8 @@ class HUD_State:
         # Affichage des chips de l'utilisateur à droite du bouton ACCOUNT
         gui_font = pygame.font.SysFont("Roboto", 40)
         text_surf = gui_font.render("Chips : ", True, "#FFFFFF")
-        pygame.draw.rect(screen, "#475F77", pygame.Rect(((screen_width // 2) + (1175 // 2), (screen_height // 2) - (1025 // 2)), (200, 50)), border_radius = 3)
-        screen.blit(text_surf, ((screen_width // 2) + (1200 // 2), (screen_height // 2) - (1000 // 2)))
+        pygame.draw.rect(screen, "#475F77", pygame.Rect(((screen_width // 2) + 580, (screen_height // 2) - 510), (200, 50)), border_radius = 3)
+        screen.blit(text_surf, ((screen_width // 2) + 590, (screen_height // 2) - 500))
 
         # Affichage des boutons de pages de paramètres
         settingpage1button.draw()
@@ -463,24 +468,24 @@ class HUD_State:
         # Affichage des pages de paramètres
         transparent_surface = pygame.Surface((1500, 850), pygame.SRCALPHA)
         pygame.draw.rect(transparent_surface, (0, 0, 0, 128), (0, 0, 1500, 850), border_radius = 5)
-        screen.blit(transparent_surface, ((screen_width // 2) - (1400 // 2), (screen_height // 2) - (760 // 2)))
-        screen.blit(transparent_surface, ((screen_width // 2) - (1400 // 2), (screen_height // 2) - (760 // 2)))
-        screen.blit(transparent_surface, ((screen_width // 2) - (1400 // 2), (screen_height // 2) - (760 // 2)))
+        screen.blit(transparent_surface, ((screen_width // 2) - 700, (screen_height // 2) - 380))
+        screen.blit(transparent_surface, ((screen_width // 2) - 700, (screen_height // 2) - 380))
+        screen.blit(transparent_surface, ((screen_width // 2) - 700, (screen_height // 2) - 380))
         # Page 1
         if self.setting_page == 1:
             gui_font = pygame.font.SysFont("Roboto", 40)
             settingtext_surf = gui_font.render("Page 1 des paramètres", True, "#FFFFFF")
-            screen.blit(settingtext_surf, ((screen_width // 2) - (1380 // 2), (screen_height // 2) - (740 // 2)))
+            screen.blit(settingtext_surf, ((screen_width // 2) - 690, (screen_height // 2) - 370))
         # Page 2
         elif self.setting_page == 2:
             gui_font = pygame.font.SysFont("Roboto", 40)
             settingtext_surf = gui_font.render("Page 2 des paramètres", True, "#FFFFFF")
-            screen.blit(settingtext_surf, ((screen_width // 2) - (1380 // 2), (screen_height // 2) - (740 // 2)))
+            screen.blit(settingtext_surf, ((screen_width // 2) - 690, (screen_height // 2) - 370))
         # Page 3
         elif self.setting_page == 3:
             gui_font = pygame.font.SysFont("Roboto", 40)
             settingtext_surf = gui_font.render("Page 3 des paramètres", True, "#FFFFFF")
-            screen.blit(settingtext_surf, ((screen_width // 2) - (1380 // 2), (screen_height // 2) - (740 // 2)))
+            screen.blit(settingtext_surf, ((screen_width // 2) - 690, (screen_height // 2) - 370))
 
         # Met à jour l'affichage de l'interface
         pygame.display.update()
@@ -503,22 +508,22 @@ class HUD_State:
 
         # Dessin des infos du compte
         # Affichage de la pdp de l'utilisateur
-        screen.blit(pdpplayer, ((screen_width // 2) - (1200 // 2), (screen_height // 2) - (700 // 2)))
+        screen.blit(pdpplayer, ((screen_width // 2) - 600, (screen_height // 2) - 350))
         # Affichage des chips de l'utilisateur
         gui_font = pygame.font.SysFont("Roboto", 40)
         text_surf = gui_font.render("Chips : ", True, "#FFFFFF")
-        pygame.draw.rect(screen, "#475F77", pygame.Rect(((screen_width // 2) - (1125 // 2), (screen_height // 2) - (150 // 2)), (225, 50)), border_radius = 3)
-        screen.blit(text_surf, ((screen_width // 2) - (1100 // 2), (screen_height // 2) - (130 // 2)))
+        pygame.draw.rect(screen, "#475F77", pygame.Rect(((screen_width // 2) - 560, (screen_height // 2) - 75), (225, 50)), border_radius = 3)
+        screen.blit(text_surf, ((screen_width // 2) - 550, (screen_height // 2) - 65))
         # Affichage du pseudo de l'utilisateur
         gui_font = pygame.font.SysFont("Roboto", 60)
         text_surf = gui_font.render("PSEUDO", True, "#FFFFFF")
-        pygame.draw.rect(screen, "#475F77", pygame.Rect(((screen_width // 2) - (550 // 2), (screen_height // 2) - (700 // 2)), (600, 100)), border_radius = 3)
-        screen.blit(text_surf, ((screen_width // 2) - (530 // 2), (screen_height // 2) - (640 // 2)))
+        pygame.draw.rect(screen, "#475F77", pygame.Rect(((screen_width // 2) - 275, (screen_height // 2) - 350), (600, 100)), border_radius = 3)
+        screen.blit(text_surf, ((screen_width // 2) - 265, (screen_height // 2) - 320))
         # Affichage des infos de l'utilisateur
         gui_font = pygame.font.SysFont("Roboto", 60)
         text_surf = gui_font.render("INFORMATIONS", True, "#FFFFFF")
-        pygame.draw.rect(screen, "#475F77", pygame.Rect(((screen_width // 2) - (550 // 2), (screen_height // 2) - (450 // 2)), (600, 650)), border_radius = 3)
-        screen.blit(text_surf, ((screen_width // 2) - (530 // 2), (screen_height // 2) - (430 // 2)))
+        pygame.draw.rect(screen, "#475F77", pygame.Rect(((screen_width // 2) - 275, (screen_height // 2) - 225), (600, 650)), border_radius = 3)
+        screen.blit(text_surf, ((screen_width // 2) - 265, (screen_height // 2) - 215))
         # Affichage du bouton de déconnexion de l'utilisateur
         deconnexionbutton.draw()
         # Affichage du bouton de paramètres du compte de l'utilisateur
@@ -560,8 +565,8 @@ class HUD_State:
         # Affichage des chips de l'utilisateur à droite du bouton ACCOUNT
         gui_font = pygame.font.SysFont("Roboto", 40)
         text_surf = gui_font.render("Chips : ", True, "#FFFFFF")
-        pygame.draw.rect(screen, "#475F77", pygame.Rect(((screen_width // 2) + (1175 // 2), (screen_height // 2) - (1025 // 2)), (200, 50)), border_radius = 3)
-        screen.blit(text_surf, ((screen_width // 2) + (1200 // 2), (screen_height // 2) - (1000 // 2)))
+        pygame.draw.rect(screen, "#475F77", pygame.Rect(((screen_width // 2) + 580, (screen_height // 2) - 510), (200, 50)), border_radius = 3)
+        screen.blit(text_surf, ((screen_width // 2) + 590, (screen_height // 2) - 500))
 
         # Met à jour l'affichage de l'interface
         pygame.display.update()
@@ -616,44 +621,44 @@ pdpplayer = pygame.transform.scale(pdpplayer, (300, 300))
 
 # Création de tout les boutons utilisés
 # Création de l'objet accountbutton
-accountbutton = Button("account", "ACCOUNT", "Roboto", 30, "#475F77", "#354B5E", 150, 75, (screen_width - 170, 20), 3)
+accountbutton = Button("account", "ACCOUNT", "Roboto", 30, "#475F77", "#354B5E", 150, 75, (screen_width - 170, 20), 3, 10)
 # Création de l'objet playbutton
-playbutton = Button("play", "PLAY", "Roboto", 150, "#475F77", "#354B5E", 500, 500, ((screen_width // 2) - 250, (screen_height // 2) - 175), 6)
+playbutton = Button("play", "PLAY", "Roboto", 150, "#475F77", "#354B5E", 500, 500, ((screen_width // 2) - 250, (screen_height // 2) - 175), 6, 10)
 # Création de l'objet settingsbutton
-settingsbutton = Button("settings", "SETTINGS", "Roboto", 70, "#475F77", "#354B5E", 300, 500, ((screen_width // 2) - 650, (screen_height // 2) - 175), 6)
+settingsbutton = Button("settings", "SETTINGS", "Roboto", 70, "#475F77", "#354B5E", 300, 500, ((screen_width // 2) - 650, (screen_height // 2) - 175), 6, 10)
 # Création de l'objet quitbutton
-exitbutton = Button("exit", "EXIT", "Roboto", 70, "#475F77", "#354B5E", 425, 100, ((screen_width // 2) - (425 // 2), screen_height - 115), 6)
+exitbutton = Button("exit", "EXIT", "Roboto", 70, "#475F77", "#354B5E", 400, 100, ((screen_width // 2) - 200, screen_height - 120), 6, 10)
 # Création de l'objet backbutton
-backbutton = Button("back", "", "Roboto", 0, "#475F77", "#354B5E", 125, 125, (25, 25), 6, "backarrow.png")
+backbutton = Button("back", "", "Roboto", 0, "#475F77", "#354B5E", 125, 125, (25, 25), 6, 10, "backarrow.png")
 # Création de l'objet createtablebutton
-createtablebutton = Button("create table", "CREATE TABLE", "Roboto", 70, "#475F77", "#354B5E", 425, 100, (175, 50), 6)
-# Créaion de l'objet gamehistorybutton
-gamehistorybutton = Button("history", "HISTORY", "Roboto", 70, "#475F77", "#354B5E", 300, 500, ((screen_width // 2) + 350, (screen_height // 2) - 175), 6)
-# Créaion de l'objet deconnexionbutton
-deconnexionbutton = Button("deconnexion", "LOG OUT", "Roboto", 70, "#475F77", "#354B5E", 400, 100, (screen_width - 415, screen_height - 115), 6)
-# Créaion de l'objet accountsettingsbutton
-accountsettingsbutton = Button("account settings", "", "Roboto", 0, "#475F77", "#354B5E", 125, 125, ((screen_width // 2) + (1600 // 2), (screen_height // 2) - (1000 // 2)), 6,"backarrow.png")
-# Créaion de l'objet settingpage1button
-settingpage1button = Button("setting page 1", "PAGE 1", "Roboto", 50, "#475F77", "#354B5E", 200, 70, ((screen_width // 2) - (1400 // 2), (screen_height // 2) - (900 // 2)), 4)
-# Créaion de l'objet settingpage1button
-settingpage2button = Button("setting page 2", "PAGE 2", "Roboto", 50, "#475F77", "#354B5E", 200, 70, ((screen_width // 2) - (975 // 2), (screen_height // 2) - (900 // 2)), 4)
-# Créaion de l'objet settingpage1button
-settingpage3button = Button("setting page 3", "PAGE 3", "Roboto", 50, "#475F77", "#354B5E", 200, 70, ((screen_width // 2) - (550 // 2), (screen_height // 2) - (900 // 2)), 4)
+createtablebutton = Button("create table", "CREATE TABLE", "Roboto", 60, "#475F77", "#354B5E", 400, 100, (175, 50), 6, 10)
+# Création de l'objet gamehistorybutton
+gamehistorybutton = Button("history", "HISTORY", "Roboto", 70, "#475F77", "#354B5E", 300, 500, ((screen_width // 2) + 350, (screen_height // 2) - 175), 6, 10)
+# Création de l'objet deconnexionbutton
+deconnexionbutton = Button("deconnexion", "LOG OUT", "Roboto", 60, "#475F77", "#354B5E", 300, 100, (screen_width - 315, screen_height - 115), 6, 10)
+# Création de l'objet accountsettingsbutton
+accountsettingsbutton = Button("account settings", "", "Roboto", 0, "#475F77", "#354B5E", 125, 125, (screen_width - 150, 25), 6, 10,"backarrow.png")
+# Création de l'objet settingpage1button
+settingpage1button = Button("setting page 1", "PAGE 1", "Roboto", 50, "#475F77", "#354B5E", 200, 70, ((screen_width // 2) - 700, (screen_height // 2) - 450), 4, 8)
+# Création de l'objet settingpage1button
+settingpage2button = Button("setting page 2", "PAGE 2", "Roboto", 50, "#475F77", "#354B5E", 200, 70, ((screen_width // 2) - 490, (screen_height // 2) - 450), 4, 8)
+# Création de l'objet settingpage1button
+settingpage3button = Button("setting page 3", "PAGE 3", "Roboto", 50, "#475F77", "#354B5E", 200, 70, ((screen_width // 2) - 280, (screen_height // 2) - 450), 4, 8)
 
 # Création des scrollboxs
 # Création de l'objet serverscrollbox 
-serverscrollbox = ScrollBox((screen_width // 2) - (1500 // 2), (screen_height // 2) - (650 // 2), 1000, 760, server_list)
+serverscrollbox = ScrollBox((screen_width // 2) - 750, (screen_height // 2) - 325, 1000, 760, server_list)
 # Création de l'objet historyscrollbox
-historyscrollbox = ScrollBox((screen_width // 2) - (1500 // 2), (screen_height // 2) - (650 // 2), 1000, 760, server_list)
+historyscrollbox = ScrollBox((screen_width // 2) - 750, (screen_height // 2) - 325, 1000, 760, server_list)
 
 #Création de l'objet tablecodeinput
-tablecodeinput = TextInputBox(150, ((screen_width // 2) + (800 // 2), (screen_height // 2) + (500 // 2)), 400, 100, "#333333", "#888888", 400, False, 6, True)
+tablecodeinput = TextInputBox(150, ((screen_width // 2) + 400, (screen_height // 2) + 250), 400, 100, "#333333", "#888888", 400, False, 6, True)
 
 # Création des previews de tables
 # Création de l'objet previewlobbys
-previewlobbys = Preview_Table(((screen_width // 2) + (700 // 2), (screen_height // 2) - (650 // 2)))
+previewlobbys = Preview_Table(((screen_width // 2) + 350, (screen_height // 2) - 325))
 # Création de l'objet previewhistory
-previewhistory = Preview_Table(((screen_width // 2) + (700 // 2), (screen_height // 2) - (650 // 2)))
+previewhistory = Preview_Table(((screen_width // 2) + 350, (screen_height // 2) - 325))
 
 # Gameloop
 while True:
