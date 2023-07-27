@@ -590,10 +590,12 @@ class HUD_State:
 
 
 def width_scale(largeur : int):
-    return largeur*largeur_actuelle//1920
+    width = largeur*largeur_actuelle//1920
+    return width
 
 def height_scale(hauteur : int):
-    return hauteur*hauteur_actuelle//1920
+    height = hauteur*hauteur_actuelle//1080
+    return height
 
 
 # Pygame setup
