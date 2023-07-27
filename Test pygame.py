@@ -31,19 +31,22 @@ class Button:
         self.pressed = False
         self.fonction = fonction
         self.courbure = round_border
+        self.pos_x = pos[0]*largeur_actuelle//1920
+        self.pos_y = pos[1]*hauteur_actuelle//1080
+        self.pos = (self.pos_x, self.pos_y)
 
         # self.elevation sert à garder la valeur par défaut de l'élévation, on va plutôt utiliser self.dynamic_elevation dans le code
         self.elevation = elevation
         self.dynamic_elevation = elevation
         # On garde la valeur y de pos pour que le mouvement du bouton reste aligné
-        self.original_y_pos = pos[1]
+        self.original_y_pos = self.pos_y
 
         # Top rectangle
-        self.top_rect = pygame.Rect(pos, (width, height))
+        self.top_rect = pygame.Rect(self.pos, (width*largeur_actuelle//1920, height*hauteur_actuelle//1080))
         self.top_color = top_color
 
         # Bottom rectangle
-        self.bottom_rect = pygame.Rect(pos, (width, elevation))
+        self.bottom_rect = pygame.Rect(self.pos, (width*largeur_actuelle//1920, elevation*hauteur_actuelle//1080))
         self.bottom_color = bottom_color
 
         # Button text
@@ -594,6 +597,8 @@ screen_info = pygame.display.Info()
 screen_width = screen_info.current_w
 screen_height = screen_info.current_h
 screen = pygame.display.set_mode((screen_width, screen_height), pygame.FULLSCREEN)
+largeur_actuelle = screen.get_width()
+hauteur_actuelle = screen.get_height()
 # Nom de la fenêtre
 pygame.display.set_caption("Menu Jeu Poker")
 clock = pygame.time.Clock()
@@ -662,6 +667,8 @@ previewhistory = Preview_Table(((screen_width // 2) + 350, (screen_height // 2) 
 
 # Gameloop
 while True:
+    largeur_actuelle = screen.get_width()
+    hauteur_actuelle = screen.get_height()
     # Chargement de la musique de fond et mise en boucle
     if pygame.mixer.music.get_busy() != True:
         pygame.mixer.music.load("mainmenu_soundtrack.mp3")
