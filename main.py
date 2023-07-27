@@ -31,19 +31,22 @@ class Button:
         self.pressed = False
         self.fonction = fonction
         self.courbure = round_border
+        self.pos_x = width_scale(pos[0])
+        self.pos_y = height_scale(pos[1])
+        self.pos = (self.pos_x, self.pos_y)
 
         # self.elevation sert à garder la valeur par défaut de l'élévation, on va plutôt utiliser self.dynamic_elevation dans le code
         self.elevation = elevation
         self.dynamic_elevation = elevation
         # On garde la valeur y de pos pour que le mouvement du bouton reste aligné
-        self.original_y_pos = pos[1]
+        self.original_y_pos = self.pos_y
 
         # Top rectangle
-        self.top_rect = pygame.Rect(pos, (width, height))
+        self.top_rect = pygame.Rect(self.pos, (width_scale(width), height_scale(height)))
         self.top_color = top_color
 
         # Bottom rectangle
-        self.bottom_rect = pygame.Rect(pos, (width, elevation))
+        self.bottom_rect = pygame.Rect(self.pos, (width_scale(width), height_scale(elevation)))
         self.bottom_color = bottom_color
 
         # Button text
@@ -586,6 +589,15 @@ class HUD_State:
             self.historymenu()
 
 
+def width_scale(largeur : int):
+    width = largeur*largeur_actuelle//1920
+    return width
+
+def height_scale(hauteur : int):
+    height = hauteur*hauteur_actuelle//1080
+    return height
+
+
 # Pygame setup
 pygame.init()
 game_state = HUD_State()
@@ -594,6 +606,8 @@ screen_info = pygame.display.Info()
 screen_width = screen_info.current_w
 screen_height = screen_info.current_h
 screen = pygame.display.set_mode((screen_width, screen_height), pygame.FULLSCREEN)
+largeur_actuelle = screen.get_width()
+hauteur_actuelle = screen.get_height()
 # Nom de la fenêtre
 pygame.display.set_caption("Menu Jeu Poker")
 clock = pygame.time.Clock()
@@ -621,47 +635,49 @@ pdpplayer = pygame.transform.scale(pdpplayer, (300, 300))
 
 # Création de tout les boutons utilisés
 # Création de l'objet accountbutton
-accountbutton = Button("account", "ACCOUNT", "Roboto", 30, "#475F77", "#354B5E", 150, 75, (screen_width - 170, 20), 3, 10)
+accountbutton = Button("account", "ACCOUNT", "Roboto", 30, "#475F77", "#354B5E", 150, 75, (1750, 20), 3, 10)
 # Création de l'objet playbutton
-playbutton = Button("play", "PLAY", "Roboto", 150, "#475F77", "#354B5E", 500, 500, ((screen_width // 2) - 250, (screen_height // 2) - 175), 6, 10)
+playbutton = Button("play", "PLAY", "Roboto", 150, "#475F77", "#354B5E", 500, 500, (710, 365), 6, 10)
 # Création de l'objet settingsbutton
-settingsbutton = Button("settings", "SETTINGS", "Roboto", 70, "#475F77", "#354B5E", 300, 500, ((screen_width // 2) - 650, (screen_height // 2) - 175), 6, 10)
+settingsbutton = Button("settings", "SETTINGS", "Roboto", 70, "#475F77", "#354B5E", 300, 500, (310, 365), 6, 10)
 # Création de l'objet quitbutton
-exitbutton = Button("exit", "EXIT", "Roboto", 70, "#475F77", "#354B5E", 400, 100, ((screen_width // 2) - 200, screen_height - 120), 6, 10)
+exitbutton = Button("exit", "EXIT", "Roboto", 70, "#475F77", "#354B5E", 400, 100, (760, 960), 6, 10)
 # Création de l'objet backbutton
 backbutton = Button("back", "", "Roboto", 0, "#475F77", "#354B5E", 125, 125, (25, 25), 6, 10, "backarrow.png")
 # Création de l'objet createtablebutton
 createtablebutton = Button("create table", "CREATE TABLE", "Roboto", 60, "#475F77", "#354B5E", 400, 100, (175, 50), 6, 10)
 # Création de l'objet gamehistorybutton
-gamehistorybutton = Button("history", "HISTORY", "Roboto", 70, "#475F77", "#354B5E", 300, 500, ((screen_width // 2) + 350, (screen_height // 2) - 175), 6, 10)
+gamehistorybutton = Button("history", "HISTORY", "Roboto", 70, "#475F77", "#354B5E", 300, 500, (1310, 365), 6, 10)
 # Création de l'objet deconnexionbutton
-deconnexionbutton = Button("deconnexion", "LOG OUT", "Roboto", 60, "#475F77", "#354B5E", 300, 100, (screen_width - 315, screen_height - 115), 6, 10)
+deconnexionbutton = Button("deconnexion", "LOG OUT", "Roboto", 60, "#475F77", "#354B5E", 300, 100, (1605, 975), 6, 10)
 # Création de l'objet accountsettingsbutton
-accountsettingsbutton = Button("account settings", "", "Roboto", 0, "#475F77", "#354B5E", 125, 125, (screen_width - 150, 25), 6, 10,"backarrow.png")
+accountsettingsbutton = Button("account settings", "", "Roboto", 0, "#475F77", "#354B5E", 125, 125, (1770, 25), 6, 10,"backarrow.png")
 # Création de l'objet settingpage1button
-settingpage1button = Button("setting page 1", "PAGE 1", "Roboto", 50, "#475F77", "#354B5E", 200, 70, ((screen_width // 2) - 700, (screen_height // 2) - 450), 4, 8)
+settingpage1button = Button("setting page 1", "PAGE 1", "Roboto", 50, "#475F77", "#354B5E", 200, 70, (260, 90), 4, 8)
 # Création de l'objet settingpage1button
-settingpage2button = Button("setting page 2", "PAGE 2", "Roboto", 50, "#475F77", "#354B5E", 200, 70, ((screen_width // 2) - 490, (screen_height // 2) - 450), 4, 8)
+settingpage2button = Button("setting page 2", "PAGE 2", "Roboto", 50, "#475F77", "#354B5E", 200, 70, (470, 90), 4, 8)
 # Création de l'objet settingpage1button
-settingpage3button = Button("setting page 3", "PAGE 3", "Roboto", 50, "#475F77", "#354B5E", 200, 70, ((screen_width // 2) - 280, (screen_height // 2) - 450), 4, 8)
+settingpage3button = Button("setting page 3", "PAGE 3", "Roboto", 50, "#475F77", "#354B5E", 200, 70, (680, 90), 4, 8)
 
 # Création des scrollboxs
 # Création de l'objet serverscrollbox 
-serverscrollbox = ScrollBox((screen_width // 2) - 750, (screen_height // 2) - 325, 1000, 760, server_list)
+serverscrollbox = ScrollBox(210, 215, 1000, 760, server_list)
 # Création de l'objet historyscrollbox
-historyscrollbox = ScrollBox((screen_width // 2) - 750, (screen_height // 2) - 325, 1000, 760, server_list)
+historyscrollbox = ScrollBox(210, 215, 1000, 760, server_list)
 
 #Création de l'objet tablecodeinput
-tablecodeinput = TextInputBox(150, ((screen_width // 2) + 400, (screen_height // 2) + 250), 400, 100, "#333333", "#888888", 400, False, 6, True)
+tablecodeinput = TextInputBox(150, (1360, 790), 400, 100, "#333333", "#888888", 400, False, 6, True)
 
 # Création des previews de tables
 # Création de l'objet previewlobbys
-previewlobbys = Preview_Table(((screen_width // 2) + 350, (screen_height // 2) - 325))
+previewlobbys = Preview_Table((1310, 215))
 # Création de l'objet previewhistory
-previewhistory = Preview_Table(((screen_width // 2) + 350, (screen_height // 2) - 325))
+previewhistory = Preview_Table((1310, 215))
 
 # Gameloop
 while True:
+    largeur_actuelle = screen.get_width()
+    hauteur_actuelle = screen.get_height()
     # Chargement de la musique de fond et mise en boucle
     if pygame.mixer.music.get_busy() != True:
         pygame.mixer.music.load("mainmenu_soundtrack.mp3")
