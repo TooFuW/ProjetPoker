@@ -628,7 +628,7 @@ pdpplayer = pygame.transform.scale(pdpplayer, (300, 300))
 # Création de l'objet accountbutton
 accountbutton = Button("account", "ACCOUNT", "Roboto", 30, "#475F77", "#354B5E", 150, 75, (screen_width - 170, 20), 3, 10)
 # Création de l'objet playbutton
-playbutton = Button("play", "PLAY", "Roboto", 150, "#475F77", "#354B5E", 500, 500, ((screen_width // 2) - 250, (screen_height // 2) - 175), 6, 10)
+playbutton = Button("play", "PLAY", "Roboto", 150, "#475F77", "#354B5E", 500, 500, (710, 365), 6, 10)
 # Création de l'objet settingsbutton
 settingsbutton = Button("settings", "SETTINGS", "Roboto", 70, "#475F77", "#354B5E", 300, 500, ((screen_width // 2) - 650, (screen_height // 2) - 175), 6, 10)
 # Création de l'objet quitbutton
