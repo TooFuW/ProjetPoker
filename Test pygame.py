@@ -669,7 +669,7 @@ createtablebutton = Button("create table", "CREATE TABLE", "Roboto", 60, "#475F7
 # Création de l'objet gamehistorybutton
 gamehistorybutton = Button("history", "HISTORY", "Roboto", 70, "#475F77", "#354B5E", 300, 500, (1310, 365), 6, 10)
 # Création de l'objet deconnexionbutton
-deconnexionbutton = Button("deconnexion", "LOG OUT", "Roboto", 60, "#475F77", "#354B5E", 300, 100, (1605, 975), 6, 10)
+deconnexionbutton = Button("deconnexion", "LOG OUT", "Roboto", 60, "#475F77", "#354B5E", 300, 100, (1605, 970), 6, 10)
 # Création de l'objet accountsettingsbutton
 accountsettingsbutton = Button("account settings", "", "Roboto", 0, "#475F77", "#354B5E", 125, 125, (1770, 25), 6, 10,"backarrow.png")
 # Création de l'objet settingpage1button
