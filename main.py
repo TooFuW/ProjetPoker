@@ -116,7 +116,6 @@ class Button:
                         if game_state.back_pile[-1] == "Setting Menu":
                             game_state.setting_page = 1
                         game_state.state = game_state.back_pile.pop()
-
                     elif self.fonction == "history":
                         game_state.back_pile.append(game_state.state)
                         game_state.state = "History Menu"
@@ -191,8 +190,10 @@ class ScrollBox:
                     self.selected = True
                 else:
                     if self.selected == True:
-                        # CODE POUR QUAND LES BOUTONS DE SERVEURS SONT CLIQUES /!\ NE PAS LES METTRE DANS LA CLASSE BUTTON CA NE FONCTIONNE PAS /
-                        pass
+                        # CODE POUR QUAND LES BOUTONS DE SERVEURS SONT CLIQUES /!\ NE PAS LES METTRE DANS LA CLASSE BUTTON CA NE FONCTIONNE PAS /!\
+                        game_state.back_pile = ["Main Menu"]
+                        game_state.state = "Game Menu"
+                        self.selected = False
             else:
                 self.selected = False
             # Affichage des serveurs disponibles
@@ -210,7 +211,7 @@ class ScrollBox:
     def scroll_down(self):
         """Pour scroller vers le bas
         """
-        if self.scroll_pos < (len(self.servers) - 1) - (self.height // (self.hauteurbox + 10)):
+        if self.scroll_pos < width_scale((len(self.servers) - 1) - (self.height // (self.hauteurbox + 10))):
             self.scroll_pos += 1
 
 
@@ -577,6 +578,32 @@ class HUD_State:
 
         # Met à jour l'affichage de l'interface
         pygame.display.update()
+
+    def gamemenu(self):
+        """historymenu est la fonction qui fait tourner/afficher le menu de l'historique des parties du compte actif
+        """
+        # Rassemblement de tout les événements
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+
+        # Dessine l'image de fond sur la screen de l'écran (IMPORANT CAR SE SUPERPOSE A L'INTERFACE PRECEDENT ET PERMET DE "L'EFFACER")
+        screen.blit(fond, (0, 0))
+
+        # Affichage des bouttons
+        # Cliquer sur le bouton BACK ferme la fenêtre purement et simplement
+        backbutton.draw()
+        # Cliquer sur le bouton ACCOUNT ouvre l'interface présentant les informations du compte actif
+        accountbutton.draw()
+        # Affichage des chips de l'utilisateur à droite du bouton ACCOUNT
+        gui_font = pygame.font.SysFont("Roboto", 40)
+        text_surf = gui_font.render("Chips : ", True, "#FFFFFF")
+        pygame.draw.rect(screen, "#475F77", pygame.Rect((width_scale(1540), height_scale(30)), (width_scale(200), height_scale(50))), border_radius = 3)
+        screen.blit(text_surf, (width_scale(1550), height_scale(40)))
+
+        # Met à jour l'affichage de l'interface
+        pygame.display.update()
     
     def state_manager(self):
         """state_manager se charge d'afficher la bonne interface en fonction de l'état de self.state
@@ -591,6 +618,8 @@ class HUD_State:
             self.accountmenu()
         elif self.state == "History Menu":
             self.historymenu()
+        elif self.state == "Game Menu":
+            self.gamemenu()
 
 
 def width_scale(largeur : int):
@@ -671,7 +700,7 @@ gamehistorybutton = Button("history", "HISTORY", "Roboto", 70, "#475F77", "#354B
 # Création de l'objet deconnexionbutton
 deconnexionbutton = Button("deconnexion", "LOG OUT", "Roboto", 60, "#475F77", "#354B5E", 300, 100, (1605, 970), 6, 10)
 # Création de l'objet accountsettingsbutton
-accountsettingsbutton = Button("account settings", "", "Roboto", 0, "#475F77", "#354B5E", 125, 125, (1770, 25), 6, 10,"backarrow.png")
+accountsettingsbutton = Button("account settings", "", "Roboto", 0, "#475F77", "#354B5E", 125, 125, (1770, 25), 6, 10,"settinglogo.png")
 # Création de l'objet settingpage1button
 settingpage1button = Button("setting page 1", "PAGE 1", "Roboto", 50, "#475F77", "#354B5E", 200, 70, (260, 90), 4, 8)
 # Création de l'objet settingpage1button
