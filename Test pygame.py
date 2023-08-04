@@ -235,7 +235,7 @@ class TextInputBox:
             num_only (bool) = False: True si on ne peut entrer que des chiffres, False sinon
         """
         # Paramères du texte
-        self.base_font = pygame.font.SysFont("Roboto", text_size)
+        self.base_font = pygame.font.SysFont("Roboto", width_scale(text_size))
         self.user_text = ""
         self.max_caracteres = max_caracteres
         # Position du texte
@@ -274,9 +274,9 @@ class TextInputBox:
         # On crée une taille de box adaptative
         if self.adaptative_size == True:
             # Taille de la box qui est de base 200 et qui augmente si le texte dépasse
-            self.input_rect.w = max(self.base_size, text_surface.get_width() + 10)
+            self.input_rect.w = width_scale(max(self.base_size, text_surface.get_width() + 10))
         else:
-            self.input_rect.w = self.base_size
+            self.input_rect.w = width_scale(self.base_size)
 
 
 class Preview_Table:
@@ -474,7 +474,7 @@ class HUD_State:
         settingpage2button.draw()
         settingpage3button.draw()
         # Affichage des pages de paramètres
-        transparent_surface = pygame.Surface((1500, 850), pygame.SRCALPHA)
+        transparent_surface = pygame.Surface((width_scale(1500), height_scale(850)), pygame.SRCALPHA)
         pygame.draw.rect(transparent_surface, (0, 0, 0, 128), (0, 0, 1500, 850), border_radius = 5)
         screen.blit(transparent_surface, (width_scale(260), height_scale(160)))
         screen.blit(transparent_surface, (width_scale(260), height_scale(160)))
