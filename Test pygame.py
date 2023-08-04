@@ -219,7 +219,7 @@ class TextInputBox:
     """Classe TextInputBox pour gérer des input de texte (https://www.youtube.com/watch?v=Rvcyf4HsWiw&t=323s)
     """
 
-    def __init__(self, text_size : int, pos : tuple, width : int, height : int, active_color : str, passive_color : str, base_size : int, adaptative : bool = True, max_caracteres : int = -1, num_only : bool = False):
+    def __init__(self, text_size : int, pos : tuple, width : int, height : int, active_color : str, passive_color : str, base_size : int, adaptative : bool = True, max_caracteres : int = -1, num_only : bool = False, interactible : bool = True):
         """Initialisation des paramètres des TextInputBox
 
         Args:
@@ -233,6 +233,7 @@ class TextInputBox:
             adaptative (bool) = True: True si la taille de la boîte peut changer en fonction de la taille du texte, False si elle est fixe (le texte ne pourra alors pas dépasser de la boîte)
             max_caractere (int) = -1: -1 si les caractères sont illimités, entier positif sinon
             num_only (bool) = False: True si on ne peut entrer que des chiffres, False sinon
+            interactible (bool) = True: True si on peut interagir avec, False sinon
         """
         # Paramères du texte
         self.base_font = pygame.font.SysFont("Roboto", width_scale(text_size))
@@ -249,6 +250,7 @@ class TextInputBox:
         self.adaptative_size = adaptative
         self.text_size = 0
         self.num_only = num_only
+        self.interactible = interactible
     
     def draw(self):
         """On dessine la box et le texte écrit par l'utilisateur
@@ -257,10 +259,11 @@ class TextInputBox:
         mouse_pos = pygame.mouse.get_pos()
         # On vérifie si la box a été sélectionnée
         if pygame.mouse.get_pressed()[0]:
-            if self.input_rect.collidepoint(mouse_pos):
-                self.active = True
-            else:
-                self.active = False
+            if self.interactible == True:
+                if self.input_rect.collidepoint(mouse_pos):
+                    self.active = True
+                else:
+                    self.active = False
         # On définit la couleur de la box en fonction de si elle est sélectionnée ou non
         if self.active == True:
                 self.color = self.color_active
