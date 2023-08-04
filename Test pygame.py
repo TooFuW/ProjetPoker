@@ -516,7 +516,7 @@ class HUD_State:
 
         # Dessin des infos du compte
         # Affichage de la pdp de l'utilisateur
-        screen.blit(pdpplayer, ((screen_width // 2) - 600, (screen_height // 2) - 350))
+        screen.blit(pdpplayer, (width_scale(360), height_scale(190)))
         # Affichage des chips de l'utilisateur
         gui_font = pygame.font.SysFont("Roboto", 40)
         text_surf = gui_font.render("Chips : ", True, "#FFFFFF")
