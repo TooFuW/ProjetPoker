@@ -46,6 +46,7 @@ class Button:
         # Top rectangle
         self.top_rect = pygame.Rect(self.pos, (width_scale(width), height_scale(height)))
         self.top_color = top_color
+        self.initial_top_color = top_color
 
         # Bottom rectangle
         self.bottom_rect = pygame.Rect(self.pos, (width_scale(width), height_scale(elevation)))
@@ -131,15 +132,23 @@ class Button:
                         if self.account_modifiable == True:
                             accountpseudoinput.interactible = False
                             accountinformationinput.interactible = False
+                            accountpseudoinput.color_passive = "#475F77"
+                            accountinformationinput.color_passive = "#475F77"
+                            self.initial_top_color = "#D74B4B"
+                            self.bottom_color = "#D74B4B"
                             self.account_modifiable = False
                         else:
                             accountpseudoinput.interactible = True
                             accountinformationinput.interactible = True
+                            accountpseudoinput.color_passive = "#475F90"
+                            accountinformationinput.color_passive = "#475F90"
+                            self.initial_top_color = "#00FF00"
+                            self.bottom_color = "#00FF00"
                             self.account_modifiable = True
         # Le else est là pour reset l'état du bouton lorsqu'il n'y a plus aucune interaction
         else:
             self.dynamic_elevation = self.elevation
-            self.top_color = "#475F77"
+            self.top_color = self.initial_top_color
             self.pressed = False
 
 
@@ -283,7 +292,7 @@ class TextInputBox:
             self.color = self.color_passive
         # On dessine le texte et la box
         pygame.draw.rect(screen, self.color, self.input_rect, border_radius = 10)
-        # Dessin du texte par lignes si la box n'est pas adaptative te que le texte dépasse, sinon le texte est dessiné normalement
+        # Dessin du texte par lignes si la box n'est pas adaptative et que le texte dépasse, sinon le texte est dessiné normalement
         if self.adaptative_size == False:
             y = self.input_rect.y + 5
             for line in self.user_text.split("\n"):
@@ -783,7 +792,7 @@ gamehistorybutton = Button("history", "HISTORY", "Roboto", 70, "#475F77", "#354B
 # Création de l'objet deconnexionbutton
 deconnexionbutton = Button("deconnexion", "LOG OUT", "Roboto", 60, "#475F77", "#354B5E", 300, 100, (1605, 970), 6, 10)
 # Création de l'objet accountsettingsbutton
-accountsettingsbutton = Button("account settings", "", "Roboto", 0, "#475F77", "#354B5E", 125, 125, (1770, 25), 6, 10,"settinglogo.png")
+accountsettingsbutton = Button("account settings", "", "Roboto", 0, "#D74B4B", "#D74B4B", 125, 125, (1770, 25), 6, 10,"settinglogo.png")
 # Création de l'objet settingpage1button
 settingpage1button = Button("setting page 1", "PAGE 1", "Roboto", 50, "#475F77", "#354B5E", 200, 70, (260, 90), 4, 8)
 # Création de l'objet settingpage1button
@@ -801,9 +810,9 @@ historyscrollbox = ScrollBox(210, 215, 1000, 760, server_list)
 # Création de l'objet tablecodeinput
 tablecodeinput = TextInputBox(150, (1360, 790), 400, 100, "#333333", "#888888", 400, False, 6, True)
 # Création de l'objet accountpseudoinput
-accountpseudoinput = TextInputBox(60, (685, 190), 600, 100, "#333333", "#888888", 600, False, 10, False, False, "PSEUDO")
+accountpseudoinput = TextInputBox(60, (685, 190), 600, 100, "#333333", "#475F77", 600, False, 10, False, False, "PSEUDO")
 # Création de l'objet accountinformationinput
-accountinformationinput = TextInputBox(60, (685, 315), 600, 650, "#333333", "#888888", 600, False, 100, False, False, "INFORMATIONS")
+accountinformationinput = TextInputBox(60, (685, 315), 600, 650, "#333333", "#475F77", 600, False, 100, False, False, "INFORMATIONS")
 
 # Création des previews de tables
 # Création de l'objet previewlobbys
