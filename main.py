@@ -34,6 +34,8 @@ class Button:
         self.pos_x = width_scale(pos[0])
         self.pos_y = height_scale(pos[1])
         self.pos = (self.pos_x, self.pos_y)
+        # Pour savoir si on peut modifier ou non les paramètres du compte
+        self.account_modifiable = False
 
         # self.elevation sert à garder la valeur par défaut de l'élévation, on va plutôt utiliser self.dynamic_elevation dans le code
         self.elevation = elevation
@@ -125,6 +127,15 @@ class Button:
                         game_state.setting_page = 2
                     elif self.fonction == "setting page 3":
                         game_state.setting_page = 3
+                    elif self.fonction == "account settings":
+                        if self.account_modifiable == True:
+                            accountpseudoinput.interactible = False
+                            accountinformationinput.interactible = False
+                            self.account_modifiable = False
+                        else:
+                            accountpseudoinput.interactible = True
+                            accountinformationinput.interactible = True
+                            self.account_modifiable = True
         # Le else est là pour reset l'état du bouton lorsqu'il n'y a plus aucune interaction
         else:
             self.dynamic_elevation = self.elevation
@@ -219,7 +230,7 @@ class TextInputBox:
     """Classe TextInputBox pour gérer des input de texte (https://www.youtube.com/watch?v=Rvcyf4HsWiw&t=323s)
     """
 
-    def __init__(self, text_size : int, pos : tuple, width : int, height : int, active_color : str, passive_color : str, base_size : int, adaptative : bool = True, max_caracteres : int = -1, num_only : bool = False, interactible : bool = True):
+    def __init__(self, text_size : int, pos : tuple, width : int, height : int, active_color : str, passive_color : str, base_size : int, adaptative : bool = True, max_caracteres : int = -1, num_only : bool = False, interactible : bool = True, starting_text : str = ""):
         """Initialisation des paramètres des TextInputBox
 
         Args:
@@ -234,10 +245,11 @@ class TextInputBox:
             max_caractere (int) = -1: -1 si les caractères sont illimités, entier positif sinon
             num_only (bool) = False: True si on ne peut entrer que des chiffres, False sinon
             interactible (bool) = True: True si on peut interagir avec, False sinon
+            starting_text (str) = "": Chaîne de caractère vide par défaut, sinon le texte de départ
         """
         # Paramères du texte
         self.base_font = pygame.font.SysFont("Roboto", width_scale(text_size))
-        self.user_text = ""
+        self.user_text = starting_text
         self.max_caracteres = max_caracteres
         # Position du texte
         self.input_rect = pygame.Rect(width_scale(pos[0]), height_scale(pos[1]), width_scale(width), height_scale(height))
@@ -271,15 +283,26 @@ class TextInputBox:
             self.color = self.color_passive
         # On dessine le texte et la box
         pygame.draw.rect(screen, self.color, self.input_rect, border_radius = 10)
-        text_surface = self.base_font.render(self.user_text, True, "#FFFFFF")
+        # Dessin du texte par lignes si la box n'est pas adaptative te que le texte dépasse, sinon le texte est dessiné normalement
+        if self.adaptative_size == False:
+            y = self.input_rect.y + 5
+            for line in self.user_text.split("\n"):
+                text_surface = self.base_font.render(line, True, "#FFFFFF")
+                screen.blit(text_surface, (self.input_rect.x + 5, y))
+                y += text_surface.get_height()
+        else:
+            text_surface = self.base_font.render(self.user_text, True, "#FFFFFF")
+            screen.blit(text_surface, (self.input_rect.x + 5, self.input_rect.y + 5))
         self.text_size = text_surface.get_width() + 25
-        screen.blit(text_surface, (self.input_rect.x + 5, self.input_rect.y + 5))
         # On crée une taille de box adaptative
         if self.adaptative_size == True:
             # Taille de la box qui est de base 200 et qui augmente si le texte dépasse
             self.input_rect.w = width_scale(max(self.base_size, text_surface.get_width() + 10))
         else:
             self.input_rect.w = width_scale(self.base_size)
+            # Si le texte dépasse mais que la box n'est pas adaptative on retourne à la ligne
+            if text_surface.get_width() + 20 > self.base_size:
+                self.user_text += "\n"
 
 
 class Preview_Table:
@@ -408,6 +431,8 @@ class HUD_State:
                                             tablecodeinput.user_text += event.unicode
                                         else:
                                             tablecodeinput.user_text += event.unicode
+                                    else:
+                                        tablecodeinput.user_text += event.unicode
             if event.type == pygame.MOUSEBUTTONDOWN:
                 # Molette de la souris vers le haut
                 if event.button == 4:
@@ -509,6 +534,67 @@ class HUD_State:
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
+            # Si on a sélectionne la accountpseudoinput
+            if accountpseudoinput.active == True:
+                if event.type == pygame.KEYDOWN:
+                    # Si on clique sur delete
+                    if event.key == pygame.K_BACKSPACE:
+                        accountpseudoinput.user_text = accountpseudoinput.user_text[:-1]
+                    # Si on clique sur entrer
+                    elif event.key == pygame.K_RETURN:
+                        accountpseudoinput.user_text = ""
+                    # Si on clique sur n'importe quoi d'autre
+                    else:
+                        if accountpseudoinput.num_only == True:
+                            if event.unicode in ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]:
+                                if accountpseudoinput.max_caracteres > 0:
+                                    if len(accountpseudoinput.user_text) < accountpseudoinput.max_caracteres:
+                                        if accountpseudoinput.adaptative_size == False:
+                                            if accountpseudoinput.text_size < accountpseudoinput.base_size:
+                                                accountpseudoinput.user_text += event.unicode
+                                        else:
+                                            accountpseudoinput.user_text += event.unicode
+                        else:
+                            if accountpseudoinput.max_caracteres > 0:
+                                if len(accountpseudoinput.user_text) < accountpseudoinput.max_caracteres:
+                                    if accountpseudoinput.adaptative_size == False:
+                                        if accountpseudoinput.text_size < accountpseudoinput.base_size:
+                                            accountpseudoinput.user_text += event.unicode
+                                        else:
+                                            accountpseudoinput.user_text += event.unicode
+                                    else:
+                                        accountpseudoinput.user_text += event.unicode
+            # Si on a sélectionne la accountpseudoinput
+            if accountinformationinput.active == True:
+                if event.type == pygame.KEYDOWN:
+                    # Si on clique sur delete
+                    if event.key == pygame.K_BACKSPACE:
+                        accountinformationinput.user_text = accountinformationinput.user_text[:-1]
+                    # Si on clique sur entrer
+                    elif event.key == pygame.K_RETURN:
+                        accountinformationinput.user_text = ""
+                    # Si on clique sur n'importe quoi d'autre
+                    else:
+                        if accountinformationinput.num_only == True:
+                            if event.unicode in ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]:
+                                if accountinformationinput.max_caracteres > 0:
+                                    if len(accountinformationinput.user_text) < accountinformationinput.max_caracteres:
+                                        if accountinformationinput.adaptative_size == False:
+                                            if accountinformationinput.text_size < accountinformationinput.base_size:
+                                                accountinformationinput.user_text += event.unicode
+                                        else:
+                                            accountinformationinput.user_text += event.unicode
+                        else:
+                            if accountinformationinput.max_caracteres > 0:
+                                if len(accountinformationinput.user_text) < accountinformationinput.max_caracteres:
+                                    if accountinformationinput.adaptative_size == False:
+                                        if accountinformationinput.text_size < accountinformationinput.base_size:
+                                            accountinformationinput.user_text += event.unicode
+                                        else:
+                                            accountinformationinput.user_text += event.unicode
+                                    else:
+                                        accountinformationinput.user_text += event.unicode
+
 
         # Dessine l'image de fond sur la screen de l'écran (IMPORANT CAR SE SUPERPOSE A L'INTERFACE PRECEDENT ET PERMET DE "L'EFFACER")
         screen.blit(fond, (0, 0))
@@ -526,15 +612,9 @@ class HUD_State:
         pygame.draw.rect(screen, "#475F77", pygame.Rect((width_scale(400), height_scale(465)), (width_scale(225), height_scale(50))), border_radius = 3)
         screen.blit(text_surf, (width_scale(410), height_scale(475)))
         # Affichage du pseudo de l'utilisateur
-        gui_font = pygame.font.SysFont("Roboto", 60)
-        text_surf = gui_font.render("PSEUDO", True, "#FFFFFF")
-        pygame.draw.rect(screen, "#475F77", pygame.Rect((width_scale(685), height_scale(190)), (width_scale(600), height_scale(100))), border_radius = 3)
-        screen.blit(text_surf, (width_scale(695), height_scale(220)))
+        accountpseudoinput.draw()
         # Affichage des infos de l'utilisateur
-        gui_font = pygame.font.SysFont("Roboto", 60)
-        text_surf = gui_font.render("INFORMATIONS", True, "#FFFFFF")
-        pygame.draw.rect(screen, "#475F77", pygame.Rect((width_scale(685), height_scale(315)), (width_scale(600), height_scale(650))), border_radius = 3)
-        screen.blit(text_surf, (width_scale(695), height_scale(325)))
+        accountinformationinput.draw()
         # Affichage du bouton de déconnexion de l'utilisateur
         deconnexionbutton.draw()
         # Affichage du bouton de paramètres du compte de l'utilisateur
@@ -598,12 +678,12 @@ class HUD_State:
         # Cliquer sur le bouton BACK ferme la fenêtre purement et simplement
         backbutton.draw()
         # Cliquer sur le bouton ACCOUNT ouvre l'interface présentant les informations du compte actif
-        accountbutton.draw()
+        accountsettingsbutton.draw()
         # Affichage des chips de l'utilisateur à droite du bouton ACCOUNT
         gui_font = pygame.font.SysFont("Roboto", 40)
-        text_surf = gui_font.render("Chips : ", True, "#FFFFFF")
-        pygame.draw.rect(screen, "#475F77", pygame.Rect((width_scale(1540), height_scale(30)), (width_scale(200), height_scale(50))), border_radius = 3)
-        screen.blit(text_surf, (width_scale(1550), height_scale(40)))
+        text_surf = gui_font.render("Loading table...", True, "#FFFFFF")
+        pygame.draw.rect(screen, "#475F77", pygame.Rect((width_scale(700), height_scale(500)), (width_scale(250), height_scale(50))), border_radius = 3)
+        screen.blit(text_surf, (width_scale(710), height_scale(510)))
 
         # Met à jour l'affichage de l'interface
         pygame.display.update()
@@ -717,8 +797,13 @@ serverscrollbox = ScrollBox(210, 215, 1000, 760, server_list)
 # Création de l'objet historyscrollbox
 historyscrollbox = ScrollBox(210, 215, 1000, 760, server_list)
 
-#Création de l'objet tablecodeinput
+# Création des TextInputBox
+# Création de l'objet tablecodeinput
 tablecodeinput = TextInputBox(150, (1360, 790), 400, 100, "#333333", "#888888", 400, False, 6, True)
+# Création de l'objet accountpseudoinput
+accountpseudoinput = TextInputBox(60, (685, 190), 600, 100, "#333333", "#888888", 600, False, 10, False, False, "PSEUDO")
+# Création de l'objet accountinformationinput
+accountinformationinput = TextInputBox(60, (685, 315), 600, 650, "#333333", "#888888", 600, False, 100, False, False, "INFORMATIONS")
 
 # Création des previews de tables
 # Création de l'objet previewlobbys
