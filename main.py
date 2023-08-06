@@ -10,7 +10,7 @@ class Button:
     """Classe Button pour créer des boutons dynamiques (https://www.youtube.com/watch?v=8SzTzvrWaAA)
     """
 
-    def __init__(self, fonction : str, text : str, police : str, textsize : int, top_color : str, bottom_color : str, width : int, height : int, pos : tuple, elevation : int, round_border : int, image : str = None):
+    def __init__(self, fonction : str, text : str, police : str, textsize : int, top_color : str or int, bottom_color : str or int, hovering_color : str or int, width : int, height : int, pos : tuple, elevation : int, round_border : int, image : str = None):
         """Initialisation de la classe Button
 
         Args:
@@ -18,8 +18,9 @@ class Button:
             text (str): Texte d'affichage du bouton
             police (str): Police d'affichage du texte (seulement parmis les polices système disponibles)
             textsize (int): Taille du texte
-            top_color (str): Couleur de la partie haute du bouton (en hexadécimal)
-            bottom_color (str): Couleur de la partie basse du bouton (en hexadécimal)
+            top_color (str or int): Couleur de la partie haute du bouton
+            bottom_color (str or int): Couleur de la partie basse du bouton
+            hovering_color (str or int): Couleur du bouton lorsque la souris est dessus
             width (int): Largeur du bouton
             height (int): Hauteur du bouton
             pos (tuple): Position contenant deux valeurs x et y dans un tuple
@@ -34,6 +35,7 @@ class Button:
         self.pos_x = width_scale(pos[0])
         self.pos_y = height_scale(pos[1])
         self.pos = (self.pos_x, self.pos_y)
+        self.hovering_color = hovering_color
         # Pour savoir si on peut modifier ou non les paramètres du compte
         self.account_modifiable = False
 
@@ -90,7 +92,7 @@ class Button:
         # On vérifie si la position de la souris est sur le bouton
         if self.top_rect.collidepoint(mouse_pos):
             # On change la couleur du bouton lorsque la souris est dessus
-            self.top_color = "#D74B4B"
+            self.top_color = self.hovering_color
             # On vérifie si l'utilisateur clique sur le clic gauche ([0] = gauche, [1] = molette, [2] = droit)
             if pygame.mouse.get_pressed()[0]:
                 # On anime le bouton et change son état
@@ -136,6 +138,7 @@ class Button:
                             accountinformationinput.color_passive = "#475F77"
                             self.initial_top_color = "#D74B4B"
                             self.bottom_color = "#D74B4B"
+                            self.hovering_color = "#D74B4B"
                             self.account_modifiable = False
                         else:
                             accountpseudoinput.interactible = True
@@ -144,6 +147,7 @@ class Button:
                             accountinformationinput.color_passive = "#475F90"
                             self.initial_top_color = "#00FF00"
                             self.bottom_color = "#00FF00"
+                            self.hovering_color = "#00FF00"
                             self.account_modifiable = True
         # Le else est là pour reset l'état du bouton lorsqu'il n'y a plus aucune interaction
         else:
@@ -202,7 +206,7 @@ class ScrollBox:
             item_y = self.default_y + item_offset_y
             # Délimitation de la zone de la scrollbox
             text = (server[0] + self.indentation + str(server[1]) + self.indentation + server[2] + self.indentation + server[3] + self.indentation + server[4] + self.indentation + server[5])
-            item_rect = Button("server", text, "Roboto", 24, "#475F77", "#354B5E", self.default_width, self.hauteurbox, (self.default_x, item_y), 3, 0)
+            item_rect = Button("server", text, "Roboto", 24, "#475F77", "#354B5E", "#D74B4B", self.default_width, self.hauteurbox, (self.default_x, item_y), 3, 0)
             item_rect.check_click()
             mouse_pos = pygame.mouse.get_pos()
             if pygame.mouse.get_pressed()[0]:
@@ -776,29 +780,29 @@ pdpplayer = pygame.transform.scale(pdpplayer, (width_scale(300), height_scale(30
 
 # Création de tout les boutons utilisés
 # Création de l'objet accountbutton
-accountbutton = Button("account", "ACCOUNT", "Roboto", 30, "#475F77", "#354B5E", 150, 75, (1750, 20), 3, 10)
+accountbutton = Button("account", "ACCOUNT", "Roboto", 30, "#475F77", "#354B5E", "#D74B4B", 150, 75, (1750, 20), 3, 10)
 # Création de l'objet playbutton
-playbutton = Button("play", "PLAY", "Roboto", 150, "#475F77", "#354B5E", 500, 500, (710, 365), 6, 10)
+playbutton = Button("play", "PLAY", "Roboto", 150, "#475F77", "#354B5E", "#D74B4B", 500, 500, (710, 365), 6, 10)
 # Création de l'objet settingsbutton
-settingsbutton = Button("settings", "SETTINGS", "Roboto", 70, "#475F77", "#354B5E", 300, 500, (310, 365), 6, 10)
+settingsbutton = Button("settings", "SETTINGS", "Roboto", 70, "#475F77", "#354B5E", "#D74B4B", 300, 500, (310, 365), 6, 10)
 # Création de l'objet quitbutton
-exitbutton = Button("exit", "EXIT", "Roboto", 70, "#475F77", "#354B5E", 400, 100, (760, 960), 6, 10)
+exitbutton = Button("exit", "EXIT", "Roboto", 70, "#475F77", "#354B5E", "#D74B4B", 400, 100, (760, 960), 6, 10)
 # Création de l'objet backbutton
-backbutton = Button("back", "", "Roboto", 0, "#475F77", "#354B5E", 125, 125, (25, 25), 6, 10, "backarrow.png")
+backbutton = Button("back", "", "Roboto", 0, "#475F77", "#354B5E", "#D74B4B", 125, 125, (25, 25), 6, 10, "backarrow.png")
 # Création de l'objet createtablebutton
-createtablebutton = Button("create table", "CREATE TABLE", "Roboto", 60, "#475F77", "#354B5E", 400, 100, (175, 50), 6, 10)
+createtablebutton = Button("create table", "CREATE TABLE", "Roboto", 60, "#475F77", "#354B5E", "#D74B4B", 400, 100, (175, 50), 6, 10)
 # Création de l'objet gamehistorybutton
-gamehistorybutton = Button("history", "HISTORY", "Roboto", 70, "#475F77", "#354B5E", 300, 500, (1310, 365), 6, 10)
+gamehistorybutton = Button("history", "HISTORY", "Roboto", 70, "#475F77", "#354B5E", "#D74B4B", 300, 500, (1310, 365), 6, 10)
 # Création de l'objet deconnexionbutton
-deconnexionbutton = Button("deconnexion", "LOG OUT", "Roboto", 60, "#475F77", "#354B5E", 300, 100, (1605, 970), 6, 10)
+deconnexionbutton = Button("deconnexion", "LOG OUT", "Roboto", 60, "#475F77", "#354B5E", "#D74B4B", 300, 100, (1605, 970), 6, 10)
 # Création de l'objet accountsettingsbutton
-accountsettingsbutton = Button("account settings", "", "Roboto", 0, "#D74B4B", "#D74B4B", 125, 125, (1770, 25), 6, 10,"settinglogo.png")
+accountsettingsbutton = Button("account settings", "", "Roboto", 0, "#D74B4B", "#D74B4B", "#D74B4B", 125, 125, (1770, 25), 0, 10,"settinglogo.png")
 # Création de l'objet settingpage1button
-settingpage1button = Button("setting page 1", "PAGE 1", "Roboto", 50, "#475F77", "#354B5E", 200, 70, (260, 90), 4, 8)
+settingpage1button = Button("setting page 1", "PAGE 1", "Roboto", 50, "#475F77", "#354B5E", "#D74B4B", 200, 70, (260, 90), 4, 8)
 # Création de l'objet settingpage1button
-settingpage2button = Button("setting page 2", "PAGE 2", "Roboto", 50, "#475F77", "#354B5E", 200, 70, (470, 90), 4, 8)
+settingpage2button = Button("setting page 2", "PAGE 2", "Roboto", 50, "#475F77", "#354B5E", "#D74B4B", 200, 70, (470, 90), 4, 8)
 # Création de l'objet settingpage1button
-settingpage3button = Button("setting page 3", "PAGE 3", "Roboto", 50, "#475F77", "#354B5E", 200, 70, (680, 90), 4, 8)
+settingpage3button = Button("setting page 3", "PAGE 3", "Roboto", 50, "#475F77", "#354B5E", "#D74B4B", 200, 70, (680, 90), 4, 8)
 
 # Création des scrollboxs
 # Création de l'objet serverscrollbox 
