@@ -55,7 +55,7 @@ class HUD_State:
         # Dessine l'image de fond sur le self.screen de l'écran
         self.screen.blit(self.fond, (0, 0))
         # Dessine le logo du jeu
-        self.screen.blit(self.logojeu, (width_scale(800, self.largeur_actuelle), height_scale(40, self.hauteur_actuelle)))
+        self.screen.blit(self.logojeu, (width_scale(830, self.largeur_actuelle), height_scale(40, self.hauteur_actuelle)))
         # Dessine le logo MWTE
         self.screen.blit(self.logomwte, self.logomwte_rect)
 
