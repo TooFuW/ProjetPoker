@@ -2,9 +2,10 @@
 
 
 import pygame
+import Global_objects
 from Screen_adaptation import *
-from Check_click import *
-from Button_class import *
+import Check_click
+import Button_class
 
 
 class ScrollBox:
@@ -64,7 +65,7 @@ class ScrollBox:
             item_y = self.default_y + item_offset_y
             # Délimitation de la zone de la scrollbox
             text = (server[0] + self.indentation + str(server[1]) + self.indentation + server[2] + self.indentation + server[3] + self.indentation + server[4] + self.indentation + server[5])
-            item_rect = Button(self.largeur_actuelle, self.hauteur_actuelle, self.screen, "server", text, "Roboto", 24, "#475F77", "#354B5E", "#D74B4B", self.default_width, self.hauteurbox, (self.default_x, item_y), 3, 0)
+            item_rect = Button_class.Button(self.largeur_actuelle, self.hauteur_actuelle, self.screen, "server", text, "Roboto", 24, "#475F77", "#354B5E", "#D74B4B", self.default_width, self.hauteurbox, (self.default_x, item_y), 3, 0)
             item_rect.check_click()
             mouse_pos = pygame.mouse.get_pos()
             if pygame.mouse.get_pressed()[0]:
@@ -73,9 +74,9 @@ class ScrollBox:
                     self.server_selected = item_rect
                 else:
                     if self.selected == True:
-                        check_click(self.server_selected)
-                        game_state.back_pile = ["Main Menu"]
-                        game_state.state = "Game Menu"
+                        Check_click.check_click(self.server_selected)
+                        Global_objects.game_state.back_pile = ["Main Menu"]
+                        Global_objects.game_state.state = "Game Menu"
                         self.selected = False
             else:
                 self.selected = False

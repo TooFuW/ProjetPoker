@@ -74,7 +74,7 @@ class HUD_State:
                 if self.is_pressing_logomwte == True:
                     self.is_pressing_logomwte = False
                     webbrowser.open("https://mwtestudio.wixsite.com/mwte-studio")
-        print(Global_objects.playbutton.hovering_color)
+        
         # Affichage des bouttons
         # Cliquer sur le bouton PLAY ouvre l'interface présentant les lobbys disponibles
         Global_objects.playbutton.draw()
@@ -377,8 +377,6 @@ class HUD_State:
         # Affichage des bouttons
         # Cliquer sur le bouton BACK ferme la fenêtre purement et simplement
         Global_objects.backbutton.draw()
-        # Cliquer sur le bouton ACCOUNT ouvre l'interface présentant les informations du compte actif
-        Global_objects.accountsettingsbutton.draw()
         # Affichage des chips de l'utilisateur à droite du bouton ACCOUNT
         gui_font = pygame.font.SysFont("Roboto", 40)
         text_surf = gui_font.render("Loading table...", True, "#FFFFFF")
