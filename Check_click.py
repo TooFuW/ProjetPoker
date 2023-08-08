@@ -24,6 +24,15 @@ def check_click(Button):
     elif Button.fonction == "account":
         Global_objects.game_state.back_pile.append(Global_objects.game_state.state)
         Global_objects.game_state.state = "Account Menu"
+        if Global_objects.accountsettingsbutton.account_modifiable == True:
+            Global_objects.accountpseudoinput.interactible = False
+            Global_objects.accountinformationinput.interactible = False
+            Global_objects.accountpseudoinput.color_passive = "#475F77"
+            Global_objects.accountinformationinput.color_passive = "#475F77"
+            Global_objects.accountsettingsbutton.initial_top_color = "#D74B4B"
+            Global_objects.accountsettingsbutton.bottom_color = "#D74B4B"
+            Global_objects.accountsettingsbutton.hovering_color = "#D74B4B"
+            Global_objects.accountsettingsbutton.account_modifiable = False
     elif Button.fonction == "exit":
         pygame.quit()
         sys.exit()
