@@ -16,6 +16,7 @@ class Button:
         Args:
             largeur_actuelle (int): Largeur de l'écran (pour width_scale())
             hauteur_actuelle (int): Hauteur de l'écran (pour height_scale())
+            screen (pygame.Surface): Ecran sur lequel afficher la fenêtre (écran de l'utilisateur)
             fonction (str) : Usage de la fonction, à utiliser dans self.check_click pour lier des actions au bouton correspondant
             text (str): Texte d'affichage du bouton
             police (str): Police d'affichage du texte (seulement parmis les polices système disponibles)
@@ -38,6 +39,8 @@ class Button:
         self.pos_y = height_scale(pos[1], hauteur_actuelle)
         self.pos = (self.pos_x, self.pos_y)
         self.hovering_color = hovering_color
+        self.largeur_actuelle = largeur_actuelle
+        self.hauteur_actuelle = hauteur_actuelle
         self.screen = screen
         # Pour savoir si on peut modifier ou non les paramètres du compte
         self.account_modifiable = False
