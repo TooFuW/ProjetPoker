@@ -82,6 +82,9 @@ class Main:
                         if lobby_existe:
                             redirect_thread = Thread(target=self.redirect_to_lobby, args=(self.get_lobby_by_id(int(body)), socket))
                             redirect_thread.start()
+                        else:
+                            error_thread = Thread(target=send_packet, args=[f"404_lobby_not_exist={body.lstrip()}", socket])
+                            error_thread.start()
 
 
 

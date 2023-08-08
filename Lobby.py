@@ -28,7 +28,7 @@ class Lobby :
         else:
             raise TypeError
         
-        self.start()
+        self.start() #écoute du lobby
         
     def __str__(self):
         return f"[{self.id}, {self.name}, {self.capacity},{self.cave}, {self.is_private}, {self.host}, {self.port}]"

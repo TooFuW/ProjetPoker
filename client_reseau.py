@@ -18,7 +18,7 @@ def envoi_message(client_socket : socket, msg : str):
 
 
 #reception continue de messages
-def receive_messages(client_socket : socket):
+def recieve_data(client_socket : socket):
     connecte = True
     print("écoute, sur", client_socket)
     while connecte:
@@ -60,7 +60,7 @@ def receive_messages(client_socket : socket):
                         client_socket_lobby = socket(AF_INET, SOCK_STREAM)
                         client_socket_lobby.connect((host, port))
                         print("Connecté au lobby.", host, port)
-                        listen_lobby = Thread(target=receive_messages, args=[client_socket_lobby])
+                        listen_lobby = Thread(target=recieve_data, args=[client_socket_lobby])
                         global socket_lobby
                         socket_lobby = client_socket_lobby
                         
@@ -71,6 +71,9 @@ def receive_messages(client_socket : socket):
                     
                     except:
                         pass #packet echec
+
+                case "404_lobby_not_exist":
+                    print("This lobby does not exist.")
                     
     
             # Ici, vous pouvez ajouter le code pour traiter le message côté client
@@ -135,7 +138,7 @@ def start_client():
         client_socket.connect((host, port))
         print("Connecté au serveur.")
 
-        receive_thread = Thread(target=receive_messages, args=(client_socket,))
+        receive_thread = Thread(target=recieve_data, args=(client_socket,))
         send_thread = Thread(target=send_message, args=(client_socket,))
 
         envoi_pseudo = Thread(target=envoi_message, args=(client_socket, packet_pseudo))
