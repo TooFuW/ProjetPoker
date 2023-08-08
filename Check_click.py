@@ -7,7 +7,13 @@ import Global_objects
 from HUD_State_class import *
 
 
+# La fonction check_click est appellée à chaque fois que l'utilisateur clique sur un bouton
 def check_click(Button):
+    """Check_click est appellée à chaque fois que l'utilisateur clique sur un bouton et agit en fonction de l'attribut "fonction" du bouton.
+
+    Args:
+        Button (Non défini): Boutton sur lequel l'utilisateur a cliqué et qui va faire l'acion correspondante
+    """
     if Button.fonction == "play":
         Global_objects.game_state.back_pile.append(Global_objects.game_state.state)
         Global_objects.game_state.state = "Lobby Menu"
@@ -53,3 +59,7 @@ def check_click(Button):
             Global_objects.accountsettingsbutton.bottom_color = "#00FF00"
             Global_objects.accountsettingsbutton.hovering_color = "#00FF00"
             Global_objects.accountsettingsbutton.account_modifiable = True
+    elif Button.fonction == "server":
+        Global_objects.game_state.back_pile = ["Main Menu"]
+        Global_objects.game_state.state = "Game Menu"
+        Global_objects.game_state.server_test = Button.text

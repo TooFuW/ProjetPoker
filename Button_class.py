@@ -3,7 +3,7 @@
 
 import pygame
 from Screen_adaptation import *
-from Check_click import *
+import Check_click
 
 
 class Button:
@@ -110,7 +110,7 @@ class Button:
                 self.dynamic_elevation = self.elevation
                 if self.pressed == True:
                     self.pressed = False
-                    check_click(self)
+                    Check_click.check_click(self)
         # Le else est là pour reset l'état du bouton lorsqu'il n'y a plus aucune interaction
         else:
             self.dynamic_elevation = self.elevation

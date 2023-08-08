@@ -2,7 +2,6 @@
 
 
 import pygame
-import Global_objects
 from Screen_adaptation import *
 import Check_click
 import Button_class
@@ -68,18 +67,15 @@ class ScrollBox:
             item_rect = Button_class.Button(self.largeur_actuelle, self.hauteur_actuelle, self.screen, "server", text, "Roboto", 24, "#475F77", "#354B5E", "#D74B4B", self.default_width, self.hauteurbox, (self.default_x, item_y), 3, 0)
             item_rect.check_click()
             mouse_pos = pygame.mouse.get_pos()
-            if pygame.mouse.get_pressed()[0]:
-                if item_rect.top_rect.collidepoint(mouse_pos):
+            # Quand un bouton de serveur est cliqué
+            if item_rect.top_rect.collidepoint(mouse_pos):
+                if pygame.mouse.get_pressed()[0]:
                     self.selected = True
                     self.server_selected = item_rect
                 else:
                     if self.selected == True:
-                        Check_click.check_click(self.server_selected)
-                        Global_objects.game_state.back_pile = ["Main Menu"]
-                        Global_objects.game_state.state = "Game Menu"
                         self.selected = False
-            else:
-                self.selected = False
+                        Check_click.check_click(self.server_selected)
             # Affichage des serveurs disponibles
             if item_rect.top_rect.colliderect(display_area):
                 item_rect.draw()

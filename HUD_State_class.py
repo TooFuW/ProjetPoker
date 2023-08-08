@@ -42,6 +42,7 @@ class HUD_State:
         self.back_pile = []
         self.is_pressing_logomwte = False
         self.setting_page = 1
+        self.server_test = "Loading ..."
     
     def mainmenu(self):
         """mainmenu est la fonction qui fait tourner/afficher le menu principal
@@ -379,9 +380,9 @@ class HUD_State:
         Global_objects.backbutton.draw()
         # Affichage des chips de l'utilisateur à droite du bouton ACCOUNT
         gui_font = pygame.font.SysFont("Roboto", 40)
-        text_surf = gui_font.render("Loading table...", True, "#FFFFFF")
-        pygame.draw.rect(self.screen, "#475F77", pygame.Rect((width_scale(700, self.largeur_actuelle), height_scale(500, self.hauteur_actuelle)), (width_scale(250, self.largeur_actuelle), height_scale(50, self.hauteur_actuelle))), border_radius = 3)
-        self.screen.blit(text_surf, (width_scale(710, self.largeur_actuelle), height_scale(510, self.hauteur_actuelle)))
+        text_surf = gui_font.render(self.server_test, True, "#FFFFFF")
+        pygame.draw.rect(self.screen, "#475F77", pygame.Rect((width_scale(500, self.largeur_actuelle), height_scale(500, self.hauteur_actuelle)), (width_scale(800, self.largeur_actuelle), height_scale(50, self.hauteur_actuelle))), border_radius = 3)
+        self.screen.blit(text_surf, (width_scale(510, self.largeur_actuelle), height_scale(510, self.hauteur_actuelle)))
 
         # Met à jour l'affichage de l'interface
         pygame.display.update()
