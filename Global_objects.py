@@ -1,7 +1,5 @@
 # Objets Globaux
 
-from time import *
-
 
 Global_game_state = None
 Global_accountbutton = None
@@ -23,6 +21,3 @@ Global_accountpseudoinput = None
 Global_accountinformationinput = None
 Global_previewlobbys = None
 Global_previewhistory = None
-
-if Global_game_state != None:
-        print(Global_game_state.back_pile)
