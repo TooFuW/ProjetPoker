@@ -84,7 +84,7 @@ class HUD_State:
         # Cliquer sur le bouton ACCOUNT ouvre l'interface présentant les informations du compte actif
         Global_objects.accountbutton.draw()
         # Affichage des chips de l'utilisateur à droite du bouton ACCOUNT
-        gui_font = pygame.font.SysFont("Roboto", 40)
+        gui_font = pygame.font.SysFont("Roboto", width_scale(40, self.largeur_actuelle))
         text_surf = gui_font.render("Chips : ", True, "#FFFFFF")
         pygame.draw.rect(self.screen, "#475F77", pygame.Rect((width_scale(1540, self.largeur_actuelle), height_scale(30, self.hauteur_actuelle)), (width_scale(200, self.largeur_actuelle), height_scale(50, self.hauteur_actuelle))), border_radius = 3)
         self.screen.blit(text_surf, (width_scale(1550, self.largeur_actuelle), height_scale(40, self.hauteur_actuelle)))
@@ -156,7 +156,7 @@ class HUD_State:
         # Cliquer sur le bouton ACCOUNT ouvre l'interface présentant les informations du compte actif
         Global_objects.accountbutton.draw()
         # Affichage des chips de l'utilisateur à droite du bouton ACCOUNT
-        gui_font = pygame.font.SysFont("Roboto", 40)
+        gui_font = pygame.font.SysFont("Roboto", width_scale(40, self.largeur_actuelle))
         text_surf = gui_font.render("Chips : ", True, "#FFFFFF")
         pygame.draw.rect(self.screen, "#475F77", pygame.Rect((width_scale(1540, self.largeur_actuelle), height_scale(30, self.hauteur_actuelle)), (width_scale(200, self.largeur_actuelle), height_scale(50, self.hauteur_actuelle))), border_radius = 3)
         self.screen.blit(text_surf, (width_scale(1550, self.largeur_actuelle), height_scale(40, self.hauteur_actuelle)))
@@ -193,7 +193,7 @@ class HUD_State:
         # Cliquer sur le bouton ACCOUNT ouvre l'interface présentant les informations du compte actif
         Global_objects.accountbutton.draw()
         # Affichage des chips de l'utilisateur à droite du bouton ACCOUNT
-        gui_font = pygame.font.SysFont("Roboto", 40)
+        gui_font = pygame.font.SysFont("Roboto", width_scale(40, self.largeur_actuelle))
         text_surf = gui_font.render("Chips : ", True, "#FFFFFF")
         pygame.draw.rect(self.screen, "#475F77", pygame.Rect((width_scale(1540, self.largeur_actuelle), height_scale(30, self.hauteur_actuelle)), (width_scale(200, self.largeur_actuelle), height_scale(50, self.hauteur_actuelle))), border_radius = 3)
         self.screen.blit(text_surf, (width_scale(1550, self.largeur_actuelle), height_scale(40, self.hauteur_actuelle)))
@@ -308,7 +308,7 @@ class HUD_State:
         # Affichage de la pdp de l'utilisateur
         self.screen.blit(self.pdpplayer, (width_scale(360, self.largeur_actuelle), height_scale(190, self.hauteur_actuelle)))
         # Affichage des chips de l'utilisateur
-        gui_font = pygame.font.SysFont("Roboto", 40)
+        gui_font = pygame.font.SysFont("Roboto", width_scale(40, self.largeur_actuelle))
         text_surf = gui_font.render("Chips : ", True, "#FFFFFF")
         pygame.draw.rect(self.screen, "#475F77", pygame.Rect((width_scale(400, self.largeur_actuelle), height_scale(465, self.hauteur_actuelle)), (width_scale(225, self.largeur_actuelle), height_scale(50, self.hauteur_actuelle))), border_radius = 3)
         self.screen.blit(text_surf, (width_scale(410, self.largeur_actuelle), height_scale(475, self.hauteur_actuelle)))
@@ -355,7 +355,7 @@ class HUD_State:
         # Cliquer sur le bouton ACCOUNT ouvre l'interface présentant les informations du compte actif
         Global_objects.accountbutton.draw()
         # Affichage des chips de l'utilisateur à droite du bouton ACCOUNT
-        gui_font = pygame.font.SysFont("Roboto", 40)
+        gui_font = pygame.font.SysFont("Roboto", width_scale(40, self.largeur_actuelle))
         text_surf = gui_font.render("Chips : ", True, "#FFFFFF")
         pygame.draw.rect(self.screen, "#475F77", pygame.Rect((width_scale(1540, self.largeur_actuelle), height_scale(30, self.hauteur_actuelle)), (width_scale(200, self.largeur_actuelle), height_scale(50, self.hauteur_actuelle))), border_radius = 3)
         self.screen.blit(text_surf, (width_scale(1550, self.largeur_actuelle), height_scale(40, self.hauteur_actuelle)))
@@ -379,7 +379,7 @@ class HUD_State:
         # Cliquer sur le bouton BACK ferme la fenêtre purement et simplement
         Global_objects.backbutton.draw()
         # Affichage des chips de l'utilisateur à droite du bouton ACCOUNT
-        gui_font = pygame.font.SysFont("Roboto", 40)
+        gui_font = pygame.font.SysFont("Roboto", width_scale(40, self.largeur_actuelle))
         text_surf = gui_font.render(self.server_test, True, "#FFFFFF")
         pygame.draw.rect(self.screen, "#475F77", pygame.Rect((width_scale(500, self.largeur_actuelle), height_scale(500, self.hauteur_actuelle)), (width_scale(800, self.largeur_actuelle), height_scale(50, self.hauteur_actuelle))), border_radius = 3)
         self.screen.blit(text_surf, (width_scale(510, self.largeur_actuelle), height_scale(510, self.hauteur_actuelle)))
