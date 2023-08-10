@@ -12,33 +12,40 @@ class Player:
         if type(id) == int:
             self.id = id
         else:
+            print("erreur lors de la création du joueur.")
             raise TypeError
         
         if type(pseudo) == str:
             self.pseudo = pseudo
         else:
+            print("erreur lors de la création du joueur.")
             raise TypeError
         
         if type(conn) == socket or conn == None:
             self.conn = conn
         else:
+            print("erreur lors de la création du joueur.")
             raise TypeError
         
         if type(is_alive) == bool:
             self.is_alive = is_alive
         else:
+            print("erreur lors de la création du joueur.")
             raise TypeError
         
         if type(hand) == Hand:
             self.hand = hand
         else:
+            print("erreur lors de la création du joueur.")
             raise TypeError
         if type(bank) == int:
             self.bank = bank
         else:
+            print("erreur lors de la création du joueur.")
             raise TypeError
         
         self.chips = 0
+        print("le joueur a bien été créé")
         
 
     def __str__(self) -> str:

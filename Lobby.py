@@ -73,9 +73,8 @@ class Lobby :
 
         if True or not self.socket_in_players(conn):
             new_player_thread = Thread(target=self.create_player, args=("dummy",conn,True,1800))  #gestion de bdd pour la bank
-            new_player = new_player_thread.start()
+            new_player = self.create_player("dummy",conn,True,1800)
             
-            new_player_thread.join()
             self.players.append(new_player)
 
 
@@ -106,7 +105,7 @@ class Lobby :
                 envoi_packet_thread.start()
                 
 
-    def send_packet(packet : str, conn : socket):
+    def send_packet(self, packet : str, conn : socket):
         try:
             conn.send(packet.encode("utf8"))
         except Exception as el:
@@ -122,12 +121,20 @@ class Lobby :
 
         try:
             if not hand is None:
-                return Player(newid,pseudo,conn,is_alive,bank,hand)
+                print("le player est sur le point d'etre créé.")
+                player  = Player(newid,pseudo,conn,is_alive,bank,hand)
+                print(player)
+                return player
             else:
-                return Player(newid,pseudo,conn,is_alive,bank)
+                print("le player est sur le point d'etre créé.")
+                player = Player(newid,pseudo,conn,is_alive,bank)
+                print(player)
+                return player
 
         except:
-            raise TypeError    
+            print("erreur lors de la création du player.")
+            raise TypeError
+            
         
 
     def add_player(self,player : Player):
