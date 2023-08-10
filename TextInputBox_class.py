@@ -86,5 +86,5 @@ class TextInputBox:
         else:
             self.input_rect.w = width_scale(self.base_size, self.largeur_actuelle)
             # Si le texte dépasse mais que la box n'est pas adaptative on retourne à la ligne
-            if text_surface.get_width() + 20 > self.base_size:
+            if text_surface.get_width() + 20 > width_scale(self.base_size, self.largeur_actuelle):
                 self.user_text += "\n"
