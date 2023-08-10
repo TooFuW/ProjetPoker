@@ -78,14 +78,17 @@ class Main:
 
                 case "join_lobby":
                     try :
-                        
-                        lobby_existe = int(body.lstrip()) in [lobby.get_id() for lobby in self.lobbys if type(lobby) == Lobby]
-                        if lobby_existe:
-                            redirect_thread = Thread(target=self.redirect_to_lobby, args=(self.get_lobby_by_id(int(body)), socket))
-                            redirect_thread.start()
+                        if body:
+                            lobby_existe = int(body.lstrip()) in [lobby.get_id() for lobby in self.lobbys if type(lobby) == Lobby]
+                            if lobby_existe:
+                                redirect_thread = Thread(target=self.redirect_to_lobby, args=(self.get_lobby_by_id(int(body)), socket))
+                                redirect_thread.start()
+                            else:
+                                error_thread = Thread(target=send_packet, args=[f"404_lobby_not_exist={body.lstrip()}", socket])
+                                error_thread.start()
                         else:
-                            error_thread = Thread(target=send_packet, args=[f"404_lobby_not_exist={body.lstrip()}", socket])
-                            error_thread.start()
+                                error_thread = Thread(target=send_packet, args=[f"404_lobby_not_exist={body.lstrip()}", socket])
+                                error_thread.start()
 
 
 

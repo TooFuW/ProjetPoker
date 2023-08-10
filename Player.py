@@ -45,7 +45,7 @@ class Player:
             raise TypeError
         
         self.chips = 0
-        print("le joueur a bien été créé")
+        #print("le joueur a bien été créé")
         
 
     def __str__(self) -> str:

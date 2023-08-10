@@ -77,32 +77,35 @@ class Lobby :
             
             self.players.append(new_player)
 
-
         self.threads[id_thread].start()
+        thread_broadcast = Thread(target=self.broadcast_new_connection, args=(new_player.get_pseudo()))
+        thread_broadcast.start()
     
     def manage_data(self, socket : socket, data : str):
-        print(socket)
-        print(data)
 
         data = strtotuple(data)
         header,body = data[0],data[1]
-        print("suii")
-        print(header,body)
-        print(self.players)
 
         match header:
-            case "get_players_names":
-                packet = "players_names="
-                for i in self.players:
-                    packet += str(i)
+            case "get_players_pseudos":
+                packet = "players_pseudos=["
+                for player in self.players:
+                    packet += player.get_pseudo()+","
+                packet = packet[0:-1] + "]"
 
-                if not packet:
-                    packet = "player_names=no players in this lobby."
-
-                print(packet)
+                if packet == "players_pseudos=[":
+                    packet = "player_pseudos=no players in this lobby."
 
                 envoi_packet_thread = Thread(target=self.send_packet, args=[packet, socket])
                 envoi_packet_thread.start()
+            
+            case "players_count":
+                nb_joueurs = len(self.players)
+                packet = "players_count="+str(nb_joueurs)
+                envoi_packet_thread = Thread(target=self.send_packet, args=[packet, socket])
+                envoi_packet_thread.start()
+
+
                 
 
     def send_packet(self, packet : str, conn : socket):
@@ -149,8 +152,13 @@ class Lobby :
     def redirect_player_to_main(self):
         pass
 
-    def broadcast_new_connection(self):
-        pass
+    def broadcast_new_connection(self,pseudo):
+        conns = [player.get_conn() for player in self.players]
+        for conn in conns:
+            packet = "new_player_joined=" + pseudo
+            thread_new_player = Thread(target=self.send_packet, args=[packet,conn])
+            thread_new_player.start()
+            print("packet broadcast envoyé.")
 
     def see_connected_players(self):
         pass

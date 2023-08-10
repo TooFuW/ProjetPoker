@@ -75,8 +75,14 @@ def recieve_data(client_socket : socket):
                 case "404_lobby_not_exist":
                     print("This lobby does not exist.")
 
-                case "players_names":
+                case "players_pseudos":
                     print(message)
+                case "players_count":
+                    print(message, "joueurs / 5")
+                case "new_player_joined":
+                    print(message, "a rejoint le lobby !")
+                    thread_players_count = Thread(target=envoi_message, args=[client_socket, "players_count="])
+                    thread_players_count.start()
                     
     
             # Ici, vous pouvez ajouter le code pour traiter le message côté client
