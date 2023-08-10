@@ -74,6 +74,9 @@ def recieve_data(client_socket : socket):
 
                 case "404_lobby_not_exist":
                     print("This lobby does not exist.")
+
+                case "players_names":
+                    print(message)
                     
     
             # Ici, vous pouvez ajouter le code pour traiter le message côté client

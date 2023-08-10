@@ -54,7 +54,8 @@ class Main:
             try :
                 data = socket.recv(1024)
                 data = data.decode("utf8")
-                self.manage_data(data,socket )
+                thread_manage_data = Thread(target=self.manage_data, args=[data,socket])
+                thread_manage_data.start()
 
             except:
                 connected = False

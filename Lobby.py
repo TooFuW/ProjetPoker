@@ -4,6 +4,7 @@ from Game import Game
 from threading import *
 from Hand import Hand
 from random import randint
+from strtotuple import strtotuple
 
 class Lobby :
     """
@@ -44,14 +45,15 @@ class Lobby :
         listen_connections.start()
         
 
-    def handle_client(self,socket : socket, address, id_thread :  int):
+    def handle_client(self,socket : socket, address, id_thread : int):
         connected = True
         print("Etablished connexion with ",address)
         while connected:
             try :
                 data = socket.recv(1024)
                 data = data.decode("utf8")
-                self.manage_data(data=data,socket=socket )
+                thread_manage_data = Thread(target=self.manage_data, args=[socket,data])
+                thread_manage_data.start()
 
             except:
                 connected = False
@@ -69,7 +71,7 @@ class Lobby :
         id_thread = len(self.threads)
         self.threads.append(Thread(target=self.handle_client, args=(conn,address,id_thread)))
 
-        if not self.socket_in_players(conn):
+        if True or not self.socket_in_players(conn):
             new_player_thread = Thread(target=self.create_player, args=("dummy",conn,True,1800))  #gestion de bdd pour la bank
             new_player = new_player_thread.start()
             
@@ -83,8 +85,32 @@ class Lobby :
         print(socket)
         print(data)
 
-    def send_packet(self,packet):
-        pass
+        data = strtotuple(data)
+        header,body = data[0],data[1]
+        print("suii")
+        print(header,body)
+        print(self.players)
+
+        match header:
+            case "get_players_names":
+                packet = "players_names="
+                for i in self.players:
+                    packet += str(i)
+
+                if not packet:
+                    packet = "player_names=no players in this lobby."
+
+                print(packet)
+
+                envoi_packet_thread = Thread(target=self.send_packet, args=[packet, socket])
+                envoi_packet_thread.start()
+                
+
+    def send_packet(packet : str, conn : socket):
+        try:
+            conn.send(packet.encode("utf8"))
+        except Exception as el:
+            print(el)
 
 
     def create_player(self,pseudo : str, conn : socket, is_alive : bool, bank : int, hand = None):
@@ -131,7 +157,7 @@ class Lobby :
 
     def socket_in_players(self,conn : socket):
         if type(conn) == socket:
-            return conn in [player.get_conn for player in self.players]
+            return conn in [player.get_conn() for player in self.players]
         
 
 def on_player_deconnect(player : Player):
