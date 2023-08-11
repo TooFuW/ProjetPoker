@@ -67,13 +67,15 @@ gamehistorybutton = Button(largeur_actuelle, hauteur_actuelle, screen, "history"
 # Création de l'objet deconnexionbutton
 deconnexionbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "deconnexion", "LOG OUT", "Roboto", 60, "#475F77", "#354B5E", "#D74B4B", 300, 100, (1605, 970), 6, 10)
 # Création de l'objet accountsettingsbutton
-accountsettingsbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "account settings", "", "Roboto", 0, "#D74B4B", "#D74B4B", "#D74B4B", 125, 125, (1770, 25), 0, 10,"settinglogo.png")
+accountsettingsbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "account settings", "", "Roboto", 0, "#D74B4B", "#D74B4B", "#D74B4B", 125, 125, (1770, 25), 0, 10, "settinglogo.png")
 # Création de l'objet settingpage1button
 settingpage1button = Button(largeur_actuelle, hauteur_actuelle, screen, "setting page 1", "PAGE 1", "Roboto", 50, "#475F77", "#354B5E", "#D74B4B", 200, 70, (260, 90), 4, 8)
 # Création de l'objet settingpage1button
 settingpage2button = Button(largeur_actuelle, hauteur_actuelle, screen, "setting page 2", "PAGE 2", "Roboto", 50, "#475F77", "#354B5E", "#D74B4B", 200, 70, (470, 90), 4, 8)
 # Création de l'objet settingpage1button
 settingpage3button = Button(largeur_actuelle, hauteur_actuelle, screen, "setting page 3", "PAGE 3", "Roboto", 50, "#475F77", "#354B5E", "#D74B4B", 200, 70, (680, 90), 4, 8)
+# Création de l'objet gamesettingsbutton
+gamesettingsbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "game settings", "", "Roboto", 0, "#475F77", "#354B5E", "#D74B4B", 125, 125, (1770, 25), 6, 10, "settinglogo.png")
 
 # Création des scrollboxs
 # Création de l'objet serverscrollbox 
@@ -95,7 +97,7 @@ previewlobbys = Preview_Table(largeur_actuelle, hauteur_actuelle, screen, (1310,
 # Création de l'objet previewhistory
 previewhistory = Preview_Table(largeur_actuelle, hauteur_actuelle, screen, (1310, 215))
 
-# Initialisation de toutes les valeurs globales stockées dans le fichier Global_objects.py
+# Initialisation de toutes les valeurs globales stockées dans le fichier Global_objects.py (tous les objets que l'on crée ci-dessus)
 Global_objects.game_state = game_state
 Global_objects.accountbutton = accountbutton
 Global_objects.playbutton = playbutton
@@ -116,6 +118,7 @@ Global_objects.accountpseudoinput = accountpseudoinput
 Global_objects.accountinformationinput = accountinformationinput
 Global_objects.previewlobbys = previewlobbys
 Global_objects.previewhistory = previewhistory
+Global_objects.gamesettingsbutton = gamesettingsbutton
 
 # Gameloop
 while True:

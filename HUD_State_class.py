@@ -378,7 +378,9 @@ class HUD_State:
         # Affichage des bouttons
         # Cliquer sur le bouton BACK ferme la fenêtre purement et simplement
         Global_objects.backbutton.draw()
-        # Affichage des chips de l'utilisateur à droite du bouton ACCOUNT
+        # Cliquer sur le bouton gamesettingsbutton affiche un menu de paramètres rapides pendant la partie
+        Global_objects.gamesettingsbutton.draw()
+        # Affichage des infos de la table sélectionnée en placeholder
         gui_font = pygame.font.SysFont("Roboto", width_scale(40, self.largeur_actuelle))
         text_surf = gui_font.render(self.server_test, True, "#FFFFFF")
         pygame.draw.rect(self.screen, "#475F77", pygame.Rect((width_scale(500, self.largeur_actuelle), height_scale(500, self.hauteur_actuelle)), (width_scale(800, self.largeur_actuelle), height_scale(50, self.hauteur_actuelle))), border_radius = 3)
