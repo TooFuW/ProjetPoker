@@ -43,6 +43,7 @@ class HUD_State:
         self.is_pressing_logomwte = False
         self.setting_page = 1
         self.server_test = "Loading ..."
+        self.gamesettings = False
     
     def mainmenu(self):
         """mainmenu est la fonction qui fait tourner/afficher le menu principal
@@ -375,16 +376,24 @@ class HUD_State:
         # Dessine l'image de fond sur la self.screen de l'écran (IMPORANT CAR SE SUPERPOSE A L'INTERFACE PRECEDENT ET PERMET DE "L'EFFACER")
         self.screen.blit(self.fond, (0, 0))
 
-        # Affichage des bouttons
-        # Cliquer sur le bouton BACK ferme la fenêtre purement et simplement
-        Global_objects.backbutton.draw()
-        # Cliquer sur le bouton gamesettingsbutton affiche un menu de paramètres rapides pendant la partie
-        Global_objects.gamesettingsbutton.draw()
         # Affichage des infos de la table sélectionnée en placeholder
         gui_font = pygame.font.SysFont("Roboto", width_scale(40, self.largeur_actuelle))
         text_surf = gui_font.render(self.server_test, True, "#FFFFFF")
         pygame.draw.rect(self.screen, "#475F77", pygame.Rect((width_scale(500, self.largeur_actuelle), height_scale(500, self.hauteur_actuelle)), (width_scale(800, self.largeur_actuelle), height_scale(50, self.hauteur_actuelle))), border_radius = 3)
         self.screen.blit(text_surf, (width_scale(510, self.largeur_actuelle), height_scale(510, self.hauteur_actuelle)))
+
+        # TOUT CE QUI EST EN DESSOUS DE CE BLOC NE SERA PAS DESSINE DERRIERE LA SURFACE TRANSPARENTE
+        # Quand l'utilisateur clique sur le bouton des paramètres
+        if self.gamesettings == True:
+            self.setting_background_surface = pygame.Surface((self.largeur_actuelle, self.hauteur_actuelle), pygame.SRCALPHA)
+            pygame.draw.rect(self.setting_background_surface, (220, 220, 220, 75), (0, 0, self.largeur_actuelle, self.hauteur_actuelle))
+            self.screen.blit(self.setting_background_surface, (0, 0))
+            # Cliquer sur le bouton BACK ferme la fenêtre purement et simplement
+            Global_objects.backbutton.draw()
+
+        # Affichage des bouttons
+        # Cliquer sur le bouton gamesettingsbutton affiche un menu de paramètres rapides pendant la partie
+        Global_objects.gamesettingsbutton.draw()
 
         # Met à jour l'affichage de l'interface
         pygame.display.update()

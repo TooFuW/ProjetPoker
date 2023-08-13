@@ -37,8 +37,8 @@ def check_click(Button):
         pygame.quit()
         sys.exit()
     elif Button.fonction == "back":
-        if Global_objects.game_state.back_pile[-1] == "Setting Menu":
-            Global_objects.game_state.setting_page = 1
+        Global_objects.game_state.setting_page = 1
+        Global_objects.game_state.gamesettings = False
         Global_objects.game_state.state = Global_objects.game_state.back_pile.pop()
     elif Button.fonction == "history":
         Global_objects.game_state.back_pile.append(Global_objects.game_state.state)
@@ -72,3 +72,8 @@ def check_click(Button):
         Global_objects.game_state.back_pile = ["Main Menu"]
         Global_objects.game_state.state = "Game Menu"
         Global_objects.game_state.server_test = Button.text
+    elif Button.fonction == "game settings":
+        if Global_objects.game_state.gamesettings == False:
+            Global_objects.game_state.gamesettings = True
+        else:
+            Global_objects.game_state.gamesettings = False
