@@ -64,7 +64,7 @@ class ScrollBox:
             item_y = self.default_y + item_offset_y
             # Délimitation de la zone de la scrollbox
             text = (server[0] + self.indentation + str(server[1]) + self.indentation + server[2] + self.indentation + server[3] + self.indentation + server[4] + self.indentation + server[5])
-            item_rect = Button_class.Button(self.largeur_actuelle, self.hauteur_actuelle, self.screen, "server", text, "Roboto", 24, "#475F77", "#354B5E", "#D74B4B", self.default_width, self.hauteurbox, (self.default_x, item_y), 3, 0)
+            item_rect = Button_class.Button(self.largeur_actuelle, self.hauteur_actuelle, self.screen, "server", text, "Roboto", 24, "#475F77", "#354B5E", "#D74B4B", "#354B5E", self.default_width, self.hauteurbox, (self.default_x, item_y), 3, 0)
             item_rect.check_click()
             mouse_pos = pygame.mouse.get_pos()
             # Quand un bouton de serveur est cliqué

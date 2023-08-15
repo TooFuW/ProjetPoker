@@ -382,6 +382,12 @@ class HUD_State:
         pygame.draw.rect(self.screen, "#475F77", pygame.Rect((width_scale(500, self.largeur_actuelle), height_scale(500, self.hauteur_actuelle)), (width_scale(800, self.largeur_actuelle), height_scale(50, self.hauteur_actuelle))), border_radius = 3)
         self.screen.blit(text_surf, (width_scale(510, self.largeur_actuelle), height_scale(510, self.hauteur_actuelle)))
 
+        # Affichage de la zone qui comportera les actions du joueur
+        # Fond noir
+        pygame.draw.rect(self.screen, (0, 0, 0), pygame.Rect((width_scale(1500, self.largeur_actuelle), 0), (width_scale(420, self.largeur_actuelle), self.hauteur_actuelle)))
+        # Bouton Check
+        Global_objects.checkbutton.draw()
+
         # TOUT CE QUI EST EN DESSOUS DE CE BLOC NE SERA PAS DESSINE DERRIERE LA SURFACE TRANSPARENTE
         # Quand l'utilisateur clique sur le bouton des paramètres
         if self.gamesettings == True:

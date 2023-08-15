@@ -51,31 +51,33 @@ game_state = HUD_State(largeur_actuelle, hauteur_actuelle, screen, fond, logojeu
 
 # Création de tout les boutons utilisés
 # Création de l'objet accountbutton
-accountbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "account", "ACCOUNT", "Roboto", 30, "#475F77", "#354B5E", "#D74B4B", 150, 75, (1750, 20), 3, 10)
+accountbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "account", "ACCOUNT", "Roboto", 30, "#475F77", "#354B5E", "#D74B4B", "#354B5E", 150, 75, (1750, 20), 3, 10)
 # Création de l'objet playbutton
-playbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "play", "PLAY", "Roboto", 150, "#475F77", "#354B5E", "#D74B4B", 500, 500, (710, 365), 6, 10)
+playbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "play", "PLAY", "Roboto", 150, "#475F77", "#354B5E", "#D74B4B", "#354B5E", 500, 500, (710, 365), 6, 10)
 # Création de l'objet settingsbutton
-settingsbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "settings", "SETTINGS", "Roboto", 70, "#475F77", "#354B5E", "#D74B4B", 300, 500, (310, 365), 6, 10)
+settingsbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "settings", "SETTINGS", "Roboto", 70, "#475F77", "#354B5E", "#D74B4B", "#354B5E", 300, 500, (310, 365), 6, 10)
 # Création de l'objet quitbutton
-exitbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "exit", "EXIT", "Roboto", 70, "#475F77", "#354B5E", "#D74B4B", 400, 100, (760, 960), 6, 10)
+exitbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "exit", "EXIT", "Roboto", 70, "#475F77", "#354B5E", "#D74B4B", "#354B5E", 400, 100, (760, 960), 6, 10)
 # Création de l'objet backbutton
-backbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "back", "", "Roboto", 0, "#475F77", "#354B5E", "#D74B4B", 125, 125, (25, 25), 6, 10, "backarrow.png")
+backbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "back", "", "Roboto", 0, "#475F77", "#354B5E", "#D74B4B", "#354B5E", 125, 125, (25, 25), 6, 10, "backarrow.png")
 # Création de l'objet createtablebutton
-createtablebutton = Button(largeur_actuelle, hauteur_actuelle, screen, "create table", "CREATE TABLE", "Roboto", 60, "#475F77", "#354B5E", "#D74B4B", 400, 100, (175, 50), 6, 10)
+createtablebutton = Button(largeur_actuelle, hauteur_actuelle, screen, "create table", "CREATE TABLE", "Roboto", 60, "#475F77", "#354B5E", "#D74B4B", "#354B5E", 400, 100, (175, 50), 6, 10)
 # Création de l'objet gamehistorybutton
-gamehistorybutton = Button(largeur_actuelle, hauteur_actuelle, screen, "history", "HISTORY", "Roboto", 70, "#475F77", "#354B5E", "#D74B4B", 300, 500, (1310, 365), 6, 10)
+gamehistorybutton = Button(largeur_actuelle, hauteur_actuelle, screen, "history", "HISTORY", "Roboto", 70, "#475F77", "#354B5E", "#D74B4B", "#354B5E", 300, 500, (1310, 365), 6, 10)
 # Création de l'objet deconnexionbutton
-deconnexionbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "deconnexion", "LOG OUT", "Roboto", 60, "#475F77", "#354B5E", "#D74B4B", 300, 100, (1605, 970), 6, 10)
+deconnexionbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "deconnexion", "LOG OUT", "Roboto", 60, "#475F77", "#354B5E", "#D74B4B", "#354B5E", 300, 100, (1605, 970), 6, 10)
 # Création de l'objet accountsettingsbutton
-accountsettingsbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "account settings", "", "Roboto", 0, "#D74B4B", "#D74B4B", "#D74B4B", 125, 125, (1770, 25), 0, 10, "settinglogo.png")
+accountsettingsbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "account settings", "", "Roboto", 0, "#D74B4B", "#D74B4B", "#D74B4B", "#D74B4B", 125, 125, (1770, 25), 0, 10, "settinglogo.png")
 # Création de l'objet settingpage1button
-settingpage1button = Button(largeur_actuelle, hauteur_actuelle, screen, "setting page 1", "PAGE 1", "Roboto", 50, "#475F77", "#354B5E", "#D74B4B", 200, 70, (260, 90), 4, 8)
+settingpage1button = Button(largeur_actuelle, hauteur_actuelle, screen, "setting page 1", "PAGE 1", "Roboto", 50, "#475F77", "#354B5E", "#D74B4B", "#354B5E", 200, 70, (260, 90), 4, 8)
 # Création de l'objet settingpage1button
-settingpage2button = Button(largeur_actuelle, hauteur_actuelle, screen, "setting page 2", "PAGE 2", "Roboto", 50, "#475F77", "#354B5E", "#D74B4B", 200, 70, (470, 90), 4, 8)
+settingpage2button = Button(largeur_actuelle, hauteur_actuelle, screen, "setting page 2", "PAGE 2", "Roboto", 50, "#475F77", "#354B5E", "#D74B4B", "#354B5E", 200, 70, (470, 90), 4, 8)
 # Création de l'objet settingpage1button
-settingpage3button = Button(largeur_actuelle, hauteur_actuelle, screen, "setting page 3", "PAGE 3", "Roboto", 50, "#475F77", "#354B5E", "#D74B4B", 200, 70, (680, 90), 4, 8)
+settingpage3button = Button(largeur_actuelle, hauteur_actuelle, screen, "setting page 3", "PAGE 3", "Roboto", 50, "#475F77", "#354B5E", "#D74B4B", "#354B5E", 200, 70, (680, 90), 4, 8)
 # Création de l'objet gamesettingsbutton
-gamesettingsbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "game settings", "", "Roboto", 0, "#475F77", "#354B5E", "#D74B4B", 125, 125, (1770, 25), 6, 10, "settinglogo.png")
+gamesettingsbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "game settings", "", "Roboto", 0, "#475F77", "#354B5E", "#D74B4B", "#354B5E", 125, 125, (1770, 25), 6, 10, "settinglogo.png")
+# Création de l'objet checkbutton
+checkbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "check", "CHECK", "Roboto", 60, "#4CAF50", "#4CAF50", "#00FF00", "#4CAF50", 355, 100, (1540, 175), 6, 10)
 
 # Création des scrollboxs
 # Création de l'objet serverscrollbox 
@@ -119,6 +121,7 @@ Global_objects.accountinformationinput = accountinformationinput
 Global_objects.previewlobbys = previewlobbys
 Global_objects.previewhistory = previewhistory
 Global_objects.gamesettingsbutton = gamesettingsbutton
+Global_objects.checkbutton = checkbutton
 
 # Gameloop
 while True:
