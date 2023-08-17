@@ -77,7 +77,13 @@ settingpage3button = Button(largeur_actuelle, hauteur_actuelle, screen, "setting
 # Création de l'objet gamesettingsbutton
 gamesettingsbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "game settings", "", "Roboto", 0, "#475F77", "#354B5E", "#D74B4B", "#354B5E", 125, 125, (1770, 25), 6, 10, "settinglogo.png")
 # Création de l'objet checkbutton
-checkbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "check", "CHECK", "Roboto", 60, "#4CAF50", "#4CAF50", "#00FF00", "#4CAF50", 355, 100, (1540, 175), 6, 10)
+checkbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "check", "CHECK", "Roboto", 60, "#4CAF50", "#4CAF50", "#00FF00", "#4CAF50", 355, 100, (1540, 190), 6, 10)
+# Création de l'objet callbutton
+callbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "call", "CALL", "Roboto", 60, "#FFD700", "#FFD700", "#FFFF00", "#FFD700", 355, 100, (1540, 340), 6, 10)
+# Création de l'objet laybutton
+laybutton = Button(largeur_actuelle, hauteur_actuelle, screen, "lay", "LAY", "Roboto", 60, "#0000FF", "#0000FF", "#0074D9", "#0000FF", 355, 100, (1540, 490), 6, 10)
+# Création de l'objet raisebutton
+raisebutton = Button(largeur_actuelle, hauteur_actuelle, screen, "raise", "RAISE", "Roboto", 60, "#D32F2A", "#D32F2A", "#FF4F58", "#D32F2A", 355, 100, (1540, 640), 6, 10)
 
 # Création des scrollboxs
 # Création de l'objet serverscrollbox 
@@ -122,6 +128,9 @@ Global_objects.previewlobbys = previewlobbys
 Global_objects.previewhistory = previewhistory
 Global_objects.gamesettingsbutton = gamesettingsbutton
 Global_objects.checkbutton = checkbutton
+Global_objects.callbutton = callbutton
+Global_objects.laybutton = laybutton
+Global_objects.raisebutton = raisebutton
 
 # Gameloop
 while True:

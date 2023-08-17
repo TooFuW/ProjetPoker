@@ -385,8 +385,11 @@ class HUD_State:
         # Affichage de la zone qui comportera les actions du joueur
         # Fond noir
         pygame.draw.rect(self.screen, (0, 0, 0), pygame.Rect((width_scale(1500, self.largeur_actuelle), 0), (width_scale(420, self.largeur_actuelle), self.hauteur_actuelle)))
-        # Bouton Check
+        # Boutons d'actions
         Global_objects.checkbutton.draw()
+        Global_objects.callbutton.draw()
+        Global_objects.laybutton.draw()
+        Global_objects.raisebutton.draw()
 
         # TOUT CE QUI EST EN DESSOUS DE CE BLOC NE SERA PAS DESSINE DERRIERE LA SURFACE TRANSPARENTE
         # Quand l'utilisateur clique sur le bouton des paramètres
