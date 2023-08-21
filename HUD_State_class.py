@@ -374,7 +374,7 @@ class HUD_State:
                 sys.exit()
 
         # Dessine l'image de fond sur la self.screen de l'écran (IMPORANT CAR SE SUPERPOSE A L'INTERFACE PRECEDENT ET PERMET DE "L'EFFACER")
-        self.screen.blit(self.fond, (0, 0))
+        self.screen.fill("green")
 
         # Affichage des infos de la table sélectionnée en placeholder
         gui_font = pygame.font.SysFont("Roboto", width_scale(40, self.largeur_actuelle))

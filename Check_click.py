@@ -70,9 +70,10 @@ def check_click(Button):
                 Global_objects.accountsettingsbutton.hovering_color = "#00FF00"
                 Global_objects.accountsettingsbutton.account_modifiable = True
         elif Button.fonction == "server":
-            Global_objects.game_state.back_pile = ["Main Menu"]
-            Global_objects.game_state.state = "Game Menu"
-            Global_objects.game_state.server_test = Button.text
+            if Global_objects.game_state.state == "Lobby Menu":
+                Global_objects.game_state.back_pile = ["Main Menu"]
+                Global_objects.game_state.state = "Game Menu"
+                Global_objects.game_state.server_test = Button.text
     if Button.fonction == "back":
         Global_objects.game_state.setting_page = 1
         Global_objects.game_state.gamesettings = False
