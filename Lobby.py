@@ -78,7 +78,7 @@ class Lobby :
             self.players.append(new_player)
 
         self.threads[id_thread].start()
-        thread_broadcast = Thread(target=self.broadcast_new_connection, args=(new_player.get_pseudo()))
+        thread_broadcast = Thread(target=self.broadcast_new_connection, args=[new_player.get_pseudo()])
         thread_broadcast.start()
     
     def manage_data(self, socket : socket, data : str):
@@ -158,6 +158,7 @@ class Lobby :
             packet = "new_player_joined=" + pseudo
             thread_new_player = Thread(target=self.send_packet, args=[packet,conn])
             thread_new_player.start()
+            thread_new_player.join()
             print("packet broadcast envoyé.")
 
     def see_connected_players(self):
