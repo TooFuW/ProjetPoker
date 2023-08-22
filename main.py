@@ -131,12 +131,14 @@ Global_objects.checkbutton = checkbutton
 Global_objects.callbutton = callbutton
 Global_objects.laybutton = laybutton
 Global_objects.raisebutton = raisebutton
+Global_objects.volume_music = 1.0
 
 # Gameloop
 while True:
     largeur_actuelle = screen.get_width()
     hauteur_actuelle = screen.get_height()
     # Chargement de la musique de fond et mise en boucle
+    pygame.mixer.music.set_volume(Global_objects.volume_music)
     if pygame.mixer.music.get_busy() != True:
         pygame.mixer.music.load("mainmenu_soundtrack.mp3")
         pygame.mixer.music.rewind()

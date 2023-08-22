@@ -44,6 +44,8 @@ class HUD_State:
         self.setting_page = 1
         self.server_test = "Loading ..."
         self.gamesettings = False
+        # Valeur par défaut du curseur de volume
+        self.cursor_width = 650
     
     def mainmenu(self):
         """mainmenu est la fonction qui fait tourner/afficher le menu principal
@@ -212,10 +214,25 @@ class HUD_State:
         # Page 1
         if self.setting_page == 1:
             # Paramètre d'activation/désactivation de la musique
-            gui_font = pygame.font.SysFont("Roboto", width_scale(40, self.largeur_actuelle))
-            text_surf = gui_font.render("Music", True, "#FFFFFF")
-            pygame.draw.rect(self.screen, "#475F77", pygame.Rect((width_scale(280, self.largeur_actuelle), height_scale(180, self.hauteur_actuelle)), (width_scale(100, self.largeur_actuelle), height_scale(50, self.hauteur_actuelle))), border_radius = 3)
+            # Affichage du nom du paramètre dans une box
+            gui_font = pygame.font.SysFont("Roboto", width_scale(50, self.largeur_actuelle))
+            text_surf = gui_font.render("Volume", True, "#FFFFFF")
+            pygame.draw.rect(self.screen, "#475F77", pygame.Rect((width_scale(280, self.largeur_actuelle), height_scale(180, self.hauteur_actuelle)), (width_scale(140, self.largeur_actuelle), height_scale(50, self.hauteur_actuelle))), border_radius = 3)
             self.screen.blit(text_surf, (width_scale(290, self.largeur_actuelle), height_scale(190, self.hauteur_actuelle)))
+            # Création du curseur de volume et de la barre derrière
+            volume_cursor = pygame.draw.circle(self.screen, "#475F77", (width_scale(self.cursor_width, self.largeur_actuelle), height_scale(205, self.hauteur_actuelle)), 15)
+            pygame.draw.rect(self.screen, "#475F77", pygame.Rect((width_scale(450, self.largeur_actuelle), height_scale(200, self.hauteur_actuelle)), (width_scale(200, self.largeur_actuelle), height_scale(10, self.hauteur_actuelle))), border_radius = 2)
+            mouse_pos = pygame.mouse.get_pos()
+            # On change la pos x du curseur de volume lorsque l'on clique dessus, sans dépasser les bordures
+            if volume_cursor.collidepoint(mouse_pos):
+                if pygame.mouse.get_pressed()[0]:
+                    self.cursor_width = mouse_pos[0]
+                    if self.cursor_width > 650:
+                        self.cursor_width = 650
+                    elif self.cursor_width < 450:
+                        self.cursor_width = 450
+            # On récupère le volume actuel
+            Global_objects.volume_music = (self.cursor_width - 450) / (650 - 450)
         # Page 2
         elif self.setting_page == 2:
             gui_font = pygame.font.SysFont("Roboto", 40)
