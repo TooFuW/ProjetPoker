@@ -211,9 +211,11 @@ class HUD_State:
         self.screen.blit(transparent_surface, (width_scale(260, self.largeur_actuelle), height_scale(160, self.hauteur_actuelle)))
         # Page 1
         if self.setting_page == 1:
-            gui_font = pygame.font.SysFont("Roboto", 40)
-            settingtext_surf = gui_font.render("Page 1 des paramètres", True, "#FFFFFF")
-            self.screen.blit(settingtext_surf, (width_scale(270, self.largeur_actuelle), height_scale(170, self.hauteur_actuelle)))
+            # Paramètre d'activation/désactivation de la musique
+            gui_font = pygame.font.SysFont("Roboto", width_scale(40, self.largeur_actuelle))
+            text_surf = gui_font.render("Music", True, "#FFFFFF")
+            pygame.draw.rect(self.screen, "#475F77", pygame.Rect((width_scale(280, self.largeur_actuelle), height_scale(180, self.hauteur_actuelle)), (width_scale(100, self.largeur_actuelle), height_scale(50, self.hauteur_actuelle))), border_radius = 3)
+            self.screen.blit(text_surf, (width_scale(290, self.largeur_actuelle), height_scale(190, self.hauteur_actuelle)))
         # Page 2
         elif self.setting_page == 2:
             gui_font = pygame.font.SysFont("Roboto", 40)

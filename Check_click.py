@@ -46,10 +46,22 @@ def check_click(Button):
             Global_objects.game_state.state = "History Menu"
         elif Button.fonction == "setting page 1":
             Global_objects.game_state.setting_page = 1
+            Global_objects.settingpage1button.initial_bottom_color = "#475F77"
+            Global_objects.settingpage1button.hovering_bottom_color = "#D74B4B"
+            Global_objects.settingpage2button.initial_bottom_color = "#354B5E"
+            Global_objects.settingpage3button.initial_bottom_color = "#354B5E"
         elif Button.fonction == "setting page 2":
             Global_objects.game_state.setting_page = 2
+            Global_objects.settingpage1button.initial_bottom_color = "#354B5E"
+            Global_objects.settingpage2button.initial_bottom_color = "#475F77"
+            Global_objects.settingpage2button.hovering_bottom_color = "#D74B4B"
+            Global_objects.settingpage3button.initial_bottom_color = "#354B5E"
         elif Button.fonction == "setting page 3":
             Global_objects.game_state.setting_page = 3
+            Global_objects.settingpage1button.initial_bottom_color = "#354B5E"
+            Global_objects.settingpage2button.initial_bottom_color = "#354B5E"
+            Global_objects.settingpage3button.initial_bottom_color = "#475F77"
+            Global_objects.settingpage3button.hovering_bottom_color = "#D74B4B"
         elif Button.fonction == "account settings":
             if Global_objects.accountsettingsbutton.account_modifiable == True:
                 Global_objects.accountpseudoinput.interactible = False
@@ -57,7 +69,6 @@ def check_click(Button):
                 Global_objects.accountpseudoinput.color_passive = "#475F77"
                 Global_objects.accountinformationinput.color_passive = "#475F77"
                 Global_objects.accountsettingsbutton.initial_top_color = "#D74B4B"
-                Global_objects.accountsettingsbutton.bottom_color = "#D74B4B"
                 Global_objects.accountsettingsbutton.hovering_color = "#D74B4B"
                 Global_objects.accountsettingsbutton.account_modifiable = False
             else:
@@ -66,7 +77,6 @@ def check_click(Button):
                 Global_objects.accountpseudoinput.color_passive = "#475F90"
                 Global_objects.accountinformationinput.color_passive = "#475F90"
                 Global_objects.accountsettingsbutton.initial_top_color = "#00FF00"
-                Global_objects.accountsettingsbutton.bottom_color = "#00FF00"
                 Global_objects.accountsettingsbutton.hovering_color = "#00FF00"
                 Global_objects.accountsettingsbutton.account_modifiable = True
         elif Button.fonction == "server":

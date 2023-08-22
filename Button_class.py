@@ -10,7 +10,7 @@ class Button:
     """Classe Button pour créer des boutons dynamiques (https://www.youtube.com/watch?v=8SzTzvrWaAA)
     """
 
-    def __init__(self, largeur_actuelle : int, hauteur_actuelle : int, screen : pygame.Surface, fonction : str, text : str, police : str, textsize : int, top_color : str or int, bottom_color : str or int, hovering_color : str or int, bottom_hovering_color : str or int, width : int, height : int, pos : tuple, elevation : int, round_border : int, image : str = None):
+    def __init__(self, largeur_actuelle : int, hauteur_actuelle : int, screen : pygame.Surface, fonction : str, text : str, police : str, textsize : int, top_color : str or int, bottom_color : str or int, hovering_color : str or int, hovering_bottom_color : str or int, width : int, height : int, pos : tuple, elevation : int, round_border : int, image : str = None):
         """Initialisation de la classe Button
 
         Args:
@@ -24,7 +24,7 @@ class Button:
             top_color (str or int): Couleur de la partie haute du bouton
             bottom_color (str or int): Couleur de la partie basse du bouton
             hovering_color (str or int): Couleur du bouton lorsque la souris est dessus
-            bottom_hovering_color (str or int): Couleur de la partie inférieure du bouton lorsque la souris est dessus
+            hovering_bottom_color (str or int): Couleur de la partie inférieure du bouton lorsque la souris est dessus
             width (int): Largeur du bouton
             height (int): Hauteur du bouton
             pos (tuple): Position contenant deux valeurs x et y dans un tuple
@@ -61,7 +61,7 @@ class Button:
         self.bottom_rect = pygame.Rect(self.pos, (width_scale(width, largeur_actuelle), height_scale(elevation, hauteur_actuelle)))
         self.bottom_color = bottom_color
         self.initial_bottom_color = bottom_color
-        self.bottom_hovering_color = bottom_hovering_color
+        self.hovering_bottom_color = hovering_bottom_color
 
         # Button text
         self.text = text
@@ -102,7 +102,7 @@ class Button:
         if self.top_rect.collidepoint(mouse_pos):
             # On change la couleur du bouton lorsque la souris est dessus
             self.top_color = self.hovering_color
-            self.bottom_color = self.bottom_hovering_color
+            self.bottom_color = self.hovering_bottom_color
             # On vérifie si l'utilisateur clique sur le clic gauche ([0] = gauche, [1] = molette, [2] = droit)
             if pygame.mouse.get_pressed()[0]:
                 # On anime le bouton et change son état
