@@ -46,6 +46,7 @@ class HUD_State:
         self.gamesettings = False
         # Valeur par défaut du curseur de volume
         self.cursor_width = 650
+        self.is_setting_volume = False
     
     def mainmenu(self):
         """mainmenu est la fonction qui fait tourner/afficher le menu principal
@@ -221,11 +222,18 @@ class HUD_State:
             self.screen.blit(text_surf, (width_scale(290, self.largeur_actuelle), height_scale(190, self.hauteur_actuelle)))
             # Création du curseur de volume et de la barre derrière
             volume_cursor = pygame.draw.circle(self.screen, "#475F77", (width_scale(self.cursor_width, self.largeur_actuelle), height_scale(205, self.hauteur_actuelle)), 15)
-            pygame.draw.rect(self.screen, "#475F77", pygame.Rect((width_scale(450, self.largeur_actuelle), height_scale(200, self.hauteur_actuelle)), (width_scale(200, self.largeur_actuelle), height_scale(10, self.hauteur_actuelle))), border_radius = 2)
+            pygame.draw.rect(self.screen, "#475F77", pygame.Rect((width_scale(450, self.largeur_actuelle), height_scale(200, self.hauteur_actuelle)), (width_scale(200, self.largeur_actuelle), height_scale(10, self.hauteur_actuelle))), border_radius = 6)
             mouse_pos = pygame.mouse.get_pos()
             # On change la pos x du curseur de volume lorsque l'on clique dessus, sans dépasser les bordures
             if volume_cursor.collidepoint(mouse_pos):
                 if pygame.mouse.get_pressed()[0]:
+                    self.is_setting_volume = True
+                    Global_objects.buttons_interactibles = False
+            if self.is_setting_volume is True:
+                if not pygame.mouse.get_pressed()[0]:
+                    self.is_setting_volume = False
+                    Global_objects.buttons_interactibles = True
+                else:
                     self.cursor_width = mouse_pos[0]
                     if self.cursor_width > 650:
                         self.cursor_width = 650

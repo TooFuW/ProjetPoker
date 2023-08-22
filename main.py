@@ -132,6 +132,7 @@ Global_objects.callbutton = callbutton
 Global_objects.laybutton = laybutton
 Global_objects.raisebutton = raisebutton
 Global_objects.volume_music = 1.0
+Global_objects.buttons_interactibles = True
 
 # Gameloop
 while True:

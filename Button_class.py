@@ -4,6 +4,7 @@
 import pygame
 from Screen_adaptation import *
 import Check_click
+import Global_objects
 
 
 class Button:
@@ -90,8 +91,9 @@ class Button:
         if self.image != None:
             self.screen.blit(self.image, self.top_rect)
         self.screen.blit(self.text_surf, self.text_rect)
-        # On appelle constamment check_click pour vérifier si l'utilisateur interagit avec le bouton
-        self.check_click()
+        # On appelle constamment check_click pour vérifier si l'utilisateur interagit avec le bouton seulement si l'utilisateur peut interagir avec
+        if Global_objects.buttons_interactibles is True:
+            self.check_click()
 
     def check_click(self):
         """Vérifie si l'utilisateur clique sur le bouton pour faire l'action souhaitée
