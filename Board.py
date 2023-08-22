@@ -7,7 +7,7 @@ class Board :
 
     """
 
-    def __init__(self, board : list) -> None:
+    def __init__(self, board : list = []) -> None:
         
         if type(board) == list:
             if only_cards(board):

@@ -16,6 +16,7 @@ class Lobby :
         self.players = []
         self.threads = []
         self.lobby_on = False
+        self.is_game_starting = False
         self.players_ids = []
 
         if type(name) == str and type(capacity) == int and type(cave) == int and type(is_private) == bool and type(host) == str and type(port) == int and type(id) == int:
@@ -137,6 +138,17 @@ class Lobby :
         except:
             print("erreur lors de la création du player.")
             raise TypeError
+        
+    
+    def init_game(self):
+        if not self.is_game_starting:
+            self.game = Game(self.players, self.cave)
+
+    def start_game(self):
+        self.is_game_starting = True
+        # envoie packet game entrain de commencer
+        # compteur 5 secondes
+        self.game.start()
             
         
 
@@ -174,6 +186,11 @@ class Lobby :
     def socket_in_players(self,conn : socket):
         if type(conn) == socket:
             return conn in [player.get_conn() for player in self.players]
+        
+    def force_stop(self):
+        """En cas de demande de fermeture forcée. 
+        Enclenche la fermeture forcée de la game en cours avant de déconnecter de force tous les joueurs puis s'eteindre.
+        """
         
 
 def on_player_deconnect(player : Player):

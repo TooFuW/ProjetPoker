@@ -1,16 +1,25 @@
 from Hand import Hand
 from Board import Board
 from Card import Card
+from Deck import Deck
 from Combination import Combination
 from HandCombination import HandCombination
 
 class Round:
     """
-        Represent a round (pre-flop to river) and manage winner players ...    
+        Represent a round (pre-flop to river) and manage winner players ... 
+
+        important : deck est la pioche de cartes avec laquelle on va créer les mains et distributions   
     
     """
-    def __init__(self, players : list) -> None:
-        pass
+    def __init__(self, players : list, dealer_id : int) -> None:
+        self.players = players
+        self.dealer_id = dealer_id
+
+        self.deck = new_shuffled_deck()
+        self.board = Board()
+
+
     def start(self):
         pass
 
@@ -26,6 +35,23 @@ class Round:
     def start_river(self):
         pass
 
+
+    def set_hands(self):
+        for player in self.players:
+            new_hand_list = []
+            for _ in range(2):
+                new_hand_list.append(self.deck.draw())
+            
+            new_hand = Hand(new_hand_list)
+            player.set_hand(new_hand)
+
+
+
+def new_shuffled_deck():
+    deck = Deck()
+    deck.shuffle()
+    print(deck)
+    return deck
 
 
 def get_best_combination(board : Board, hand : Hand):
