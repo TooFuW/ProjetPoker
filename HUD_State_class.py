@@ -39,11 +39,16 @@ class HUD_State:
         self.screen = screen
         # self.state définit l'état actuel de l'interface (qui est par défaut Main Menu)
         self.state = "Main Menu"
+        # pile pour le bouton BACK
         self.back_pile = []
+        # Savoir si on clique sur le logo de MWTE pour ouvrir le site web
         self.is_pressing_logomwte = False
-        self.setting_page = 1
+        # Placeholder de la description des serveurs lorsqu'on clique dessus
         self.server_test = "Loading ..."
+        # Savoir si on affiche ou non le menu des paramètres en jeu pour gérer l'interface
         self.gamesettings = False
+        # Page par défaut dans le menu des paramètres
+        self.setting_page = 1
         # Valeur par défaut du curseur de volume
         self.cursor_width = 650
         self.is_setting_volume = False
@@ -69,10 +74,12 @@ class HUD_State:
         mouse_pos = pygame.mouse.get_pos()
         # On vérifie si la position de la souris est sur le bouton
         if self.logomwte_rect.collidepoint(mouse_pos):
+            # On affiche le texte d'information à côté de la souris lorsqu'elle est sur le logo MWTE
             gui_font = pygame.font.SysFont("Roboto", 20, False, True)
             text_surf = gui_font.render("Aller sur le site officiel MWTE", True, "#000000")
             pygame.draw.rect(self.screen, "#FFFFFF", pygame.Rect((mouse_pos[0], mouse_pos[1] + 15), (200, 20)), border_radius = 3)
             self.screen.blit(text_surf, (mouse_pos[0], mouse_pos[1] + 20))
+            # On gére le cas où on clique sur le logo pour ouvrir UNE SEULE FOIS notre site web
             if pygame.mouse.get_pressed()[0]:
                 self.is_pressing_logomwte = True
             else:
@@ -119,6 +126,7 @@ class HUD_State:
                         Global_objects.tablecodeinput.user_text = ""
                     # Si on clique sur n'importe quoi d'autre
                     else:
+                        # On gère tout les cas de paramètres des objets de la classe TextInputBox (se référer au fichier TextInputBox_class.py pour plus d'informations sur ces paramètres)
                         if Global_objects.tablecodeinput.num_only == True:
                             if event.unicode in ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]:
                                 if Global_objects.tablecodeinput.max_caracteres > 0:
@@ -206,7 +214,7 @@ class HUD_State:
         Global_objects.settingpage1button.draw()
         Global_objects.settingpage2button.draw()
         Global_objects.settingpage3button.draw()
-        # Affichage des pages de paramètres
+        # Affichage des pages de paramètres avec un arrière-plan noir transparent
         transparent_surface = pygame.Surface((width_scale(1500, self.largeur_actuelle), height_scale(850, self.hauteur_actuelle)), pygame.SRCALPHA)
         pygame.draw.rect(transparent_surface, (0, 0, 0, 128), (0, 0, 1500, 850), border_radius = 5)
         self.screen.blit(transparent_surface, (width_scale(260, self.largeur_actuelle), height_scale(160, self.hauteur_actuelle)))
@@ -215,7 +223,7 @@ class HUD_State:
         # Page 1
         if self.setting_page == 1:
             # Paramètre d'activation/désactivation de la musique
-            # Affichage du nom du paramètre dans une box
+            # Affichage du nom du paramètre VOLUME dans une box
             gui_font = pygame.font.SysFont("Roboto", width_scale(50, self.largeur_actuelle))
             text_surf = gui_font.render("Volume", True, "#FFFFFF")
             pygame.draw.rect(self.screen, "#475F77", pygame.Rect((width_scale(280, self.largeur_actuelle), height_scale(180, self.hauteur_actuelle)), (width_scale(140, self.largeur_actuelle), height_scale(50, self.hauteur_actuelle))), border_radius = 3)
@@ -229,6 +237,7 @@ class HUD_State:
                 if pygame.mouse.get_pressed()[0]:
                     self.is_setting_volume = True
                     Global_objects.buttons_interactibles = False
+            # Amélioration de l'interaction avec le curseur
             if self.is_setting_volume is True:
                 if not pygame.mouse.get_pressed()[0]:
                     self.is_setting_volume = False
@@ -243,11 +252,13 @@ class HUD_State:
             Global_objects.volume_music = (self.cursor_width - 450) / (650 - 450)
         # Page 2
         elif self.setting_page == 2:
+            # Temporaire
             gui_font = pygame.font.SysFont("Roboto", 40)
             settingtext_surf = gui_font.render("Page 2 des paramètres", True, "#FFFFFF")
             self.screen.blit(settingtext_surf, (width_scale(270, self.largeur_actuelle), height_scale(170, self.hauteur_actuelle)))
         # Page 3
         elif self.setting_page == 3:
+            # Temporaire
             gui_font = pygame.font.SysFont("Roboto", 40)
             settingtext_surf = gui_font.render("Page 3 des paramètres", True, "#FFFFFF")
             self.screen.blit(settingtext_surf, (width_scale(270, self.largeur_actuelle), height_scale(170, self.hauteur_actuelle)))
@@ -274,6 +285,7 @@ class HUD_State:
                         Global_objects.accountpseudoinput.user_text = ""
                     # Si on clique sur n'importe quoi d'autre
                     else:
+                        # On gère tout les cas de paramètres des objets de la classe TextInputBox (se référer au fichier TextInputBox_class.py pour plus d'informations sur ces paramètres)
                         if Global_objects.accountpseudoinput.num_only == True:
                             if event.unicode in ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]:
                                 if Global_objects.accountpseudoinput.max_caracteres > 0:
@@ -304,6 +316,7 @@ class HUD_State:
                         Global_objects.accountinformationinput.user_text = ""
                     # Si on clique sur n'importe quoi d'autre
                     else:
+                        # On gère tout les cas de paramètres des objets de la classe TextInputBox (se référer au fichier TextInputBox_class.py pour plus d'informations sur ces paramètres)
                         if Global_objects.accountinformationinput.num_only == True:
                             if event.unicode in ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]:
                                 if Global_objects.accountinformationinput.max_caracteres > 0:
