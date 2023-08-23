@@ -42,6 +42,7 @@ class TextInputBox:
         self.color_active = active_color
         self.color_passive = passive_color
         self.color = self.color_passive
+        # Vérifie si on peut input du texte
         self.active = False
         self.base_size = base_size
         self.adaptative_size = adaptative
