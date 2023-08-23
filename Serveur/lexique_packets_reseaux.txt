@@ -1,0 +1,24 @@
+Rappel :
+
+Un paquet est une chaine de caractère qui est envoyé par un serveur à un client ou par un client à un serveur.
+Dans ce projet chaque paquet aura un TYPE qui permettra de determiner à quoi sert le paquet et un MESSAGE qui incarne le corps principal du paquet.
+
+le type et le message sont séparés SYSTEMATIQUEMENT par le premier symbole "=" du paquet.
+
+exemple "join_lobby=123354" 
+
+les différents types existants sont les suivants :
+
+get_lobbys   = "" :         envoyé par le client qui veut avoir les informations des lobbys dispos
+join_lobby   = "lobby id" : client souhaitant rejoindre un lobby avec l'id *lobby_id
+create_lobby = "[arguments du lobby]" : client souhaitant creer un lobby. le message est sous forme d'une liste respectant l'ordre des arguments des lobbys.
+get_players_pseudos = "" : un client souhaitant récupérer les noms des joueurs présents envoyés sous forme de liste.
+players_count = "" : client souhaitant récupérer le nombre de joueurs du lobby
+
+lobbys = "[liste des lobbys]" : envoyé par le serveur, liste des informations principales de chaque lobby public
+redirect = "host:port" : envoyé par le serveur souhaitant rediriger le client à un lobby
+404_lobby_not_exist = "id lobby" : renvoyé lorsque l'id de lobby demandé n'existe pas (lobbys publics et privés)
+players_pseudos = "[nom des joueurs]" : lobby envoyant la liste des pseudos des joueurs présents
+players_count = "count" : lobby envoyant le nombre de joueurs présents
+new_player_joined = "nom du joueur" : envoyé par le lobby à l'arrivée d'un nouveau joueur, le client va alors se créer un message d'arrivée de nouveau joueur
+
