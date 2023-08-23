@@ -9,7 +9,8 @@ class Round:
     """
         Represent a round (pre-flop to river) and manage winner players ... 
 
-        important : deck est la pioche de cartes avec laquelle on va créer les mains et distributions   
+        important : deck est la pioche de cartes avec laquelle on va créer les mains et distributions 
+        hand_combinations est un dictionnaire qui associe un player_id à sa HandCombination c'est ce qui permettra de tout comparer à la fin  
     
     """
     def __init__(self, players : list, dealer_id : int) -> None:
@@ -18,6 +19,8 @@ class Round:
 
         self.deck = new_shuffled_deck()
         self.board = Board()
+
+        self.hand_combinations = {}
 
 
     def start(self):
@@ -45,6 +48,27 @@ class Round:
             new_hand = Hand(new_hand_list)
             player.set_hand(new_hand)
 
+    def set_hand_combinations(self):
+        for pl in self.players:
+            pl_id = pl.get_id()
+            pl_hand = pl.get_hand()
+
+            self.hand_combinations[pl_id] = get_best_combination(board=self.board, hand=pl_hand)[1] #le [1] permet d'avoir l'objet HandCombination et pas la str qui donne le titre de la combination
+
+    def players_best_combination(self):
+        hand_combinations = [el for el in self.hand_combinations.values()]
+        best_hand_combination = max(hand_combinations)
+        best_players_combination = []
+
+        for pl_id in self.hand_combinations.keys():
+            if not self.hand_combinations[pl_id] < best_hand_combination:
+                best_players_combination.append(pl_id)
+                
+        return best_players_combination
+
+
+
+
 
 
 def new_shuffled_deck():
@@ -55,6 +79,15 @@ def new_shuffled_deck():
 
 
 def get_best_combination(board : Board, hand : Hand):
+    """Renvoie à partir d'un board et d'une hand la meilleure HandCombination possible.
+
+    Args:
+        board (Board): _description_
+        hand (Hand): _description_
+
+    Returns:
+        _type_: Tuple(nom de la combinaison, HandCombination correspondante)
+    """
     
     best_combination = is_royal_flush(board=board, hand=hand)
 
@@ -118,6 +151,15 @@ def check_winner_hand(board : Board , hands : tuple):
 
 
 def is_royal_flush(hand : Hand, board : Board):
+    """Si le hand et le board forment une quinte flush royale renvoie True et le HandCombination correspondante. False sinon
+
+    Args:
+        hand (Hand): main du joueur
+        board (Board): cartes communes objet Board
+
+    Returns:
+        _type_: renvoie un Booléen et si True renvoie le HandCombination correspondant à la quinte flush
+    """
     board_list = board.get_board()
     hand_list = hand.get_hand()
     seven_cards_player = board_list+hand_list

@@ -82,6 +82,23 @@ class Game:
 
         dealer_id = self.players[self.dealer_index].get_id()
         self.dealer_id = dealer_id
+
+    def is_game_winner(self):
+        """renvoie True si quelqun a gagné la game (dernier joueur avec des jetons) et l'id du joueur. False sinon
+        """
+        alive_players_count = 0
+        alive_players = []
+        for pl in self.players:
+            pl_id = pl.get_id()
+            if self.players_chips[pl_id] > 0:
+                alive_players.append(pl_id)
+
+        alive_players_count = len(alive_players)
+        if alive_players_count == 1:
+            return True, alive_players[0]
+        else:
+            return False
+
         
     def force_stop(self):
         """intervient en cas d'arret forcé de la game par le lobby, va immédiatement ajouter les chips à la banque du joueur et déconnecter tout le monde
