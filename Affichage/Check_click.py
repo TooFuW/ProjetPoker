@@ -5,6 +5,7 @@ import pygame
 import sys
 import Global_objects
 from HUD_State_class import *
+from network import *
 
 
 # Permet de savoir si les paramètres en jeu sont actifs pour bloquer les interactions avec le reste lorsque le menu des paramètres est actif
@@ -22,6 +23,7 @@ def check_click(Button):
     if Global_objects.game_settings_enabled is False:
         # Lorsque le bouton PLAY est cliqué
         if Button.fonction == "play":
+            ask_lobbys(Global_objects.client_socket)
             Global_objects.game_state.back_pile.append(Global_objects.game_state.state)
             Global_objects.game_state.state = "Lobby Menu"
         # Lorsque le bouton SETTINGS est cliqué
