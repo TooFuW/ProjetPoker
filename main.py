@@ -29,8 +29,8 @@ clock = pygame.time.Clock()
 server_list = [["Table 1", "0/5", "50/100", "15K", "25K", "ID1"], ["Table 2", "1/6", "50/100", "10K", "20K", "ID2"], ["Table 3", "2/7", "50/100", "20K", "30K", "ID3"], ["Table 4", "3/8", "50/100", "5K", "15K", "ID4"], ["Table 5", "4/9", "50/100", "8K", "18K", "ID5"], ["Table 6", "5/9", "50/100", "8K", "18K", "ID6"], ["Table 7", "6/9", "50/100", "11K", "21K", "ID7"], ["Table 8", "7/9", "50/100", "18K", "28K", "ID8"], ["Table 9", "8/9", "50/100", "12K", "22K", "ID9"], ["Table 10", "9/9", "50/100", "3K", "13K", "ID10"], ["Table 11", "0/6", "50/100", "15K", "25K", "ID11"], ["Table 12", "1/7", "50/100", "10K", "20K", "ID12"], ["Table 13", "2/8", "50/100", "20K", "30K", "ID13"], ["Table 14", "3/9", "50/100", "5K", "15K", "ID14"], ["Table 15", "4/9", "50/100", "8K", "18K", "ID15"], ["Table 16", "5/9", "50/100", "8K", "18K", "ID16"], ["Table 17", "6/9", "50/100", "11K", "21K", "ID17"], ["Table 18", "7/9", "50/100", "18K", "28K", "ID18"], ["Table 19", "8/9", "50/100", "12K", "22K", "ID19"], ["Table 20", "9/9", "50/100", "3K", "13K", "ID20"]]
 
 # Chargement de l'image de fond
-pokertablebackground = pygame.image.load("PokerBackground.jpg")
-fond = pygame.transform.scale(pokertablebackground, (screen_width, screen_height))
+pokerbackground = pygame.image.load("PokerBackground.jpg")
+fond = pygame.transform.scale(pokerbackground, (screen_width, screen_height))
 
 # Chargement du logo du jeu
 logojeu = pygame.image.load("PokerBackground.jpg")
@@ -45,6 +45,10 @@ logomwte_rect.topleft = (width_scale(10, largeur_actuelle), height_scale(890, ha
 # Chargement de la photo de profil du joueur
 pdpplayer = pygame.image.load("logo mwte.jpg")
 pdpplayer = pygame.transform.scale(pdpplayer, (width_scale(300, largeur_actuelle), height_scale(300, hauteur_actuelle)))
+
+# Chargemen de l'image de fonc en jeu
+pokertablebackground = pygame.image.load("Poker_Table.jpg")
+tablefond = pygame.transform.scale(pokerbackground, (screen_width, screen_height))
 
 # Initialisation de la fenêtre actuelle
 game_state = HUD_State(largeur_actuelle, hauteur_actuelle, screen, fond, logojeu, logomwte, logomwte_rect, pdpplayer)
@@ -148,43 +152,3 @@ while True:
     game_state.state_manager()
     # Limite les FPS à 60
     clock.tick(120)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#fonction importante pour plus tard à laisser en bas 
-def str_to_list(string: str):   #fonctionne seulement sur une liste supposée valide
-    liste = []
-    string = string.removeprefix("[")
-    string = string.removesuffix("]")
-
-    return string.split(",")
