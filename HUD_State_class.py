@@ -50,7 +50,7 @@ class HUD_State:
         # Page par défaut dans le menu des paramètres
         self.setting_page = 1
         # Valeur par défaut du curseur de volume
-        self.cursor_width = 650
+        self.cursor_width = width_scale(650, self.largeur_actuelle)
         self.is_setting_volume = False
     
     def mainmenu(self):
@@ -229,8 +229,8 @@ class HUD_State:
             pygame.draw.rect(self.screen, "#475F77", pygame.Rect((width_scale(280, self.largeur_actuelle), height_scale(180, self.hauteur_actuelle)), (width_scale(140, self.largeur_actuelle), height_scale(50, self.hauteur_actuelle))), border_radius = 3)
             self.screen.blit(text_surf, (width_scale(290, self.largeur_actuelle), height_scale(190, self.hauteur_actuelle)))
             # Création du curseur de volume et de la barre derrière
-            volume_cursor = pygame.draw.circle(self.screen, "#475F77", (width_scale(self.cursor_width, self.largeur_actuelle), height_scale(205, self.hauteur_actuelle)), 15)
             pygame.draw.rect(self.screen, "#475F77", pygame.Rect((width_scale(450, self.largeur_actuelle), height_scale(200, self.hauteur_actuelle)), (width_scale(200, self.largeur_actuelle), height_scale(10, self.hauteur_actuelle))), border_radius = 6)
+            volume_cursor = pygame.draw.circle(self.screen, "#475F77", (self.cursor_width, height_scale(205, self.hauteur_actuelle)), 15)
             mouse_pos = pygame.mouse.get_pos()
             # On change la pos x du curseur de volume lorsque l'on clique dessus, sans dépasser les bordures
             if volume_cursor.collidepoint(mouse_pos):
