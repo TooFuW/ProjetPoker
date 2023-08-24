@@ -1,6 +1,6 @@
 from socket import *
 from threading import *
-from strtotuple import *
+from str_to_tuple import *
 from random import *
 from str_to_list import *
 import Global_objects

@@ -16,7 +16,7 @@ class HUD_State:
     """Classe HUD_State pour gérer l'interface active (https://www.youtube.com/watch?v=j9yMFG3D7fg)
     """
 
-    def __init__(self, largeur_actuelle : int, hauteur_actuelle : int, screen : pygame.Surface, fond : pygame.Surface, logojeu : pygame.Surface, logomwte : pygame.Surface, logomwte_rect : pygame.Rect, pdpplayer : pygame.Surface):
+    def __init__(self, largeur_actuelle : int, hauteur_actuelle : int, screen : pygame.Surface, fond : pygame.Surface, logojeu : pygame.Surface, logomwte : pygame.Surface, logomwte_rect : pygame.Rect, pdpplayer : pygame.Surface, table_fond : pygame.Surface):
         """Initialisation de l'état de l'interface
 
         Args:
@@ -28,12 +28,14 @@ class HUD_State:
             logomwte (pygame.Surface): Logo MWTE
             logomwte_rect (pygame.Rect): Partie clickable du logo MWTE
             pdpplayer (pygame.Surface): PDP de l'utilisateur
+            table_fond (pygame.Surface): Fond d'écran en jeu
         """
         self.fond = fond
         self.logojeu = logojeu
         self.logomwte = logomwte
         self.logomwte_rect = logomwte_rect
         self.pdpplayer = pdpplayer
+        self.table_fond = table_fond
         self.largeur_actuelle = largeur_actuelle
         self.hauteur_actuelle = hauteur_actuelle
         self.screen = screen
@@ -415,11 +417,11 @@ class HUD_State:
 
         # Dessine l'image de fond sur la self.screen de l'écran (IMPORANT CAR SE SUPERPOSE A L'INTERFACE PRECEDENT ET PERMET DE "L'EFFACER")
         self.screen.fill("green")
+        self.screen.blit(self.table_fond, (0, 0))
 
         # Affichage des infos de la table sélectionnée en placeholder
         gui_font = pygame.font.SysFont("Roboto", width_scale(40, self.largeur_actuelle))
         text_surf = gui_font.render(self.server_test, True, "#FFFFFF")
-        pygame.draw.rect(self.screen, "#475F77", pygame.Rect((width_scale(500, self.largeur_actuelle), height_scale(500, self.hauteur_actuelle)), (width_scale(800, self.largeur_actuelle), height_scale(50, self.hauteur_actuelle))), border_radius = 3)
         self.screen.blit(text_surf, (width_scale(510, self.largeur_actuelle), height_scale(510, self.hauteur_actuelle)))
 
         # Affichage de la zone qui comportera les actions du joueur
@@ -438,7 +440,7 @@ class HUD_State:
             pygame.draw.rect(self.setting_background_surface, (220, 220, 220, 75), (0, 0, self.largeur_actuelle, self.hauteur_actuelle))
             self.screen.blit(self.setting_background_surface, (0, 0))
             # Cliquer sur le bouton BACK ferme la fenêtre purement et simplement
-            Global_objects.backbutton.draw()
+            Global_objects.leavegamebutton.draw()
 
         # Affichage des bouttons
         # Cliquer sur le bouton gamesettingsbutton affiche un menu de paramètres rapides pendant la partie

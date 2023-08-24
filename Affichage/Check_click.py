@@ -100,6 +100,10 @@ def check_click(Button):
     # Lorsque le bouton BACK (fléche retour) est cliqué
     if Button.fonction == "back":
         Global_objects.game_state.setting_page = 1
+        Global_objects.settingpage1button.initial_bottom_color = "#475F77"
+        Global_objects.settingpage1button.hovering_bottom_color = "#D74B4B"
+        Global_objects.settingpage2button.initial_bottom_color = "#354B5E"
+        Global_objects.settingpage3button.initial_bottom_color = "#354B5E"
         Global_objects.game_state.gamesettings = False
         Global_objects.game_state.state = Global_objects.game_state.back_pile.pop()
         Global_objects.game_settings_enabled = False
