@@ -440,7 +440,7 @@ class HUD_State:
             pygame.draw.rect(self.setting_background_surface, (220, 220, 220, 75), (0, 0, self.largeur_actuelle, self.hauteur_actuelle))
             self.screen.blit(self.setting_background_surface, (0, 0))
             # Cliquer sur le bouton BACK ferme la fenêtre purement et simplement
-            Global_objects.leavegamebutton.draw()
+            Global_objects.backbutton.draw()
 
         # Affichage des bouttons
         # Cliquer sur le bouton gamesettingsbutton affiche un menu de paramètres rapides pendant la partie
