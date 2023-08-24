@@ -59,8 +59,14 @@ if __name__ == "__main__":
     pdpplayer = pygame.image.load("Affichage\logo mwte.jpg")
     pdpplayer = pygame.transform.scale(pdpplayer, (width_scale(300, largeur_actuelle), height_scale(300, hauteur_actuelle)))
 
+    # Chargement de l'icône MUTE et SOUND:
+    iconmute = pygame.image.load("Affichage\mute_icon.png")
+    iconmute = pygame.transform.scale(iconmute, (width_scale(50, largeur_actuelle), height_scale(50, hauteur_actuelle)))
+    iconsound = pygame.image.load("Affichage\sound_icon.png")
+    iconsound = pygame.transform.scale(iconsound, (width_scale(50, largeur_actuelle), height_scale(50, hauteur_actuelle)))
+
     # Initialisation de la fenêtre actuelle
-    game_state = HUD_State(largeur_actuelle, hauteur_actuelle, screen, fond, logojeu, logomwte, logomwte_rect, pdpplayer, table_fond)
+    game_state = HUD_State(largeur_actuelle, hauteur_actuelle, screen, fond, logojeu, logomwte, logomwte_rect, pdpplayer, table_fond, iconmute, iconsound)
 
     # Création de tout les boutons utilisés
     # Création de l'objet accountbutton

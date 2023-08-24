@@ -31,6 +31,10 @@ def check_click(Button):
             Global_objects.game_state.back_pile.append(Global_objects.game_state.state)
             Global_objects.game_state.state = "Setting Menu"
             Global_objects.game_state.setting_page = 1
+            Global_objects.settingpage1button.initial_bottom_color = "#475F77"
+            Global_objects.settingpage1button.hovering_bottom_color = "#D74B4B"
+            Global_objects.settingpage2button.initial_bottom_color = "#354B5E"
+            Global_objects.settingpage3button.initial_bottom_color = "#354B5E"
         # Lorsque le bouton ACCOUNT est cliqué
         elif Button.fonction == "account":
             Global_objects.game_state.back_pile.append(Global_objects.game_state.state)
