@@ -49,8 +49,8 @@ class HUD_State:
         self.state = "Main Menu"
         # pile pour le bouton BACK
         self.back_pile = []
-        # Savoir si on clique sur le logo de MWTE pour ouvrir le site web
-        self.is_pressing_logomwte = False
+        # Savoir si on clique sur quelque chose (utilisable une fois par page sinon ça va se mélanger)
+        self.is_pressing = False
         # Placeholder de la description des serveurs lorsqu'on clique dessus
         self.server_test = "Loading ..."
         # Savoir si on affiche ou non le menu des paramètres en jeu pour gérer l'interface
@@ -91,13 +91,13 @@ class HUD_State:
             self.screen.blit(text_surf, (mouse_pos[0], mouse_pos[1] + 20))
             # On gére le cas où on clique sur le logo pour ouvrir UNE SEULE FOIS notre site web
             if pygame.mouse.get_pressed()[0]:
-                self.is_pressing_logomwte = True
+                self.is_pressing = True
             else:
-                if self.is_pressing_logomwte == True:
-                    self.is_pressing_logomwte = False
+                if self.is_pressing == True:
+                    self.is_pressing = False
                     webbrowser.open("https://mwtestudio.wixsite.com/mwte-studio")
         else:
-            self.is_pressing_logomwte = False
+            self.is_pressing = False
         
         # Affichage des bouttons
         # Cliquer sur le bouton PLAY ouvre l'interface présentant les lobbys disponibles
@@ -249,16 +249,16 @@ class HUD_State:
             if self.is_setting_volume is False:
                 if volume_icon.collidepoint(mouse_pos):
                     if pygame.mouse.get_pressed()[0]:
-                        self.is_pressing_logomwte = True
+                        self.is_pressing = True
                     else:
-                        if self.is_pressing_logomwte is True:
+                        if self.is_pressing is True:
                             if self.sound_on is True:
                                 self.cursor_width = width_scale(499, self.largeur_actuelle)
                             elif self.sound_on is False:
                                 self.cursor_width = width_scale(701, self.largeur_actuelle)
-                            self.is_pressing_logomwte = False
+                            self.is_pressing = False
                 else:
-                    self.is_pressing_logomwte = False
+                    self.is_pressing = False
             # Création du curseur de volume et de la barre derrière
             pygame.draw.rect(self.screen, "#475F77", pygame.Rect((width_scale(500, self.largeur_actuelle), height_scale(200, self.hauteur_actuelle)), (width_scale(200, self.largeur_actuelle), height_scale(10, self.hauteur_actuelle))), border_radius = 6)
             volume_cursor = pygame.draw.circle(self.screen, "#475F77", (self.cursor_width, height_scale(205, self.hauteur_actuelle)), 15)
