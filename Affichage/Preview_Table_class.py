@@ -3,7 +3,6 @@
 
 import pygame
 from Screen_adaptation import *
-import Global_objects
 import Button_class
 
 
@@ -29,7 +28,7 @@ class Preview_Table:
         self.width = width_scale(500*scale, largeur_actuelle)
         self.height = height_scale(500*scale, hauteur_actuelle)
         # Création de l'objet jointablebutton
-        self.jointablebutton = Button_class.Button(self.largeur_actuelle, self.hauteur_actuelle, self.screen, "join table", "JOIN", "Roboto", 50, "#475F77", "#354B5E", "#D74B4B", "#354B5E", self.width - 350, self.height - 430, (self.x + 180, self.y + 420), 6, 10)
+        self.jointablebutton = Button_class.Button(self.largeur_actuelle, self.hauteur_actuelle, self.screen, "join table", "JOIN", "Roboto", 50, "#475F77", "#354B5E", "#D74B4B", "#354B5E", 500*scale - 350, 500*scale - 430, (pos[0] + 180, pos[1] + 420), 6, 10)
 
     def draw(self):
         """Génération/affichage de la preview
