@@ -16,7 +16,7 @@ class HUD_State:
     """Classe HUD_State pour gérer l'interface active (https://www.youtube.com/watch?v=j9yMFG3D7fg)
     """
 
-    def __init__(self, largeur_actuelle : int, hauteur_actuelle : int, screen : pygame.Surface, fond : pygame.Surface, logojeu : pygame.Surface, logomwte : pygame.Surface, logomwte_rect : pygame.Rect, pdpplayer : pygame.Surface):
+    def __init__(self, largeur_actuelle : int, hauteur_actuelle : int, screen : pygame.Surface, fond : pygame.Surface, logojeu : pygame.Surface, logomwte : pygame.Surface, logomwte_rect : pygame.Rect, pdpplayer : pygame.Surface, table_fond : pygame.Surface, iconmute : pygame.Surface, iconsound : pygame.Surface):
         """Initialisation de l'état de l'interface
 
         Args:
@@ -28,21 +28,29 @@ class HUD_State:
             logomwte (pygame.Surface): Logo MWTE
             logomwte_rect (pygame.Rect): Partie clickable du logo MWTE
             pdpplayer (pygame.Surface): PDP de l'utilisateur
+            table_fond (pygame.Surface): Fond d'écran en jeu
+            iconmute (pygame.Surface): Icône bouton MUTE
+            iconsound (pygame.Surface): Icône bouton SOUND
         """
         self.fond = fond
         self.logojeu = logojeu
         self.logomwte = logomwte
         self.logomwte_rect = logomwte_rect
         self.pdpplayer = pdpplayer
+        self.table_fond = table_fond
         self.largeur_actuelle = largeur_actuelle
         self.hauteur_actuelle = hauteur_actuelle
         self.screen = screen
+        # On gére l'icône de son/mute
+        self.sound_on = True
+        self.iconmute = iconmute
+        self.iconsound = iconsound
         # self.state définit l'état actuel de l'interface (qui est par défaut Main Menu)
         self.state = "Main Menu"
         # pile pour le bouton BACK
         self.back_pile = []
-        # Savoir si on clique sur le logo de MWTE pour ouvrir le site web
-        self.is_pressing_logomwte = False
+        # Savoir si on clique sur quelque chose (utilisable une fois par page sinon ça va se mélanger)
+        self.is_pressing = False
         # Placeholder de la description des serveurs lorsqu'on clique dessus
         self.server_test = "Loading ..."
         # Savoir si on affiche ou non le menu des paramètres en jeu pour gérer l'interface
@@ -50,8 +58,10 @@ class HUD_State:
         # Page par défaut dans le menu des paramètres
         self.setting_page = 1
         # Valeur par défaut du curseur de volume
-        self.cursor_width = width_scale(650, self.largeur_actuelle)
+        self.cursor_width = width_scale(700, self.largeur_actuelle)
         self.is_setting_volume = False
+        # Savoir si une table a été sélectionnée ou non (self.table_selected contient les infos de la table si oui, None si non)
+        self.table_selected = None
     
     def mainmenu(self):
         """mainmenu est la fonction qui fait tourner/afficher le menu principal
@@ -81,11 +91,13 @@ class HUD_State:
             self.screen.blit(text_surf, (mouse_pos[0], mouse_pos[1] + 20))
             # On gére le cas où on clique sur le logo pour ouvrir UNE SEULE FOIS notre site web
             if pygame.mouse.get_pressed()[0]:
-                self.is_pressing_logomwte = True
+                self.is_pressing = True
             else:
-                if self.is_pressing_logomwte == True:
-                    self.is_pressing_logomwte = False
+                if self.is_pressing == True:
+                    self.is_pressing = False
                     webbrowser.open("https://mwtestudio.wixsite.com/mwte-studio")
+        else:
+            self.is_pressing = False
         
         # Affichage des bouttons
         # Cliquer sur le bouton PLAY ouvre l'interface présentant les lobbys disponibles
@@ -178,11 +190,11 @@ class HUD_State:
         # On affiche un texte au-dessus de la box qui indique ce que cette dernière fait
         gui_font = pygame.font.SysFont("Roboto", 50)
         text_surf = gui_font.render("Private Table Code", True, "#000000")
-        text_rect = text_surf.get_rect(center = pygame.Rect((width_scale(1445, self.largeur_actuelle), height_scale(735, self.hauteur_actuelle)), (width_scale(150, self.largeur_actuelle), height_scale(75, self.hauteur_actuelle))).center)
-        self.screen.blit(text_surf, text_rect)
+        self.screen.blit(text_surf, (width_scale(1370, self.largeur_actuelle), height_scale(850, self.hauteur_actuelle)))
 
-        # On crée la preview des tables
-        Global_objects.previewlobbys.draw()
+        if self.table_selected is not None:
+            # On crée la preview des tables
+            Global_objects.previewlobbys.draw()
         
         # Met à jour l'affichage de l'interface
         pygame.display.update()
@@ -220,18 +232,36 @@ class HUD_State:
         self.screen.blit(transparent_surface, (width_scale(260, self.largeur_actuelle), height_scale(160, self.hauteur_actuelle)))
         self.screen.blit(transparent_surface, (width_scale(260, self.largeur_actuelle), height_scale(160, self.hauteur_actuelle)))
         self.screen.blit(transparent_surface, (width_scale(260, self.largeur_actuelle), height_scale(160, self.hauteur_actuelle)))
+        mouse_pos = pygame.mouse.get_pos()
         # Page 1
         if self.setting_page == 1:
             # Paramètre d'activation/désactivation de la musique
             # Affichage du nom du paramètre VOLUME dans une box
             gui_font = pygame.font.SysFont("Roboto", width_scale(50, self.largeur_actuelle))
             text_surf = gui_font.render("Volume", True, "#FFFFFF")
-            pygame.draw.rect(self.screen, "#475F77", pygame.Rect((width_scale(280, self.largeur_actuelle), height_scale(180, self.hauteur_actuelle)), (width_scale(140, self.largeur_actuelle), height_scale(50, self.hauteur_actuelle))), border_radius = 3)
+            pygame.draw.rect(self.screen, "#475F77", pygame.Rect((width_scale(280, self.largeur_actuelle), height_scale(180, self.hauteur_actuelle)), (width_scale(190, self.largeur_actuelle), height_scale(50, self.hauteur_actuelle))), border_radius = 3)
             self.screen.blit(text_surf, (width_scale(290, self.largeur_actuelle), height_scale(190, self.hauteur_actuelle)))
+            # On gére l'affichage et les interactions avec l'icône de mute du son
+            if self.sound_on is True:
+                volume_icon = self.screen.blit(self.iconsound, (width_scale(420, self.largeur_actuelle), height_scale(180, self.hauteur_actuelle)))
+            elif self.sound_on is False:
+                volume_icon = self.screen.blit(self.iconmute, (width_scale(420, self.largeur_actuelle), height_scale(180, self.hauteur_actuelle)))
+            if self.is_setting_volume is False:
+                if volume_icon.collidepoint(mouse_pos):
+                    if pygame.mouse.get_pressed()[0]:
+                        self.is_pressing = True
+                    else:
+                        if self.is_pressing is True:
+                            if self.sound_on is True:
+                                self.cursor_width = width_scale(499, self.largeur_actuelle)
+                            elif self.sound_on is False:
+                                self.cursor_width = width_scale(701, self.largeur_actuelle)
+                            self.is_pressing = False
+                else:
+                    self.is_pressing = False
             # Création du curseur de volume et de la barre derrière
-            pygame.draw.rect(self.screen, "#475F77", pygame.Rect((width_scale(450, self.largeur_actuelle), height_scale(200, self.hauteur_actuelle)), (width_scale(200, self.largeur_actuelle), height_scale(10, self.hauteur_actuelle))), border_radius = 6)
+            pygame.draw.rect(self.screen, "#475F77", pygame.Rect((width_scale(500, self.largeur_actuelle), height_scale(200, self.hauteur_actuelle)), (width_scale(200, self.largeur_actuelle), height_scale(10, self.hauteur_actuelle))), border_radius = 6)
             volume_cursor = pygame.draw.circle(self.screen, "#475F77", (self.cursor_width, height_scale(205, self.hauteur_actuelle)), 15)
-            mouse_pos = pygame.mouse.get_pos()
             # On change la pos x du curseur de volume lorsque l'on clique dessus, sans dépasser les bordures
             if volume_cursor.collidepoint(mouse_pos):
                 if pygame.mouse.get_pressed()[0]:
@@ -244,12 +274,22 @@ class HUD_State:
                     Global_objects.buttons_interactibles = True
                 else:
                     self.cursor_width = mouse_pos[0]
-                    if self.cursor_width > 650:
-                        self.cursor_width = 650
-                    elif self.cursor_width < 450:
-                        self.cursor_width = 450
+                    if self.cursor_width > width_scale(700, self.largeur_actuelle):
+                        self.cursor_width = width_scale(700, self.largeur_actuelle)
+                    elif self.cursor_width < width_scale(500, self.largeur_actuelle):
+                        self.cursor_width = width_scale(500, self.largeur_actuelle)
+                        self.sound_on = False
+                    elif self.cursor_width > width_scale(500, self.largeur_actuelle):
+                        self.sound_on = True
+            if self.cursor_width > width_scale(700, self.largeur_actuelle):
+                self.cursor_width = width_scale(700, self.largeur_actuelle)
+            elif self.cursor_width < width_scale(500, self.largeur_actuelle):
+                self.cursor_width = width_scale(500, self.largeur_actuelle)
+                self.sound_on = False
+            elif self.cursor_width > width_scale(500, self.largeur_actuelle):
+                self.sound_on = True
             # On récupère le volume actuel
-            Global_objects.volume_music = (self.cursor_width - 450) / (650 - 450)
+            Global_objects.volume_music = (self.cursor_width - width_scale(500, self.largeur_actuelle)) / (width_scale(700, self.largeur_actuelle) - width_scale(500, self.largeur_actuelle))
         # Page 2
         elif self.setting_page == 2:
             # Temporaire
@@ -415,11 +455,11 @@ class HUD_State:
 
         # Dessine l'image de fond sur la self.screen de l'écran (IMPORANT CAR SE SUPERPOSE A L'INTERFACE PRECEDENT ET PERMET DE "L'EFFACER")
         self.screen.fill("green")
+        self.screen.blit(self.table_fond, (0, 0))
 
         # Affichage des infos de la table sélectionnée en placeholder
         gui_font = pygame.font.SysFont("Roboto", width_scale(40, self.largeur_actuelle))
         text_surf = gui_font.render(self.server_test, True, "#FFFFFF")
-        pygame.draw.rect(self.screen, "#475F77", pygame.Rect((width_scale(500, self.largeur_actuelle), height_scale(500, self.hauteur_actuelle)), (width_scale(800, self.largeur_actuelle), height_scale(50, self.hauteur_actuelle))), border_radius = 3)
         self.screen.blit(text_surf, (width_scale(510, self.largeur_actuelle), height_scale(510, self.hauteur_actuelle)))
 
         # Affichage de la zone qui comportera les actions du joueur

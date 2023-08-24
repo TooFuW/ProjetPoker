@@ -31,6 +31,10 @@ def check_click(Button):
             Global_objects.game_state.back_pile.append(Global_objects.game_state.state)
             Global_objects.game_state.state = "Setting Menu"
             Global_objects.game_state.setting_page = 1
+            Global_objects.settingpage1button.initial_bottom_color = "#475F77"
+            Global_objects.settingpage1button.hovering_bottom_color = "#D74B4B"
+            Global_objects.settingpage2button.initial_bottom_color = "#354B5E"
+            Global_objects.settingpage3button.initial_bottom_color = "#354B5E"
         # Lorsque le bouton ACCOUNT est cliqué
         elif Button.fonction == "account":
             Global_objects.game_state.back_pile.append(Global_objects.game_state.state)
@@ -94,15 +98,23 @@ def check_click(Button):
         # Lorsqu'un bouton de serveur est cliqué
         elif Button.fonction == "server":
             if Global_objects.game_state.state == "Lobby Menu":
-                Global_objects.game_state.back_pile = ["Main Menu"]
-                Global_objects.game_state.state = "Game Menu"
                 Global_objects.game_state.server_test = Button.text
+                Global_objects.game_state.table_selected = Button.text.split("          ")
+        elif Button.fonction == "join table":
+            Global_objects.game_state.back_pile = ["Main Menu"]
+            Global_objects.game_state.state = "Game Menu"
+            Global_objects.game_state.table_selected = None
     # Lorsque le bouton BACK (fléche retour) est cliqué
     if Button.fonction == "back":
         Global_objects.game_state.setting_page = 1
+        Global_objects.settingpage1button.initial_bottom_color = "#475F77"
+        Global_objects.settingpage1button.hovering_bottom_color = "#D74B4B"
+        Global_objects.settingpage2button.initial_bottom_color = "#354B5E"
+        Global_objects.settingpage3button.initial_bottom_color = "#354B5E"
         Global_objects.game_state.gamesettings = False
         Global_objects.game_state.state = Global_objects.game_state.back_pile.pop()
         Global_objects.game_settings_enabled = False
+        Global_objects.game_state.table_selected = None
     # Lorsque le bouton des paramètres en jeu est cliqué
     elif Button.fonction == "game settings":
         if Global_objects.game_state.gamesettings == False:
