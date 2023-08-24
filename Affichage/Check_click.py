@@ -100,10 +100,15 @@ def check_click(Button):
             if Global_objects.game_state.state == "Lobby Menu":
                 Global_objects.game_state.server_test = Button.text
                 Global_objects.game_state.table_selected = Button.text.split("          ")
+        # Lorsque le bouton JOIN est cliqué pour rejoindre la table sélectionnée
         elif Button.fonction == "join table":
             Global_objects.game_state.back_pile = ["Main Menu"]
             Global_objects.game_state.state = "Game Menu"
             Global_objects.game_state.table_selected = None
+        # Lorsque le bouton CREATE TABLE pour passer à la page de création de table
+        elif Button.fonction == "create table":
+            Global_objects.game_state.back_pile.append(Global_objects.game_state.state)
+            Global_objects.game_state.state = "Create Menu"
     # Lorsque le bouton BACK (fléche retour) est cliqué
     if Button.fonction == "back":
         Global_objects.game_state.setting_page = 1

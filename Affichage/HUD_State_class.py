@@ -446,8 +446,23 @@ class HUD_State:
         # Met à jour l'affichage de l'interface
         pygame.display.update()
 
+    def createtable(self):
+        """createtable est la fonction qui fait tourner/afficher l'interface de création de partie
+        """
+        # Rassemblement de tout les événements
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+
+        # Dessine l'image de fond sur la self.screen de l'écran (IMPORANT CAR SE SUPERPOSE A L'INTERFACE PRECEDENT ET PERMET DE "L'EFFACER")
+        self.screen.blit(self.fond, (0, 0))
+
+        # Met à jour l'affichage de l'interface
+        pygame.display.update()
+
     def gamemenu(self):
-        """historymenu est la fonction qui fait tourner/afficher le menu de l'historique des parties du compte actif
+        """game est la fonction qui fait tourner/afficher l'interface en jeu
         """
         # Rassemblement de tout les événements
         for event in pygame.event.get():
@@ -492,15 +507,18 @@ class HUD_State:
     def state_manager(self):
         """state_manager se charge d'afficher la bonne interface en fonction de l'état de self.state
         """
-        if self.state == "Main Menu":
-            self.mainmenu()
-        elif self.state == "Lobby Menu":
-            self.lobbymenu()
-        elif self.state == "Setting Menu":
-            self.settingmenu()
-        elif self.state == "Account Menu":
-            self.accountmenu()
-        elif self.state == "History Menu":
-            self.historymenu()
-        elif self.state == "Game Menu":
-            self.gamemenu()
+        match self.state:
+            case "Main Menu":
+                self.mainmenu()
+            case "Lobby Menu":
+                self.lobbymenu()
+            case "Setting Menu":
+                self.settingmenu()
+            case "Account Menu":
+                self.accountmenu()
+            case "History Menu":
+                self.historymenu()
+            case "Create Menu":
+                self.createtable()
+            case "Game Menu":
+                self.gamemenu()
