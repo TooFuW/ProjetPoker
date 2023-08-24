@@ -45,6 +45,7 @@ class HUD_State:
         self.sound_on = True
         self.iconmute = iconmute
         self.iconsound = iconsound
+        self.last_sound = 700
         # self.state définit l'état actuel de l'interface (qui est par défaut Main Menu)
         self.state = "Main Menu"
         # pile pour le bouton BACK
@@ -253,9 +254,10 @@ class HUD_State:
                     else:
                         if self.is_pressing is True:
                             if self.sound_on is True:
+                                self.last_sound = self.cursor_width
                                 self.cursor_width = width_scale(499, self.largeur_actuelle)
                             elif self.sound_on is False:
-                                self.cursor_width = width_scale(701, self.largeur_actuelle)
+                                self.cursor_width = self.last_sound
                             self.is_pressing = False
                 else:
                     self.is_pressing = False
