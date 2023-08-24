@@ -5,11 +5,15 @@ from threading import *
 from Hand import Hand
 from random import randint
 from strtotuple import strtotuple
+from Sit import Sit
+
 
 class Lobby :
     """
         Represent a lobby wich listen players on a port and start a game when the lobby is full
         Manage packet interactions in Games
+
+        Sits = liste de sièges pouvant être occupés ou non
 
     """
     def __init__(self,id : int, name : str,  capacity : int, cave : int, is_private : bool, host : str,port : int) -> None:
@@ -18,6 +22,9 @@ class Lobby :
         self.lobby_on = False
         self.is_game_starting = False
         self.players_ids = []
+
+        self.sits_number = capacity
+        self.sits = new_sits(self.sits_number)
 
         if type(name) == str and type(capacity) == int and type(cave) == int and type(is_private) == bool and type(host) == str and type(port) == int and type(id) == int:
             self.id = id
@@ -191,7 +198,15 @@ class Lobby :
         """En cas de demande de fermeture forcée. 
         Enclenche la fermeture forcée de la game en cours avant de déconnecter de force tous les joueurs puis s'eteindre.
         """
-        
+
+
+def new_sits(n : int):
+    sits = []
+    for i in range(n):
+        sit = Sit(i)
+        sits.append(sit)
+    return sits
+
 
 def on_player_deconnect(player : Player):
     pass

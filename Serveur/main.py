@@ -72,7 +72,6 @@ class Main:
 
                 case "get_lobbys":
                     lobbys = [lobby for lobby in self.lobbys if type(lobby) == int or (type(lobby) == Lobby and not lobby.is_private)]
-                    lobbys = lobbys
                     send_lobbys_public = Thread(target=send_lobbys, args=(socket, lobbys))
                     send_lobbys_public.start()
 
