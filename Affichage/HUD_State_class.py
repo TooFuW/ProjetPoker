@@ -54,6 +54,8 @@ class HUD_State:
         # Valeur par défaut du curseur de volume
         self.cursor_width = width_scale(650, self.largeur_actuelle)
         self.is_setting_volume = False
+        # Savoir si une table a été sélectionnée ou non (self.table_selected contient les infos de la table si oui, None si non)
+        self.table_selected = None
     
     def mainmenu(self):
         """mainmenu est la fonction qui fait tourner/afficher le menu principal
@@ -180,11 +182,11 @@ class HUD_State:
         # On affiche un texte au-dessus de la box qui indique ce que cette dernière fait
         gui_font = pygame.font.SysFont("Roboto", 50)
         text_surf = gui_font.render("Private Table Code", True, "#000000")
-        text_rect = text_surf.get_rect(center = pygame.Rect((width_scale(1445, self.largeur_actuelle), height_scale(735, self.hauteur_actuelle)), (width_scale(150, self.largeur_actuelle), height_scale(75, self.hauteur_actuelle))).center)
-        self.screen.blit(text_surf, text_rect)
+        self.screen.blit(text_surf, (width_scale(1370, self.largeur_actuelle), height_scale(850, self.hauteur_actuelle)))
 
-        # On crée la preview des tables
-        Global_objects.previewlobbys.draw()
+        if self.table_selected is not None:
+            # On crée la preview des tables
+            Global_objects.previewlobbys.draw()
         
         # Met à jour l'affichage de l'interface
         pygame.display.update()
