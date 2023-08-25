@@ -1,8 +1,7 @@
 from socket import *
 from threading import *
-from str_to_tuple import *
+from packet_separator import *
 from random import *
-from str_to_list import *
 import Global_objects
 
 host, port = ('localhost', 5566)
@@ -46,8 +45,8 @@ def recieve_data(client_socket : socket):
                 case "lobbys":
                     try:
                         global lobbys
-                        lobbys = str_to_lists_in_list(message)
-                        list_lobbys_convert_str(lobbys)
+                        lobbys = eval(message)
+                        eval(lobbys)
                         print(lobbys, type(lobbys))
                         Global_objects.lobbys_list = lobbys
                         for i in lobbys:

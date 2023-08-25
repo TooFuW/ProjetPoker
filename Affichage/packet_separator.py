@@ -11,7 +11,3 @@ def strtotuple(chaine):
         else:
             droite+=i
     return (gauche,droite)
-
-
-
-            

@@ -11,9 +11,8 @@ from HUD_State_class import *
 import Global_objects
 from socket import *
 from threading import *
-from str_to_tuple import *
+from packet_separator import *
 from random import *
-from str_to_list import *
 from network import *
 
 
