@@ -5,6 +5,7 @@ from threading import *
 from sqlite3 import *
 from random import randint
 import sys
+from packet_separator import packet_separator
 
 a = []
 print(sys.getsizeof(a))
@@ -62,7 +63,9 @@ class Main:
 
     def manage_data(self,packet : str, socket : socket):
         try:
-            data = eval(packet)
+            
+            data = packet_separator(packet)
+            
             header,body = data[0],data[1]
             
             match header:
@@ -212,8 +215,6 @@ def register(username,password):
 def session_id(username):
     # génère un cookie de session et le stocke dans une db
     return #retourne le session id
-
-
 
 
 if __name__ == "__main__":

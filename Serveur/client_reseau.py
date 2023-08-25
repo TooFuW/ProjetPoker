@@ -1,6 +1,7 @@
 from socket import *
 from threading import *
 from random import *
+from packet_separator import packet_separator
 
 
 
@@ -27,8 +28,10 @@ def recieve_data(client_socket : socket):
 
             message = data.decode("utf-8")
 
-            entete = eval(message)[0]
-            message = eval(message)[1]
+            message = packet_separator(message)
+
+            entete = message[0]
+            body = message[1]
 
             match entete:
 
@@ -36,7 +39,7 @@ def recieve_data(client_socket : socket):
                     break
 
                 case "newplayerconnect":
-                    print("\n\n <<  "+message+"  >> \n\n")
+                    print("\n\n <<  "+body+"  >> \n\n")
                 
                 case "startgame":
                     print("demarrage game") #a completer
@@ -44,7 +47,7 @@ def recieve_data(client_socket : socket):
                 case "lobbys":
                     try:
                         global lobbys
-                        lobbys = eval(message)
+                        lobbys = eval(body)
                         eval(lobbys)
                         print(lobbys, type(lobbys))
                         for i in lobbys:
@@ -54,8 +57,8 @@ def recieve_data(client_socket : socket):
 
                 case "redirect":
                     try:
-                        message = message.split(":")
-                        host,port = message[0],int(message[1])
+                        body = body.split(":")
+                        host,port = body[0],int(body[1])
                         client_socket_lobby = socket(AF_INET, SOCK_STREAM)
                         client_socket_lobby.connect((host, port))
                         print("Connecté au lobby.", host, port)
@@ -75,11 +78,11 @@ def recieve_data(client_socket : socket):
                     print("This lobby does not exist.")
 
                 case "players_pseudos":
-                    print(message)
+                    print(body)
                 case "players_count":
-                    print(message, "joueurs / 5")
+                    print(body, "joueurs / 5")
                 case "new_player_joined":
-                    print(message, "a rejoint le lobby !")
+                    print(body, "a rejoint le lobby !")
                     thread_players_count = Thread(target=envoi_message, args=[client_socket, "players_count="])
                     thread_players_count.start()
                     
