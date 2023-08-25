@@ -42,7 +42,7 @@ if __name__ == "__main__":
 
     # Chargement de l'image de fond en jeu
     pokertable = pygame.image.load("Affichage\PokerTable.png")
-    table_fond = pygame.transform.scale(pokertable, (width_scale(1500, largeur_actuelle), screen_height))
+    table_fond = pygame.transform.scale(pokertable, (screen_width, screen_height))
 
     # Chargement du logo du jeu
     logojeu = pygame.image.load("Affichage\PokerBackground.jpg")
@@ -65,7 +65,7 @@ if __name__ == "__main__":
     iconsound = pygame.transform.scale(iconsound, (width_scale(50, largeur_actuelle), height_scale(50, hauteur_actuelle)))
 
     # Initialisation de la fenêtre actuelle
-    game_state = HUD_State(largeur_actuelle, hauteur_actuelle, screen, fond, logojeu, logomwte, logomwte_rect, pdpplayer, pokertable, table_fond, iconmute, iconsound)
+    game_state = HUD_State(largeur_actuelle, hauteur_actuelle, screen, fond, logojeu, logomwte, logomwte_rect, pdpplayer, table_fond, iconmute, iconsound)
 
     # Création de tout les boutons utilisés
     # Création de l'objet accountbutton
@@ -114,7 +114,7 @@ if __name__ == "__main__":
     # Création de l'objet tablecodeinput
     tablecodeinput = TextInputBox(largeur_actuelle, hauteur_actuelle, screen, 150, (1360, 890), 400, 100, "#333333", "#888888", 400, False, 6, True)
     # Création de l'objet accountpseudoinput
-    accountpseudoinput = TextInputBox(largeur_actuelle, hauteur_actuelle, screen, 60, (685, 190), 600, 100, "#333333", "#475F77", 600, False, 10, False, False, "PSEUDO")
+    accountpseudoinput = TextInputBox(largeur_actuelle, hauteur_actuelle, screen, 60, (685, 190), 600, 100, "#333333", "#475F77", 600, False, 15, False, False, "PSEUDO")
     # Création de l'objet accountinformationinput
     accountinformationinput = TextInputBox(largeur_actuelle, hauteur_actuelle, screen, 60, (685, 315), 600, 650, "#333333", "#475F77", 600, False, 100, False, False, "INFORMATIONS")
 
