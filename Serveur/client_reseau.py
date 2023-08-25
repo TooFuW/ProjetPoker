@@ -1,8 +1,7 @@
 from socket import *
 from threading import *
-from strtotuple import *
 from random import *
-from str_to_list import *
+
 
 
 # ceci est le script qui représente les intéractions avec le serveur, il sera transposé avec la partie graphique
@@ -28,8 +27,8 @@ def recieve_data(client_socket : socket):
 
             message = data.decode("utf-8")
 
-            entete = strtotuple(message)[0]
-            message = strtotuple(message)[1]
+            entete = eval(message)[0]
+            message = eval(message)[1]
 
             match entete:
 
@@ -45,8 +44,8 @@ def recieve_data(client_socket : socket):
                 case "lobbys":
                     try:
                         global lobbys
-                        lobbys = str_to_lists_in_list(message)
-                        list_lobbys_convert_str(lobbys)
+                        lobbys = eval(message)
+                        eval(lobbys)
                         print(lobbys, type(lobbys))
                         for i in lobbys:
                             print(i, type(i))

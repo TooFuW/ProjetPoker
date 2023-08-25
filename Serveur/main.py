@@ -3,8 +3,6 @@ from Lobby import *
 from Player import *
 from threading import *
 from sqlite3 import *
-from strtotuple import strtotuple
-from str_to_list import *
 from random import randint
 import sys
 
@@ -64,7 +62,7 @@ class Main:
 
     def manage_data(self,packet : str, socket : socket):
         try:
-            data = strtotuple(packet)
+            data = eval(packet)
             header,body = data[0],data[1]
             
             match header:
@@ -96,8 +94,8 @@ class Main:
 
                 case "create_lobby":
                     try:
-                        body = str_to_list(body)
-                        name,capacity,cave, is_private = body[0],int(body[1]),int(body[2]),str_to_bool(body[3])
+                        body = eval(body)
+                        name,capacity,cave, is_private = body[0],int(body[1]),int(body[2]),eval(body[3])
                         print(body)
                     
                         # conditions vérification paramètres ...

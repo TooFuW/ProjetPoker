@@ -4,7 +4,6 @@ from Game import Game
 from threading import *
 from Hand import Hand
 from random import randint
-from strtotuple import strtotuple
 from Sit import Sit
 
 
@@ -91,7 +90,7 @@ class Lobby :
     
     def manage_data(self, socket : socket, data : str):
 
-        data = strtotuple(data)
+        data = eval(data)
         header,body = data[0],data[1]
 
         match header:
