@@ -16,7 +16,7 @@ class HUD_State:
     """Classe HUD_State pour gérer l'interface active (https://www.youtube.com/watch?v=j9yMFG3D7fg)
     """
 
-    def __init__(self, largeur_actuelle : int, hauteur_actuelle : int, screen : pygame.Surface, fond : pygame.Surface, logojeu : pygame.Surface, logomwte : pygame.Surface, logomwte_rect : pygame.Rect, pdpplayer : pygame.Surface, table_fond : pygame.Surface, iconmute : pygame.Surface, iconsound : pygame.Surface):
+    def __init__(self, largeur_actuelle : int, hauteur_actuelle : int, screen : pygame.Surface, fond : pygame.Surface, logojeu : pygame.Surface, logomwte : pygame.Surface, logomwte_rect : pygame.Rect, pdpplayer : pygame.Surface, pokertable : pygame.Surface, table_fond : pygame.Surface, iconmute : pygame.Surface, iconsound : pygame.Surface):
         """Initialisation de l'état de l'interface
 
         Args:
@@ -28,6 +28,7 @@ class HUD_State:
             logomwte (pygame.Surface): Logo MWTE
             logomwte_rect (pygame.Rect): Partie clickable du logo MWTE
             pdpplayer (pygame.Surface): PDP de l'utilisateur
+            pokertable (pygame.Surface): Fond d'écran non adapté d'une table
             table_fond (pygame.Surface): Fond d'écran en jeu
             iconmute (pygame.Surface): Icône bouton MUTE
             iconsound (pygame.Surface): Icône bouton SOUND
@@ -37,6 +38,7 @@ class HUD_State:
         self.logomwte = logomwte
         self.logomwte_rect = logomwte_rect
         self.pdpplayer = pdpplayer
+        self.pokertable = pokertable
         self.table_fond = table_fond
         self.largeur_actuelle = largeur_actuelle
         self.hauteur_actuelle = hauteur_actuelle
@@ -456,7 +458,7 @@ class HUD_State:
                 sys.exit()
 
         # Dessine l'image de fond sur la self.screen de l'écran (IMPORANT CAR SE SUPERPOSE A L'INTERFACE PRECEDENT ET PERMET DE "L'EFFACER")
-        self.screen.blit(self.fond, (0, 0))
+        self.screen.blit(self.pokertable, (0, 0))
 
         # Met à jour l'affichage de l'interface
         pygame.display.update()
