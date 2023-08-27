@@ -59,7 +59,7 @@ class HUD_State:
         # Page par défaut dans le menu des paramètres
         self.setting_page = 1
         # Valeur par défaut du curseur de volume
-        self.cursor_width = width_scale(700, self.largeur_actuelle)
+        self.cursor_width = width_scale(690, self.largeur_actuelle)
         self.is_setting_volume = False
         # Savoir si une table a été sélectionnée ou non (self.table_selected contient les infos de la table si oui, None si non)
         self.table_selected = None
@@ -242,11 +242,12 @@ class HUD_State:
             text_surf = gui_font.render("Volume", True, "#FFFFFF")
             pygame.draw.rect(self.screen, "#0000E0", pygame.Rect((width_scale(280, self.largeur_actuelle), height_scale(180, self.hauteur_actuelle)), (width_scale(450, self.largeur_actuelle), height_scale(50, self.hauteur_actuelle))), border_radius = 3)
             self.screen.blit(text_surf, (width_scale(290, self.largeur_actuelle), height_scale(190, self.hauteur_actuelle)))
-            # On gére l'affichage et les interactions avec l'icône de mute du son
-            if self.sound_on is True:
-                volume_icon = self.screen.blit(self.iconsound, (width_scale(420, self.largeur_actuelle), height_scale(180, self.hauteur_actuelle)))
-            elif self.sound_on is False:
+            # On gére l'affichage avec l'icône du son
+            if self.cursor_width <= 490 or self.sound_on is False:
                 volume_icon = self.screen.blit(self.iconmute, (width_scale(420, self.largeur_actuelle), height_scale(180, self.hauteur_actuelle)))
+            elif self.cursor_width > 490:
+                volume_icon = self.screen.blit(self.iconsound, (width_scale(420, self.largeur_actuelle), height_scale(180, self.hauteur_actuelle)))
+            # On gére l'utilisation/les interactions avec le bouton de son
             if self.is_setting_volume is False:
                 if volume_icon.collidepoint(mouse_pos):
                     if pygame.mouse.get_pressed()[0]:
@@ -256,8 +257,10 @@ class HUD_State:
                             if self.sound_on is True:
                                 self.last_sound = self.cursor_width
                                 self.cursor_width = width_scale(490, self.largeur_actuelle)
+                                self.sound_on = False
                             elif self.sound_on is False:
                                 self.cursor_width = self.last_sound
+                                self.sound_on = True
                             self.is_pressing = False
                 else:
                     self.is_pressing = False
@@ -276,6 +279,7 @@ class HUD_State:
                     Global_objects.buttons_interactibles = True
                 else:
                     self.cursor_width = mouse_pos[0]
+                    # On gére les cas où l'utilisateur pousserait le curseur en dehors de la barre de son
                     if self.cursor_width >= width_scale(690, self.largeur_actuelle):
                         self.cursor_width = width_scale(690, self.largeur_actuelle)
                     elif self.cursor_width <= width_scale(490, self.largeur_actuelle):
@@ -283,6 +287,7 @@ class HUD_State:
                         self.sound_on = False
                     elif self.cursor_width > width_scale(490, self.largeur_actuelle):
                         self.sound_on = True
+            # On vérifie en dehors du if les cas où l'utilisateur pousserait le curseur en dehors de la barre de son
             if self.cursor_width >= width_scale(690, self.largeur_actuelle):
                 self.cursor_width = width_scale(690, self.largeur_actuelle)
             elif self.cursor_width <= width_scale(490, self.largeur_actuelle):
@@ -470,9 +475,26 @@ class HUD_State:
         self.screen.blit(text_surf, (width_scale(1550, self.largeur_actuelle), height_scale(40, self.hauteur_actuelle)))
 
         # Affichage d'un arrière-plan noir transparent pour afficher les paramètres de la partie à selectionner
-        transparent_surface = pygame.Surface((width_scale(450, self.largeur_actuelle), height_scale(50, self.hauteur_actuelle)), pygame.SRCALPHA)
-        pygame.draw.rect(transparent_surface, (0, 0, 0, 128), (0, 0, 450, 50), border_radius = 5)
-        self.screen.blit(transparent_surface, (width_scale(180, self.largeur_actuelle), height_scale(100, self.hauteur_actuelle)))
+        transparent_surface = pygame.Surface((width_scale(450, self.largeur_actuelle), height_scale(100, self.hauteur_actuelle)), pygame.SRCALPHA)
+        pygame.draw.rect(transparent_surface, (0, 0, 0, 128), (0, 0, 450, 100), border_radius = 5)
+        self.screen.blit(transparent_surface, (width_scale(180, self.largeur_actuelle), height_scale(110, self.hauteur_actuelle)))
+        self.screen.blit(transparent_surface, (width_scale(180, self.largeur_actuelle), height_scale(260, self.hauteur_actuelle)))
+        self.screen.blit(transparent_surface, (width_scale(180, self.largeur_actuelle), height_scale(410, self.hauteur_actuelle)))
+        self.screen.blit(transparent_surface, (width_scale(180, self.largeur_actuelle), height_scale(560, self.hauteur_actuelle)))
+        self.screen.blit(transparent_surface, (width_scale(180, self.largeur_actuelle), height_scale(710, self.hauteur_actuelle)))
+        self.screen.blit(transparent_surface, (width_scale(180, self.largeur_actuelle), height_scale(860, self.hauteur_actuelle)))
+        self.screen.blit(transparent_surface, (width_scale(740, self.largeur_actuelle), height_scale(110, self.hauteur_actuelle)))
+        self.screen.blit(transparent_surface, (width_scale(740, self.largeur_actuelle), height_scale(260, self.hauteur_actuelle)))
+        self.screen.blit(transparent_surface, (width_scale(740, self.largeur_actuelle), height_scale(410, self.hauteur_actuelle)))
+        self.screen.blit(transparent_surface, (width_scale(740, self.largeur_actuelle), height_scale(560, self.hauteur_actuelle)))
+        self.screen.blit(transparent_surface, (width_scale(740, self.largeur_actuelle), height_scale(710, self.hauteur_actuelle)))
+        self.screen.blit(transparent_surface, (width_scale(740, self.largeur_actuelle), height_scale(860, self.hauteur_actuelle)))
+        self.screen.blit(transparent_surface, (width_scale(1300, self.largeur_actuelle), height_scale(110, self.hauteur_actuelle)))
+        self.screen.blit(transparent_surface, (width_scale(1300, self.largeur_actuelle), height_scale(260, self.hauteur_actuelle)))
+        self.screen.blit(transparent_surface, (width_scale(1300, self.largeur_actuelle), height_scale(410, self.hauteur_actuelle)))
+        self.screen.blit(transparent_surface, (width_scale(1300, self.largeur_actuelle), height_scale(560, self.hauteur_actuelle)))
+        self.screen.blit(transparent_surface, (width_scale(1300, self.largeur_actuelle), height_scale(710, self.hauteur_actuelle)))
+        self.screen.blit(transparent_surface, (width_scale(1300, self.largeur_actuelle), height_scale(860, self.hauteur_actuelle)))
 
         # Met à jour l'affichage de l'interface
         pygame.display.update()
