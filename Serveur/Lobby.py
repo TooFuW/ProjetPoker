@@ -4,12 +4,16 @@ from Game import Game
 from threading import *
 from Hand import Hand
 from random import randint
-from strtotuple import strtotuple
+from Sit import Sit
+from packet_separator import packet_separator
+
 
 class Lobby :
     """
         Represent a lobby wich listen players on a port and start a game when the lobby is full
         Manage packet interactions in Games
+
+        Sits = liste de sièges pouvant être occupés ou non
 
     """
     def __init__(self,id : int, name : str,  capacity : int, cave : int, is_private : bool, host : str,port : int) -> None:
@@ -18,6 +22,9 @@ class Lobby :
         self.lobby_on = False
         self.is_game_starting = False
         self.players_ids = []
+
+        self.sits_number = capacity
+        self.sits = new_sits(self.sits_number)
 
         if type(name) == str and type(capacity) == int and type(cave) == int and type(is_private) == bool and type(host) == str and type(port) == int and type(id) == int:
             self.id = id
@@ -83,8 +90,8 @@ class Lobby :
         thread_broadcast.start()
     
     def manage_data(self, socket : socket, data : str):
-
-        data = strtotuple(data)
+        
+        data = packet_separator(data)
         header,body = data[0],data[1]
 
         match header:
@@ -106,6 +113,14 @@ class Lobby :
                 envoi_packet_thread = Thread(target=self.send_packet, args=[packet, socket])
                 envoi_packet_thread.start()
 
+            case "get_sits_infos":
+                    try:
+
+                        send_sits_infos_thread = Thread(target=self.send_sits_infos, args=[socket])
+                        send_sits_infos_thread.start()
+
+                    except Exception as e:
+                        print(e)
 
                 
 
@@ -173,6 +188,29 @@ class Lobby :
             thread_new_player.join()
             print("packet broadcast envoyé.")
 
+    def send_sits_infos(self, conn : socket):
+        sits_infos = []
+        for sit in self.sits:
+            sit_infos = []
+            sit_infos.append(sit.get_sit_id())
+            if not sit.occupied:
+                sit_infos.append(None)
+                sits_infos.append(sit_infos)
+                continue
+
+            sit_infos.append(sit.get_player().get_pseudo())
+            sit_infos.append(sit.get_player().get_chips())
+            sit_infos.append("link to player account")
+
+            sits_infos.append(sit_infos)
+
+        sits_infos = str(sits_infos)
+        packet = "sits_infos="+sits_infos
+
+        thread_packet_send = Thread(target=self.send_packet, args=(conn,packet))
+        thread_packet_send.start()
+
+
     def see_connected_players(self):
         pass
 
@@ -191,7 +229,19 @@ class Lobby :
         """En cas de demande de fermeture forcée. 
         Enclenche la fermeture forcée de la game en cours avant de déconnecter de force tous les joueurs puis s'eteindre.
         """
-        
+
+
+def new_sits(n : int):
+    sits = []
+    for i in range(n):
+        sit = Sit(i)
+        sits.append(sit)
+    return sits
+
 
 def on_player_deconnect(player : Player):
+    pass
+
+
+if __name__ == "__main__":
     pass

@@ -1,4 +1,4 @@
-def strtotuple(chaine):
+def packet_separator(chaine):
     gauche=""
     droite=""
     premieregal=False
@@ -11,7 +11,3 @@ def strtotuple(chaine):
         else:
             droite+=i
     return (gauche,droite)
-
-
-
-            

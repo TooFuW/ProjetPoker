@@ -66,6 +66,9 @@ class Player:
     def get_hand(self) -> Hand:
         return self.hand
     
+    def get_chips(self) -> int:
+        return self.chips
+    
     def edit_pseudo(self, pseudo : str):
         self.pseudo = pseudo
     

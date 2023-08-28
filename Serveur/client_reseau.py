@@ -1,8 +1,8 @@
 from socket import *
 from threading import *
-from strtotuple import *
 from random import *
-from str_to_list import *
+from packet_separator import packet_separator
+
 
 
 # ceci est le script qui représente les intéractions avec le serveur, il sera transposé avec la partie graphique
@@ -12,6 +12,7 @@ lobbys = []
 
 global socket_lobby
 socket_lobby = None
+sits_info = None
 
 def envoi_message(client_socket : socket, msg : str):
     client_socket.send(msg.encode("utf8"))
@@ -28,8 +29,10 @@ def recieve_data(client_socket : socket):
 
             message = data.decode("utf-8")
 
-            entete = strtotuple(message)[0]
-            message = strtotuple(message)[1]
+            message = packet_separator(message)
+
+            entete = message[0]
+            body = message[1]
 
             match entete:
 
@@ -37,7 +40,7 @@ def recieve_data(client_socket : socket):
                     break
 
                 case "newplayerconnect":
-                    print("\n\n <<  "+message+"  >> \n\n")
+                    print("\n\n <<  "+body+"  >> \n\n")
                 
                 case "startgame":
                     print("demarrage game") #a completer
@@ -45,8 +48,7 @@ def recieve_data(client_socket : socket):
                 case "lobbys":
                     try:
                         global lobbys
-                        lobbys = str_to_lists_in_list(message)
-                        list_lobbys_convert_str(lobbys)
+                        lobbys = eval(body)
                         print(lobbys, type(lobbys))
                         for i in lobbys:
                             print(i, type(i))
@@ -55,8 +57,8 @@ def recieve_data(client_socket : socket):
 
                 case "redirect":
                     try:
-                        message = message.split(":")
-                        host,port = message[0],int(message[1])
+                        body = body.split(":")
+                        host,port = body[0],int(body[1])
                         client_socket_lobby = socket(AF_INET, SOCK_STREAM)
                         client_socket_lobby.connect((host, port))
                         print("Connecté au lobby.", host, port)
@@ -76,13 +78,20 @@ def recieve_data(client_socket : socket):
                     print("This lobby does not exist.")
 
                 case "players_pseudos":
-                    print(message)
+                    print(body)
+
                 case "players_count":
-                    print(message, "joueurs / 5")
+                    print(body, "joueurs / 5")
+
                 case "new_player_joined":
-                    print(message, "a rejoint le lobby !")
+                    print(body, "a rejoint le lobby !")
                     thread_players_count = Thread(target=envoi_message, args=[client_socket, "players_count="])
                     thread_players_count.start()
+
+                case "sits_infos":
+                    print(body)
+                    global sits_info
+                    sits_info = eval(body)
                     
     
             # Ici, vous pouvez ajouter le code pour traiter le message côté client
