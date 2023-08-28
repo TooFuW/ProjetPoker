@@ -128,9 +128,9 @@ if __name__ == "__main__":
 
     # Création des previews de tables
     # Création de l'objet previewlobbys
-    previewlobbys = Preview_Table(largeur_actuelle, hauteur_actuelle, screen, table_fond, (1310, 215))
+    previewlobbys = Preview_Table(largeur_actuelle, hauteur_actuelle, screen, table_fond, (1270, 215))
     # Création de l'objet previewhistory
-    previewhistory = Preview_Table(largeur_actuelle, hauteur_actuelle, screen, table_fond, (1310, 215))
+    previewhistory = Preview_Table(largeur_actuelle, hauteur_actuelle, screen, table_fond, (1270, 215))
 
     # Initialisation de toutes les valeurs globales stockées dans le fichier Global_objects.py (tous les objets que l'on crée ci-dessus)
     Global_objects.game_state = game_state

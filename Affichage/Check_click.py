@@ -113,6 +113,7 @@ def check_click(Button):
             # Lorsque le bouton REFRESH est cliqué  pour réactualiser les tables affichés dans l'objet serverscrollbox
             case "refresh":
                 ask_lobbys(Global_objects.client_socket)
+                Global_objects.serverscrollbox.scroll_pos = 0
     match Button.fonction:
         # Lorsque le bouton BACK (fléche retour) est cliqué
         case "back":
