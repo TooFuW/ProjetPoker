@@ -18,11 +18,18 @@ def ask_lobbys(client_socket):
     """Demande les lobbys au serveur
 
     Args:
-        client_socket (_type_): socket du serveur à qui demander
+        client_socket socket : socket du serveur à qui demander
     """
 
     thread_ask_lobbys = Thread(target=envoi_message, args=(client_socket, "get_lobbys="))
     thread_ask_lobbys.start()
+
+def ask_sits_infos(client_socket):
+    message = "get_sits_info="
+
+    thread_ask_sits = Thread(target=envoi_message, args=(client_socket, message))
+    thread_ask_sits.start()
+
 
 #reception continue de messages
 def recieve_data(client_socket : socket):
@@ -69,6 +76,16 @@ def recieve_data(client_socket : socket):
 
                 case "sits_infos":
                     print(body)
+                    # on transforme la chaine de caractères en liste de chaines de caractères
+                    body = eval(body)
+
+                    # on trasforme chaque str dans body en liste
+                    for i in range(len(body)):
+                        body[i] = eval(body[i])
+
+                    # on appelle la fonction de gestion de données
+                    recieve_sits_infos(body)
+            
 
                 case "redirect":
                     try:
@@ -135,6 +152,11 @@ def edit_displayed_lobbys_list(liste):
     Global_objects.serverscrollbox.servers =  Global_objects.displayed_lobbys_list
     print("IMPORTANT :")
     print(Global_objects.displayed_lobbys_list)
+
+def recieve_sits_infos(liste):
+    Global_objects.previewlobbys.players = liste
+    # à continuer au besoin
+
 
 def send_message(client_socket):
     connecte = True

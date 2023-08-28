@@ -44,3 +44,5 @@ Determination de la grosse blind (avec cas spéciaux):
 
 Protocole lors des tapis (détaillé)(pour les parties sans tapis on considèrera un pot principal joué par tous les joueurs en lice):
 	comment tu vois la création de nouveaux pots et l'attribution de ceux-ci ?
+
+Mec tu pourras ecrire le protocole de quand qqn quitte le serv pdt une game ?
