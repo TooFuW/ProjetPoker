@@ -30,7 +30,6 @@ class HUD_State:
             pdpplayer (pygame.Surface): PDP de l'utilisateur
             table_fond (pygame.Surface): Fond d'écran en jeu
             sounds_icons (list): Liste contenant les icônes de son ([0] = mute, [1] = son bas, [2] = son moyen, [3] = son fort)
-            iconsound (pygame.Surface): Icône bouton SOUND
         """
         self.fond = fond
         self.logojeu = logojeu
@@ -41,7 +40,7 @@ class HUD_State:
         self.largeur_actuelle = largeur_actuelle
         self.hauteur_actuelle = hauteur_actuelle
         self.screen = screen
-        # On gére l'icône de son/mute
+        # On gére les icônes de son
         self.sound_on = True
         self.sounds_icons = sounds_icons
         self.last_sound = 690
@@ -241,7 +240,7 @@ class HUD_State:
             text_surf = gui_font.render("Volume", True, "#FFFFFF")
             pygame.draw.rect(self.screen, "#0000E0", pygame.Rect((width_scale(280, self.largeur_actuelle), height_scale(180, self.hauteur_actuelle)), (width_scale(450, self.largeur_actuelle), height_scale(50, self.hauteur_actuelle))), border_radius = 3)
             self.screen.blit(text_surf, (width_scale(290, self.largeur_actuelle), height_scale(190, self.hauteur_actuelle)))
-            # On gére l'affichage avec l'icône du son
+            # On gére l'affichage avec les icônes de son
             if self.cursor_width <= width_scale(490, self.largeur_actuelle) or self.sound_on is False:
                 volume_icon = self.screen.blit(self.sounds_icons[0], (width_scale(415, self.largeur_actuelle), height_scale(172, self.hauteur_actuelle)))
             elif self.cursor_width > width_scale(490, self.largeur_actuelle) and self.cursor_width <= width_scale(556, self.largeur_actuelle):
