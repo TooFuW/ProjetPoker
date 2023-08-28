@@ -16,7 +16,7 @@ class HUD_State:
     """Classe HUD_State pour gérer l'interface active (https://www.youtube.com/watch?v=j9yMFG3D7fg)
     """
 
-    def __init__(self, largeur_actuelle : int, hauteur_actuelle : int, screen : pygame.Surface, fond : pygame.Surface, logojeu : pygame.Surface, logomwte : pygame.Surface, logomwte_rect : pygame.Rect, pdpplayer : pygame.Surface, table_fond : pygame.Surface, iconmute : pygame.Surface, iconsound : pygame.Surface):
+    def __init__(self, largeur_actuelle : int, hauteur_actuelle : int, screen : pygame.Surface, fond : pygame.Surface, logojeu : pygame.Surface, logomwte : pygame.Surface, logomwte_rect : pygame.Rect, pdpplayer : pygame.Surface, table_fond : pygame.Surface, sounds_icons : list):
         """Initialisation de l'état de l'interface
 
         Args:
@@ -29,7 +29,7 @@ class HUD_State:
             logomwte_rect (pygame.Rect): Partie clickable du logo MWTE
             pdpplayer (pygame.Surface): PDP de l'utilisateur
             table_fond (pygame.Surface): Fond d'écran en jeu
-            iconmute (pygame.Surface): Icône bouton MUTE
+            sounds_icons (list): Liste contenant les icônes de son ([0] = mute, [1] = son bas, [2] = son moyen, [3] = son fort)
             iconsound (pygame.Surface): Icône bouton SOUND
         """
         self.fond = fond
@@ -43,8 +43,7 @@ class HUD_State:
         self.screen = screen
         # On gére l'icône de son/mute
         self.sound_on = True
-        self.iconmute = iconmute
-        self.iconsound = iconsound
+        self.sounds_icons = sounds_icons
         self.last_sound = 690
         # self.state définit l'état actuel de l'interface (qui est par défaut Main Menu)
         self.state = "Main Menu"
@@ -243,10 +242,14 @@ class HUD_State:
             pygame.draw.rect(self.screen, "#0000E0", pygame.Rect((width_scale(280, self.largeur_actuelle), height_scale(180, self.hauteur_actuelle)), (width_scale(450, self.largeur_actuelle), height_scale(50, self.hauteur_actuelle))), border_radius = 3)
             self.screen.blit(text_surf, (width_scale(290, self.largeur_actuelle), height_scale(190, self.hauteur_actuelle)))
             # On gére l'affichage avec l'icône du son
-            if self.cursor_width <= 490 or self.sound_on is False:
-                volume_icon = self.screen.blit(self.iconmute, (width_scale(420, self.largeur_actuelle), height_scale(180, self.hauteur_actuelle)))
-            elif self.cursor_width > 490:
-                volume_icon = self.screen.blit(self.iconsound, (width_scale(420, self.largeur_actuelle), height_scale(180, self.hauteur_actuelle)))
+            if self.cursor_width <= width_scale(490, self.largeur_actuelle) or self.sound_on is False:
+                volume_icon = self.screen.blit(self.sounds_icons[0], (width_scale(415, self.largeur_actuelle), height_scale(172, self.hauteur_actuelle)))
+            elif self.cursor_width > width_scale(490, self.largeur_actuelle) and self.cursor_width <= width_scale(556, self.largeur_actuelle):
+                volume_icon = self.screen.blit(self.sounds_icons[1], (width_scale(415, self.largeur_actuelle), height_scale(172, self.hauteur_actuelle)))
+            elif self.cursor_width > width_scale(556, self.largeur_actuelle) and self.cursor_width <= width_scale(622, self.largeur_actuelle):
+                volume_icon = self.screen.blit(self.sounds_icons[2], (width_scale(415, self.largeur_actuelle), height_scale(172, self.hauteur_actuelle)))
+            elif self.cursor_width > width_scale(622, self.largeur_actuelle) and self.cursor_width <= width_scale(690, self.largeur_actuelle):
+                volume_icon = self.screen.blit(self.sounds_icons[3], (width_scale(415, self.largeur_actuelle), height_scale(172, self.hauteur_actuelle)))
             # On gére l'utilisation/les interactions avec le bouton de son
             if self.is_setting_volume is False:
                 if volume_icon.collidepoint(mouse_pos):
