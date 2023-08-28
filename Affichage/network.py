@@ -15,8 +15,15 @@ def envoi_message(client_socket : socket, msg : str):
     client_socket.send(msg.encode("utf8"))
 
 def ask_lobbys(client_socket):
+    """Demande les lobbys au serveur
+
+    Args:
+        client_socket (_type_): socket du serveur à qui demander
+    """
+
     thread_ask_lobbys = Thread(target=envoi_message, args=(client_socket, "get_lobbys="))
     thread_ask_lobbys.start()
+
 #reception continue de messages
 def recieve_data(client_socket : socket):
     connecte = True
@@ -28,8 +35,8 @@ def recieve_data(client_socket : socket):
 
             message = data.decode("utf-8")
 
-            entete = strtotuple(message)[0]
-            message = strtotuple(message)[1]
+            entete = packet_separator(message)[0]
+            body = packet_separator(message)[1]
 
             match entete:
 
@@ -37,7 +44,7 @@ def recieve_data(client_socket : socket):
                     break
 
                 case "newplayerconnect":
-                    print("\n\n <<  "+message+"  >> \n\n")
+                    print("\n\n <<  "+body+"  >> \n\n")
                 
                 case "startgame":
                     print("demarrage game") #a completer
@@ -45,12 +52,15 @@ def recieve_data(client_socket : socket):
                 case "lobbys":
                     try:
                         global lobbys
-                        lobbys = eval(message)
-                        eval(lobbys)
+                        lobbys = eval(body)
+                        
                         print(lobbys, type(lobbys))
                         Global_objects.lobbys_list = lobbys
-                        for i in lobbys:
-                            print(i, type(i))
+                        for i in range(len(lobbys)):
+                            lobbys[i] = eval(lobbys[i])
+                            print(lobbys[i], type(lobbys[i]))
+                            
+                        Global_objects.lobbys_list = lobbys
                         
                         edit_displayed_lobbys_list(lobbys)
                     except:
@@ -59,8 +69,8 @@ def recieve_data(client_socket : socket):
 
                 case "redirect":
                     try:
-                        message = message.split(":")
-                        host,port = message[0],int(message[1])
+                        body = body.split(":")
+                        host,port = body[0],int(body[1])
                         client_socket_lobby = socket(AF_INET, SOCK_STREAM)
                         Global_objects.client_socket = client_socket
                         client_socket_lobby.connect((host, port))
@@ -81,11 +91,11 @@ def recieve_data(client_socket : socket):
                     print("This lobby does not exist.")
 
                 case "players_pseudos":
-                    print(message)
+                    print(body)
                 case "players_count":
-                    print(message, "joueurs / 5")
+                    print(body, "joueurs / 5")
                 case "new_player_joined":
-                    print(message, "a rejoint le lobby !")
+                    print(body, "a rejoint le lobby !")
                     thread_players_count = Thread(target=envoi_message, args=[client_socket, "players_count="])
                     thread_players_count.start()
                     
