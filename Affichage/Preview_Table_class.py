@@ -40,7 +40,7 @@ class Preview_Table:
         pygame.draw.rect(self.screen, "#006400", (self.x, self.y, self.width, self.height), border_radius = 10)
         # Dessine l'image de fond sur la self.screen de l'écran
         poker_table = pygame.transform.scale(self.poker_table, (width_scale(480*self.scale, self.largeur_actuelle), height_scale(390*self.scale, self.hauteur_actuelle)))
-        self.screen.blit(poker_table, (self.x + 10, self.y + 10))
+        self.screen.blit(poker_table, (width_scale(self.x + 10, self.largeur_actuelle), height_scale(self.y + 10, self.hauteur_actuelle)))
         # Affichage des bouttons
         # Cliquer sur le bouton JOIN fait rejoindre la table sélectionnée
         self.jointablebutton.draw()

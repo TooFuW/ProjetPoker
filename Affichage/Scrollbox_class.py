@@ -54,7 +54,7 @@ class ScrollBox:
         self.screen.blit(transparent_surface, (self.x, self.y))
 
         # Calcul de la zone d'affichage des éléments
-        display_area = pygame.Rect(self.x, self.y, self.width, self.height)
+        self.display_area = pygame.Rect(self.x, self.y, self.width, self.height)
 
         # Décalage initial
         item_offset_y = 0
@@ -77,7 +77,7 @@ class ScrollBox:
                         self.selected = False
                         Check_click.check_click(self.server_selected)
             # Affichage des serveurs disponibles
-            if item_rect.top_rect.colliderect(display_area):
+            if item_rect.top_rect.colliderect(self.display_area):
                 item_rect.draw()
             # Ajouter un padding entre chaque serveur
             item_offset_y += self.hauteurbox + 10  # Ajouter 10 pixels de padding
@@ -85,11 +85,15 @@ class ScrollBox:
     def scroll_up(self):
         """Pour scroller vers le haut
         """
-        if self.scroll_pos > 0:
-            self.scroll_pos -= 1
+        mouse_pos = pygame.mouse.get_pos()
+        if self.display_area.collidepoint(mouse_pos):
+            if self.scroll_pos > 0:
+                self.scroll_pos -= 1
 
     def scroll_down(self):
         """Pour scroller vers le bas
         """
-        if self.scroll_pos < width_scale((len(self.servers) - 1) - (self.height // (self.hauteurbox + 10)), self.largeur_actuelle):
-            self.scroll_pos += 1
+        mouse_pos = pygame.mouse.get_pos()
+        if self.display_area.collidepoint(mouse_pos):
+            if self.scroll_pos < width_scale((len(self.servers) - 1) - (self.height // (self.hauteurbox + 10)), self.largeur_actuelle):
+                self.scroll_pos += 1
