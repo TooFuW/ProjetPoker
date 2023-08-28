@@ -22,7 +22,7 @@ class Sit :
         self.playerid = None
         self.occupied = False
 
-    def get_player(self):
+    def get_player(self) -> Player:
         return self.player
     
     def get_player_id(self):

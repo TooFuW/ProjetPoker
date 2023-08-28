@@ -12,6 +12,7 @@ lobbys = []
 
 global socket_lobby
 socket_lobby = None
+sits_info = None
 
 def envoi_message(client_socket : socket, msg : str):
     client_socket.send(msg.encode("utf8"))
@@ -48,7 +49,6 @@ def recieve_data(client_socket : socket):
                     try:
                         global lobbys
                         lobbys = eval(body)
-                        eval(lobbys)
                         print(lobbys, type(lobbys))
                         for i in lobbys:
                             print(i, type(i))
@@ -79,12 +79,19 @@ def recieve_data(client_socket : socket):
 
                 case "players_pseudos":
                     print(body)
+
                 case "players_count":
                     print(body, "joueurs / 5")
+
                 case "new_player_joined":
                     print(body, "a rejoint le lobby !")
                     thread_players_count = Thread(target=envoi_message, args=[client_socket, "players_count="])
                     thread_players_count.start()
+
+                case "sits_infos":
+                    print(body)
+                    global sits_info
+                    sits_info = eval(body)
                     
     
             # Ici, vous pouvez ajouter le code pour traiter le message côté client

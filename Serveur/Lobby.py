@@ -5,6 +5,7 @@ from threading import *
 from Hand import Hand
 from random import randint
 from Sit import Sit
+from packet_separator import packet_separator
 
 
 class Lobby :
@@ -89,8 +90,8 @@ class Lobby :
         thread_broadcast.start()
     
     def manage_data(self, socket : socket, data : str):
-
-        data = eval(data)
+        
+        data = packet_separator(data)
         header,body = data[0],data[1]
 
         match header:
@@ -112,6 +113,14 @@ class Lobby :
                 envoi_packet_thread = Thread(target=self.send_packet, args=[packet, socket])
                 envoi_packet_thread.start()
 
+            case "get_sits_infos":
+                    try:
+
+                        send_sits_infos_thread = Thread(target=self.send_sits_infos, args=[socket])
+                        send_sits_infos_thread.start()
+
+                    except Exception as e:
+                        print(e)
 
                 
 
@@ -179,6 +188,29 @@ class Lobby :
             thread_new_player.join()
             print("packet broadcast envoyé.")
 
+    def send_sits_infos(self, conn : socket):
+        sits_infos = []
+        for sit in self.sits:
+            sit_infos = []
+            sit_infos.append(sit.get_sit_id())
+            if not sit.occupied:
+                sit_infos.append(None)
+                sits_infos.append(sit_infos)
+                continue
+
+            sit_infos.append(sit.get_player().get_pseudo())
+            sit_infos.append(sit.get_player().get_chips())
+            sit_infos.append("link to player account")
+
+            sits_infos.append(sit_infos)
+
+        sits_infos = str(sits_infos)
+        packet = "sits_infos="+sits_infos
+
+        thread_packet_send = Thread(target=self.send_packet, args=(conn,packet))
+        thread_packet_send.start()
+
+
     def see_connected_players(self):
         pass
 
@@ -208,4 +240,8 @@ def new_sits(n : int):
 
 
 def on_player_deconnect(player : Player):
+    pass
+
+
+if __name__ == "__main__":
     pass

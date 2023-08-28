@@ -110,10 +110,8 @@ class Main:
                         
 
                     except Exception as e:
-                        pass #packet erreur
+                        #packet erreur
                         print(e)
-                    
-
 
         except:
             raise TypeError
