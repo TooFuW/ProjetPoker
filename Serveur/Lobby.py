@@ -118,6 +118,7 @@ class Lobby :
 
                         send_sits_infos_thread = Thread(target=self.send_sits_infos, args=[socket])
                         send_sits_infos_thread.start()
+                        print("fonction envoi sièges lancées.")
 
                     except Exception as e:
                         print(e)
@@ -189,26 +190,31 @@ class Lobby :
             print("packet broadcast envoyé.")
 
     def send_sits_infos(self, conn : socket):
-        sits_infos = []
-        for sit in self.sits:
-            sit_infos = []
-            sit_infos.append(sit.get_sit_id())
-            if not sit.occupied:
-                sit_infos.append(None)
+        try:
+            sits_infos = []
+            for sit in self.sits:
+                sit_infos = []
+                sit_infos.append(sit.get_sit_id())
+                if not sit.occupied:
+                    sit_infos.append(None)
+                    sits_infos.append(sit_infos)
+                    continue
+
+                sit_infos.append("'"+str(sit.get_player().get_pseudo())+"'")
+                sit_infos.append(sit.get_player().get_chips())
+                sit_infos.append("link to player account")
+
                 sits_infos.append(sit_infos)
-                continue
 
-            sit_infos.append(sit.get_player().get_pseudo())
-            sit_infos.append(sit.get_player().get_chips())
-            sit_infos.append("link to player account")
+            sits_infos = str(sits_infos)
+            packet = "sits_infos="+sits_infos
 
-            sits_infos.append(sit_infos)
+            thread_packet_send = Thread(target=self.send_packet, args=(packet,conn))
+            thread_packet_send.start()
 
-        sits_infos = str(sits_infos)
-        packet = "sits_infos="+sits_infos
+        except Exception as e:
+            print(e)
 
-        thread_packet_send = Thread(target=self.send_packet, args=(conn,packet))
-        thread_packet_send.start()
 
 
     def see_connected_players(self):

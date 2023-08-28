@@ -67,6 +67,9 @@ def recieve_data(client_socket : socket):
                         lobbys = []
                         Global_objects.lobbys_list = lobbys
 
+                case "sits_infos":
+                    print(body)
+
                 case "redirect":
                     try:
                         body = body.split(":")
@@ -151,8 +154,9 @@ def send_message(client_socket):
         else:
             try:
                 client_socket.send(message.encode("utf-8"))
-            except:
-                print("echec d'envoi de message")
+            except Exception as e:
+                print("echec d'envoi de message : ",e)
+                
                 break
         
     try:
