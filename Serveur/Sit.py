@@ -22,6 +22,9 @@ class Sit :
         self.playerid = None
         self.occupied = False
 
+    def __str__(self) -> str:
+        return "Memory ID : "+str(id(self))+" ID  : "+str(self.sit_id)+" , Player : "+str(self.player)
+
     def get_player(self) -> Player:
         return self.player
     

@@ -32,3 +32,15 @@ Etape post-flop:
 	-On prend les mains des joueurs et on les compares en prenant les 5 meilleurs cartes de chaque joueur
 	-Si une main est plus haute qu'une autre, on donne le contenu du pot principal à ce joueur et on relance un coup
 	-S'il y a égalité, on partage le pot entre les joueurs. S'il le partage est un nombre à virgule, on arrondit à l'inférieur et le joueur le plus à gauche du dealer garde la différence
+
+Determination du dealer (avec cas spéciaux):
+
+
+Determination de la petite blind (avec cas spéciaux):
+
+
+Determination de la grosse blind (avec cas spéciaux):
+
+
+Protocole lors des tapis (détaillé)(pour les parties sans tapis on considèrera un pot principal joué par tous les joueurs en lice):
+	comment tu vois la création de nouveaux pots et l'attribution de ceux-ci ?

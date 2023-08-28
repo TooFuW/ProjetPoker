@@ -16,6 +16,7 @@ get_players_pseudos = "" : un client souhaitant récupérer les noms des joueurs
 players_count = "" : client souhaitant récupérer le nombre de joueurs du lobby
 get_players_infos = "[[id,pseudo,chips,link],[id,..]]" : un client souhaitant récupérer les infos des joueurs
 get_sits_info = "[[sit_id, idplayer, pseudo, chips, link],[sit_id, None],]" : un client souhaitant récupérer les infos des sièges
+sit_down = "id_siege" : un client souhaitant s'asseoir à un siège.
 
 lobbys = "[liste des lobbys]" : envoyé par le serveur, liste des informations principales de chaque lobby public
 redirect = "host:port" : envoyé par le serveur souhaitant rediriger le client à un lobby
@@ -23,4 +24,4 @@ redirect = "host:port" : envoyé par le serveur souhaitant rediriger le client �
 players_pseudos = "[nom des joueurs]" : lobby envoyant la liste des pseudos des joueurs présents
 players_count = "count" : lobby envoyant le nombre de joueurs présents
 new_player_joined = "nom du joueur" : envoyé par le lobby à l'arrivée d'un nouveau joueur, le client va alors se créer un message d'arrivée de nouveau joueur
-
+sits_infos = "[[id_sit, None],[id_sit,player_pseudo,player_chips,player_link]]" : envoyé par un lobby souhaitant communiquer les informations des sièges.

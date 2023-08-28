@@ -45,6 +45,7 @@ class Player:
             raise TypeError
         
         self.chips = 0
+        self.sitted = False
         #print("le joueur a bien été créé")
         
 

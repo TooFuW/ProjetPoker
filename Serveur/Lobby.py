@@ -123,6 +123,37 @@ class Lobby :
                     except Exception as e:
                         print(e)
 
+            case "sit_down":
+                try:
+                    sit_id = int(body)
+                    if not sit_id in range(10):
+                        raise ValueError
+                    
+                    sit = self.sits[sit_id]
+                    player = self.get_player_by_conn(socket)
+                
+
+                    if not sit.occupied:
+                        if not player.sitted:
+                            sit.set_player(player)
+                            player.sitted = True
+                        else:
+                            former_sit = self.get_sit_by_player(player)
+                            former_sit.remove_player()
+                            sit.set_player(player)
+                            player.sitted = True
+
+                    else:
+                        pass
+                        # packet siège occupé
+
+                except Exception as e:
+                    if e==ValueError:
+                        print("erreur fonction lobby.sit_down")
+                        #packet erreur valeur
+
+
+
                 
 
     def send_packet(self, packet : str, conn : socket):
@@ -165,6 +196,28 @@ class Lobby :
         # envoie packet game entrain de commencer
         # compteur 5 secondes
         self.game.start()
+
+    def get_sit_by_id(self,id_sit) -> Sit:
+        for sit in self.sits:
+            if sit.get_id() == id_sit:
+                return sit
+    
+    def get_sit_by_player(self, player) -> Sit:
+        for sit in self.sits:
+            if sit.get_player() == player:
+                return sit
+            
+    def get_player_by_conn(self,conn : socket) -> Player:
+        try :
+
+            for pl in self.players:
+                if pl.get_conn() == conn:
+                    return pl
+            return None
+        
+        except Exception as e:
+            print("erreur fonction lobby.get_player_by_conn : " , e)
+
             
         
 
