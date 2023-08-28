@@ -14,6 +14,8 @@ join_lobby   = "lobby id" : client souhaitant rejoindre un lobby avec l'id *lobb
 create_lobby = "[arguments du lobby]" : client souhaitant creer un lobby. le message est sous forme d'une liste respectant l'ordre des arguments des lobbys.
 get_players_pseudos = "" : un client souhaitant récupérer les noms des joueurs présents envoyés sous forme de liste.
 players_count = "" : client souhaitant récupérer le nombre de joueurs du lobby
+get_players_infos = "[[id,pseudo,chips,link],[id,..]]" : un client souhaitant récupérer les infos des joueurs
+get_sits_info = "[[sit_id, idplayer, pseudo, chips, link],[sit_id, None],]" : un client souhaitant récupérer les infos des sièges
 
 lobbys = "[liste des lobbys]" : envoyé par le serveur, liste des informations principales de chaque lobby public
 redirect = "host:port" : envoyé par le serveur souhaitant rediriger le client à un lobby
