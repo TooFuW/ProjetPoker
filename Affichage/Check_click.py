@@ -105,10 +105,13 @@ def check_click(Button):
             Global_objects.game_state.back_pile = ["Main Menu"]
             Global_objects.game_state.state = "Game Menu"
             Global_objects.game_state.table_selected = None
-        # Lorsque le bouton CREATE TABLE pour passer à la page de création de table
+        # Lorsque le bouton CREATE TABLE est cliqué pour passer à la page de création de table
         elif Button.fonction == "create table":
             Global_objects.game_state.back_pile.append(Global_objects.game_state.state)
             Global_objects.game_state.state = "Create Menu"
+        # Lorsque le bouton REFRESH est cliqué  pour réactualiser les tables affichés dans l'objet serverscrollbox
+        elif Button.fonction == "refresh":
+            ask_lobbys(Global_objects.client_socket)
     # Lorsque le bouton BACK (fléche retour) est cliqué
     if Button.fonction == "back":
         Global_objects.game_state.setting_page = 1

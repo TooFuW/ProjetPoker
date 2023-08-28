@@ -176,6 +176,8 @@ class HUD_State:
         Global_objects.backbutton.draw()
         # Cliquer sur le bouton CREER TABLE crée une nouvelle table
         Global_objects.createtablebutton.draw()
+        # Cliquer sur le bouton REFRESH réactualise les lobbys affichés
+        Global_objects.refreshbutton.draw()
         # Cliquer sur le bouton ACCOUNT ouvre l'interface présentant les informations du compte actif
         Global_objects.accountbutton.draw()
         # Affichage des chips de l'utilisateur à droite du bouton ACCOUNT

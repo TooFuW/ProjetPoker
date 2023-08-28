@@ -106,6 +106,8 @@ if __name__ == "__main__":
     laybutton = Button(largeur_actuelle, hauteur_actuelle, screen, "lay", "LAY", "Roboto", 60, "#0000FF", "#0000FF", "#0074D9", "#0000FF", 355, 100, (1540, 490), 6, 10)
     # Création de l'objet raisebutton
     raisebutton = Button(largeur_actuelle, hauteur_actuelle, screen, "raise", "RAISE", "Roboto", 60, "#D32F2A", "#D32F2A", "#FF4F58", "#D32F2A", 355, 100, (1540, 640), 6, 10)
+    # Création de l'objet refreshbutton
+    refreshbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "refresh", "REFRESH", "Roboto", 60, "#475F77", "#354B5E", "#D74B4B", "#354B5E", 220, 100, (600, 50), 6, 10)
     
 
     # Création des scrollboxs
@@ -154,6 +156,7 @@ if __name__ == "__main__":
     Global_objects.callbutton = callbutton
     Global_objects.laybutton = laybutton
     Global_objects.raisebutton = raisebutton
+    Global_objects.refreshbutton = refreshbutton
     Global_objects.volume_music = 1.0
     Global_objects.buttons_interactibles = True
     Global_objects.displayed_lobbys_list = displayed_lobbys_list
