@@ -42,7 +42,7 @@ class Preview_Table:
         pygame.draw.rect(self.screen, "#006400", (self.x, self.y, self.width, self.height), border_radius = 10)
         # Dessine l'image de fond sur la self.screen de l'écran
         poker_table = pygame.transform.scale(self.poker_table, (width_scale(580*self.scale, self.largeur_actuelle), height_scale(490*self.scale, self.hauteur_actuelle)))
-        self.screen.blit(poker_table, (width_scale(self.x + 10, self.largeur_actuelle), height_scale(self.y + 10, self.hauteur_actuelle)))
+        self.screen.blit(poker_table, (self.x + width_scale( 10, self.largeur_actuelle), self.y + height_scale( 10, self.hauteur_actuelle)))
         # Affichage des bouttons
         # Cliquer sur le bouton JOIN fait rejoindre la table sélectionnée
         self.jointablebutton.draw()
@@ -50,9 +50,9 @@ class Preview_Table:
         for player in self.players:
             gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
             text_info = f"{player[2]}\n{player[3]}"
-            pygame.draw.rect(self.screen, "#475F77", pygame.Rect((width_scale(self.x + 50, self.largeur_actuelle), height_scale(self.y + 60, self.hauteur_actuelle)), (width_scale(600*self.scale - 450, self.largeur_actuelle), height_scale(600*self.scale - 530, self.hauteur_actuelle))), border_radius = 3)
+            pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(50, self.largeur_actuelle), self.y + height_scale(60, self.hauteur_actuelle)), (width_scale(600*self.scale - 450, self.largeur_actuelle), height_scale(600*self.scale - 530, self.hauteur_actuelle))), border_radius = 3)
             y = 65
             for ligne in text_info.split("\n"):
                 text_surf = gui_font.render(ligne, True, "#FFFFFF")
-                self.screen.blit(text_surf, (width_scale(self.x + 55, self.largeur_actuelle), height_scale(self.y + y, self.hauteur_actuelle)))
+                self.screen.blit(text_surf, (self.x + width_scale(55, self.largeur_actuelle), self.y + height_scale(y, self.hauteur_actuelle)))
                 y += 25
