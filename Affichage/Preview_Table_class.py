@@ -31,7 +31,7 @@ class Preview_Table:
         self.height = height_scale(600*scale, hauteur_actuelle)
         self.scale = scale
         # Une liste contenant tous les joueurs dans la table sélectionnée
-        self.players = [["sit_id", "idplayer", "pseudo", "chips", "link"]]
+        self.players = [["sit_id", "idplayer", "pseudo", "chips", "link"], ["sit_id", "idplayer", "pseudo", "chips", "link"], ["sit_id", "idplayer", "pseudo", "chips", "link"], ["sit_id", "idplayer", "pseudo", "chips", "link"], ["sit_id", "idplayer", "pseudo", "chips", "link"], ["sit_id", "idplayer", "pseudo", "chips", "link"]]
         # Création de l'objet jointablebutton
         self.jointablebutton = Button_class.Button(self.largeur_actuelle, self.hauteur_actuelle, self.screen, "join table", "JOIN", "Roboto", 50, "#475F77", "#354B5E", "#D74B4B", "#354B5E", 600*scale - 440, 600*scale - 530, (pos[0] + 220, pos[1] + 520), 6, 10)
 
@@ -47,12 +47,22 @@ class Preview_Table:
         # Cliquer sur le bouton JOIN fait rejoindre la table sélectionnée
         self.jointablebutton.draw()
         # Pour chaque joueur dans la table on affiche ses informations
+        temp_x = self.x
+        temp_y = self.y
+        player_count = 0
         for player in self.players:
+            player_count += 1
+            if player_count >= 5:
+                pass
+            # On génére le texte
             gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
             text_info = f"{player[2]}\n{player[3]}"
-            pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(50, self.largeur_actuelle), self.y + height_scale(60, self.hauteur_actuelle)), (width_scale(600*self.scale - 450, self.largeur_actuelle), height_scale(600*self.scale - 530, self.hauteur_actuelle))), border_radius = 3)
-            y = 65
+            # On affiche la box derrière le texte
+            pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(50, self.largeur_actuelle), temp_y + height_scale(55, self.hauteur_actuelle)), (width_scale(600*self.scale - 450, self.largeur_actuelle), height_scale(600*self.scale - 530, self.hauteur_actuelle))), border_radius = 3)
+            # On affiche le texte en sautant une ligne pour chaque info différente du joueur
+            y = 60
             for ligne in text_info.split("\n"):
                 text_surf = gui_font.render(ligne, True, "#FFFFFF")
-                self.screen.blit(text_surf, (self.x + width_scale(55, self.largeur_actuelle), self.y + height_scale(y, self.hauteur_actuelle)))
+                self.screen.blit(text_surf, (self.x + width_scale(55, self.largeur_actuelle), temp_y + height_scale(y, self.hauteur_actuelle)))
                 y += 25
+            temp_y += height_scale(80, self.hauteur_actuelle)

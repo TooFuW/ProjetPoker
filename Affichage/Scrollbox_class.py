@@ -37,7 +37,7 @@ class ScrollBox:
         self.servers = servers
         self.scroll_pos = 0
         self.indentation = "          "# Len = 10
-        self.hauteurbox = height_scale(50, hauteur_actuelle)
+        self.hauteurbox = 50
         self.selected = False
         self.server_selected = None
 

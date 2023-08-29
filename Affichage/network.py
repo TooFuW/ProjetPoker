@@ -156,6 +156,7 @@ def edit_displayed_lobbys_list(liste):
 def recieve_sits_infos(liste):
     Global_objects.previewlobbys.players = liste
     # à continuer au besoin
+    print(f"\n\n[INFO DES SIEGES] : {Global_objects.previewlobbys.players}\n\n")
 
 
 def send_message(client_socket):
