@@ -47,6 +47,7 @@ class Preview_Table:
         # Cliquer sur le bouton JOIN fait rejoindre la table sélectionnée
         self.jointablebutton.draw()
         # Pour chaque joueur dans la table on affiche ses informations
+        print(self.players)
         match len(self.players):
 
             case 2:
@@ -58,7 +59,7 @@ class Preview_Table:
                 if self.players[0][1] == None:
                     text = "Sit Available"
                 else:
-                    text = f"{self.players[0][2]}\n{self.players[0][3]}"
+                    text = f"{self.players[0][1]}\n{self.players[0][2]}"
                 gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
                 text_surf = gui_font.render(text, True, "#FFFFFF")
                 self.screen.blit(text_surf, (self.x + width_scale(230, self.largeur_actuelle), self.y + height_scale(170, self.hauteur_actuelle)))
@@ -66,7 +67,7 @@ class Preview_Table:
                 if self.players[1][1] == None:
                     text = "Sit Available"
                 else:
-                    text = f"{self.players[1][2]}\n{self.players[1][3]}"
+                    text = f"{self.players[1][1]}\n{self.players[1][2]}"
                 gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
                 text_surf = gui_font.render(text, True, "#FFFFFF")
                 self.screen.blit(text_surf, (self.x + width_scale(230, self.largeur_actuelle), self.y + height_scale(270, self.hauteur_actuelle)))
@@ -81,7 +82,7 @@ class Preview_Table:
                 if self.players[0][1] == None:
                     text = "Sit Available"
                 else:
-                    text = f"{self.players[0][2]}\n{self.players[0][3]}"
+                    text = f"{self.players[0][1]}\n{self.players[0][2]}"
                 gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
                 text_surf = gui_font.render(text, True, "#FFFFFF")
                 self.screen.blit(text_surf, (self.x + width_scale(230, self.largeur_actuelle), self.y + height_scale(120, self.hauteur_actuelle)))
@@ -89,7 +90,7 @@ class Preview_Table:
                 if self.players[1][1] == None:
                     text = "Sit Available"
                 else:
-                    text = f"{self.players[1][2]}\n{self.players[1][3]}"
+                    text = f"{self.players[1][1]}\n{self.players[1][2]}"
                 gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
                 text_surf = gui_font.render(text, True, "#FFFFFF")
                 self.screen.blit(text_surf, (self.x + width_scale(230, self.largeur_actuelle), self.y + height_scale(220, self.hauteur_actuelle)))
@@ -97,7 +98,7 @@ class Preview_Table:
                 if self.players[2][1] == None:
                     text = "Sit Available"
                 else:
-                    text = f"{self.players[2][2]}\n{self.players[2][3]}"
+                    text = f"{self.players[2][1]}\n{self.players[2][2]}"
                 gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
                 text_surf = gui_font.render(text, True, "#FFFFFF")
                 self.screen.blit(text_surf, (self.x + width_scale(230, self.largeur_actuelle), self.y + height_scale(320, self.hauteur_actuelle)))
@@ -113,7 +114,7 @@ class Preview_Table:
                 if self.players[0][1] == None:
                     text = "Sit Available"
                 else:
-                    text = f"{self.players[0][2]}\n{self.players[0][3]}"
+                    text = f"{self.players[0][1]}\n{self.players[0][2]}"
                 gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
                 text_surf = gui_font.render(text, True, "#FFFFFF")
                 self.screen.blit(text_surf, (self.x + width_scale(230, self.largeur_actuelle), self.y + height_scale(75, self.hauteur_actuelle)))
@@ -121,7 +122,7 @@ class Preview_Table:
                 if self.players[1][1] == None:
                     text = "Sit Available"
                 else:
-                    text = f"{self.players[1][2]}\n{self.players[1][3]}"
+                    text = f"{self.players[1][1]}\n{self.players[1][2]}"
                 gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
                 text_surf = gui_font.render(text, True, "#FFFFFF")
                 self.screen.blit(text_surf, (self.x + width_scale(230, self.largeur_actuelle), self.y + height_scale(175, self.hauteur_actuelle)))
@@ -129,7 +130,7 @@ class Preview_Table:
                 if self.players[2][1] == None:
                     text = "Sit Available"
                 else:
-                    text = f"{self.players[2][2]}\n{self.players[2][3]}"
+                    text = f"{self.players[2][1]}\n{self.players[2][2]}"
                 gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
                 text_surf = gui_font.render(text, True, "#FFFFFF")
                 self.screen.blit(text_surf, (self.x + width_scale(230, self.largeur_actuelle), self.y + height_scale(275, self.hauteur_actuelle)))
@@ -137,7 +138,7 @@ class Preview_Table:
                 if self.players[3][1] == None:
                     text = "Sit Available"
                 else:
-                    text = f"{self.players[3][2]}\n{self.players[3][3]}"
+                    text = f"{self.players[3][1]}\n{self.players[3][2]}"
                 gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
                 text_surf = gui_font.render(text, True, "#FFFFFF")
                 self.screen.blit(text_surf, (self.x + width_scale(230, self.largeur_actuelle), self.y + height_scale(375, self.hauteur_actuelle)))
@@ -154,7 +155,7 @@ class Preview_Table:
                 if self.players[0][1] == None:
                     text = "Sit Available"
                 else:
-                    text = f"{self.players[0][2]}\n{self.players[0][3]}"
+                    text = f"{self.players[0][1]}\n{self.players[0][2]}"
                 gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
                 text_surf = gui_font.render(text, True, "#FFFFFF")
                 self.screen.blit(text_surf, (self.x + width_scale(230, self.largeur_actuelle), self.y + height_scale(70, self.hauteur_actuelle)))
@@ -162,7 +163,7 @@ class Preview_Table:
                 if self.players[1][1] == None:
                     text = "Sit Available"
                 else:
-                    text = f"{self.players[1][2]}\n{self.players[1][3]}"
+                    text = f"{self.players[1][1]}\n{self.players[1][2]}"
                 gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
                 text_surf = gui_font.render(text, True, "#FFFFFF")
                 self.screen.blit(text_surf, (self.x + width_scale(55, self.largeur_actuelle), self.y + height_scale(170, self.hauteur_actuelle)))
@@ -170,7 +171,7 @@ class Preview_Table:
                 if self.players[2][1] == None:
                     text = "Sit Available"
                 else:
-                    text = f"{self.players[2][2]}\n{self.players[2][3]}"
+                    text = f"{self.players[2][1]}\n{self.players[2][2]}"
                 gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
                 text_surf = gui_font.render(text, True, "#FFFFFF")
                 self.screen.blit(text_surf, (self.x + width_scale(405, self.largeur_actuelle), self.y + height_scale(170, self.hauteur_actuelle)))
@@ -178,7 +179,7 @@ class Preview_Table:
                 if self.players[3][1] == None:
                     text = "Sit Available"
                 else:
-                    text = f"{self.players[3][2]}\n{self.players[3][3]}"
+                    text = f"{self.players[3][1]}\n{self.players[3][2]}"
                 gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
                 text_surf = gui_font.render(text, True, "#FFFFFF")
                 self.screen.blit(text_surf, (self.x + width_scale(55, self.largeur_actuelle), self.y + height_scale(270, self.hauteur_actuelle)))
@@ -186,7 +187,7 @@ class Preview_Table:
                 if self.players[4][1] == None:
                     text = "Sit Available"
                 else:
-                    text = f"{self.players[4][2]}\n{self.players[4][3]}"
+                    text = f"{self.players[4][1]}\n{self.players[4][2]}"
                 gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
                 text_surf = gui_font.render(text, True, "#FFFFFF")
                 self.screen.blit(text_surf, (self.x + width_scale(405, self.largeur_actuelle), self.y + height_scale(270, self.hauteur_actuelle)))
@@ -204,7 +205,7 @@ class Preview_Table:
                 if self.players[0][1] == None:
                     text = "Sit Available"
                 else:
-                    text = f"{self.players[0][2]}\n{self.players[0][3]}"
+                    text = f"{self.players[0][1]}\n{self.players[0][2]}"
                 gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
                 text_surf = gui_font.render(text, True, "#FFFFFF")
                 self.screen.blit(text_surf, (self.x + width_scale(230, self.largeur_actuelle), self.y + height_scale(70, self.hauteur_actuelle)))
@@ -212,7 +213,7 @@ class Preview_Table:
                 if self.players[1][1] == None:
                     text = "Sit Available"
                 else:
-                    text = f"{self.players[1][2]}\n{self.players[1][3]}"
+                    text = f"{self.players[1][1]}\n{self.players[1][2]}"
                 gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
                 text_surf = gui_font.render(text, True, "#FFFFFF")
                 self.screen.blit(text_surf, (self.x + width_scale(55, self.largeur_actuelle), self.y + height_scale(170, self.hauteur_actuelle)))
@@ -220,7 +221,7 @@ class Preview_Table:
                 if self.players[2][1] == None:
                     text = "Sit Available"
                 else:
-                    text = f"{self.players[2][2]}\n{self.players[2][3]}"
+                    text = f"{self.players[2][1]}\n{self.players[2][2]}"
                 gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
                 text_surf = gui_font.render(text, True, "#FFFFFF")
                 self.screen.blit(text_surf, (self.x + width_scale(405, self.largeur_actuelle), self.y + height_scale(170, self.hauteur_actuelle)))
@@ -228,7 +229,7 @@ class Preview_Table:
                 if self.players[3][1] == None:
                     text = "Sit Available"
                 else:
-                    text = f"{self.players[3][2]}\n{self.players[3][3]}"
+                    text = f"{self.players[3][1]}\n{self.players[3][2]}"
                 gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
                 text_surf = gui_font.render(text, True, "#FFFFFF")
                 self.screen.blit(text_surf, (self.x + width_scale(55, self.largeur_actuelle), self.y + height_scale(270, self.hauteur_actuelle)))
@@ -236,7 +237,7 @@ class Preview_Table:
                 if self.players[4][1] == None:
                     text = "Sit Available"
                 else:
-                    text = f"{self.players[4][2]}\n{self.players[4][3]}"
+                    text = f"{self.players[4][1]}\n{self.players[4][2]}"
                 gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
                 text_surf = gui_font.render(text, True, "#FFFFFF")
                 self.screen.blit(text_surf, (self.x + width_scale(405, self.largeur_actuelle), self.y + height_scale(270, self.hauteur_actuelle)))
@@ -244,7 +245,7 @@ class Preview_Table:
                 if self.players[5][1] == None:
                     text = "Sit Available"
                 else:
-                    text = f"{self.players[5][2]}\n{self.players[5][3]}"
+                    text = f"{self.players[5][1]}\n{self.players[5][2]}"
                 gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
                 text_surf = gui_font.render(text, True, "#FFFFFF")
                 self.screen.blit(text_surf, (self.x + width_scale(230, self.largeur_actuelle), self.y + height_scale(370, self.hauteur_actuelle)))
@@ -263,7 +264,7 @@ class Preview_Table:
                 if self.players[0][1] == None:
                     text = "Sit Available"
                 else:
-                    text = f"{self.players[0][2]}\n{self.players[0][3]}"
+                    text = f"{self.players[0][1]}\n{self.players[0][2]}"
                 gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
                 text_surf = gui_font.render(text, True, "#FFFFFF")
                 self.screen.blit(text_surf, (self.x + width_scale(55, self.largeur_actuelle), self.y + height_scale(70, self.hauteur_actuelle)))
@@ -271,7 +272,7 @@ class Preview_Table:
                 if self.players[1][1] == None:
                     text = "Sit Available"
                 else:
-                    text = f"{self.players[1][2]}\n{self.players[1][3]}"
+                    text = f"{self.players[1][1]}\n{self.players[1][2]}"
                 gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
                 text_surf = gui_font.render(text, True, "#FFFFFF")
                 self.screen.blit(text_surf, (self.x + width_scale(405, self.largeur_actuelle), self.y + height_scale(70, self.hauteur_actuelle)))
@@ -279,7 +280,7 @@ class Preview_Table:
                 if self.players[2][1] == None:
                     text = "Sit Available"
                 else:
-                    text = f"{self.players[2][2]}\n{self.players[2][3]}"
+                    text = f"{self.players[2][1]}\n{self.players[2][2]}"
                 gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
                 text_surf = gui_font.render(text, True, "#FFFFFF")
                 self.screen.blit(text_surf, (self.x + width_scale(55, self.largeur_actuelle), self.y + height_scale(170, self.hauteur_actuelle)))
@@ -287,7 +288,7 @@ class Preview_Table:
                 if self.players[3][1] == None:
                     text = "Sit Available"
                 else:
-                    text = f"{self.players[3][2]}\n{self.players[3][3]}"
+                    text = f"{self.players[3][1]}\n{self.players[3][2]}"
                 gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
                 text_surf = gui_font.render(text, True, "#FFFFFF")
                 self.screen.blit(text_surf, (self.x + width_scale(405, self.largeur_actuelle), self.y + height_scale(170, self.hauteur_actuelle)))
@@ -295,7 +296,7 @@ class Preview_Table:
                 if self.players[3][1] == None:
                     text = "Sit Available"
                 else:
-                    text = f"{self.players[4][2]}\n{self.players[4][3]}"
+                    text = f"{self.players[4][1]}\n{self.players[4][2]}"
                 gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
                 text_surf = gui_font.render(text, True, "#FFFFFF")
                 self.screen.blit(text_surf, (self.x + width_scale(55, self.largeur_actuelle), self.y + height_scale(270, self.hauteur_actuelle)))
@@ -303,7 +304,7 @@ class Preview_Table:
                 if self.players[5][1] == None:
                     text = "Sit Available"
                 else:
-                    text = f"{self.players[5][2]}\n{self.players[5][3]}"
+                    text = f"{self.players[5][1]}\n{self.players[5][2]}"
                 gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
                 text_surf = gui_font.render(text, True, "#FFFFFF")
                 self.screen.blit(text_surf, (self.x + width_scale(405, self.largeur_actuelle), self.y + height_scale(270, self.hauteur_actuelle)))
@@ -311,7 +312,7 @@ class Preview_Table:
                 if self.players[6][1] == None:
                     text = "Sit Available"
                 else:
-                    text = f"{self.players[6][2]}\n{self.players[6][3]}"
+                    text = f"{self.players[6][1]}\n{self.players[6][2]}"
                 gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
                 text_surf = gui_font.render(text, True, "#FFFFFF")
                 self.screen.blit(text_surf, (self.x + width_scale(230, self.largeur_actuelle), self.y + height_scale(370, self.hauteur_actuelle)))
@@ -331,7 +332,7 @@ class Preview_Table:
                 if self.players[0][1] == None:
                     text = "Sit Available"
                 else:
-                    text = f"{self.players[0][2]}\n{self.players[0][3]}"
+                    text = f"{self.players[0][1]}\n{self.players[0][2]}"
                 gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
                 text_surf = gui_font.render(text, True, "#FFFFFF")
                 self.screen.blit(text_surf, (self.x + width_scale(55, self.largeur_actuelle), self.y + height_scale(70, self.hauteur_actuelle)))
@@ -339,7 +340,7 @@ class Preview_Table:
                 if self.players[1][1] == None:
                     text = "Sit Available"
                 else:
-                    text = f"{self.players[1][2]}\n{self.players[1][3]}"
+                    text = f"{self.players[1][1]}\n{self.players[1][2]}"
                 gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
                 text_surf = gui_font.render(text, True, "#FFFFFF")
                 self.screen.blit(text_surf, (self.x + width_scale(405, self.largeur_actuelle), self.y + height_scale(70, self.hauteur_actuelle)))
@@ -347,7 +348,7 @@ class Preview_Table:
                 if self.players[2][1] == None:
                     text = "Sit Available"
                 else:
-                    text = f"{self.players[2][2]}\n{self.players[2][3]}"
+                    text = f"{self.players[2][1]}\n{self.players[2][2]}"
                 gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
                 text_surf = gui_font.render(text, True, "#FFFFFF")
                 self.screen.blit(text_surf, (self.x + width_scale(55, self.largeur_actuelle), self.y + height_scale(170, self.hauteur_actuelle)))
@@ -355,7 +356,7 @@ class Preview_Table:
                 if self.players[3][1] == None:
                     text = "Sit Available"
                 else:
-                    text = f"{self.players[3][2]}\n{self.players[3][3]}"
+                    text = f"{self.players[3][1]}\n{self.players[3][2]}"
                 gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
                 text_surf = gui_font.render(text, True, "#FFFFFF")
                 self.screen.blit(text_surf, (self.x + width_scale(405, self.largeur_actuelle), self.y + height_scale(170, self.hauteur_actuelle)))
@@ -363,7 +364,7 @@ class Preview_Table:
                 if self.players[4][1] == None:
                     text = "Sit Available"
                 else:
-                    text = f"{self.players[4][2]}\n{self.players[4][3]}"
+                    text = f"{self.players[4][1]}\n{self.players[4][2]}"
                 gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
                 text_surf = gui_font.render(text, True, "#FFFFFF")
                 self.screen.blit(text_surf, (self.x + width_scale(55, self.largeur_actuelle), self.y + height_scale(270, self.hauteur_actuelle)))
@@ -371,7 +372,7 @@ class Preview_Table:
                 if self.players[5][1] == None:
                     text = "Sit Available"
                 else:
-                    text = f"{self.players[5][2]}\n{self.players[5][3]}"
+                    text = f"{self.players[5][1]}\n{self.players[5][2]}"
                 gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
                 text_surf = gui_font.render(text, True, "#FFFFFF")
                 self.screen.blit(text_surf, (self.x + width_scale(405, self.largeur_actuelle), self.y + height_scale(270, self.hauteur_actuelle)))
@@ -379,7 +380,7 @@ class Preview_Table:
                 if self.players[6][1] == None:
                     text = "Sit Available"
                 else:
-                    text = f"{self.players[6][2]}\n{self.players[6][3]}"
+                    text = f"{self.players[6][1]}\n{self.players[6][2]}"
                 gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
                 text_surf = gui_font.render(text, True, "#FFFFFF")
                 self.screen.blit(text_surf, (self.x + width_scale(55, self.largeur_actuelle), self.y + height_scale(370, self.hauteur_actuelle)))
@@ -387,7 +388,7 @@ class Preview_Table:
                 if self.players[7][1] == None:
                     text = "Sit Available"
                 else:
-                    text = f"{self.players[7][2]}\n{self.players[7][3]}"
+                    text = f"{self.players[7][1]}\n{self.players[7][2]}"
                 gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
                 text_surf = gui_font.render(text, True, "#FFFFFF")
                 self.screen.blit(text_surf, (self.x + width_scale(405, self.largeur_actuelle), self.y + height_scale(370, self.hauteur_actuelle)))
@@ -408,7 +409,7 @@ class Preview_Table:
                 if self.players[0][1] == None:
                     text = "Sit Available"
                 else:
-                    text = f"{self.players[0][2]}\n{self.players[0][3]}"
+                    text = f"{self.players[0][1]}\n{self.players[0][2]}"
                 gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
                 text_surf = gui_font.render(text, True, "#FFFFFF")
                 self.screen.blit(text_surf, (self.x + width_scale(55, self.largeur_actuelle), self.y + height_scale(70, self.hauteur_actuelle)))
@@ -416,7 +417,7 @@ class Preview_Table:
                 if self.players[1][1] == None:
                     text = "Sit Available"
                 else:
-                    text = f"{self.players[1][2]}\n{self.players[1][3]}"
+                    text = f"{self.players[1][1]}\n{self.players[1][2]}"
                 gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
                 text_surf = gui_font.render(text, True, "#FFFFFF")
                 self.screen.blit(text_surf, (self.x + width_scale(230, self.largeur_actuelle), self.y + height_scale(70, self.hauteur_actuelle)))
@@ -424,7 +425,7 @@ class Preview_Table:
                 if self.players[2][1] == None:
                     text = "Sit Available"
                 else:
-                    text = f"{self.players[2][2]}\n{self.players[2][3]}"
+                    text = f"{self.players[2][1]}\n{self.players[2][2]}"
                 gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
                 text_surf = gui_font.render(text, True, "#FFFFFF")
                 self.screen.blit(text_surf, (self.x + width_scale(405, self.largeur_actuelle), self.y + height_scale(70, self.hauteur_actuelle)))
@@ -432,7 +433,7 @@ class Preview_Table:
                 if self.players[3][1] == None:
                     text = "Sit Available"
                 else:
-                    text = f"{self.players[3][2]}\n{self.players[3][3]}"
+                    text = f"{self.players[3][1]}\n{self.players[3][2]}"
                 gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
                 text_surf = gui_font.render(text, True, "#FFFFFF")
                 self.screen.blit(text_surf, (self.x + width_scale(55, self.largeur_actuelle), self.y + height_scale(170, self.hauteur_actuelle)))
@@ -440,7 +441,7 @@ class Preview_Table:
                 if self.players[4][1] == None:
                     text = "Sit Available"
                 else:
-                    text = f"{self.players[4][2]}\n{self.players[4][3]}"
+                    text = f"{self.players[4][1]}\n{self.players[4][2]}"
                 gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
                 text_surf = gui_font.render(text, True, "#FFFFFF")
                 self.screen.blit(text_surf, (self.x + width_scale(405, self.largeur_actuelle), self.y + height_scale(170, self.hauteur_actuelle)))
@@ -448,7 +449,7 @@ class Preview_Table:
                 if self.players[5][1] == None:
                     text = "Sit Available"
                 else:
-                    text = f"{self.players[5][2]}\n{self.players[5][3]}"
+                    text = f"{self.players[5][1]}\n{self.players[5][2]}"
                 gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
                 text_surf = gui_font.render(text, True, "#FFFFFF")
                 self.screen.blit(text_surf, (self.x + width_scale(55, self.largeur_actuelle), self.y + height_scale(270, self.hauteur_actuelle)))
@@ -456,7 +457,7 @@ class Preview_Table:
                 if self.players[6][1] == None:
                     text = "Sit Available"
                 else:
-                    text = f"{self.players[6][2]}\n{self.players[6][3]}"
+                    text = f"{self.players[6][1]}\n{self.players[6][2]}"
                 gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
                 text_surf = gui_font.render(text, True, "#FFFFFF")
                 self.screen.blit(text_surf, (self.x + width_scale(405, self.largeur_actuelle), self.y + height_scale(270, self.hauteur_actuelle)))
@@ -464,7 +465,7 @@ class Preview_Table:
                 if self.players[7][1] == None:
                     text = "Sit Available"
                 else:
-                    text = f"{self.players[7][2]}\n{self.players[7][3]}"
+                    text = f"{self.players[7][1]}\n{self.players[7][2]}"
                 gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
                 text_surf = gui_font.render(text, True, "#FFFFFF")
                 self.screen.blit(text_surf, (self.x + width_scale(55, self.largeur_actuelle), self.y + height_scale(370, self.hauteur_actuelle)))
@@ -472,7 +473,7 @@ class Preview_Table:
                 if self.players[8][1] == None:
                     text = "Sit Available"
                 else:
-                    text = f"{self.players[8][2]}\n{self.players[8][3]}"
+                    text = f"{self.players[8][1]}\n{self.players[8][2]}"
                 gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
                 text_surf = gui_font.render(text, True, "#FFFFFF")
                 self.screen.blit(text_surf, (self.x + width_scale(405, self.largeur_actuelle), self.y + height_scale(370, self.hauteur_actuelle)))
@@ -494,7 +495,7 @@ class Preview_Table:
                 if self.players[0][1] == None:
                     text = "Sit Available"
                 else:
-                    text = f"{self.players[0][2]}\n{self.players[0][3]}"
+                    text = f"{self.players[0][1]}\n{self.players[0][2]}"
                 gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
                 text_surf = gui_font.render(text, True, "#FFFFFF")
                 self.screen.blit(text_surf, (self.x + width_scale(55, self.largeur_actuelle), self.y + height_scale(70, self.hauteur_actuelle)))
@@ -502,7 +503,7 @@ class Preview_Table:
                 if self.players[1][1] == None:
                     text = "Sit Available"
                 else:
-                    text = f"{self.players[1][2]}\n{self.players[1][3]}"
+                    text = f"{self.players[1][1]}\n{self.players[1][2]}"
                 gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
                 text_surf = gui_font.render(text, True, "#FFFFFF")
                 self.screen.blit(text_surf, (self.x + width_scale(230, self.largeur_actuelle), self.y + height_scale(70, self.hauteur_actuelle)))
@@ -510,7 +511,7 @@ class Preview_Table:
                 if self.players[2][1] == None:
                     text = "Sit Available"
                 else:
-                    text = f"{self.players[2][2]}\n{self.players[2][3]}"
+                    text = f"{self.players[2][1]}\n{self.players[2][2]}"
                 gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
                 text_surf = gui_font.render(text, True, "#FFFFFF")
                 self.screen.blit(text_surf, (self.x + width_scale(405, self.largeur_actuelle), self.y + height_scale(70, self.hauteur_actuelle)))
@@ -518,7 +519,7 @@ class Preview_Table:
                 if self.players[3][1] == None:
                     text = "Sit Available"
                 else:
-                    text = f"{self.players[3][2]}\n{self.players[3][3]}"
+                    text = f"{self.players[3][1]}\n{self.players[3][2]}"
                 gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
                 text_surf = gui_font.render(text, True, "#FFFFFF")
                 self.screen.blit(text_surf, (self.x + width_scale(55, self.largeur_actuelle), self.y + height_scale(170, self.hauteur_actuelle)))
@@ -526,7 +527,7 @@ class Preview_Table:
                 if self.players[4][1] == None:
                     text = "Sit Available"
                 else:
-                    text = f"{self.players[4][2]}\n{self.players[4][3]}"
+                    text = f"{self.players[4][1]}\n{self.players[4][2]}"
                 gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
                 text_surf = gui_font.render(text, True, "#FFFFFF")
                 self.screen.blit(text_surf, (self.x + width_scale(405, self.largeur_actuelle), self.y + height_scale(170, self.hauteur_actuelle)))
@@ -534,7 +535,7 @@ class Preview_Table:
                 if self.players[5][1] == None:
                     text = "Sit Available"
                 else:
-                    text = f"{self.players[5][2]}\n{self.players[5][3]}"
+                    text = f"{self.players[5][1]}\n{self.players[5][2]}"
                 gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
                 text_surf = gui_font.render(text, True, "#FFFFFF")
                 self.screen.blit(text_surf, (self.x + width_scale(55, self.largeur_actuelle), self.y + height_scale(270, self.hauteur_actuelle)))
@@ -542,7 +543,7 @@ class Preview_Table:
                 if self.players[6][1] == None:
                     text = "Sit Available"
                 else:
-                    text = f"{self.players[6][2]}\n{self.players[6][3]}"
+                    text = f"{self.players[6][1]}\n{self.players[6][2]}"
                 gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
                 text_surf = gui_font.render(text, True, "#FFFFFF")
                 self.screen.blit(text_surf, (self.x + width_scale(405, self.largeur_actuelle), self.y + height_scale(270, self.hauteur_actuelle)))
@@ -550,7 +551,7 @@ class Preview_Table:
                 if self.players[7][1] == None:
                     text = "Sit Available"
                 else:
-                    text = f"{self.players[7][2]}\n{self.players[7][3]}"
+                    text = f"{self.players[7][1]}\n{self.players[7][2]}"
                 gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
                 text_surf = gui_font.render(text, True, "#FFFFFF")
                 self.screen.blit(text_surf, (self.x + width_scale(55, self.largeur_actuelle), self.y + height_scale(370, self.hauteur_actuelle)))
@@ -558,7 +559,7 @@ class Preview_Table:
                 if self.players[8][1] == None:
                     text = "Sit Available"
                 else:
-                    text = f"{self.players[8][2]}\n{self.players[8][3]}"
+                    text = f"{self.players[8][1]}\n{self.players[8][2]}"
                 gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
                 text_surf = gui_font.render(text, True, "#FFFFFF")
                 self.screen.blit(text_surf, (self.x + width_scale(230, self.largeur_actuelle), self.y + height_scale(370, self.hauteur_actuelle)))
@@ -566,7 +567,7 @@ class Preview_Table:
                 if self.players[9][1] == None:
                     text = "Sit Available"
                 else:
-                    text = f"{self.players[9][2]}\n{self.players[9][3]}"
+                    text = f"{self.players[9][1]}\n{self.players[9][2]}"
                 gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
                 text_surf = gui_font.render(text, True, "#FFFFFF")
                 self.screen.blit(text_surf, (self.x + width_scale(405, self.largeur_actuelle), self.y + height_scale(370, self.hauteur_actuelle)))

@@ -195,7 +195,6 @@ class HUD_State:
 
         if not self.table_selected is None:
             # On crée la preview des tables
-            
             Global_objects.previewlobbys.draw()
         
         # Met à jour l'affichage de l'interface
