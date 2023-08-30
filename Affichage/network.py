@@ -8,8 +8,11 @@ host, port = ('localhost', 5566)
 
 lobbys = []
 
-global socket_lobby
-socket_lobby = None
+stop_sending_event = Event()
+stop_listenning_event = Event()
+
+listenning_thread = None
+sending_thread = None
 
 def envoi_message(client_socket : socket, msg : str):
     print("envoyé : ",msg)
@@ -100,17 +103,21 @@ def recieve_data(client_socket : socket):
 
                 case "redirect":
                     try:
+                        print("redirection...")
+
                         body = body.split(":")
                         host,port = body[0],int(body[1])
                         client_socket_lobby = socket(AF_INET, SOCK_STREAM)
+                        Global_objects.client_socket.close()
+
                         Global_objects.client_socket = client_socket_lobby
+
                         client_socket_lobby.connect((host, port))
                         print("Connecté au lobby.", host, port)
+
                         listen_lobby = Thread(target=recieve_data, args=[client_socket_lobby])
                         global socket_lobby
                         socket_lobby = client_socket_lobby
-                        
-                        client_socket.close()
 
                         # a suivre ...
 
@@ -186,15 +193,16 @@ def send_message(client_socket):
         
         if message == "get_lobbys=/disconnect":
             break
+
         else:
             try:
                 client_socket.send(message.encode("utf-8"))
             except Exception as e:
                 print("echec d'envoi de message : ",e)
-                
                 break
         
     try:
+        print("ENTRÉE DANS TENTATIVE DE NOUVEAU SEND_MESSAGE")
         global socket_lobby
         if not socket_lobby is None :
             print(socket_lobby)
@@ -209,6 +217,39 @@ def send_message(client_socket):
     except:
         connecte = False
 
+def start_listenning(conn : socket):
+    global listenning_thread
+
+    receive_thread = Thread(target=recieve_data, args=(conn))
+    listenning_thread = receive_thread
+
+    receive_thread.start()
+
+def start_sending(conn : socket):
+    global sending_thread
+
+    send_thread = Thread(target=send_message, args=(conn))
+    sending_thread = send_thread
+
+    send_thread.start()
+
+def stop_listenning(thread : Thread):
+    global stop_listenning_event
+    stop_listenning_event.set()
+    thread.join()
+
+    stop_listenning_event = Event()
+
+
+
+def stop_sending(thread : Thread):
+    global stop_sending_event
+    stop_sending_event.set()
+    thread.join()
+
+    stop_sending_event = Event()
+
+
 def start_client():
     try:
         client_socket = socket(AF_INET, SOCK_STREAM)
@@ -216,12 +257,8 @@ def start_client():
         client_socket.connect((host, port))
         print("Connecté au serveur.")
 
-        receive_thread = Thread(target=recieve_data, args=(client_socket,))
-        send_thread = Thread(target=send_message, args=(client_socket,))
-
-
-        receive_thread.start()
-        send_thread.start()
+        start_listenning(client_socket)
+        start_sending(client_socket)
 
     except:
         print("Echec de connexion au serveur. (skill issue)")
