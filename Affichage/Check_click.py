@@ -117,6 +117,7 @@ def check_click(Button):
             case "refresh":
                 ask_lobbys(Global_objects.client_socket)
                 Global_objects.serverscrollbox.scroll_pos = 0
+                Global_objects.game_state.table_selected = None
     match Button.fonction:
         # Lorsque le bouton BACK (fléche retour) est cliqué
         case "back":
