@@ -1,0 +1,55 @@
+Des joueurs doivent encore parler:
+    -On fold les joueurs inactifs à leur tour instantanément
+		-Quand le joueur a fini de parler, on donne la parole au joueur à sa gauche et on répète jusqu'à ce que tout les joueurs aient parlé ou qu'il ne reste qu'un joueur actif. Si il ne reste qu'un joueur, on lui donne le contenu du pot principal et on relance un coup
+
+Vérification des chips:
+    On regarde les chips d'un joueur et la mise courante
+    si la mise courante est égale à 0:
+        proposer fold/check/raise
+    s'il a plus de chips que la mise courante:
+        si chips >= 2 fois mise courante:
+            proposer fold/call/raise
+    ###Vérifier cette partie de l'algorithme
+        sinon:
+            proposer fold/all-in
+        si la valeur de raise est égale aux chips:
+            raise devient all-in
+            passer le joueur en état de all-in
+    sinon:
+        proposer fold/all-in
+    ###
+
+call:
+    On prend la mise courante
+    Si mise courante == 0:
+        call devient check
+    Si mise courante >= chips:
+        call devient all-in
+    sinon:
+        On prend les chips à hauteur de la mise courante et on les mises devant le joueur
+        Le joueur a parlé
+
+fold:
+    On prend la mise du joueur et on l'ajoute au pot
+    On retire l'ID dans la liste des joueurs qui jouent pour ce pot
+    Le joueur devient inactif
+    Le joueur a parlé
+
+raise:
+    On prend la mise courante
+    si chips >= 2 fois mise courante:
+        Demander combien raise (avec un minimum de 2 fois la mise courante)
+        Prendre le montant indiqué et le miser
+        Tout les joueurs actifs peuvent parler de nouveau
+        Le joueur a parlé
+    sinon:
+        raise devient all-in
+
+check:
+    le joueur a parlé
+
+all-in:
+    Prendre les chips du joueur et le miser
+    Le joueur ne peut plus parler jusqu'au prochain coup
+    
+

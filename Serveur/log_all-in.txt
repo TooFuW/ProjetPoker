@@ -1,0 +1,15 @@
+On regarde les chips d'un joueur:
+    s'il a plus de chips que la mise courante:
+        proposer fold/call/raise
+        si la valeur de raise est égale aux chips:
+            raise devient all-in
+            passer le joueur en état de all-in
+    sinon:
+        proposer fold/all-in
+
+
+Quand tout les joueurs ont parlés:
+    Tant qu'il y a un all-in ou plus:
+        -prendre le all-in le plus bas
+        -prélever dans toutes les mises cette somme et la mettre dans un pot 1
+        -

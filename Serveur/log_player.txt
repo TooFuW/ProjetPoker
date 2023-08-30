@@ -1,0 +1,9 @@
+Tout les états d'un joueur:
+    -a parlé (le joueur a effectuer son action et doit attendre la prochaine step avnt que sont état repasse a "peut parler")
+    -peut parler (ce n'est pas encore le tour du joueur mais il aura la possibilité de parler quand ce sera son tour)
+    -doit parler (lorsque c'est au tour d'un joueur qui "peut parler" il passe en "doit parler". Il peut alors effectuer ses actions)
+    -all-in (le joueur doit attendre le prochain coup pour pouvoir de nouveau passer en "peut parler")
+    -actif (le joueur peut encore intéragir dans le coup)
+    -inactif (le joueur ne peut plus intéragir dans le coup)
+    -connected (le joueur peut parler quand il peut. Il est comptabilisé même s'il est inactif)
+    -disconnected (le joueur ne peut pas parler et des actions pré-établites sont éxécutées à sa place)
