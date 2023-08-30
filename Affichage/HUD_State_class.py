@@ -193,8 +193,9 @@ class HUD_State:
         text_surf = gui_font.render("Private Table Code", True, "#000000")
         self.screen.blit(text_surf, (width_scale(1370, self.largeur_actuelle), height_scale(850, self.hauteur_actuelle)))
 
-        if self.table_selected is not None:
+        if not self.table_selected is None:
             # On crée la preview des tables
+            
             Global_objects.previewlobbys.draw()
         
         # Met à jour l'affichage de l'interface

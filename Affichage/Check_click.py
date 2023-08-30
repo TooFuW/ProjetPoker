@@ -103,6 +103,7 @@ def check_click(Button):
                     Global_objects.game_state.table_selected = Button.text.split("          ")
                     lobby_id = int(Global_objects.game_state.table_selected[-1])
                     ask_sits_infos(Global_objects.client_socket,lobby_id)
+                    
             # Lorsque le bouton JOIN est cliqué pour rejoindre la table sélectionnée
             case "join table":
                 Global_objects.game_state.back_pile = ["Main Menu"]

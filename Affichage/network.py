@@ -6,17 +6,21 @@ import Global_objects
 
 host, port = ('localhost', 5566)
 
-lobbys = []
-
 stop_sending_event = Event()
 stop_listenning_event = Event()
 
 listenning_thread = None
 sending_thread = None
 
-def envoi_message(client_socket : socket, msg : str):
-    print("envoyé : ",msg)
-    client_socket.send(msg.encode("utf8"))
+def send_packet(conn : socket, packet : str) -> None:
+    """Envoie un paquet de donnée au client ciblé
+
+    Args:
+        conn (socket): objet socket à qui envoyer la paquet
+        packet (str): le paquet à envoyer
+    """
+    conn.send(packet.encode("utf8"))
+
 
 def ask_lobbys(client_socket):
     """Demande les lobbys au serveur
@@ -25,53 +29,61 @@ def ask_lobbys(client_socket):
         client_socket socket : socket du serveur à qui demander
     """
 
-    thread_ask_lobbys = Thread(target=envoi_message, args=(client_socket, "get_lobbys="))
+    thread_ask_lobbys = Thread(target=send_packet, args=(client_socket, "get_lobbys="))
     thread_ask_lobbys.start()
 
-def ask_sits_infos(client_socket, lobby_id):
+
+def ask_sits_infos(client_socket : socket, lobby_id : int):
+    """Demande les infos de sièges d'un lobby
+
+    Args:
+        client_socket (socket): le socket à qui demander les lobbys
+        lobby_id (int): le lobby dont on veut connaitre les sièges
+    """
     try : 
         print("ask_sits_infos déclenché")
         message = "get_sits_infos="+str(lobby_id)
 
-        thread_ask_sits = Thread(target=envoi_message, args=(client_socket, message))
+        thread_ask_sits = Thread(target=send_packet, args=(client_socket, message))
         thread_ask_sits.start()
 
     except Exception as e :
         print("Erreur network.ask_sits_infos : ", e)
 
-
-#reception continue de messages
-def recieve_data(client_socket : socket):
+def recieve_data(conn : socket):
     connecte = True
-    print("écoute, sur", client_socket)
+    print("Écoute des paquets sur : ",conn)
+
     while connecte:
+        if stop_listenning_event.is_set():
+            print("fin d'écoute sur ",conn)
+            break
         try:
-            data = client_socket.recv(1024)
-            #
+            data = conn.recv(1024)
+            data = data.decode("utf-8")
 
-            message = data.decode("utf-8")
+            thread_manage_data = Thread(target=manage_data, args=[conn,data])
+            thread_manage_data.start()
 
-            entete = packet_separator(message)[0]
-            body = packet_separator(message)[1]
+        except Exception as e:
+            print("Erreur sur network.recieve_data : ",e)
 
-            match entete:
+def manage_data(conn : socket, packet : str):
+    try : 
+        packet = packet_separator(packet)
 
-                case "deconnect":
-                    break
+        entete = packet[0]
+        body = packet[1]
 
-                case "newplayerconnect":
-                    print("\n\n <<  "+body+"  >> \n\n")
-                
-                case "startgame":
-                    print("demarrage game") #a completer
+        del packet
 
-                case "lobbys":
-                    try:
-                        global lobbys
-                        lobbys = eval(body)
-                        
-                        print(lobbys, type(lobbys))
-                        Global_objects.lobbys_list = lobbys
+        match entete:
+
+            case "lobbys": # Récéption des lobbys
+                try:
+                        # Traitement des lobbys puis enregistrement dans la variable globale correspondante
+                        lobbys = eval(body)  
+
                         for i in range(len(lobbys)):
                             lobbys[i] = eval(lobbys[i])
                             print(lobbys[i], type(lobbys[i]))
@@ -79,11 +91,11 @@ def recieve_data(client_socket : socket):
                         Global_objects.lobbys_list = lobbys
                         
                         edit_displayed_lobbys_list(lobbys)
-                    except:
-                        lobbys = []
-                        Global_objects.lobbys_list = lobbys
 
-                case "sits_infos":
+                except Exception as e:
+                    print("Erreur dans network.manage_data case lobbys : ",e)
+
+            case "sits_infos":
                     try:
                         print(body)
                         # on transforme la chaine de caractères en liste de chaines de caractères
@@ -99,60 +111,59 @@ def recieve_data(client_socket : socket):
 
                     except Exception as e:
                         print("Erreur sur réception paquet sits_infos : ",e)
-            
 
-                case "redirect":
-                    try:
-                        print("redirection...")
 
-                        body = body.split(":")
-                        host,port = body[0],int(body[1])
-                        client_socket_lobby = socket(AF_INET, SOCK_STREAM)
-                        Global_objects.client_socket.close()
+            case "redirect":
+                try:
+                    print("redirection...")
 
-                        Global_objects.client_socket = client_socket_lobby
+                    body = body.split(":")
+                    host,port = body[0],int(body[1])
+                    # création du socket lobby
+                    client_socket_lobby = socket(AF_INET, SOCK_STREAM)
+                    
 
-                        client_socket_lobby.connect((host, port))
-                        print("Connecté au lobby.", host, port)
+                    # attribution du nouveau socket à la variable globale
+                    Global_objects.client_socket = client_socket_lobby
 
-                        listen_lobby = Thread(target=recieve_data, args=[client_socket_lobby])
-                        global socket_lobby
-                        socket_lobby = client_socket_lobby
+                    client_socket_lobby.connect((host, port))
+                    print("Connecté au lobby.", host, port)
 
+                    global sending_thread
+                    global listenning_thread
+
+                    stop_sending(sending_thread)
+                    stop_listenning(sending_thread)
+
+                    start_sending(Global_objects.client_socket)
+                    start_listenning(Global_objects.client_socket)
                         # a suivre ...
 
                     
-                    except:
-                        pass #packet echec
+                except:
+                    print("Erreur network.manage_data case redirect")
 
-                case "404_lobby_not_exist":
+
+
+            case "404_lobby_not_exist":
                     print("This lobby does not exist.")
 
-                case "players_pseudos":
-                    print(body)
-                case "players_count":
-                    print(body, "joueurs / 5")
-                case "new_player_joined":
-                    print(body, "a rejoint le lobby !")
-                    thread_players_count = Thread(target=envoi_message, args=[client_socket, "players_count="])
-                    thread_players_count.start()
-                    
-    
-            # Ici, vous pouvez ajouter le code pour traiter le message côté client
-        except:
-            print('Echec de réception.')
-            connecte = False
+            case "players_pseudos":
+                print(body)
+                
+            case "players_count":
+                print(body, "joueurs / 5")
+            
+            case "new_player_joined":
 
-    try :
-        print("Fin d'ecoute du serveur ...")
-        connecte = False
-        try:
-            print("ecoute des packets en provenance du lobby")
-            listen_lobby.start()
-        except:
-            print("echec de connexion au lobby")
-    except:
-        connecte = False
+                print(body, "a rejoint le lobby !")
+                thread_players_count = Thread(target=send_packet, args=[conn, "players_count="])
+                thread_players_count.start()
+
+
+    except Exception as e:
+        print("Erreur sur network.manage_data : ",e)
+
 
 def edit_displayed_lobbys_list(liste):
     display_list = []
@@ -171,17 +182,24 @@ def edit_displayed_lobbys_list(liste):
     print("IMPORTANT :")
     print(Global_objects.displayed_lobbys_list)
 
-def recieve_sits_infos(liste):
+
+def recieve_sits_infos(liste): # On gère la récéption des infos de sièges
     try :
+        # On affecte les infos de sièges à la variable de preview
         Global_objects.previewlobbys.players = liste
     except Exception as e:
         print("Erreur dans network.recieve_sits_infos : ",e)
 
 
-def send_message(client_socket):
+
+def send_message(client_socket : socket):
     connecte = True
     print("envoi, sur", client_socket)
     while connecte:
+        if stop_sending_event.is_set():
+            print("fin d'envoi sur ",client_socket)
+            break
+
         entete = input("Entrez une entete (/disconnect pour quitter) : \n> ")
         message = input("Entrez un message (/disconnect pour quitter) : \n> ")
 
@@ -199,28 +217,16 @@ def send_message(client_socket):
                 client_socket.send(message.encode("utf-8"))
             except Exception as e:
                 print("echec d'envoi de message : ",e)
-                break
+                connecte = False
+                
         
-    try:
-        print("ENTRÉE DANS TENTATIVE DE NOUVEAU SEND_MESSAGE")
-        global socket_lobby
-        if not socket_lobby is None :
-            print(socket_lobby)
-            send_message_lobby = Thread(target=send_message, args=[socket_lobby])
-            socket_lobby = None
-            send_message_lobby.start()
+    
 
-        else: 
-            connecte = False
-            print('Deconnexion ...')
-            client_socket.close()
-    except:
-        connecte = False
 
 def start_listenning(conn : socket):
     global listenning_thread
 
-    receive_thread = Thread(target=recieve_data, args=(conn))
+    receive_thread = Thread(target=recieve_data, args=[conn])
     listenning_thread = receive_thread
 
     receive_thread.start()
@@ -228,7 +234,7 @@ def start_listenning(conn : socket):
 def start_sending(conn : socket):
     global sending_thread
 
-    send_thread = Thread(target=send_message, args=(conn))
+    send_thread = Thread(target=send_message, args=[conn])
     sending_thread = send_thread
 
     send_thread.start()
@@ -249,12 +255,13 @@ def stop_sending(thread : Thread):
 
     stop_sending_event = Event()
 
-
 def start_client():
     try:
         client_socket = socket(AF_INET, SOCK_STREAM)
-        Global_objects.client_socket = client_socket
         client_socket.connect((host, port))
+
+        Global_objects.client_socket = client_socket
+
         print("Connecté au serveur.")
 
         start_listenning(client_socket)
