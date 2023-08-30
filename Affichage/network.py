@@ -103,7 +103,7 @@ def recieve_data(client_socket : socket):
                         body = body.split(":")
                         host,port = body[0],int(body[1])
                         client_socket_lobby = socket(AF_INET, SOCK_STREAM)
-                        Global_objects.client_socket = client_socket
+                        Global_objects.client_socket = client_socket_lobby
                         client_socket_lobby.connect((host, port))
                         print("Connecté au lobby.", host, port)
                         listen_lobby = Thread(target=recieve_data, args=[client_socket_lobby])
