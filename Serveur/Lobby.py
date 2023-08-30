@@ -154,6 +154,12 @@ class Lobby :
                         print("erreur fonction lobby.sit_down")
                         #packet erreur valeur
 
+            case "pwd":
+                pwd = "pwd=Lobby "+str(self.id)+";"+self.host+";"+str(self.port)
+
+                thread_send_pwd = Thread(target=self.send_packet, args=[pwd,socket])
+                thread_send_pwd.start()
+
 
 
                 
