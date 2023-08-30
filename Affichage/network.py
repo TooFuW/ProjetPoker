@@ -144,6 +144,9 @@ def manage_data(conn : socket, packet : str):
                     print("Erreur network.manage_data case redirect")
 
 
+            case "pwd":
+                pwd_infos = body.split(";")
+                print(pwd_infos)
 
             case "404_lobby_not_exist":
                     print("This lobby does not exist.")

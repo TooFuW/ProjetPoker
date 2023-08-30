@@ -11,9 +11,10 @@ a = []
 print(sys.getsizeof(a))
 
 class Main:
-    
 
     def __init__(self) -> None:  #initialise les variables principales
+
+        self.host, self.port = ("localhost",5566)
 
         self.lobbys_ports = (5567,5568,5569,5570,5571,5572,5573,5574,5575,5576,5577,5578,5579,5580,5581,5582,5583,5584,5585,5586,5587)
         self.lobbys = [Lobby(randint(100000,999999),"lobby_"+str(i+1),randint(3,10),int(randint(25,1000)*10),False,"localhost",self.lobbys_ports[i]) for i in range(14)]
@@ -124,6 +125,12 @@ class Main:
 
                     except Exception as e:
                         print("Erreur dans main.get_sits_infos : ", e)
+
+                case "pwd":
+                    pwd = "pwd="+"Main;"+self.host+";"+str(self.port)
+
+                    thread_send_pwd = Thread(target=send_packet, args=[pwd,socket])
+                    thread_send_pwd.start()
 
 
         except:
