@@ -67,6 +67,8 @@ class Main:
             data = packet_separator(packet)
             
             header,body = data[0],data[1]
+
+            print("packet reçu : ", header, "=", body)
             
             match header:
                 #plein de headers et leur gestion
@@ -112,6 +114,17 @@ class Main:
                     except Exception as e:
                         #packet erreur
                         print(e)
+
+                case "get_sits_infos":
+                    try:
+                        print("requete sur main : get_sits_infos, lobby = "+body)
+                        lobby = self.get_lobby_by_id(int(body))
+                        thread_send_sits_infos = Thread(target=lobby.send_sits_infos, args=[socket])
+                        thread_send_sits_infos.start()
+
+                    except Exception as e:
+                        print("Erreur dans main.get_sits_infos : ", e)
+
 
         except:
             raise TypeError

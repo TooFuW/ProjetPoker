@@ -12,6 +12,7 @@ global socket_lobby
 socket_lobby = None
 
 def envoi_message(client_socket : socket, msg : str):
+    print("envoyé : ",msg)
     client_socket.send(msg.encode("utf8"))
 
 def ask_lobbys(client_socket):
@@ -24,11 +25,16 @@ def ask_lobbys(client_socket):
     thread_ask_lobbys = Thread(target=envoi_message, args=(client_socket, "get_lobbys="))
     thread_ask_lobbys.start()
 
-def ask_sits_infos(client_socket):
-    message = "get_sits_info="
+def ask_sits_infos(client_socket, lobby_id):
+    try : 
+        print("ask_sits_infos déclenché")
+        message = "get_sits_infos="+str(lobby_id)
 
-    thread_ask_sits = Thread(target=envoi_message, args=(client_socket, message))
-    thread_ask_sits.start()
+        thread_ask_sits = Thread(target=envoi_message, args=(client_socket, message))
+        thread_ask_sits.start()
+
+    except Exception as e :
+        print("Erreur network.ask_sits_infos : ", e)
 
 
 #reception continue de messages
@@ -75,16 +81,21 @@ def recieve_data(client_socket : socket):
                         Global_objects.lobbys_list = lobbys
 
                 case "sits_infos":
-                    print(body)
-                    # on transforme la chaine de caractères en liste de chaines de caractères
-                    body = eval(body)
+                    try:
+                        print(body)
+                        # on transforme la chaine de caractères en liste de chaines de caractères
+                        body = eval(body)
 
-                    # on trasforme chaque str dans body en liste
-                    for i in range(len(body)):
-                        body[i] = eval(body[i])
+                        # on trasforme chaque str dans body en liste
+                        for i in range(len(body)):
+                            if type(body) == str:
+                                body[i] = eval(body[i])
 
-                    # on appelle la fonction de gestion de données
-                    recieve_sits_infos(body)
+                        # on appelle la fonction de gestion de données
+                        recieve_sits_infos(body)
+
+                    except Exception as e:
+                        print("Erreur sur réception paquet sits_infos : ",e)
             
 
                 case "redirect":
@@ -154,9 +165,12 @@ def edit_displayed_lobbys_list(liste):
     print(Global_objects.displayed_lobbys_list)
 
 def recieve_sits_infos(liste):
-    Global_objects.previewlobbys.players = liste
-    # à continuer au besoin
-    print(f"\n\n[INFO DES SIEGES] : {Global_objects.previewlobbys.players}\n\n")
+    try :
+        Global_objects.previewlobbys.players = liste
+        # à continuer au besoin
+        print(f"\n\n[INFO DES SIEGES] : {Global_objects.previewlobbys.players}\n\n")
+    except Exception as e:
+        print("Erreur dans network.recieve_sits_infos : ",e)
 
 
 def send_message(client_socket):

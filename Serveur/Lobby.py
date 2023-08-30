@@ -94,6 +94,8 @@ class Lobby :
         data = packet_separator(data)
         header,body = data[0],data[1]
 
+        print("packet reçu : ", header, "=", body)
+
         match header:
             case "get_players_pseudos":
                 packet = "players_pseudos=["
