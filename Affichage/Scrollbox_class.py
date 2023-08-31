@@ -60,7 +60,7 @@ class ScrollBox:
         item_offset_y = 0
 
         # Dessin des éléments visibles
-        for i, server in enumerate(self.servers[self.scroll_pos:]):
+        for _, server in enumerate(self.servers[self.scroll_pos:]):
             item_y = self.default_y + item_offset_y
             # Délimitation de la zone de la scrollbox
             text = (server[0] + self.indentation + str(server[1]) + self.indentation + server[2] + self.indentation + server[3] + self.indentation + server[4] + self.indentation + server[5])

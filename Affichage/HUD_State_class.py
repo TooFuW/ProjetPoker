@@ -479,7 +479,7 @@ class HUD_State:
         pygame.draw.rect(self.screen, "#475F77", pygame.Rect((width_scale(1540, self.largeur_actuelle), height_scale(30, self.hauteur_actuelle)), (width_scale(200, self.largeur_actuelle), height_scale(50, self.hauteur_actuelle))), border_radius = 3)
         self.screen.blit(text_surf, (width_scale(1550, self.largeur_actuelle), height_scale(40, self.hauteur_actuelle)))
 
-        # Affichage d'un arrière-plan noir transparent pour afficher les paramètres de la partie à selectionner
+        # Affichage d'un arrière-plan noir transparent derrière chaque paramètre de la partie à selectionner
         transparent_surface = pygame.Surface((width_scale(450, self.largeur_actuelle), height_scale(100, self.hauteur_actuelle)), pygame.SRCALPHA)
         pygame.draw.rect(transparent_surface, (0, 0, 0, 128), (0, 0, 450, 100), border_radius = 5)
         self.screen.blit(transparent_surface, (width_scale(180, self.largeur_actuelle), height_scale(110, self.hauteur_actuelle)))
@@ -513,8 +513,10 @@ class HUD_State:
                 pygame.quit()
                 sys.exit()
 
+        # Fond noir
+        pygame.draw.rect(self.screen, (0, 0, 0), pygame.Rect((0, 0), (self.largeur_actuelle, self.hauteur_actuelle)))
         # Dessine l'image de fond sur la self.screen de l'écran (IMPORANT CAR SE SUPERPOSE A L'INTERFACE PRECEDENT ET PERMET DE "L'EFFACER")
-        table_fond = pygame.transform.scale(self.table_fond, (width_scale(1500, self.largeur_actuelle), self.hauteur_actuelle))
+        table_fond = pygame.transform.scale(self.table_fond, (self.largeur_actuelle, height_scale(980, self.hauteur_actuelle)))
         self.screen.blit(table_fond, (0, 0))
 
         # Affichage des infos de la table sélectionnée en placeholder
@@ -523,14 +525,102 @@ class HUD_State:
         self.screen.blit(text_surf, (width_scale(510, self.largeur_actuelle), height_scale(510, self.hauteur_actuelle)))
 
         # Affichage de la zone qui comportera les actions du joueur
-        # Fond noir
-        pygame.draw.rect(self.screen, (0, 0, 0), pygame.Rect((width_scale(1500, self.largeur_actuelle), 0), (width_scale(420, self.largeur_actuelle), self.hauteur_actuelle)))
         # Boutons d'actions
         Global_objects.checkbutton.draw()
         Global_objects.callbutton.draw()
-        Global_objects.laybutton.draw()
+        Global_objects.foldbutton.draw()
         Global_objects.raisebutton.draw()
-        Global_objects.sit_1.draw()
+        match len(Global_objects.previewlobbys.players[:4]):
+
+            case 2:
+                Global_objects.sit_1.x = width_scale(840, self.largeur_actuelle)
+                Global_objects.sit_1.y = height_scale(200, self.hauteur_actuelle)
+                Global_objects.sit_1.draw()
+                Global_objects.sit_2.x = width_scale(840, self.largeur_actuelle)
+                Global_objects.sit_2.y = height_scale(700, self.hauteur_actuelle)
+                Global_objects.sit_2.draw()
+
+            case 3:
+                Global_objects.sit_1.x = width_scale(540, self.largeur_actuelle)
+                Global_objects.sit_1.y = height_scale(250, self.hauteur_actuelle)
+                Global_objects.sit_1.draw()
+                Global_objects.sit_2.x = width_scale(1140, self.largeur_actuelle)
+                Global_objects.sit_2.y = height_scale(250, self.hauteur_actuelle)
+                Global_objects.sit_2.draw()
+                Global_objects.sit_3.x = width_scale(840, self.largeur_actuelle)
+                Global_objects.sit_3.y = height_scale(700, self.hauteur_actuelle)
+                Global_objects.sit_3.draw()
+
+            case 4:
+                Global_objects.sit_1.x = width_scale(540, self.largeur_actuelle)
+                Global_objects.sit_1.y = height_scale(250, self.hauteur_actuelle)
+                Global_objects.sit_1.draw()
+                Global_objects.sit_2.x = width_scale(1140, self.largeur_actuelle)
+                Global_objects.sit_2.y = height_scale(250, self.hauteur_actuelle)
+                Global_objects.sit_2.draw()
+                Global_objects.sit_3.x = width_scale(540, self.largeur_actuelle)
+                Global_objects.sit_3.y = height_scale(700, self.hauteur_actuelle)
+                Global_objects.sit_3.draw()
+                Global_objects.sit_4.x = width_scale(1140, self.largeur_actuelle)
+                Global_objects.sit_4.y = height_scale(700, self.hauteur_actuelle)
+                Global_objects.sit_4.draw()
+
+            case 5:
+                Global_objects.sit_1.draw()
+                Global_objects.sit_2.draw()
+                Global_objects.sit_3.draw()
+                Global_objects.sit_4.draw()
+                Global_objects.sit_5.draw()
+
+            case 6:
+                Global_objects.sit_1.draw()
+                Global_objects.sit_2.draw()
+                Global_objects.sit_3.draw()
+                Global_objects.sit_4.draw()
+                Global_objects.sit_5.draw()
+                Global_objects.sit_6.draw()
+
+            case 7:
+                Global_objects.sit_1.draw()
+                Global_objects.sit_2.draw()
+                Global_objects.sit_3.draw()
+                Global_objects.sit_4.draw()
+                Global_objects.sit_5.draw()
+                Global_objects.sit_6.draw()
+                Global_objects.sit_7.draw()
+
+            case 8:
+                Global_objects.sit_1.draw()
+                Global_objects.sit_2.draw()
+                Global_objects.sit_3.draw()
+                Global_objects.sit_4.draw()
+                Global_objects.sit_5.draw()
+                Global_objects.sit_6.draw()
+                Global_objects.sit_7.draw()
+                Global_objects.sit_8.draw()
+
+            case 9:
+                Global_objects.sit_1.draw()
+                Global_objects.sit_2.draw()
+                Global_objects.sit_3.draw()
+                Global_objects.sit_4.draw()
+                Global_objects.sit_5.draw()
+                Global_objects.sit_6.draw()
+                Global_objects.sit_7.draw()
+                Global_objects.sit_8.draw()
+                Global_objects.sit_9.draw()
+
+            case 10:
+                Global_objects.sit_1.draw()
+                Global_objects.sit_2.draw()
+                Global_objects.sit_3.draw()
+                Global_objects.sit_4.draw()
+                Global_objects.sit_5.draw()
+                Global_objects.sit_6.draw()
+                Global_objects.sit_7.draw()
+                Global_objects.sit_8.draw()
+                Global_objects.sit_9.draw()
+                Global_objects.sit_10.draw()
 
         # TOUT CE QUI EST EN DESSOUS DE CE BLOC NE SERA PAS DESSINE DERRIERE LA SURFACE TRANSPARENTE
         # Quand l'utilisateur clique sur le bouton des paramètres

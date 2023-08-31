@@ -98,20 +98,20 @@ if __name__ == "__main__":
     # Création de l'objet settingpage1button
     settingpage3button = Button(largeur_actuelle, hauteur_actuelle, screen, "setting page 3", "PAGE 3", "Roboto", 50, "#475F77", "#354B5E", "#D74B4B", "#354B5E", 200, 70, (680, 90), 4, 8)
     # Création de l'objet gamesettingsbutton
-    gamesettingsbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "game settings", "", "Roboto", 0, "#475F77", "#354B5E", "#D74B4B", "#354B5E", 125, 125, (1770, 25), 6, 10, current_folder + "settinglogo.png")
+    gamesettingsbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "game settings", "", "Roboto", 0, "#475F77", "#354B5E", "#D74B4B", "#354B5E", 80, 80, (1820, 995), 4, 10, current_folder + "settinglogo.png")
     # Création de l'objet checkbutton
-    checkbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "check", "CHECK", "Roboto", 60, "#4CAF50", "#4CAF50", "#00FF00", "#4CAF50", 355, 100, (1540, 190), 6, 10)
+    checkbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "check", "CHECK", "Roboto", 60, "#4CAF50", "#4CAF50", "#00FF00", "#4CAF50", 300, 80, (30, 995), 6, 10)
     # Création de l'objet callbutton
-    callbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "call", "CALL", "Roboto", 60, "#FFD700", "#FFD700", "#FFFF00", "#FFD700", 355, 100, (1540, 340), 6, 10)
-    # Création de l'objet laybutton
-    laybutton = Button(largeur_actuelle, hauteur_actuelle, screen, "lay", "LAY", "Roboto", 60, "#0000FF", "#0000FF", "#0074D9", "#0000FF", 355, 100, (1540, 490), 6, 10)
+    callbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "call", "CALL", "Roboto", 60, "#FFD700", "#FFD700", "#FFFF00", "#FFD700", 300, 80, (380, 995), 6, 10)
+    # Création de l'objet foldbutton
+    foldbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "fold", "FOLD", "Roboto", 60, "#0000FF", "#0000FF", "#0074D9", "#0000FF", 300, 80, (730, 995), 6, 10)
     # Création de l'objet raisebutton
-    raisebutton = Button(largeur_actuelle, hauteur_actuelle, screen, "raise", "RAISE", "Roboto", 60, "#D32F2A", "#D32F2A", "#FF4F58", "#D32F2A", 355, 100, (1540, 640), 6, 10)
+    raisebutton = Button(largeur_actuelle, hauteur_actuelle, screen, "raise", "RAISE", "Roboto", 60, "#D32F2A", "#D32F2A", "#FF4F58", "#D32F2A", 300, 80, (1080, 995), 6, 10)
     # Création de l'objet refreshbutton
     refreshbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "refresh", "REFRESH", "Roboto", 60, "#475F77", "#354B5E", "#D74B4B", "#354B5E", 220, 100, (600, 50), 6, 10)
     
 
-    # Création des scrollboxs
+    # Création des Scrollboxs
     # Création de l'objet serverscrollbox 
     serverscrollbox = ScrollBox(largeur_actuelle, hauteur_actuelle, screen, 210, 215, 1000, 760, Global_objects.displayed_lobbys_list)
     # Création de l'objet historyscrollbox
@@ -125,7 +125,7 @@ if __name__ == "__main__":
     # Création de l'objet accountinformationinput
     accountinformationinput = TextInputBox(largeur_actuelle, hauteur_actuelle, screen, 60, (685, 315), 600, 650, "#333333", "#475F77", 600, False, 100, False, False, "INFORMATIONS")
 
-    # Création des previews de tables
+    # Création des Previews_Table
     # Création de l'objet previewlobbys
     previewlobbys = Preview_Table(largeur_actuelle, hauteur_actuelle, screen, table_fond, (1270, 215))
     # Création de l'objet previewhistory
@@ -133,7 +133,27 @@ if __name__ == "__main__":
 
     # Création des sits
     # Création de l'objet sit_1
-    sit_1 = Sits(largeur_actuelle, hauteur_actuelle, screen, 250, 80, (100, 115))
+    sit_1 = Sits(largeur_actuelle, hauteur_actuelle, screen, 250, 80, (0, 0))
+    # Création de l'objet sit_2
+    sit_2 = Sits(largeur_actuelle, hauteur_actuelle, screen, 250, 80, (0, 0))
+    # Création de l'objet sit_3
+    sit_3 = Sits(largeur_actuelle, hauteur_actuelle, screen, 250, 80, (0, 0))
+    # Création de l'objet sit_4
+    sit_4 = Sits(largeur_actuelle, hauteur_actuelle, screen, 250, 80, (0, 0))
+    # Création de l'objet sit_5
+    sit_5 = Sits(largeur_actuelle, hauteur_actuelle, screen, 250, 80, (0, 0))
+    # Création de l'objet sit_6
+    sit_6 = Sits(largeur_actuelle, hauteur_actuelle, screen, 250, 80, (0, 0))
+    # Création de l'objet sit_6
+    sit_6 = Sits(largeur_actuelle, hauteur_actuelle, screen, 250, 80, (0, 0))
+    # Création de l'objet sit_7
+    sit_7 = Sits(largeur_actuelle, hauteur_actuelle, screen, 250, 80, (0, 0))
+    # Création de l'objet sit_8
+    sit_8 = Sits(largeur_actuelle, hauteur_actuelle, screen, 250, 80, (0, 0))
+    # Création de l'objet sit_9
+    sit_9 = Sits(largeur_actuelle, hauteur_actuelle, screen, 250, 80, (0, 0))
+    # Création de l'objet sit_10
+    sit_10 = Sits(largeur_actuelle, hauteur_actuelle, screen, 250, 80, (0, 0))
 
     # Initialisation de toutes les valeurs globales stockées dans le fichier Global_objects.py (tous les objets que l'on crée ci-dessus)
     Global_objects.game_state = game_state
@@ -159,13 +179,22 @@ if __name__ == "__main__":
     Global_objects.gamesettingsbutton = gamesettingsbutton
     Global_objects.checkbutton = checkbutton
     Global_objects.callbutton = callbutton
-    Global_objects.laybutton = laybutton
+    Global_objects.foldbutton = foldbutton
     Global_objects.raisebutton = raisebutton
     Global_objects.refreshbutton = refreshbutton
     Global_objects.volume_music = 1.0
     Global_objects.buttons_interactibles = True
     Global_objects.displayed_lobbys_list = displayed_lobbys_list
     Global_objects.sit_1 = sit_1
+    Global_objects.sit_2 = sit_2
+    Global_objects.sit_3 = sit_3
+    Global_objects.sit_4 = sit_4
+    Global_objects.sit_5 = sit_5
+    Global_objects.sit_6 = sit_6
+    Global_objects.sit_7 = sit_7
+    Global_objects.sit_8 = sit_8
+    Global_objects.sit_9 = sit_9
+    Global_objects.sit_10 = sit_10
 
     # Gameloop
     while True:
