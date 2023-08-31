@@ -117,10 +117,11 @@ class Lobby :
 
             case "get_sits_infos":
                     try:
-
-                        send_sits_infos_thread = Thread(target=self.send_sits_infos, args=[socket])
-                        send_sits_infos_thread.start()
-                        print("fonction envoi sièges lancées.")
+                        if not body in (""," ","  "):
+                            send_sits_infos_thread = Thread(target=self.send_sits_infos, args=[socket])
+                            send_sits_infos_thread.start()
+                            print("fonction envoi sièges lancées.")
+                        
 
                     except Exception as e:
                         print(e)
@@ -161,6 +162,11 @@ class Lobby :
                 thread_send_pwd.start()
 
 
+            case "go_main":
+                thread_redirect_main = Thread(target=self.send_packet, args=["redirect=localhost:5566",socket])
+                thread_redirect_main.start()
+
+
 
                 
 
@@ -194,6 +200,12 @@ class Lobby :
             print("erreur lors de la création du player.")
             raise TypeError
         
+    if False:
+        def main_connect(self):
+
+            self.main_socket = socket(AF_INET, SOCK_STREAM)
+            self.main_socket.connect(("localhost", 5566))
+            
     
     def init_game(self):
         if not self.is_game_starting:
