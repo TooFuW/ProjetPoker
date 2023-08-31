@@ -6,6 +6,7 @@ import sys
 import Global_objects
 from HUD_State_class import *
 from network import *
+import time
 
 
 # Permet de savoir si les paramètres en jeu sont actifs pour bloquer les interactions avec le reste lorsque le menu des paramètres est actif
@@ -109,6 +110,7 @@ def check_click(Button):
                         ask_sits_infos(Global_objects.client_socket,lobby_id)
                     except:
                         pass
+                    time.sleep(0.2)
             # Lorsque le bouton JOIN est cliqué pour rejoindre la table sélectionnée
             case "join table":
                 Global_objects.game_state.back_pile = ["Main Menu"]

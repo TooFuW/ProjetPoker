@@ -12,7 +12,6 @@ import Global_objects
 from socket import *
 from threading import *
 from packet_separator import *
-from random import *
 from network import *
 
 
@@ -47,8 +46,8 @@ if __name__ == "__main__":
     table_fond = pygame.transform.scale(pokertable, (screen_width, screen_height))
 
     # Chargement du logo du jeu
-    logojeu = pygame.image.load(current_folder + "PokerBackground.jpg")
-    logojeu = pygame.transform.scale(logojeu, (width_scale(250, largeur_actuelle), height_scale(250, hauteur_actuelle)))
+    logojeu = pygame.image.load(current_folder + "logo jeu.jpg")
+    logojeu = pygame.transform.scale(logojeu, (width_scale(750, largeur_actuelle), height_scale(500, hauteur_actuelle)))
 
     # Chargement du logo MWTE
     logomwte = pygame.image.load(current_folder + "logo mwte.jpg")
@@ -81,7 +80,7 @@ if __name__ == "__main__":
     # Création de l'objet settingsbutton
     settingsbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "settings", "SETTINGS", "Roboto", 70, "#475F77", "#354B5E", "#D74B4B", "#354B5E", 300, 500, (310, 365), 6, 10)
     # Création de l'objet quitbutton
-    exitbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "exit", "EXIT", "Roboto", 70, "#475F77", "#354B5E", "#D74B4B", "#354B5E", 400, 100, (760, 960), 6, 10)
+    exitbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "exit", "", "Roboto", 0, "#475F77", "#354B5E", "#D74B4B", "#354B5E", 400, 100, (760, 960), 6, 10, current_folder + "logo exit.jpg")
     # Création de l'objet backbutton
     backbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "back", "", "Roboto", 0, "#475F77", "#354B5E", "#D74B4B", "#354B5E", 125, 125, (25, 25), 6, 10, current_folder + "backarrow.png")
     # Création de l'objet createtablebutton

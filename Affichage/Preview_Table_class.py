@@ -197,7 +197,7 @@ class Preview_Table:
                 height = 170
                 for elem in text.split("\n"):
                     text_surf = gui_font.render(elem, True, "#FFFFFF")
-                    self.screen.blit(text_surf, (self.x + width_scale(230, self.largeur_actuelle), self.y + height_scale(height, self.hauteur_actuelle)))
+                    self.screen.blit(text_surf, (self.x + width_scale(55, self.largeur_actuelle), self.y + height_scale(height, self.hauteur_actuelle)))
                     height += 25
                 # Texte box 3
                 if self.players[2][1] == None:
@@ -208,7 +208,7 @@ class Preview_Table:
                 height = 170
                 for elem in text.split("\n"):
                     text_surf = gui_font.render(elem, True, "#FFFFFF")
-                    self.screen.blit(text_surf, (self.x + width_scale(230, self.largeur_actuelle), self.y + height_scale(height, self.hauteur_actuelle)))
+                    self.screen.blit(text_surf, (self.x + width_scale(405, self.largeur_actuelle), self.y + height_scale(height, self.hauteur_actuelle)))
                     height += 25
                 # Texte box 4
                 if self.players[3][1] == None:
@@ -219,7 +219,7 @@ class Preview_Table:
                 height = 270
                 for elem in text.split("\n"):
                     text_surf = gui_font.render(elem, True, "#FFFFFF")
-                    self.screen.blit(text_surf, (self.x + width_scale(230, self.largeur_actuelle), self.y + height_scale(height, self.hauteur_actuelle)))
+                    self.screen.blit(text_surf, (self.x + width_scale(55, self.largeur_actuelle), self.y + height_scale(height, self.hauteur_actuelle)))
                     height += 25
                 # Texte box 5
                 if self.players[4][1] == None:
@@ -230,7 +230,7 @@ class Preview_Table:
                 height = 270
                 for elem in text.split("\n"):
                     text_surf = gui_font.render(elem, True, "#FFFFFF")
-                    self.screen.blit(text_surf, (self.x + width_scale(230, self.largeur_actuelle), self.y + height_scale(height, self.hauteur_actuelle)))
+                    self.screen.blit(text_surf, (self.x + width_scale(405, self.largeur_actuelle), self.y + height_scale(height, self.hauteur_actuelle)))
                     height += 25
 
             case 6:
@@ -262,7 +262,7 @@ class Preview_Table:
                 height = 170
                 for elem in text.split("\n"):
                     text_surf = gui_font.render(elem, True, "#FFFFFF")
-                    self.screen.blit(text_surf, (self.x + width_scale(230, self.largeur_actuelle), self.y + height_scale(height, self.hauteur_actuelle)))
+                    self.screen.blit(text_surf, (self.x + width_scale(55, self.largeur_actuelle), self.y + height_scale(height, self.hauteur_actuelle)))
                     height += 25
                 # Texte box 3
                 if self.players[2][1] == None:
@@ -273,7 +273,7 @@ class Preview_Table:
                 height = 170
                 for elem in text.split("\n"):
                     text_surf = gui_font.render(elem, True, "#FFFFFF")
-                    self.screen.blit(text_surf, (self.x + width_scale(230, self.largeur_actuelle), self.y + height_scale(height, self.hauteur_actuelle)))
+                    self.screen.blit(text_surf, (self.x + width_scale(405, self.largeur_actuelle), self.y + height_scale(height, self.hauteur_actuelle)))
                     height += 25
                 # Texte box 4
                 if self.players[3][1] == None:
@@ -284,7 +284,7 @@ class Preview_Table:
                 height = 270
                 for elem in text.split("\n"):
                     text_surf = gui_font.render(elem, True, "#FFFFFF")
-                    self.screen.blit(text_surf, (self.x + width_scale(230, self.largeur_actuelle), self.y + height_scale(height, self.hauteur_actuelle)))
+                    self.screen.blit(text_surf, (self.x + width_scale(55, self.largeur_actuelle), self.y + height_scale(height, self.hauteur_actuelle)))
                     height += 25
                 # Texte box 5
                 if self.players[4][1] == None:
@@ -295,7 +295,7 @@ class Preview_Table:
                 height = 270
                 for elem in text.split("\n"):
                     text_surf = gui_font.render(elem, True, "#FFFFFF")
-                    self.screen.blit(text_surf, (self.x + width_scale(230, self.largeur_actuelle), self.y + height_scale(height, self.hauteur_actuelle)))
+                    self.screen.blit(text_surf, (self.x + width_scale(405, self.largeur_actuelle), self.y + height_scale(height, self.hauteur_actuelle)))
                     height += 25
                 # Texte box 6
                 if self.players[5][1] == None:
@@ -328,7 +328,7 @@ class Preview_Table:
                 height = 70
                 for elem in text.split("\n"):
                     text_surf = gui_font.render(elem, True, "#FFFFFF")
-                    self.screen.blit(text_surf, (self.x + width_scale(230, self.largeur_actuelle), self.y + height_scale(height, self.hauteur_actuelle)))
+                    self.screen.blit(text_surf, (self.x + width_scale(55, self.largeur_actuelle), self.y + height_scale(height, self.hauteur_actuelle)))
                     height += 25
                 # Texte box 2
                 if self.players[1][1] == None:
@@ -339,7 +339,7 @@ class Preview_Table:
                 height = 70
                 for elem in text.split("\n"):
                     text_surf = gui_font.render(elem, True, "#FFFFFF")
-                    self.screen.blit(text_surf, (self.x + width_scale(230, self.largeur_actuelle), self.y + height_scale(height, self.hauteur_actuelle)))
+                    self.screen.blit(text_surf, (self.x + width_scale(405, self.largeur_actuelle), self.y + height_scale(height, self.hauteur_actuelle)))
                     height += 25
                 # Texte box 3
                 if self.players[2][1] == None:
@@ -350,7 +350,7 @@ class Preview_Table:
                 height = 170
                 for elem in text.split("\n"):
                     text_surf = gui_font.render(elem, True, "#FFFFFF")
-                    self.screen.blit(text_surf, (self.x + width_scale(230, self.largeur_actuelle), self.y + height_scale(height, self.hauteur_actuelle)))
+                    self.screen.blit(text_surf, (self.x + width_scale(55, self.largeur_actuelle), self.y + height_scale(height, self.hauteur_actuelle)))
                     height += 25
                 # Texte box 4
                 if self.players[3][1] == None:
@@ -361,7 +361,7 @@ class Preview_Table:
                 height = 170
                 for elem in text.split("\n"):
                     text_surf = gui_font.render(elem, True, "#FFFFFF")
-                    self.screen.blit(text_surf, (self.x + width_scale(230, self.largeur_actuelle), self.y + height_scale(height, self.hauteur_actuelle)))
+                    self.screen.blit(text_surf, (self.x + width_scale(405, self.largeur_actuelle), self.y + height_scale(height, self.hauteur_actuelle)))
                     height += 25
                 # Texte box 5
                 if self.players[3][1] == None:
@@ -372,7 +372,7 @@ class Preview_Table:
                 height = 270
                 for elem in text.split("\n"):
                     text_surf = gui_font.render(elem, True, "#FFFFFF")
-                    self.screen.blit(text_surf, (self.x + width_scale(230, self.largeur_actuelle), self.y + height_scale(height, self.hauteur_actuelle)))
+                    self.screen.blit(text_surf, (self.x + width_scale(55, self.largeur_actuelle), self.y + height_scale(height, self.hauteur_actuelle)))
                     height += 25
                 # Texte box 6
                 if self.players[5][1] == None:
@@ -383,7 +383,7 @@ class Preview_Table:
                 height = 270
                 for elem in text.split("\n"):
                     text_surf = gui_font.render(elem, True, "#FFFFFF")
-                    self.screen.blit(text_surf, (self.x + width_scale(230, self.largeur_actuelle), self.y + height_scale(height, self.hauteur_actuelle)))
+                    self.screen.blit(text_surf, (self.x + width_scale(405, self.largeur_actuelle), self.y + height_scale(height, self.hauteur_actuelle)))
                     height += 25
                 # Texte box 7
                 if self.players[6][1] == None:
@@ -417,7 +417,7 @@ class Preview_Table:
                 height = 70
                 for elem in text.split("\n"):
                     text_surf = gui_font.render(elem, True, "#FFFFFF")
-                    self.screen.blit(text_surf, (self.x + width_scale(230, self.largeur_actuelle), self.y + height_scale(height, self.hauteur_actuelle)))
+                    self.screen.blit(text_surf, (self.x + width_scale(55, self.largeur_actuelle), self.y + height_scale(height, self.hauteur_actuelle)))
                     height += 25
                 # Texte box 2
                 if self.players[1][1] == None:
@@ -428,7 +428,7 @@ class Preview_Table:
                 height = 70
                 for elem in text.split("\n"):
                     text_surf = gui_font.render(elem, True, "#FFFFFF")
-                    self.screen.blit(text_surf, (self.x + width_scale(230, self.largeur_actuelle), self.y + height_scale(height, self.hauteur_actuelle)))
+                    self.screen.blit(text_surf, (self.x + width_scale(405, self.largeur_actuelle), self.y + height_scale(height, self.hauteur_actuelle)))
                     height += 25
                 # Texte box 3
                 if self.players[2][1] == None:
@@ -439,7 +439,7 @@ class Preview_Table:
                 height = 170
                 for elem in text.split("\n"):
                     text_surf = gui_font.render(elem, True, "#FFFFFF")
-                    self.screen.blit(text_surf, (self.x + width_scale(230, self.largeur_actuelle), self.y + height_scale(height, self.hauteur_actuelle)))
+                    self.screen.blit(text_surf, (self.x + width_scale(55, self.largeur_actuelle), self.y + height_scale(height, self.hauteur_actuelle)))
                     height += 25
                 # Texte box 4
                 if self.players[3][1] == None:
@@ -450,7 +450,7 @@ class Preview_Table:
                 height = 170
                 for elem in text.split("\n"):
                     text_surf = gui_font.render(elem, True, "#FFFFFF")
-                    self.screen.blit(text_surf, (self.x + width_scale(230, self.largeur_actuelle), self.y + height_scale(height, self.hauteur_actuelle)))
+                    self.screen.blit(text_surf, (self.x + width_scale(405, self.largeur_actuelle), self.y + height_scale(height, self.hauteur_actuelle)))
                     height += 25
                 # Texte box 5
                 if self.players[4][1] == None:
@@ -461,7 +461,7 @@ class Preview_Table:
                 height = 270
                 for elem in text.split("\n"):
                     text_surf = gui_font.render(elem, True, "#FFFFFF")
-                    self.screen.blit(text_surf, (self.x + width_scale(230, self.largeur_actuelle), self.y + height_scale(height, self.hauteur_actuelle)))
+                    self.screen.blit(text_surf, (self.x + width_scale(55, self.largeur_actuelle), self.y + height_scale(height, self.hauteur_actuelle)))
                     height += 25
                 # Texte box 6
                 if self.players[5][1] == None:
@@ -472,7 +472,7 @@ class Preview_Table:
                 height = 270
                 for elem in text.split("\n"):
                     text_surf = gui_font.render(elem, True, "#FFFFFF")
-                    self.screen.blit(text_surf, (self.x + width_scale(230, self.largeur_actuelle), self.y + height_scale(height, self.hauteur_actuelle)))
+                    self.screen.blit(text_surf, (self.x + width_scale(405, self.largeur_actuelle), self.y + height_scale(height, self.hauteur_actuelle)))
                     height += 25
                 # Texte box 7
                 if self.players[6][1] == None:
@@ -483,7 +483,7 @@ class Preview_Table:
                 height = 370
                 for elem in text.split("\n"):
                     text_surf = gui_font.render(elem, True, "#FFFFFF")
-                    self.screen.blit(text_surf, (self.x + width_scale(230, self.largeur_actuelle), self.y + height_scale(height, self.hauteur_actuelle)))
+                    self.screen.blit(text_surf, (self.x + width_scale(55, self.largeur_actuelle), self.y + height_scale(height, self.hauteur_actuelle)))
                     height += 25
                 # Texte box 8
                 if self.players[7][1] == None:
@@ -494,7 +494,7 @@ class Preview_Table:
                 height = 370
                 for elem in text.split("\n"):
                     text_surf = gui_font.render(elem, True, "#FFFFFF")
-                    self.screen.blit(text_surf, (self.x + width_scale(230, self.largeur_actuelle), self.y + height_scale(height, self.hauteur_actuelle)))
+                    self.screen.blit(text_surf, (self.x + width_scale(405, self.largeur_actuelle), self.y + height_scale(height, self.hauteur_actuelle)))
                     height += 25
 
             case 9:
@@ -518,7 +518,7 @@ class Preview_Table:
                 height = 70
                 for elem in text.split("\n"):
                     text_surf = gui_font.render(elem, True, "#FFFFFF")
-                    self.screen.blit(text_surf, (self.x + width_scale(230, self.largeur_actuelle), self.y + height_scale(height, self.hauteur_actuelle)))
+                    self.screen.blit(text_surf, (self.x + width_scale(55, self.largeur_actuelle), self.y + height_scale(height, self.hauteur_actuelle)))
                     height += 25
                 # Texte box 2
                 if self.players[1][1] == None:
@@ -540,7 +540,7 @@ class Preview_Table:
                 height = 70
                 for elem in text.split("\n"):
                     text_surf = gui_font.render(elem, True, "#FFFFFF")
-                    self.screen.blit(text_surf, (self.x + width_scale(230, self.largeur_actuelle), self.y + height_scale(height, self.hauteur_actuelle)))
+                    self.screen.blit(text_surf, (self.x + width_scale(405, self.largeur_actuelle), self.y + height_scale(height, self.hauteur_actuelle)))
                     height += 25
                 # Texte box 4
                 if self.players[3][1] == None:
@@ -551,7 +551,7 @@ class Preview_Table:
                 height = 170
                 for elem in text.split("\n"):
                     text_surf = gui_font.render(elem, True, "#FFFFFF")
-                    self.screen.blit(text_surf, (self.x + width_scale(230, self.largeur_actuelle), self.y + height_scale(height, self.hauteur_actuelle)))
+                    self.screen.blit(text_surf, (self.x + width_scale(55, self.largeur_actuelle), self.y + height_scale(height, self.hauteur_actuelle)))
                     height += 25
                 # Texte box 5
                 if self.players[4][1] == None:
@@ -562,7 +562,7 @@ class Preview_Table:
                 height = 170
                 for elem in text.split("\n"):
                     text_surf = gui_font.render(elem, True, "#FFFFFF")
-                    self.screen.blit(text_surf, (self.x + width_scale(230, self.largeur_actuelle), self.y + height_scale(height, self.hauteur_actuelle)))
+                    self.screen.blit(text_surf, (self.x + width_scale(405, self.largeur_actuelle), self.y + height_scale(height, self.hauteur_actuelle)))
                     height += 25
                 # Texte box 6
                 if self.players[5][1] == None:
@@ -573,7 +573,7 @@ class Preview_Table:
                 height = 270
                 for elem in text.split("\n"):
                     text_surf = gui_font.render(elem, True, "#FFFFFF")
-                    self.screen.blit(text_surf, (self.x + width_scale(230, self.largeur_actuelle), self.y + height_scale(height, self.hauteur_actuelle)))
+                    self.screen.blit(text_surf, (self.x + width_scale(55, self.largeur_actuelle), self.y + height_scale(height, self.hauteur_actuelle)))
                     height += 25
                 # Texte box 7
                 if self.players[6][1] == None:
@@ -584,7 +584,7 @@ class Preview_Table:
                 height = 270
                 for elem in text.split("\n"):
                     text_surf = gui_font.render(elem, True, "#FFFFFF")
-                    self.screen.blit(text_surf, (self.x + width_scale(230, self.largeur_actuelle), self.y + height_scale(height, self.hauteur_actuelle)))
+                    self.screen.blit(text_surf, (self.x + width_scale(405, self.largeur_actuelle), self.y + height_scale(height, self.hauteur_actuelle)))
                     height += 25
                 # Texte box 8
                 if self.players[7][1] == None:
@@ -595,7 +595,7 @@ class Preview_Table:
                 height = 370
                 for elem in text.split("\n"):
                     text_surf = gui_font.render(elem, True, "#FFFFFF")
-                    self.screen.blit(text_surf, (self.x + width_scale(230, self.largeur_actuelle), self.y + height_scale(height, self.hauteur_actuelle)))
+                    self.screen.blit(text_surf, (self.x + width_scale(55, self.largeur_actuelle), self.y + height_scale(height, self.hauteur_actuelle)))
                     height += 25
                 # Texte box 9
                 if self.players[8][1] == None:
@@ -606,7 +606,7 @@ class Preview_Table:
                 height = 370
                 for elem in text.split("\n"):
                     text_surf = gui_font.render(elem, True, "#FFFFFF")
-                    self.screen.blit(text_surf, (self.x + width_scale(230, self.largeur_actuelle), self.y + height_scale(height, self.hauteur_actuelle)))
+                    self.screen.blit(text_surf, (self.x + width_scale(405, self.largeur_actuelle), self.y + height_scale(height, self.hauteur_actuelle)))
                     height += 25
 
             case 10:
@@ -631,7 +631,7 @@ class Preview_Table:
                 height = 70
                 for elem in text.split("\n"):
                     text_surf = gui_font.render(elem, True, "#FFFFFF")
-                    self.screen.blit(text_surf, (self.x + width_scale(230, self.largeur_actuelle), self.y + height_scale(height, self.hauteur_actuelle)))
+                    self.screen.blit(text_surf, (self.x + width_scale(55, self.largeur_actuelle), self.y + height_scale(height, self.hauteur_actuelle)))
                     height += 25
                 # Texte box 2
                 if self.players[1][1] == None:
@@ -653,7 +653,7 @@ class Preview_Table:
                 height = 70
                 for elem in text.split("\n"):
                     text_surf = gui_font.render(elem, True, "#FFFFFF")
-                    self.screen.blit(text_surf, (self.x + width_scale(230, self.largeur_actuelle), self.y + height_scale(height, self.hauteur_actuelle)))
+                    self.screen.blit(text_surf, (self.x + width_scale(405, self.largeur_actuelle), self.y + height_scale(height, self.hauteur_actuelle)))
                     height += 25
                 # Texte box 4
                 if self.players[3][1] == None:
@@ -664,7 +664,7 @@ class Preview_Table:
                 height = 170
                 for elem in text.split("\n"):
                     text_surf = gui_font.render(elem, True, "#FFFFFF")
-                    self.screen.blit(text_surf, (self.x + width_scale(230, self.largeur_actuelle), self.y + height_scale(height, self.hauteur_actuelle)))
+                    self.screen.blit(text_surf, (self.x + width_scale(55, self.largeur_actuelle), self.y + height_scale(height, self.hauteur_actuelle)))
                     height += 25
                 # Texte box 5
                 if self.players[4][1] == None:
@@ -675,7 +675,7 @@ class Preview_Table:
                 height = 170
                 for elem in text.split("\n"):
                     text_surf = gui_font.render(elem, True, "#FFFFFF")
-                    self.screen.blit(text_surf, (self.x + width_scale(230, self.largeur_actuelle), self.y + height_scale(height, self.hauteur_actuelle)))
+                    self.screen.blit(text_surf, (self.x + width_scale(405, self.largeur_actuelle), self.y + height_scale(height, self.hauteur_actuelle)))
                     height += 25
                 # Texte box 6
                 if self.players[5][1] == None:
@@ -686,7 +686,7 @@ class Preview_Table:
                 height = 270
                 for elem in text.split("\n"):
                     text_surf = gui_font.render(elem, True, "#FFFFFF")
-                    self.screen.blit(text_surf, (self.x + width_scale(230, self.largeur_actuelle), self.y + height_scale(height, self.hauteur_actuelle)))
+                    self.screen.blit(text_surf, (self.x + width_scale(55, self.largeur_actuelle), self.y + height_scale(height, self.hauteur_actuelle)))
                     height += 25
                 # Texte box 7
                 if self.players[6][1] == None:
@@ -697,7 +697,7 @@ class Preview_Table:
                 height = 270
                 for elem in text.split("\n"):
                     text_surf = gui_font.render(elem, True, "#FFFFFF")
-                    self.screen.blit(text_surf, (self.x + width_scale(230, self.largeur_actuelle), self.y + height_scale(height, self.hauteur_actuelle)))
+                    self.screen.blit(text_surf, (self.x + width_scale(405, self.largeur_actuelle), self.y + height_scale(height, self.hauteur_actuelle)))
                     height += 25
                 # Texte box 8
                 if self.players[7][1] == None:
@@ -708,7 +708,7 @@ class Preview_Table:
                 height = 370
                 for elem in text.split("\n"):
                     text_surf = gui_font.render(elem, True, "#FFFFFF")
-                    self.screen.blit(text_surf, (self.x + width_scale(230, self.largeur_actuelle), self.y + height_scale(height, self.hauteur_actuelle)))
+                    self.screen.blit(text_surf, (self.x + width_scale(55, self.largeur_actuelle), self.y + height_scale(height, self.hauteur_actuelle)))
                     height += 25
                 # Texte box 9
                 if self.players[8][1] == None:
@@ -730,5 +730,5 @@ class Preview_Table:
                 height = 370
                 for elem in text.split("\n"):
                     text_surf = gui_font.render(elem, True, "#FFFFFF")
-                    self.screen.blit(text_surf, (self.x + width_scale(230, self.largeur_actuelle), self.y + height_scale(height, self.hauteur_actuelle)))
+                    self.screen.blit(text_surf, (self.x + width_scale(405, self.largeur_actuelle), self.y + height_scale(height, self.hauteur_actuelle)))
                     height += 25
