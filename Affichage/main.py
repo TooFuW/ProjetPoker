@@ -133,7 +133,7 @@ if __name__ == "__main__":
 
     # Création des sits
     # Création de l'objet sit_1
-    sit_1 = Sits(largeur_actuelle, hauteur_actuelle, screen, 200, 200, (100, 115))
+    sit_1 = Sits(largeur_actuelle, hauteur_actuelle, screen, 250, 80, (100, 115))
 
     # Initialisation de toutes les valeurs globales stockées dans le fichier Global_objects.py (tous les objets que l'on crée ci-dessus)
     Global_objects.game_state = game_state

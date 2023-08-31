@@ -12,14 +12,27 @@ class Sits:
         self.largeur_actuelle = largeur_actuelle
         self.hauteur_actuelle = hauteur_actuelle
         self.screen = screen
-        self.pos_x = width_scale(pos[0], largeur_actuelle)
-        self.pos_y = height_scale(pos[1], hauteur_actuelle)
-        self.pos = (self.pos_x, self.pos_y)
+        self.x = width_scale(pos[0], largeur_actuelle)
+        self.y = height_scale(pos[1], hauteur_actuelle)
+        self.pos = (self.x, self.y)
         self.width = width_scale(width, self.largeur_actuelle)
         self.height = height_scale(height, self.hauteur_actuelle)
-
+        # Une liste contenant tous les joueurs dans la table actuelle sous la forme [sit_id, idplayer, pseudo, chips, link] par joueur
+        self.player = [[None, None]]
+   
     def draw(self):
         # Affichage du fond du widget de siège avec une zone noire transparente
         transparent_surface = pygame.Surface((self.width, self.height), pygame.SRCALPHA)
-        pygame.draw.rect(transparent_surface, (0, 0, 0, 128), (0, 0, self.width, self.height), border_radius = 5)
+        pygame.draw.rect(transparent_surface, (0, 0, 0, 128), (0, 0, self.width, self.height), border_radius = 50)
         self.screen.blit(transparent_surface, self.pos)
+        # Affichage des infos du joueur du siège actuel par dessus la surface transparente
+        if self.player[1] is None:
+            text = "Sit Available"
+        else:
+            text = f"{self.player[1]}\n{self.player[2]}"
+        gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
+        height = 10
+        for elem in text.split("\n"):
+            text_surf = gui_font.render(elem, True, "#FFFFFF")
+            self.screen.blit(text_surf, (self.x + width_scale(15, self.largeur_actuelle), self.y + height_scale(height, self.hauteur_actuelle)))
+            height += 25
