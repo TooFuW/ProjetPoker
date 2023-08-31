@@ -541,13 +541,13 @@ class HUD_State:
                 Global_objects.sit_2.draw()
 
             case 3:
-                Global_objects.sit_1.x = width_scale(540, self.largeur_actuelle)
+                Global_objects.sit_1.x = width_scale(840, self.largeur_actuelle)
                 Global_objects.sit_1.y = height_scale(250, self.hauteur_actuelle)
                 Global_objects.sit_1.draw()
-                Global_objects.sit_2.x = width_scale(1140, self.largeur_actuelle)
+                Global_objects.sit_2.x = width_scale(540, self.largeur_actuelle)
                 Global_objects.sit_2.y = height_scale(250, self.hauteur_actuelle)
                 Global_objects.sit_2.draw()
-                Global_objects.sit_3.x = width_scale(840, self.largeur_actuelle)
+                Global_objects.sit_3.x = width_scale(1140, self.largeur_actuelle)
                 Global_objects.sit_3.y = height_scale(700, self.hauteur_actuelle)
                 Global_objects.sit_3.draw()
 
@@ -566,6 +566,8 @@ class HUD_State:
                 Global_objects.sit_4.draw()
 
             case 5:
+                Global_objects.sit_1.x = width_scale(840, self.largeur_actuelle)
+                Global_objects.sit_1.y = height_scale(250, self.hauteur_actuelle)
                 Global_objects.sit_1.draw()
                 Global_objects.sit_2.draw()
                 Global_objects.sit_3.draw()
