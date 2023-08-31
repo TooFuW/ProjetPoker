@@ -7,7 +7,7 @@ class Step:
         Represent a step of the game (pre-flop, flop, turn, river) and call the methods for each player
 
     """
-    def __init__(self,type : str ,players : list, board : Board, deck : Deck) -> None:
+    def __init__(self,type : str ,players : list, board : Board, deck : Deck, sits : list) -> None: # Les sièges doivent être edit par le lobby à chaque changement
         self.type = type
         self.players = players
         self.board = board

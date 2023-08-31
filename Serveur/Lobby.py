@@ -239,7 +239,14 @@ class Lobby :
             print("erreur fonction lobby.get_player_by_conn : " , e)
 
             
-        
+    def check_is_connected(self, player : Player):
+        """ Vérifie si un joueur est encore connecté au lobby
+
+        Args:
+            player (Player): Player de qui on veut vérifier la présence
+        """
+        # on envoie un paquet de demande de réponse avec calcul simple, on attends une réponse, si on obtient pas la réponse attendue le joueur est considéré deconnecté 
+        pass
 
     def add_player(self,player : Player):
         pass

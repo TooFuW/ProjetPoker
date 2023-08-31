@@ -13,7 +13,7 @@ class Round:
         hand_combinations est un dictionnaire qui associe un player_id à sa HandCombination c'est ce qui permettra de tout comparer à la fin  
     
     """
-    def __init__(self, players : list, dealer_id : int) -> None:
+    def __init__(self, players : list, dealer_id : int, sits : list) -> None: # ATTENTION , les sièges doivent être modifiés par le lobby à chaque changement
         self.players = players
         self.dealer_id = dealer_id
 
