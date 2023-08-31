@@ -18,6 +18,7 @@ get_players_infos = "[[id,pseudo,chips,link],[id,..]]" : un client souhaitant r�
 get_sits_info = "[[sit_id, idplayer, pseudo, chips, link],[sit_id, None],]" : un client souhaitant récupérer les infos des sièges
 sit_down = "id_siege" : un client souhaitant s'asseoir à un siège.
 pwd="" : un client souhaitant savoir l'entité à laquelle il est connecté
+go_main="" : un client souhaitant retourner à main
 
 lobbys = "[liste des lobbys]" : envoyé par le serveur, liste des informations principales de chaque lobby public
 redirect = "host:port" : envoyé par le serveur souhaitant rediriger le client à un lobby

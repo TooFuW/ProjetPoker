@@ -47,7 +47,6 @@ class Preview_Table:
         # Cliquer sur le bouton JOIN fait rejoindre la table sélectionnée
         self.jointablebutton.draw()
         # Pour chaque joueur dans la table on affiche ses informations
-        print(self.players)
         match len(self.players):
 
             case 2:
