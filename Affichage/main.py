@@ -131,6 +131,10 @@ if __name__ == "__main__":
     # Création de l'objet previewhistory
     previewhistory = Preview_Table(largeur_actuelle, hauteur_actuelle, screen, table_fond, (1270, 215))
 
+    # Création des sits
+    # Création de l'objet sit_1
+    sit_1 = Sits(largeur_actuelle, hauteur_actuelle, screen, 200, 200, (100, 115))
+
     # Initialisation de toutes les valeurs globales stockées dans le fichier Global_objects.py (tous les objets que l'on crée ci-dessus)
     Global_objects.game_state = game_state
     Global_objects.accountbutton = accountbutton
@@ -161,6 +165,7 @@ if __name__ == "__main__":
     Global_objects.volume_music = 1.0
     Global_objects.buttons_interactibles = True
     Global_objects.displayed_lobbys_list = displayed_lobbys_list
+    Global_objects.sit_1 = sit_1
 
     # Gameloop
     while True:

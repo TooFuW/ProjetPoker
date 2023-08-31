@@ -10,6 +10,7 @@ from Button_class import *
 from Scrollbox_class import *
 from TextInputBox_class import *
 from Preview_Table_class import *
+from Sits_class import *
 
 
 class HUD_State:
@@ -529,6 +530,7 @@ class HUD_State:
         Global_objects.callbutton.draw()
         Global_objects.laybutton.draw()
         Global_objects.raisebutton.draw()
+        Global_objects.sit_1.draw()
 
         # TOUT CE QUI EST EN DESSOUS DE CE BLOC NE SERA PAS DESSINE DERRIERE LA SURFACE TRANSPARENTE
         # Quand l'utilisateur clique sur le bouton des paramètres
