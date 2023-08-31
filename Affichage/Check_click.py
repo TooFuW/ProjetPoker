@@ -4,7 +4,6 @@
 import pygame
 import sys
 import Global_objects
-from HUD_State_class import *
 from network import *
 import time
 
@@ -116,6 +115,7 @@ def check_click(Button):
                 Global_objects.game_state.back_pile = ["Main Menu"]
                 Global_objects.game_state.state = "Game Menu"
                 Global_objects.game_state.table_selected = None
+                Global_objects.sit_1.player = Global_objects.previewlobbys.players[0]
             # Lorsque le bouton CREATE TABLE est cliqué pour passer à la page de création de table
             case "create table":
                 Global_objects.game_state.back_pile.append(Global_objects.game_state.state)
