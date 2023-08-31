@@ -7,7 +7,7 @@ class Player:
       Represent a player who will play a game of poker.
     """
 
-    def __init__(self,id : int, pseudo : str, conn : socket, is_alive : bool, bank : int, hand = Hand()) -> None:
+    def __init__(self,id : int, pseudo : str, conn : socket, is_alive : bool, bank : int, hand = Hand(),actif : bool = False ,state : str = "peut parler", connected : bool = True ) -> None:
 
         if type(id) == int:
             self.id = id
