@@ -47,7 +47,6 @@ class Preview_Table:
         # Cliquer sur le bouton JOIN fait rejoindre la table sélectionnée
         self.jointablebutton.draw()
         # Pour chaque joueur dans la table on affiche ses informations
-        print(self.players)
         match len(self.players):
 
             case 2:
@@ -61,16 +60,22 @@ class Preview_Table:
                 else:
                     text = f"{self.players[0][1]}\n{self.players[0][2]}"
                 gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
-                text_surf = gui_font.render(text, True, "#FFFFFF")
-                self.screen.blit(text_surf, (self.x + width_scale(230, self.largeur_actuelle), self.y + height_scale(170, self.hauteur_actuelle)))
+                height = 170
+                for elem in text.split("\n"):
+                    text_surf = gui_font.render(elem, True, "#FFFFFF")
+                    self.screen.blit(text_surf, (self.x + width_scale(230, self.largeur_actuelle), self.y + height_scale(height, self.hauteur_actuelle)))
+                    height += 25
                 # Texte box 2
                 if self.players[1][1] == None:
                     text = "Sit Available"
                 else:
                     text = f"{self.players[1][1]}\n{self.players[1][2]}"
                 gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
-                text_surf = gui_font.render(text, True, "#FFFFFF")
-                self.screen.blit(text_surf, (self.x + width_scale(230, self.largeur_actuelle), self.y + height_scale(270, self.hauteur_actuelle)))
+                height = 270
+                for elem in text.split("\n"):
+                    text_surf = gui_font.render(elem, True, "#FFFFFF")
+                    self.screen.blit(text_surf, (self.x + width_scale(230, self.largeur_actuelle), self.y + height_scale(height, self.hauteur_actuelle)))
+                    height += 25
 
             case 3:
                 # On affiche les boxs
