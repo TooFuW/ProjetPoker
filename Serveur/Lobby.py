@@ -6,6 +6,7 @@ from Hand import Hand
 from random import randint
 from Sit import Sit
 from packet_separator import packet_separator
+from typing import List
 
 
 class Lobby :
@@ -22,9 +23,11 @@ class Lobby :
         self.lobby_on = False
         self.is_game_starting = False
         self.players_ids = []
+        self.game = None
 
         self.sits_number = capacity
         self.sits = new_sits(self.sits_number)
+        self.sits : List[Sit]
 
         if type(name) == str and type(capacity) == int and type(cave) == int and type(is_private) == bool and type(host) == str and type(port) == int and type(id) == int:
             self.id = id
@@ -154,7 +157,14 @@ class Lobby :
                     if e==ValueError:
                         print("erreur fonction lobby.sit_down")
                         #packet erreur valeur
-
+                        
+            case "start_game":
+                print(id(self.sits))
+                self.init_game()
+                self.start_game()
+                self.sits[0].set_player(self.players[0])
+                print(self.sits[0])
+                self.game.print_sits()
             case "pwd":
                 pwd = "pwd=Lobby "+str(self.id)+";"+self.host+";"+str(self.port)
 
@@ -209,13 +219,16 @@ class Lobby :
     
     def init_game(self):
         if not self.is_game_starting:
-            self.game = Game(self.players, self.cave)
+            self.game = Game(self.sits, self.cave)
 
     def start_game(self):
         self.is_game_starting = True
         # envoie packet game entrain de commencer
         # compteur 5 secondes
         self.game.start()
+
+    def edit_game_sits(self):
+        pass
 
     def get_sit_by_id(self,id_sit) -> Sit:
         for sit in self.sits:

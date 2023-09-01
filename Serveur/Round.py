@@ -4,6 +4,9 @@ from Card import Card
 from Deck import Deck
 from Combination import Combination
 from HandCombination import HandCombination
+from typing import List
+from Sit import Sit
+from Step import Step
 
 class Round:
     """
@@ -13,9 +16,10 @@ class Round:
         hand_combinations est un dictionnaire qui associe un player_id à sa HandCombination c'est ce qui permettra de tout comparer à la fin  
     
     """
-    def __init__(self, players : list, dealer_id : int, sits : list) -> None: # ATTENTION , les sièges doivent être modifiés par le lobby à chaque changement
-        self.players = players
+    def __init__(self, sits : List[Sit],dealer_id : int) -> None: # ATTENTION , les sièges doivent être modifiés par le lobby à chaque changement
+        self.sits = sits
         self.dealer_id = dealer_id
+        self.step = None
 
         self.deck = new_shuffled_deck()
         self.board = Board()
@@ -25,6 +29,12 @@ class Round:
 
     def start(self):
         pass
+
+    def edit_sits(self,new_sits : List[Sit]):
+        self.sits = new_sits
+        if not self.step is None:
+            self.step : Step
+            self.step.edit_sits(self.sits)
 
     def start_pre_flop(self):
         pass
@@ -38,9 +48,14 @@ class Round:
     def start_river(self):
         pass
 
+    def stop_step(self):
+        pass
+
 
     def set_hands(self):
-        for player in self.players:
+        players =  [sit.get_player() for sit in self.sits if sit.occupied]      # Récupère tous les players assis sur un siège
+        
+        for player in players:
             new_hand_list = []
             for _ in range(2):
                 new_hand_list.append(self.deck.draw())

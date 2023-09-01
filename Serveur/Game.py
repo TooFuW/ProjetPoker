@@ -3,6 +3,7 @@ from Player import Player
 from Sit import Sit
 from typing import List
 from random import randint
+from Round import Round
 
 class Game:
     """
@@ -19,8 +20,11 @@ class Game:
         self.round_nb = 0 #le nombre de round effectués cans la game
         self.dealer_index = 0 #index du dealer vis à vis de la liste self.players
         self.dealer_id = 0 #identité du dealer
+        self.sits = sits
         
         self.cave = cave
+
+        self.round = None
 
 
     def start(self):
@@ -33,7 +37,26 @@ class Game:
         pass
 
     def start_round(self):
+        # Condition de démarrage du round, et démarrage
         pass
+
+    def stop_round(self):
+        # Arrête le round en cours.
+        pass
+
+    def print_sits(self):
+        for sit in self.sits:
+            print(sit)
+
+    def init_round(self):
+        self.round = Round()
+
+    def edit_sits(self,new_sits : List[Sit]):
+        # Modifie les sièges de la game et modifie ceux du Round en cours.
+        self.sits = new_sits
+        if not self.round is None:
+            self.round : Round
+            self.round.edit_sits(self.sits)
 
     
     def buy_in_all_players(self,sits : List[Sit] , cave : int) -> None:
