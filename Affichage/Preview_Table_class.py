@@ -18,7 +18,7 @@ class Preview_Table:
             hauteur_actuelle (int): Hauteur de l'écran (pour height_scale())
             screen (pygame.Surface): Ecran sur lequel afficher la fenêtre (écran de l'utilisateur)
             poker_table (pygame.Surface): Table de poker pour fond du widget
-            pos (tuple): Position x, y de la preview
+            pos (tuple): Position x, y de la preview (x : largeur, y : hauteur)
             scale (float) = 1: Multiplicateur de taille de la preview (1 par défaut)
         """
         self.largeur_actuelle = largeur_actuelle

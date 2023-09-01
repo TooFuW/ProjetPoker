@@ -18,8 +18,8 @@ class ScrollBox:
             largeur_actuelle (int): Largeur de l'écran (pour width_scale())
             hauteur_actuelle (int): Hauteur de l'écran (pour height_scale())
             screen (pygame.Surface): Ecran sur lequel afficher la fenêtre (écran de l'utilisateur)
-            x (int): Position x de la scrollbox
-            y (int): Position y de la scrollbox
+            x (int): Position x de la scrollbox (Largeur)
+            y (int): Position y de la scrollbox (Hauteur)
             width (int): Largeur de la scrollbox
             height (int): Hauteur de la scrollbox
             servers (list): Liste des serveurs/tables à afficher

@@ -9,6 +9,16 @@ from Button_class import *
 class Sits:
 
     def __init__(self, largeur_actuelle : int, hauteur_actuelle : int, screen : pygame.Surface, width : int, height : int, pos : tuple):
+        """Initialisation de la classe Sits
+
+        Args:
+            largeur_actuelle (int): Largeur de l'écran (pour width_scale())
+            hauteur_actuelle (int): Hauteur de l'écran (pour height_scale())
+            screen (pygame.Surface): Ecran sur lequel afficher la fenêtre (écran de l'utilisateur)
+            width (int): Largeur du widget
+            height (int): Hauteur du widget
+            pos (tuple): Position contenant deux valeurs x et y (x : largeur, y : hauteur)
+        """
         self.largeur_actuelle = largeur_actuelle
         self.hauteur_actuelle = hauteur_actuelle
         self.screen = screen
@@ -20,6 +30,8 @@ class Sits:
         self.player = [None, None]
    
     def draw(self):
+        """Génération/affichage du siège
+        """
         # Affichage du fond du widget de siège avec une zone noire transparente
         transparent_surface = pygame.Surface((self.width, self.height), pygame.SRCALPHA)
         pygame.draw.rect(transparent_surface, (0, 0, 0, 128), (0, 0, self.width, self.height), border_radius = 50)
