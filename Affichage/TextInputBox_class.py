@@ -17,7 +17,7 @@ class TextInputBox:
             hauteur_actuelle (int): Hauteur de l'écran (pour height_scale())
             screen (pygame.Surface): Ecran sur lequel afficher la fenêtre (écran de l'utilisateur)
             text_size (int): Taille du texte
-            pos (tuple): Position x, y de la boîte
+            pos (tuple): Position x, y de la boîte (x : largeur, y : hauteur)
             width (int): Largeur de la boîte
             height (int): Hauteur de la boîte
             active_color (str): Couleur de la boîte lorsque l'on peut écrire dedans
@@ -28,6 +28,8 @@ class TextInputBox:
             num_only (bool) = False: True si on ne peut entrer que des chiffres, False sinon
             interactible (bool) = True: True si on peut interagir avec, False sinon
             starting_text (str) = "": Chaîne de caractère vide par défaut, sinon le texte de départ
+
+            /!\ Possibles bug avec des paramètres différents que ceux utilisés pour les objets tablecodeinput, accountpseudoinput et accountinformationinput car la classe a été modifié beaucoup et en profondeur depuis sa création
         """
         self.largeur_actuelle = largeur_actuelle
         self.hauteur_actuelle = hauteur_actuelle
