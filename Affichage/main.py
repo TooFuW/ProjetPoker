@@ -33,9 +33,8 @@ if __name__ == "__main__":
     current_folder = __file__[:-7]
 
     # Récupération de la liste des lobbys disponibles et de leurs informations ([0] = Nom de la table, [1] = Nombre de joueurs/nombre de joueurs max, [2] = Montant de la mise, [3] = Pot moyen, [4] = Tapis moyen, [5] = ID de la table)
-    displayed_lobbys_list = [["Table 1", "0/5", "50/100", "15K", "25K", "1"], ["Table 2", "1/6", "50/100", "10K", "20K", "2"], ["Table 3", "2/7", "50/100", "20K", "30K", "3"], ["Table 4", "3/8", "50/100", "5K", "15K", "4"], ["Table 5", "4/9", "50/100", "8K", "18K", "5"], ["Table 6", "5/9", "50/100", "8K", "18K", "6"], ["Table 7", "6/9", "50/100", "11K", "21K", "7"], ["Table 8", "7/9", "50/100", "18K", "28K", "8"], ["Table 9", "8/9", "50/100", "12K", "22K", "9"], ["Table 10", "9/9", "50/100", "3K", "13K", "10"], ["Table 11", "0/6", "50/100", "15K", "25K", "11"], ["Table 12", "1/7", "50/100", "10K", "20K", "12"], ["Table 13", "2/8", "50/100", "20K", "30K", "13"], ["Table 14", "3/9", "50/100", "5K", "15K", "14"], ["Table 15", "4/9", "50/100", "8K", "18K", "15"], ["Table 16", "5/9", "50/100", "8K", "18K", "16"], ["Table 17", "6/9", "50/100", "11K", "21K", "17"], ["Table 18", "7/9", "50/100", "18K", "28K", "18"], ["Table 19", "8/9", "50/100", "12K", "22K", "19"], ["Table 20", "9/9", "50/100", "3K", "13K", "20"]]
     # On initialise globalement displayed_lobbys_list ici car plus bas une erreur se produit
-    Global_objects.displayed_lobbys_list = displayed_lobbys_list
+    Global_objects.displayed_lobbys_list = [["Table 1", "0/5", "50/100", "15K", "25K", "1"], ["Table 2", "1/6", "50/100", "10K", "20K", "2"], ["Table 3", "2/7", "50/100", "20K", "30K", "3"], ["Table 4", "3/8", "50/100", "5K", "15K", "4"], ["Table 5", "4/9", "50/100", "8K", "18K", "5"], ["Table 6", "5/9", "50/100", "8K", "18K", "6"], ["Table 7", "6/9", "50/100", "11K", "21K", "7"], ["Table 8", "7/9", "50/100", "18K", "28K", "8"], ["Table 9", "8/9", "50/100", "12K", "22K", "9"], ["Table 10", "9/9", "50/100", "3K", "13K", "10"], ["Table 11", "0/6", "50/100", "15K", "25K", "11"], ["Table 12", "1/7", "50/100", "10K", "20K", "12"], ["Table 13", "2/8", "50/100", "20K", "30K", "13"], ["Table 14", "3/9", "50/100", "5K", "15K", "14"], ["Table 15", "4/9", "50/100", "8K", "18K", "15"], ["Table 16", "5/9", "50/100", "8K", "18K", "16"], ["Table 17", "6/9", "50/100", "11K", "21K", "17"], ["Table 18", "7/9", "50/100", "18K", "28K", "18"], ["Table 19", "8/9", "50/100", "12K", "22K", "19"], ["Table 20", "9/9", "50/100", "3K", "13K", "20"]]
 
     # Chargement de l'image de fond
     pokerbackground = pygame.image.load(current_folder + "PokerBackground.jpg")
@@ -70,131 +69,94 @@ if __name__ == "__main__":
     iconsound_max = pygame.transform.scale(iconsound_max, (width_scale(70, largeur_actuelle), height_scale(70, hauteur_actuelle)))
 
     # Initialisation de la fenêtre actuelle
-    game_state = HUD_State(largeur_actuelle, hauteur_actuelle, screen, fond, logojeu, logomwte, logomwte_rect, pdpplayer, table_fond, [iconsound_mute, iconsound_low, iconsound_mid, iconsound_max])
+    Global_objects.game_state = HUD_State(largeur_actuelle, hauteur_actuelle, screen, fond, logojeu, logomwte, logomwte_rect, pdpplayer, table_fond, [iconsound_mute, iconsound_low, iconsound_mid, iconsound_max])
 
     # Création de tout les boutons utilisés
     # Création de l'objet accountbutton
-    accountbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "account", "ACCOUNT", "Roboto", 30, "#475F77", "#354B5E", "#D74B4B", "#354B5E", 150, 75, (1750, 20), 3, 10)
+    Global_objects.accountbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "account", "ACCOUNT", "Roboto", 30, "#475F77", "#354B5E", "#D74B4B", "#354B5E", 150, 75, (1750, 20), 3, 10)
     # Création de l'objet playbutton
-    playbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "play", "PLAY", "Roboto", 150, "#475F77", "#354B5E", "#D74B4B", "#354B5E", 500, 500, (710, 365), 6, 10)
+    Global_objects.playbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "play", "PLAY", "Roboto", 150, "#475F77", "#354B5E", "#D74B4B", "#354B5E", 500, 500, (710, 365), 6, 10)
     # Création de l'objet settingsbutton
-    settingsbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "settings", "SETTINGS", "Roboto", 70, "#475F77", "#354B5E", "#D74B4B", "#354B5E", 300, 500, (310, 365), 6, 10)
+    Global_objects.settingsbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "settings", "SETTINGS", "Roboto", 70, "#475F77", "#354B5E", "#D74B4B", "#354B5E", 300, 500, (310, 365), 6, 10)
     # Création de l'objet quitbutton
-    exitbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "exit", "", "Roboto", 0, "#475F77", "#354B5E", "#D74B4B", "#354B5E", 400, 100, (760, 960), 6, 10, current_folder + "logo exit.jpg")
+    Global_objects.exitbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "exit", "", "Roboto", 0, "#475F77", "#354B5E", "#D74B4B", "#354B5E", 400, 100, (760, 960), 6, 10, current_folder + "logo exit.jpg")
     # Création de l'objet backbutton
-    backbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "back", "", "Roboto", 0, "#475F77", "#354B5E", "#D74B4B", "#354B5E", 125, 125, (25, 25), 6, 10, current_folder + "backarrow.png")
+    Global_objects.backbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "back", "", "Roboto", 0, "#475F77", "#354B5E", "#D74B4B", "#354B5E", 125, 125, (25, 25), 6, 10, current_folder + "backarrow.png")
     # Création de l'objet createtablebutton
-    createtablebutton = Button(largeur_actuelle, hauteur_actuelle, screen, "create table", "CREATE TABLE", "Roboto", 60, "#475F77", "#354B5E", "#D74B4B", "#354B5E", 400, 100, (175, 50), 6, 10)
+    Global_objects.createtablebutton = Button(largeur_actuelle, hauteur_actuelle, screen, "create table", "CREATE TABLE", "Roboto", 60, "#475F77", "#354B5E", "#D74B4B", "#354B5E", 400, 100, (175, 50), 6, 10)
     # Création de l'objet gamehistorybutton
-    gamehistorybutton = Button(largeur_actuelle, hauteur_actuelle, screen, "history", "HISTORY", "Roboto", 70, "#475F77", "#354B5E", "#D74B4B", "#354B5E", 300, 500, (1310, 365), 6, 10)
+    Global_objects.gamehistorybutton = Button(largeur_actuelle, hauteur_actuelle, screen, "history", "HISTORY", "Roboto", 70, "#475F77", "#354B5E", "#D74B4B", "#354B5E", 300, 500, (1310, 365), 6, 10)
     # Création de l'objet deconnexionbutton
-    deconnexionbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "deconnexion", "LOG OUT", "Roboto", 60, "#475F77", "#354B5E", "#D74B4B", "#354B5E", 300, 100, (1605, 970), 6, 10)
+    Global_objects.deconnexionbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "deconnexion", "LOG OUT", "Roboto", 60, "#475F77", "#354B5E", "#D74B4B", "#354B5E", 300, 100, (1605, 970), 6, 10)
     # Création de l'objet accountsettingsbutton
-    accountsettingsbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "account settings", "", "Roboto", 0, "#D74B4B", "#D74B4B", "#D74B4B", "#D74B4B", 125, 125, (1770, 25), 0, 10, current_folder + "settinglogo.png")
+    Global_objects.accountsettingsbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "account settings", "", "Roboto", 0, "#D74B4B", "#D74B4B", "#D74B4B", "#D74B4B", 125, 125, (1770, 25), 0, 10, current_folder + "settinglogo.png")
     # Création de l'objet settingpage1button
-    settingpage1button = Button(largeur_actuelle, hauteur_actuelle, screen, "setting page 1", "PAGE 1", "Roboto", 50, "#475F77", "#354B5E", "#D74B4B", "#354B5E", 200, 70, (260, 90), 4, 8)
+    Global_objects.settingpage1button = Button(largeur_actuelle, hauteur_actuelle, screen, "setting page 1", "PAGE 1", "Roboto", 50, "#475F77", "#354B5E", "#D74B4B", "#354B5E", 200, 70, (260, 90), 4, 8)
     # Création de l'objet settingpage1button
-    settingpage2button = Button(largeur_actuelle, hauteur_actuelle, screen, "setting page 2", "PAGE 2", "Roboto", 50, "#475F77", "#354B5E", "#D74B4B", "#354B5E", 200, 70, (470, 90), 4, 8)
+    Global_objects.settingpage2button = Button(largeur_actuelle, hauteur_actuelle, screen, "setting page 2", "PAGE 2", "Roboto", 50, "#475F77", "#354B5E", "#D74B4B", "#354B5E", 200, 70, (470, 90), 4, 8)
     # Création de l'objet settingpage1button
-    settingpage3button = Button(largeur_actuelle, hauteur_actuelle, screen, "setting page 3", "PAGE 3", "Roboto", 50, "#475F77", "#354B5E", "#D74B4B", "#354B5E", 200, 70, (680, 90), 4, 8)
+    Global_objects.settingpage3button = Button(largeur_actuelle, hauteur_actuelle, screen, "setting page 3", "PAGE 3", "Roboto", 50, "#475F77", "#354B5E", "#D74B4B", "#354B5E", 200, 70, (680, 90), 4, 8)
     # Création de l'objet gamesettingsbutton
-    gamesettingsbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "game settings", "", "Roboto", 0, "#475F77", "#354B5E", "#D74B4B", "#354B5E", 80, 80, (1820, 995), 4, 10, current_folder + "settinglogo.png")
+    Global_objects.gamesettingsbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "game settings", "", "Roboto", 0, "#475F77", "#354B5E", "#D74B4B", "#354B5E", 80, 80, (1820, 995), 4, 10, current_folder + "settinglogo.png")
     # Création de l'objet checkbutton
-    checkbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "check", "CHECK", "Roboto", 60, "#4CAF50", "#4CAF50", "#00FF00", "#4CAF50", 300, 80, (30, 995), 6, 10)
+    Global_objects.checkbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "check", "CHECK", "Roboto", 60, "#4CAF50", "#4CAF50", "#00FF00", "#4CAF50", 300, 80, (30, 995), 6, 10)
     # Création de l'objet callbutton
-    callbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "call", "CALL", "Roboto", 60, "#FFD700", "#FFD700", "#FFFF00", "#FFD700", 300, 80, (380, 995), 6, 10)
+    Global_objects.callbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "call", "CALL", "Roboto", 60, "#FFD700", "#FFD700", "#FFFF00", "#FFD700", 300, 80, (380, 995), 6, 10)
     # Création de l'objet foldbutton
-    foldbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "fold", "FOLD", "Roboto", 60, "#0000FF", "#0000FF", "#0074D9", "#0000FF", 300, 80, (730, 995), 6, 10)
+    Global_objects.foldbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "fold", "FOLD", "Roboto", 60, "#0000FF", "#0000FF", "#0074D9", "#0000FF", 300, 80, (730, 995), 6, 10)
     # Création de l'objet raisebutton
-    raisebutton = Button(largeur_actuelle, hauteur_actuelle, screen, "raise", "RAISE", "Roboto", 60, "#D32F2A", "#D32F2A", "#FF4F58", "#D32F2A", 300, 80, (1080, 995), 6, 10)
+    Global_objects.raisebutton = Button(largeur_actuelle, hauteur_actuelle, screen, "raise", "RAISE", "Roboto", 60, "#D32F2A", "#D32F2A", "#FF4F58", "#D32F2A", 300, 80, (1080, 995), 6, 10)
     # Création de l'objet refreshbutton
-    refreshbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "refresh", "REFRESH", "Roboto", 60, "#475F77", "#354B5E", "#D74B4B", "#354B5E", 220, 100, (600, 50), 6, 10)
+    Global_objects.refreshbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "refresh", "REFRESH", "Roboto", 60, "#475F77", "#354B5E", "#D74B4B", "#354B5E", 220, 100, (600, 50), 6, 10)
     
 
     # Création des Scrollboxs
     # Création de l'objet serverscrollbox 
-    serverscrollbox = ScrollBox(largeur_actuelle, hauteur_actuelle, screen, 210, 215, 1000, 760, Global_objects.displayed_lobbys_list)
+    Global_objects.serverscrollbox = ScrollBox(largeur_actuelle, hauteur_actuelle, screen, 210, 215, 1000, 760, Global_objects.displayed_lobbys_list)
     # Création de l'objet historyscrollbox
-    historyscrollbox = ScrollBox(largeur_actuelle, hauteur_actuelle, screen, 210, 215, 1000, 760, Global_objects.displayed_lobbys_list)
+    Global_objects.historyscrollbox = ScrollBox(largeur_actuelle, hauteur_actuelle, screen, 210, 215, 1000, 760, Global_objects.displayed_lobbys_list)
 
     # Création des TextInputBox
     # Création de l'objet tablecodeinput
-    tablecodeinput = TextInputBox(largeur_actuelle, hauteur_actuelle, screen, 150, (1360, 890), 400, 100, "#333333", "#888888", 400, False, 6, True)
+    Global_objects.tablecodeinput = TextInputBox(largeur_actuelle, hauteur_actuelle, screen, 150, (1360, 890), 400, 100, "#333333", "#888888", 400, False, 6, True)
     # Création de l'objet accountpseudoinput
-    accountpseudoinput = TextInputBox(largeur_actuelle, hauteur_actuelle, screen, 60, (685, 190), 600, 100, "#333333", "#475F77", 600, False, 15, False, False, "PSEUDO")
+    Global_objects.accountpseudoinput = TextInputBox(largeur_actuelle, hauteur_actuelle, screen, 60, (685, 190), 600, 100, "#333333", "#475F77", 600, False, 15, False, False, "PSEUDO")
     # Création de l'objet accountinformationinput
-    accountinformationinput = TextInputBox(largeur_actuelle, hauteur_actuelle, screen, 60, (685, 315), 600, 650, "#333333", "#475F77", 600, False, 100, False, False, "INFORMATIONS")
+    Global_objects.accountinformationinput = TextInputBox(largeur_actuelle, hauteur_actuelle, screen, 60, (685, 315), 600, 650, "#333333", "#475F77", 600, False, 100, False, False, "INFORMATIONS")
 
     # Création des Previews_Table
     # Création de l'objet previewlobbys
-    previewlobbys = Preview_Table(largeur_actuelle, hauteur_actuelle, screen, table_fond, (1270, 215))
+    Global_objects.previewlobbys = Preview_Table(largeur_actuelle, hauteur_actuelle, screen, table_fond, (1270, 215))
     # Création de l'objet previewhistory
-    previewhistory = Preview_Table(largeur_actuelle, hauteur_actuelle, screen, table_fond, (1270, 215))
+    Global_objects.previewhistory = Preview_Table(largeur_actuelle, hauteur_actuelle, screen, table_fond, (1270, 215))
 
     # Création des sits
     # Création de l'objet sit_1
-    sit_1 = Sits(largeur_actuelle, hauteur_actuelle, screen, 250, 80, (0, 0))
+    Global_objects.sit_1 = Sits(largeur_actuelle, hauteur_actuelle, screen, 250, 80, (0, 0))
     # Création de l'objet sit_2
-    sit_2 = Sits(largeur_actuelle, hauteur_actuelle, screen, 250, 80, (0, 0))
+    Global_objects.sit_2 = Sits(largeur_actuelle, hauteur_actuelle, screen, 250, 80, (0, 0))
     # Création de l'objet sit_3
-    sit_3 = Sits(largeur_actuelle, hauteur_actuelle, screen, 250, 80, (0, 0))
+    Global_objects.sit_3 = Sits(largeur_actuelle, hauteur_actuelle, screen, 250, 80, (0, 0))
     # Création de l'objet sit_4
-    sit_4 = Sits(largeur_actuelle, hauteur_actuelle, screen, 250, 80, (0, 0))
+    Global_objects.sit_4 = Sits(largeur_actuelle, hauteur_actuelle, screen, 250, 80, (0, 0))
     # Création de l'objet sit_5
-    sit_5 = Sits(largeur_actuelle, hauteur_actuelle, screen, 250, 80, (0, 0))
+    Global_objects.sit_5 = Sits(largeur_actuelle, hauteur_actuelle, screen, 250, 80, (0, 0))
     # Création de l'objet sit_6
-    sit_6 = Sits(largeur_actuelle, hauteur_actuelle, screen, 250, 80, (0, 0))
+    Global_objects.sit_6 = Sits(largeur_actuelle, hauteur_actuelle, screen, 250, 80, (0, 0))
     # Création de l'objet sit_6
-    sit_6 = Sits(largeur_actuelle, hauteur_actuelle, screen, 250, 80, (0, 0))
+    Global_objects.sit_6 = Sits(largeur_actuelle, hauteur_actuelle, screen, 250, 80, (0, 0))
     # Création de l'objet sit_7
-    sit_7 = Sits(largeur_actuelle, hauteur_actuelle, screen, 250, 80, (0, 0))
+    Global_objects.sit_7 = Sits(largeur_actuelle, hauteur_actuelle, screen, 250, 80, (0, 0))
     # Création de l'objet sit_8
-    sit_8 = Sits(largeur_actuelle, hauteur_actuelle, screen, 250, 80, (0, 0))
+    Global_objects.sit_8 = Sits(largeur_actuelle, hauteur_actuelle, screen, 250, 80, (0, 0))
     # Création de l'objet sit_9
-    sit_9 = Sits(largeur_actuelle, hauteur_actuelle, screen, 250, 80, (0, 0))
+    Global_objects.sit_9 = Sits(largeur_actuelle, hauteur_actuelle, screen, 250, 80, (0, 0))
     # Création de l'objet sit_10
-    sit_10 = Sits(largeur_actuelle, hauteur_actuelle, screen, 250, 80, (0, 0))
+    Global_objects.sit_10 = Sits(largeur_actuelle, hauteur_actuelle, screen, 250, 80, (0, 0))
 
-    # Initialisation de toutes les valeurs globales stockées dans le fichier Global_objects.py (tous les objets que l'on crée ci-dessus)
-    Global_objects.game_state = game_state
-    Global_objects.accountbutton = accountbutton
-    Global_objects.playbutton = playbutton
-    Global_objects.settingsbutton = settingsbutton
-    Global_objects.exitbutton = exitbutton
-    Global_objects.backbutton = backbutton
-    Global_objects.createtablebutton = createtablebutton
-    Global_objects.gamehistorybutton = gamehistorybutton
-    Global_objects.deconnexionbutton = deconnexionbutton
-    Global_objects.accountsettingsbutton = accountsettingsbutton
-    Global_objects.settingpage1button = settingpage1button
-    Global_objects.settingpage2button = settingpage2button
-    Global_objects.settingpage3button = settingpage3button
-    Global_objects.serverscrollbox = serverscrollbox
-    Global_objects.historyscrollbox = historyscrollbox
-    Global_objects.tablecodeinput = tablecodeinput
-    Global_objects.accountpseudoinput = accountpseudoinput
-    Global_objects.accountinformationinput = accountinformationinput
-    Global_objects.previewlobbys = previewlobbys
-    Global_objects.previewhistory = previewhistory
-    Global_objects.gamesettingsbutton = gamesettingsbutton
-    Global_objects.checkbutton = checkbutton
-    Global_objects.callbutton = callbutton
-    Global_objects.foldbutton = foldbutton
-    Global_objects.raisebutton = raisebutton
-    Global_objects.refreshbutton = refreshbutton
+    # Initialisation des autres variables globales stockées dans le fichier Global_objects.py
     Global_objects.volume_music = 1.0
     Global_objects.buttons_interactibles = True
-    Global_objects.displayed_lobbys_list = displayed_lobbys_list
-    Global_objects.sit_1 = sit_1
-    Global_objects.sit_2 = sit_2
-    Global_objects.sit_3 = sit_3
-    Global_objects.sit_4 = sit_4
-    Global_objects.sit_5 = sit_5
-    Global_objects.sit_6 = sit_6
-    Global_objects.sit_7 = sit_7
-    Global_objects.sit_8 = sit_8
-    Global_objects.sit_9 = sit_9
-    Global_objects.sit_10 = sit_10
 
     # Gameloop
     while True:
@@ -207,6 +169,6 @@ if __name__ == "__main__":
             pygame.mixer.music.rewind()
             pygame.mixer.music.play()
         # Cet appel permet de gérer l'interface active
-        game_state.state_manager()
+        Global_objects.game_state.state_manager()
         # Limite les FPS à 120 pour plus de fluidité
         clock.tick(120)
