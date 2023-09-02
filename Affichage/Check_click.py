@@ -17,7 +17,7 @@ def check_click(Button):
     """Check_click est appellée à chaque fois que l'utilisateur clique sur un bouton et agit en fonction de l'attribut "fonction" du bouton.
 
     Args:
-        Button (Button class object): Boutton sur lequel l'utilisateur a cliqué et qui va faire l'acion correspondante
+        Button (Button class object): Boutton sur lequel l'utilisateur a cliqué et qui va faire l'action correspondante
     """
     # Dans le cas où le menu des paramètres en jeu est activé, on désactive l'utilisation des autres boutons en arrière-plan
     if Global_objects.game_settings_enabled is False:
@@ -110,7 +110,7 @@ def check_click(Button):
                     except:
                         pass
                     time.sleep(0.2)
-            # Lorsque le bouton JOIN est cliqué pour rejoindre la table sélectionnée
+            # Lorsque le bouton JOIN est cliqué pour rejoindre la table sélectionnée et transmettre les infos nécessaires
             case "join table":
                 Global_objects.game_state.back_pile = ["Main Menu"]
                 Global_objects.game_state.state = "Game Menu"

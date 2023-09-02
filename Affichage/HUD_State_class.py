@@ -11,6 +11,7 @@ from Scrollbox_class import *
 from TextInputBox_class import *
 from Preview_Table_class import *
 from Sits_class import *
+from Check_click import *
 
 
 class HUD_State:
@@ -135,6 +136,82 @@ class HUD_State:
                         Global_objects.tablecodeinput.user_text = Global_objects.tablecodeinput.user_text[:-1]
                     # Si on clique sur entrer
                     elif event.key == pygame.K_RETURN:
+                        # On essaie de rejoindre la partie avec le code entré
+                        try:
+                            Global_objects.game_state.server_test = Global_objects.tablecodeinput.user_text
+                            lobby_id = int(Global_objects.tablecodeinput.user_text)
+                            ask_sits_infos(Global_objects.client_socket,lobby_id)
+                            time.sleep(0.2)
+                            Global_objects.game_state.back_pile = ["Main Menu"]
+                            Global_objects.game_state.state = "Game Menu"
+                            Global_objects.game_state.table_selected = None
+                            if len(Global_objects.previewlobbys.players) == 1:
+                                Global_objects.sit_1.player = Global_objects.previewlobbys.players[0]
+                            if len(Global_objects.previewlobbys.players) == 2:
+                                Global_objects.sit_1.player = Global_objects.previewlobbys.players[0]
+                                Global_objects.sit_2.player = Global_objects.previewlobbys.players[1]
+                            if len(Global_objects.previewlobbys.players) == 3:
+                                Global_objects.sit_1.player = Global_objects.previewlobbys.players[0]
+                                Global_objects.sit_2.player = Global_objects.previewlobbys.players[1]
+                                Global_objects.sit_3.player = Global_objects.previewlobbys.players[2]
+                            if len(Global_objects.previewlobbys.players) == 4:
+                                Global_objects.sit_1.player = Global_objects.previewlobbys.players[0]
+                                Global_objects.sit_2.player = Global_objects.previewlobbys.players[1]
+                                Global_objects.sit_3.player = Global_objects.previewlobbys.players[2]
+                                Global_objects.sit_4.player = Global_objects.previewlobbys.players[3]
+                            if len(Global_objects.previewlobbys.players) == 5:
+                                Global_objects.sit_1.player = Global_objects.previewlobbys.players[0]
+                                Global_objects.sit_2.player = Global_objects.previewlobbys.players[1]
+                                Global_objects.sit_3.player = Global_objects.previewlobbys.players[2]
+                                Global_objects.sit_4.player = Global_objects.previewlobbys.players[3]
+                                Global_objects.sit_5.player = Global_objects.previewlobbys.players[4]
+                            if len(Global_objects.previewlobbys.players) == 6:
+                                Global_objects.sit_1.player = Global_objects.previewlobbys.players[0]
+                                Global_objects.sit_2.player = Global_objects.previewlobbys.players[1]
+                                Global_objects.sit_3.player = Global_objects.previewlobbys.players[2]
+                                Global_objects.sit_4.player = Global_objects.previewlobbys.players[3]
+                                Global_objects.sit_5.player = Global_objects.previewlobbys.players[4]
+                                Global_objects.sit_6.player = Global_objects.previewlobbys.players[5]
+                            if len(Global_objects.previewlobbys.players) == 7:
+                                Global_objects.sit_1.player = Global_objects.previewlobbys.players[0]
+                                Global_objects.sit_2.player = Global_objects.previewlobbys.players[1]
+                                Global_objects.sit_3.player = Global_objects.previewlobbys.players[2]
+                                Global_objects.sit_4.player = Global_objects.previewlobbys.players[3]
+                                Global_objects.sit_5.player = Global_objects.previewlobbys.players[4]
+                                Global_objects.sit_6.player = Global_objects.previewlobbys.players[5]
+                                Global_objects.sit_7.player = Global_objects.previewlobbys.players[6]
+                            if len(Global_objects.previewlobbys.players) == 8:
+                                Global_objects.sit_1.player = Global_objects.previewlobbys.players[0]
+                                Global_objects.sit_2.player = Global_objects.previewlobbys.players[1]
+                                Global_objects.sit_3.player = Global_objects.previewlobbys.players[2]
+                                Global_objects.sit_4.player = Global_objects.previewlobbys.players[3]
+                                Global_objects.sit_5.player = Global_objects.previewlobbys.players[4]
+                                Global_objects.sit_6.player = Global_objects.previewlobbys.players[5]
+                                Global_objects.sit_7.player = Global_objects.previewlobbys.players[6]
+                                Global_objects.sit_8.player = Global_objects.previewlobbys.players[7]
+                            if len(Global_objects.previewlobbys.players) == 9:
+                                Global_objects.sit_1.player = Global_objects.previewlobbys.players[0]
+                                Global_objects.sit_2.player = Global_objects.previewlobbys.players[1]
+                                Global_objects.sit_3.player = Global_objects.previewlobbys.players[2]
+                                Global_objects.sit_4.player = Global_objects.previewlobbys.players[3]
+                                Global_objects.sit_5.player = Global_objects.previewlobbys.players[4]
+                                Global_objects.sit_6.player = Global_objects.previewlobbys.players[5]
+                                Global_objects.sit_7.player = Global_objects.previewlobbys.players[6]
+                                Global_objects.sit_8.player = Global_objects.previewlobbys.players[7]
+                                Global_objects.sit_9.player = Global_objects.previewlobbys.players[8]
+                            if len(Global_objects.previewlobbys.players) == 10:
+                                Global_objects.sit_1.player = Global_objects.previewlobbys.players[0]
+                                Global_objects.sit_2.player = Global_objects.previewlobbys.players[1]
+                                Global_objects.sit_3.player = Global_objects.previewlobbys.players[2]
+                                Global_objects.sit_4.player = Global_objects.previewlobbys.players[3]
+                                Global_objects.sit_5.player = Global_objects.previewlobbys.players[4]
+                                Global_objects.sit_6.player = Global_objects.previewlobbys.players[5]
+                                Global_objects.sit_7.player = Global_objects.previewlobbys.players[6]
+                                Global_objects.sit_8.player = Global_objects.previewlobbys.players[7]
+                                Global_objects.sit_9.player = Global_objects.previewlobbys.players[8]
+                                Global_objects.sit_10.player = Global_objects.previewlobbys.players[9]
+                        except:
+                            pass
                         Global_objects.tablecodeinput.user_text = ""
                     # Si on clique sur n'importe quoi d'autre
                     else:
