@@ -142,8 +142,6 @@ class HUD_State:
                     elif event.key == pygame.K_RETURN:
                         # On essaie de rejoindre la partie avec le code entré
                         try:
-                            a = "a" - 8
-                            print(a)
                             lobby_id = int(Global_objects.tablecodeinput.user_text)
                             ask_sits_infos(Global_objects.client_socket,lobby_id)
                             if True: #Plus tard la vérification de l'existance du lobby
@@ -218,7 +216,8 @@ class HUD_State:
                                     Global_objects.sit_9.player = Global_objects.previewlobbys.players[8]
                                     Global_objects.sit_10.player = Global_objects.previewlobbys.players[9]
                             else:
-                                pass
+                                self.error[0] = True
+                                self.error[1] = time.time()
                         except:
                             self.error[0] = True
                             self.error[1] = time.time()
@@ -291,10 +290,9 @@ class HUD_State:
             text_surf = gui_font.render("ERROR : NO GAME FOUND", True, "#FFFFFF")
             pygame.draw.rect(self.screen, "#FF0000", pygame.Rect((width_scale(650, self.largeur_actuelle), height_scale(400, self.hauteur_actuelle)), (width_scale(650, self.largeur_actuelle), height_scale(100, self.hauteur_actuelle))), border_radius = 2)
             self.screen.blit(text_surf, (width_scale(655, self.largeur_actuelle), height_scale(430, self.hauteur_actuelle)))
-            # On vérifie si le message est là depuis plus de 2 secondes et dans ce cas on l'efface
+            # On vérifie si le message est là depuis plus de 1 secondes et dans ce cas on l'efface
             if self.error[1] - time.time() <= -1:
                 self.error[0] = False
-
 
         # Met à jour l'affichage de l'interface
         pygame.display.update()
