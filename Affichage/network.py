@@ -68,6 +68,22 @@ def recieve_data(conn : socket):
         except Exception as e:
             print("Erreur sur network.recieve_data : ",e)
 
+def check_lobby_exist(conn : socket, lobby_id : int):
+    """Demande au serveur si un numéro de lobby spécifié existe.
+       3 réponses possibles : True, False, None si le serveur n'a pas de réponse 
+
+       Pour cela il sera indispensable de pouvoir modifier des variables à l'aide des pointeurs !
+
+    Args:
+        conn (socket): _description_
+        lobby_id (int): _description_
+    """
+    thread_ask_packet = Thread(target=send_packet, args=[])
+    pass
+
+def connect_to_lobby(conn : socket, lobby_id : int):
+    pass
+
 def manage_data(conn : socket, packet : str):
     try : 
         packet = packet_separator(packet)

@@ -1,0 +1,55 @@
+Bonsoir, à cause de la gestion des paquets pour certaines fonctions j'aurai besoin de manipuler des variables à partir de l'id de celles-ci.
+
+Rappel : 
+    toutes les variables python ont un id unique donné par la fonction id(). il s'agit d'un entier qui référence l'objet de manière unique
+
+
+Problème : 
+    prenons un exemple pour illustrer mon besoin :
+    jai besoin de savoir si un lobby existe ou non. pour cela j'envoie une requete au serveur et celui-ci me répondra
+    étant donné le nombre de paquets pouvant être reçus par le client en peu de temps l'information du serveur impossible de faire en sorte que le premier paquet reçu après la requete contienne la réponse à ma question.
+    comment donc m'y prendre ?
+
+Proposition :
+    soit une fonction ask_lobby_exist() on va faire en sorte qu'elle renvoie True ou False après son execution.
+    et la fonction manage_data() qui va pour chaque paquet traiter l'information reçue en tout temps
+
+    def ask_lobby_exist(conn, lobby_id):
+        # on envoie le paquet de demande d'existance du lobby_id à conn.
+
+
+    def manage_data():
+        # on reçoit la réponse du serveur ici, True ou False
+
+    maintenant comment relier les deux ?
+    Guette-ça 
+
+    def ask_lobby_exist(conn, lobby_id):
+        lobby_exist = None
+        id_lobby_exist = id(lobby_exist) # le pointeur qui dirige à la variable lobby_exist
+
+        # on envoie le paquet de demande d'existance du lobby_id à conn. ET id_lobby_exist
+
+        compteur = 0  # on va attendre une réponse sous les 3 prochaines secondes
+
+        while lobby_exist is None or compteur < 30:
+            time.sleep(0.1)
+            compteur += 1
+        
+        return lobby_exist
+
+    def manage_data():
+        # on reçoit la réponse du serveur ici, True ou False AINSI QUE la variable correspondant au pointeur de lobby_exist
+        on modifie lobby_exist à True ou False à l'aide de son pointeur.
+
+    ici, soit 3 secondes passent sans réponse et la fonction renvoie None, soit on reçoit une réponse et la variable est modifiée en conséquences dans la fonction et renvoyée.
+
+    le tout permet d'avoir le résultat d'un paquet réseau retourné par une fonction avec certitude sur le paquet.
+
+
+
+    
+
+
+
+
