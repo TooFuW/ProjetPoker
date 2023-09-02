@@ -41,6 +41,7 @@ class Sits:
             text = "Sit Available"
         else:
             text = f"{self.player[1]}\n{self.player[2]}"
+            text = text.replace("'", "")
         gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
         height = 10
         for elem in text.split("\n"):
