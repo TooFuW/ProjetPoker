@@ -8,7 +8,7 @@ from Button_class import *
 
 class Sits:
 
-    def __init__(self, largeur_actuelle : int, hauteur_actuelle : int, screen : pygame.Surface, width : int, height : int, pos : tuple):
+    def __init__(self, largeur_actuelle : int, hauteur_actuelle : int, screen : pygame.Surface, width : int, height : int, pos : tuple, profile_picture : str):
         """Initialisation de la classe Sits
 
         Args:
@@ -18,6 +18,7 @@ class Sits:
             width (int): Largeur du widget
             height (int): Hauteur du widget
             pos (tuple): Position contenant deux valeurs x et y (x : largeur, y : hauteur)
+            profile_picture (str): Lien de la pdp du joueur
         """
         self.largeur_actuelle = largeur_actuelle
         self.hauteur_actuelle = hauteur_actuelle
@@ -28,6 +29,7 @@ class Sits:
         self.height = height_scale(height, self.hauteur_actuelle)
         # Une liste contenant tous les joueurs dans la table actuelle sous la forme [sit_id, idplayer, pseudo, chips, link] par joueur
         self.player = [None, None]
+        self.profile_picture = pygame.transform.scale(profile_picture, (width_scale(120, largeur_actuelle), height_scale(120, hauteur_actuelle)))
    
     def draw(self):
         """Génération/affichage du siège
@@ -36,6 +38,8 @@ class Sits:
         transparent_surface = pygame.Surface((self.width, self.height), pygame.SRCALPHA)
         pygame.draw.rect(transparent_surface, (0, 0, 0, 128), (0, 0, self.width, self.height), border_radius = 50)
         self.screen.blit(transparent_surface, (self.x, self.y))
+        # On affiche la pdp du joueur
+        self.screen.blit(self.profile_picture, (self.x - width_scale(65, self.largeur_actuelle), self.y - height_scale(22, self.hauteur_actuelle)))
         # Affichage des infos du joueur du siège actuel par dessus la surface transparente
         if self.player[1] is None:
             text = "Sit Available"
@@ -46,5 +50,5 @@ class Sits:
         height = 10
         for elem in text.split("\n"):
             text_surf = gui_font.render(elem, True, "#FFFFFF")
-            self.screen.blit(text_surf, (self.x + width_scale(30, self.largeur_actuelle), self.y + height_scale(height, self.hauteur_actuelle)))
+            self.screen.blit(text_surf, (self.x + width_scale(40, self.largeur_actuelle), self.y + height_scale(height, self.hauteur_actuelle)))
             height += 25
