@@ -108,7 +108,9 @@ if __name__ == "__main__":
     Global_objects.raisebutton = Button(largeur_actuelle, hauteur_actuelle, screen, "raise", "RAISE", "Roboto", 60, "#D32F2A", "#D32F2A", "#FF4F58", "#D32F2A", 300, 80, (1080, 995), 6, 10)
     # Création de l'objet refreshbutton
     Global_objects.refreshbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "refresh", "REFRESH", "Roboto", 60, "#475F77", "#354B5E", "#D74B4B", "#354B5E", 220, 100, (600, 50), 6, 10)
-    
+    # Création de l'objet leavegamebutton
+    Global_objects.leavegamebutton = Button(largeur_actuelle, hauteur_actuelle, screen, "leave game", "", "Roboto", 0, "#475F77", "#354B5E", "#D74B4B", "#354B5E", 80, 80, (1720, 995), 4, 10, current_folder + "backarrow.png")
+
 
     # Création des Scrollboxs
     # Création de l'objet serverscrollbox 

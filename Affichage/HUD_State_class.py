@@ -212,9 +212,9 @@ class HUD_State:
                                 Global_objects.sit_9.player = Global_objects.previewlobbys.players[8]
                                 Global_objects.sit_10.player = Global_objects.previewlobbys.players[9]
                             Global_objects.game_state.server_test = Global_objects.tablecodeinput.user_text
-                            Global_objects.game_state.back_pile = ["Main Menu"]
-                            Global_objects.game_state.state = "Game Menu"
                             Global_objects.game_state.table_selected = None
+                            Global_objects.game_state.back_pile = []
+                            Global_objects.game_state.state = "Game Menu"
                         except:
                             self.error[0] = True
                             self.error[1] = time.time()
@@ -808,18 +808,11 @@ class HUD_State:
                 Global_objects.sit_10.y = height_scale(250, self.hauteur_actuelle)
                 Global_objects.sit_10.draw()
 
-        # TOUT CE QUI EST EN DESSOUS DE CE BLOC NE SERA PAS DESSINE DERRIERE LA SURFACE TRANSPARENTE
-        # Quand l'utilisateur clique sur le bouton des paramètres
-        if self.gamesettings == True:
-            self.setting_background_surface = pygame.Surface((self.largeur_actuelle, self.hauteur_actuelle), pygame.SRCALPHA)
-            pygame.draw.rect(self.setting_background_surface, (220, 220, 220, 75), (0, 0, self.largeur_actuelle, self.hauteur_actuelle))
-            self.screen.blit(self.setting_background_surface, (0, 0))
-            # Cliquer sur le bouton BACK retourne au menu principal
-            Global_objects.backbutton.draw()
-
         # Affichage des bouttons
-        # Cliquer sur le bouton gamesettingsbutton affiche un menu de paramètres rapides pendant la partie
+        # Cliquer sur le bouton gamesettingsbutton affiche le menu des paramètres pendant la partie
         Global_objects.gamesettingsbutton.draw()
+        # Cliquer sur le bouton leavegamebutton retourne au menu principal
+        Global_objects.leavegamebutton.draw()
 
         # Met à jour l'affichage de l'interface
         pygame.display.update()
