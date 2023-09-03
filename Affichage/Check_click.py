@@ -180,6 +180,7 @@ def check_click(Button):
                 Global_objects.game_state.back_pile = []
                 Global_objects.game_state.state = "Game Menu"
                 Global_objects.is_selecting_sit = True
+                print("JOIN TABLE")
             except:
                 Global_objects.game_state.error[0] = True
                 Global_objects.game_state.error[1] = time.time()
@@ -218,4 +219,6 @@ def check_click(Button):
         # Lorsqu'un bouton pour s'asseoir est cliqué
         case "sit 1":
             sit_down(Global_objects.client_socket, int(Button.fonction[-1]) - 1)
+            print("###########")
             Global_objects.is_selecting_sit = False
+            print("@@@@@@@@@@@@")
