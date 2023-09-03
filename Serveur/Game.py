@@ -40,6 +40,9 @@ class Game:
         # Condition de démarrage du round, et démarrage
         pass
 
+    def init_round(self):
+        self.round = Round(self.sits,self.dealer_id)
+
     def stop_round(self):
         # Arrête le round en cours.
         pass
@@ -47,9 +50,6 @@ class Game:
     def print_sits(self):
         for sit in self.sits:
             print(sit)
-
-    def init_round(self):
-        self.round = Round(self.sits,self.dealer_id)
 
     
     def buy_in_all_players(self,sits : List[Sit] , cave : int) -> None:

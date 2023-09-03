@@ -18,6 +18,8 @@ class Round:
     
     """
     def __init__(self, sits : List[Sit],dealer : Player) -> None: # ATTENTION , les sièges sont modifiés par le lobby à chaque changement (siège est mutable comme self.sits)
+        # La plupart des attributions de valeurs se feront dans self.start() , si un joueur quitte entre le set du round et le start, il ne sera pas pris en compte dans l'attribution des blinds
+        
         self.sits = sits
         self.dealer = dealer
 

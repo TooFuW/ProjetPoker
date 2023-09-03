@@ -50,6 +50,33 @@ def ask_sits_infos(client_socket : socket, lobby_id : int):
     except Exception as e :
         print("Erreur network.ask_sits_infos : ", e)
 
+
+def join_lobby(conn : socket, lobby_id : int):
+    try:
+        message = "join_lobby="+str(lobby_id)
+
+        thread_join_lobby = Thread(target=send_packet, args=(conn,message))
+        thread_join_lobby.start()
+
+    except Exception as e:
+        print("Erreur dans network.join_lobby : ",e)
+
+
+def go_main(conn : socket):
+    try:
+        message = "go_main="
+
+        thread_join_lobby = Thread(target=send_packet, args=(conn,message))
+        thread_join_lobby.start()
+
+    except Exception as e:
+        print("Erreur dans network.join_lobby : ",e)
+
+
+
+
+
+
 def sit_down(client_socket : socket, sit_id : int):
     try:
         message = "sit_down="+str(sit_id)
@@ -216,7 +243,7 @@ def edit_displayed_lobbys_list(liste):
 def recieve_sits_infos(liste): # On gère la récéption des infos de sièges
     try :
         # On affecte les infos de sièges à la bonne variable
-        if Global_objects.is_selecting_sit is True:
+        if Global_objects.is_selecting_sit :
             print("\n\nokkkk\n\n")
             Global_objects.sit_1.player = liste
         else:
