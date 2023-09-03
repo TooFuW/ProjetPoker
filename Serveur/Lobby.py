@@ -120,10 +120,10 @@ class Lobby :
 
             case "get_sits_infos":
                     try:
-                        if not body in (""," ","  "):
-                            send_sits_infos_thread = Thread(target=self.send_sits_infos, args=[socket])
-                            send_sits_infos_thread.start()
-                            print("fonction envoi sièges lancées.")
+                        
+                        send_sits_infos_thread = Thread(target=self.send_sits_infos, args=[socket])
+                        send_sits_infos_thread.start()
+                        print("fonction envoi sièges lancées.")
                         
 
                     except Exception as e:
