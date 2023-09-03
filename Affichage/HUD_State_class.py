@@ -145,6 +145,7 @@ class HUD_State:
                         try:
                             lobby_id = int(Global_objects.tablecodeinput.user_text)
                             ask_sits_infos(Global_objects.client_socket,lobby_id)
+                            join_lobby(Global_objects.client_socket,lobby_id)
                             time.sleep(0.2)
                             if len(Global_objects.previewlobbys.players) == 1:
                                 Global_objects.sit_1.player = Global_objects.previewlobbys.players[0]

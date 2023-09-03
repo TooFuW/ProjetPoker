@@ -113,7 +113,6 @@ def check_click(Button):
             try:
                 lobby_id = int(Global_objects.game_state.table_selected[-1])
                 join_lobby(Global_objects.client_socket,lobby_id)
-
                 if len(Global_objects.previewlobbys.players) == 1:
                     Global_objects.sit_1.player = Global_objects.previewlobbys.players[0]
                 if len(Global_objects.previewlobbys.players) == 2:
@@ -219,6 +218,7 @@ def check_click(Button):
         # Lorsque le bouton pour quitter la partie cliqué
         case "leave game":
             Global_objects.game_state.state = "Main Menu"
+            go_main(Global_objects.client_socket)
         # Lorsqu'un bouton pour s'asseoir est cliqué
         case "sit 1":
             sit_down(Global_objects.client_socket, int(Button.fonction[-1]) - 1)
