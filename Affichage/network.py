@@ -246,6 +246,7 @@ def recieve_sits_infos(liste): # On gère la récéption des infos de sièges
         # On affecte les infos de sièges à la bonne variable
         print("\n\nokkkk\n\n")
         if Global_objects.is_selecting_sit[0] is True:
+            # Si l'utilisateur sélectionne un siège, on cherche quel siège il a sélectionné afin d'y attribuer les nouvelles valeurs du siège
             match Global_objects.is_selecting_sit[1]:
                 case 0:
                     Global_objects.sit_1.player = liste

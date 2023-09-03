@@ -35,10 +35,12 @@ class ScrollBox:
         self.default_width = width
         self.height = height_scale(height, hauteur_actuelle)
         self.servers = servers
+        # Position de la scrollbox à partir du point de départ (0)
         self.scroll_pos = 0
         self.indentation = "          "# Len = 10
         self.hauteurbox = 50
         self.selected = False
+        # Référencement du serveur sélectionné
         self.server_selected = None
 
     def draw(self):

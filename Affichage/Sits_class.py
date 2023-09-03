@@ -33,12 +33,14 @@ class Sits:
         self.player = [None, None]
         self.profile_picture = pygame.transform.scale(profile_picture, (width_scale(120, largeur_actuelle), height_scale(120, hauteur_actuelle)))
         self.selected = False
+        # Référencement du siège sélectionné
         self.sit_selected = None
    
     def draw(self):
         """Génération/affichage du siège
         """
         # Affichage du fond du widget de siège
+        # On affiche le bouton pour s'asseoir si le joueur n'est pas encore assis
         if Global_objects.is_selecting_sit[0] is True and self.player[1] is None:
             sitbutton = Button(self.largeur_actuelle, self.hauteur_actuelle, self.screen, f"sit {self.player[0] + 1}", f"Sit down [{self.player[0] + 1}]", "Roboto", 30, "#475F77", "#354B5E", "#D74B4B", "#354B5E", self.width, self.height, (self.x, self.y), 6, 50)
             sitbutton.check_click()
@@ -53,6 +55,7 @@ class Sits:
                     if self.selected == True:
                         self.selected = False
                         check_click(self.sit_selected)
+        # Sinon on affiche directement les infos du siège
         else:
             transparent_surface = pygame.Surface((self.width, self.height), pygame.SRCALPHA)
             pygame.draw.rect(transparent_surface, (0, 0, 0, 128), (0, 0, self.width, self.height), border_radius = 50)
