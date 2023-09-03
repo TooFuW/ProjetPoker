@@ -160,7 +160,7 @@ if __name__ == "__main__":
     # Initialisation des autres variables globales stockées dans le fichier Global_objects.py
     Global_objects.volume_music = 1.0
     Global_objects.buttons_interactibles = True
-    Global_objects.is_selecting_sit = False
+    Global_objects.is_selecting_sit = [False, -1]
 
     # Gameloop
     while True:

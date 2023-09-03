@@ -39,7 +39,7 @@ class Sits:
         """Génération/affichage du siège
         """
         # Affichage du fond du widget de siège
-        if Global_objects.is_selecting_sit is True and self.player[1] is None:
+        if Global_objects.is_selecting_sit[0] is True and self.player[1] is None:
             sitbutton = Button(self.largeur_actuelle, self.hauteur_actuelle, self.screen, f"sit {self.player[0] + 1}", f"Sit down [{self.player[0] + 1}]", "Roboto", 30, "#475F77", "#354B5E", "#D74B4B", "#354B5E", self.width, self.height, (self.x, self.y), 6, 50)
             sitbutton.check_click()
             sitbutton.draw()
@@ -67,7 +67,7 @@ class Sits:
             text = text.replace("'", "")
         gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
         height = 10
-        if Global_objects.is_selecting_sit is False or self.player[1] is not None:
+        if Global_objects.is_selecting_sit[0] is False or self.player[1] is not None:
             for elem in text.split("\n"):
                 text_surf = gui_font.render(elem, True, "#FFFFFF")
                 self.screen.blit(text_surf, (self.x + width_scale(40, self.largeur_actuelle), self.y + height_scale(height, self.hauteur_actuelle)))
