@@ -19,6 +19,7 @@ class Round:
     """
     def __init__(self, sits : List[Sit],dealer : Player) -> None: # ATTENTION , les sièges sont modifiés par le lobby à chaque changement (siège est mutable comme self.sits)
         # La plupart des attributions de valeurs se feront dans self.start() , si un joueur quitte entre le set du round et le start, il ne sera pas pris en compte dans l'attribution des blinds
+        # attention il faut modifier self.step après un appel de self.step.stop()
         
         self.sits = sits
         self.dealer = dealer
@@ -40,20 +41,37 @@ class Round:
     def start(self):
         pass
 
-    def start_pre_flop(self):
-        pass
-
-    def start_flop(self):
-        pass
-
-    def start_turn(self):
-        pass
-
-    def start_river(self):
+    def start_step(self):
         pass
 
     def stop_step(self):
         pass
+
+    def init_step(self,step_type):
+        """Initialise la prochaine step à venir
+
+        Args:
+            step_type (_type_): _description_
+        """
+
+        match step_type:
+
+            case "pre_flop":
+                pass
+
+            case "flop":
+                pass
+
+            case "turn":
+                pass
+
+            case "river":
+                pass
+
+
+
+            case _:
+                print("Erreur dans Round.init_step. la valeur dans step_type est incorrecte.")
 
 
     def set_hands(self):

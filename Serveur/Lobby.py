@@ -19,7 +19,7 @@ class Lobby :
     """
     def __init__(self,id : int, name : str,  capacity : int, cave : int, is_private : bool, host : str,port : int) -> None:
         self.players : List[Player] = []
-        self.threads = []
+        self.threads : List[Thread] = []
         self.lobby_on = False
         self.is_game_starting = False
         self.players_ids = []
@@ -63,10 +63,11 @@ class Lobby :
             try :
                 data = socket.recv(1024)
                 data = data.decode("utf8")
-                thread_manage_data = Thread(target=self.manage_data, args=[socket,data])
+                thread_manage_data = Thread(target=self.manage_data, args=[socket,data,id_thread])
                 thread_manage_data.start()
 
             except:
+                print("Déconnecté de Lobby n°",self.id)
                 connected = False
 
     def handle_main(self, socket : socket, address, id_thread : int):
@@ -82,7 +83,7 @@ class Lobby :
         id_thread = len(self.threads)
         self.threads.append(Thread(target=self.handle_client, args=(conn,address,id_thread)))
 
-        if True or not self.socket_in_players(conn):
+        if not self.socket_in_players(conn): # on ne crée pas 2 players avec la même connexion.
             new_player_thread = Thread(target=self.create_player, args=("dummy",conn,True,1800))  #gestion de bdd pour la bank
             new_player = self.create_player("dummy",conn,True,1800)
             
@@ -92,105 +93,119 @@ class Lobby :
         thread_broadcast = Thread(target=self.broadcast_new_connection, args=[new_player.get_pseudo()])
         thread_broadcast.start()
     
-    def manage_data(self, socket : socket, data : str):
+
+    def manage_data(self, socket : socket, data : str,id_thread : int):
+        try:
         
-        data = packet_separator(data)
-        header,body = data[0],data[1]
+            data = packet_separator(data)
+            header,body = data[0],data[1]
 
-        print("packet reçu : ", header, "=", body)
+            print("packet reçu : ", header, "=", body)
 
-        match header:
-            case "get_players_pseudos":
-                packet = "players_pseudos=["
-                for player in self.players:
-                    packet += player.get_pseudo()+","
-                packet = packet[0:-1] + "]"
+            match header:
+                case "get_players_pseudos":
+                    packet = "players_pseudos=["
+                    for player in self.players:
+                        packet += player.get_pseudo()+","
+                    packet = packet[0:-1] + "]"
 
-                if packet == "players_pseudos=[":
-                    packet = "player_pseudos=no players in this lobby."
+                    if packet == "players_pseudos=[":
+                        packet = "player_pseudos=no players in this lobby."
 
-                envoi_packet_thread = Thread(target=self.send_packet, args=[packet, socket])
-                envoi_packet_thread.start()
-            
-            case "players_count":
-                nb_joueurs = len(self.players)
-                packet = "players_count="+str(nb_joueurs)
-                envoi_packet_thread = Thread(target=self.send_packet, args=[packet, socket])
-                envoi_packet_thread.start()
+                    envoi_packet_thread = Thread(target=self.send_packet, args=[packet, socket])
+                    envoi_packet_thread.start()
+                
+                case "players_count":
+                    nb_joueurs = len(self.players)
+                    packet = "players_count="+str(nb_joueurs)
+                    envoi_packet_thread = Thread(target=self.send_packet, args=[packet, socket])
+                    envoi_packet_thread.start()
 
-            case "get_sits_infos":
+                case "get_sits_infos":
+                        try:
+                            
+                            send_sits_infos_thread = Thread(target=self.send_sits_infos, args=[socket])
+                            send_sits_infos_thread.start()
+                            print("fonction envoi sièges lancées.")
+                            
+
+                        except Exception as e:
+                            print(e)
+
+                case "sit_down":
                     try:
+                        sit_id = int(body)
+                        if not sit_id in range(10):
+                            raise ValueError
                         
-                        send_sits_infos_thread = Thread(target=self.send_sits_infos, args=[socket])
-                        send_sits_infos_thread.start()
-                        print("fonction envoi sièges lancées.")
+                        sit = self.sits[sit_id]
+                        player = self.get_player_by_conn(socket)
+                    
+
+                        if not sit.occupied:
+                            if not player.sitted:
+                                sit.set_player(player)
+                                player.sitted = True
+                            else:
+                                former_sit = self.get_sit_by_player(player)
+                                former_sit.remove_player()
+                                sit.set_player(player)
+                                player.sitted = True
                         
+                            self.sits_infos_edited()
+
+                        else:
+                            pass
+                            # siège occupé
 
                     except Exception as e:
-                        print(e)
+                        if type(e)==ValueError:
+                            print("erreur fonction lobby.sit_down")
+                            #packet erreur valeur
+                        else :
+                            print("erreur fonction lobby.sit_down")
 
-            case "sit_down":
-                try:
-                    sit_id = int(body)
-                    if not sit_id in range(10):
-                        raise ValueError
-                    
-                    sit = self.sits[sit_id]
+
+                case "sit_up":
                     player = self.get_player_by_conn(socket)
-                
-
-                    if not sit.occupied:
-                        if not player.sitted:
-                            sit.set_player(player)
-                            player.sitted = True
-                        else:
-                            former_sit = self.get_sit_by_player(player)
-                            former_sit.remove_player()
-                            sit.set_player(player)
-                            player.sitted = True
-                    
-                        self.sits_infos_edited()
-
-                    else:
+                    sit = self.get_sit_by_player(player)
+                    self.sits_infos_edited()
+        
+                    if sit is None:
+                        # Le joueur n'est assis nulle part
                         pass
-                        # siège occupé
+                    else:
+                        sit.remove_player()
+                            
+                case "start_game":
+                    print(id(self.sits))
+                    self.init_game()
+                    self.start_game()
+                    self.sits[0].set_player(self.players[0])
+                    print(self.sits[0])
+                    self.game.print_sits()
+                case "pwd":
+                    pwd = "pwd=Lobby "+str(self.id)+";"+self.host+";"+str(self.port)
 
-                except Exception as e:
-                    if type(e)==ValueError:
-                        print("erreur fonction lobby.sit_down")
-                        #packet erreur valeur
-                    else :
-                        print("erreur fonction lobby.sit_down")
-
-
-            case "sit_up":
-                player = self.get_player_by_conn()
-                sit = self.get_sit_by_player(player)
-                self.sits_infos_edited()
-    
-                if sit is None:
-                    # Le joueur n'est assis nulle part
-                    pass
-                else:
-                    sit.remove_player()
-                        
-            case "start_game":
-                print(id(self.sits))
-                self.init_game()
-                self.start_game()
-                self.sits[0].set_player(self.players[0])
-                print(self.sits[0])
-                self.game.print_sits()
-            case "pwd":
-                pwd = "pwd=Lobby "+str(self.id)+";"+self.host+";"+str(self.port)
-
-                thread_send_pwd = Thread(target=self.send_packet, args=[pwd,socket])
-                thread_send_pwd.start()
+                    thread_send_pwd = Thread(target=self.send_packet, args=[pwd,socket])
+                    thread_send_pwd.start()
 
 
-            case "go_main":
-                thread_redirect_main = Thread(target=self.send_packet, args=["redirect=localhost:5566",socket])
-                thread_redirect_main.start()
+                case "go_main":
+                    # on lance le packet de redirection puis on ferme le socket actuel et on supprime le thread d'écoute des threads
+                    thread_redirect_main = Thread(target=self.send_packet, args=["redirect=localhost:5566",socket])
+                    thread_redirect_main.start()
+
+                    socket.close()
+                    
+
+                case "threads":
+                    print(len(self.threads), self.threads)
+
+
+        except Exception as e:
+            print("Erreur dans Lobby.manage_data : ",e)
+
 
 
 

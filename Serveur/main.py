@@ -55,15 +55,16 @@ class Main:
             try :
                 data = socket.recv(1024)
                 data = data.decode("utf8")
-                thread_manage_data = Thread(target=self.manage_data, args=[data,socket])
+                thread_manage_data = Thread(target=self.manage_data, args=[data,socket,id_thread])
                 thread_manage_data.start()
 
-            except:
+            except Exception as e:
+                print("Erreur dans main.handle_client : ",e)
                 connected = False
 
         #protocole de déconnexion here
 
-    def manage_data(self,packet : str, socket : socket):
+    def manage_data(self,packet : str, socket : socket, id_thread : int):
         try:
             
             data = packet_separator(packet)
@@ -149,6 +150,8 @@ class Main:
         packet_redirect = "redirect="+str(lobby.host)+":"+str(lobby.port)
         redirect_thread = Thread(target=send_packet,args=(packet_redirect, conn))
         redirect_thread.start()
+
+        conn.close()
 
     def close_server(self):
         pass #procédé fermeture serveur

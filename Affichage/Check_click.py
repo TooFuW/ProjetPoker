@@ -111,6 +111,9 @@ def check_click(Button):
         # Lorsque le bouton JOIN est cliqué pour rejoindre la table sélectionnée et transmettre les infos nécessaires
         case "join table":
             try:
+                lobby_id = int(Global_objects.game_state.table_selected[-1])
+                join_lobby(Global_objects.client_socket,lobby_id)
+
                 if len(Global_objects.previewlobbys.players) == 1:
                     Global_objects.sit_1.player = Global_objects.previewlobbys.players[0]
                 if len(Global_objects.previewlobbys.players) == 2:

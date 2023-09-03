@@ -105,6 +105,7 @@ def recieve_data(conn : socket):
 
         except Exception as e:
             print("Erreur sur network.recieve_data : ",e)
+            connecte = False
 
 def check_lobby_exist(conn : socket, lobby_id : int):
     """Demande au serveur si un numéro de lobby spécifié existe.
