@@ -219,44 +219,45 @@ def check_click(Button):
         case "leave game":
             Global_objects.game_state.state = "Main Menu"
             go_main(Global_objects.client_socket)
+            Global_objects.is_selecting_sit = [False, -1]
         # Lorsqu'un bouton pour s'asseoir est cliqué
-        case "sit_1":
+        case "sit 1":
             Global_objects.is_selecting_sit[1] = 0
             sit_down(Global_objects.client_socket, 0)
             print("@@@@@@@@@@@@")
-        case "sit_2":
+        case "sit 2":
             Global_objects.is_selecting_sit[1] = 1
             sit_down(Global_objects.client_socket, 1)
             print("@@@@@@@@@@@@")
-        case "sit_3":
+        case "sit 3":
             Global_objects.is_selecting_sit[1] = 2
             sit_down(Global_objects.client_socket, 2)
             print("@@@@@@@@@@@@")
-        case "sit_4":
+        case "sit 4":
             Global_objects.is_selecting_sit[1] = 3
             sit_down(Global_objects.client_socket, 3)
             print("@@@@@@@@@@@@")
-        case "sit_5":
+        case "sit 5":
             Global_objects.is_selecting_sit[1] = 4
             sit_down(Global_objects.client_socket, 4)
             print("@@@@@@@@@@@@")
-        case "sit_6":
+        case "sit 6":
             Global_objects.is_selecting_sit[1] = 5
             sit_down(Global_objects.client_socket, 5)
             print("@@@@@@@@@@@@")
-        case "sit_7":
+        case "sit 7":
             Global_objects.is_selecting_sit[1] = 6
             sit_down(Global_objects.client_socket, 6)
             print("@@@@@@@@@@@@")
-        case "sit_8":
+        case "sit 8":
             Global_objects.is_selecting_sit[1] = 7
             sit_down(Global_objects.client_socket, 7)
             print("@@@@@@@@@@@@")
-        case "sit_9":
+        case "sit 9":
             Global_objects.is_selecting_sit[1] = 8
             sit_down(Global_objects.client_socket, 8)
             print("@@@@@@@@@@@@")
-        case "sit_10":
+        case "sit 10":
             Global_objects.is_selecting_sit[1] = 9
             sit_down(Global_objects.client_socket, 9)
             print("@@@@@@@@@@@@")

@@ -60,8 +60,8 @@ class Sits:
             transparent_surface = pygame.Surface((self.width, self.height), pygame.SRCALPHA)
             pygame.draw.rect(transparent_surface, (0, 0, 0, 128), (0, 0, self.width, self.height), border_radius = 50)
             self.screen.blit(transparent_surface, (self.x, self.y))
-        # On affiche la pdp du joueur
-        self.screen.blit(self.profile_picture, (self.x - width_scale(65, self.largeur_actuelle), self.y - height_scale(22, self.hauteur_actuelle)))
+            # On affiche la pdp du joueur
+            self.screen.blit(self.profile_picture, (self.x - width_scale(65, self.largeur_actuelle), self.y - height_scale(22, self.hauteur_actuelle)))
         # Affichage des infos du joueur du siège actuel par dessus la surface transparente
         if self.player[1] is None:
             text = "Sit Available"
