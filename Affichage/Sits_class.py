@@ -4,6 +4,8 @@
 import pygame
 from Screen_adaptation import *
 from Button_class import *
+import Global_objects
+from Check_click import *
 
 
 class Sits:
@@ -30,14 +32,31 @@ class Sits:
         # Une liste contenant tous les joueurs dans la table actuelle sous la forme [sit_id, idplayer, pseudo, chips, link] par joueur
         self.player = [None, None]
         self.profile_picture = pygame.transform.scale(profile_picture, (width_scale(120, largeur_actuelle), height_scale(120, hauteur_actuelle)))
+        self.selected = False
+        self.sit_selected = None
    
     def draw(self):
         """Génération/affichage du siège
         """
-        # Affichage du fond du widget de siège avec une zone noire transparente
-        transparent_surface = pygame.Surface((self.width, self.height), pygame.SRCALPHA)
-        pygame.draw.rect(transparent_surface, (0, 0, 0, 128), (0, 0, self.width, self.height), border_radius = 50)
-        self.screen.blit(transparent_surface, (self.x, self.y))
+        # Affichage du fond du widget de siège
+        if Global_objects.is_selecting_sit is True and self.player[1] is None:
+            sitbutton = Button(self.largeur_actuelle, self.hauteur_actuelle, self.screen, f"sit {self.player[0] + 1}", f"Sit down [{self.player[0] + 1}]", "Roboto", 30, "#475F77", "#354B5E", "#D74B4B", "#354B5E", self.width, self.height, (self.x, self.y), 6, 50)
+            sitbutton.check_click()
+            sitbutton.draw()
+            mouse_pos = pygame.mouse.get_pos()
+            # Quand le bouton de siège est cliqué
+            if sitbutton.top_rect.collidepoint(mouse_pos):
+                if pygame.mouse.get_pressed()[0]:
+                    self.selected = True
+                    self.sit_selected = sitbutton
+                else:
+                    if self.selected == True:
+                        self.selected = False
+                        check_click(self.sit_selected)
+        else:
+            transparent_surface = pygame.Surface((self.width, self.height), pygame.SRCALPHA)
+            pygame.draw.rect(transparent_surface, (0, 0, 0, 128), (0, 0, self.width, self.height), border_radius = 50)
+            self.screen.blit(transparent_surface, (self.x, self.y))
         # On affiche la pdp du joueur
         self.screen.blit(self.profile_picture, (self.x - width_scale(65, self.largeur_actuelle), self.y - height_scale(22, self.hauteur_actuelle)))
         # Affichage des infos du joueur du siège actuel par dessus la surface transparente
@@ -48,7 +67,8 @@ class Sits:
             text = text.replace("'", "")
         gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
         height = 10
-        for elem in text.split("\n"):
-            text_surf = gui_font.render(elem, True, "#FFFFFF")
-            self.screen.blit(text_surf, (self.x + width_scale(40, self.largeur_actuelle), self.y + height_scale(height, self.hauteur_actuelle)))
-            height += 25
+        if Global_objects.is_selecting_sit is False or self.player[1] is not None:
+            for elem in text.split("\n"):
+                text_surf = gui_font.render(elem, True, "#FFFFFF")
+                self.screen.blit(text_surf, (self.x + width_scale(40, self.largeur_actuelle), self.y + height_scale(height, self.hauteur_actuelle)))
+                height += 25

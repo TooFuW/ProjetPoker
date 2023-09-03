@@ -179,6 +179,7 @@ def check_click(Button):
                 Global_objects.game_state.table_selected = None
                 Global_objects.game_state.back_pile = []
                 Global_objects.game_state.state = "Game Menu"
+                Global_objects.is_selecting_sit = True
             except:
                 Global_objects.game_state.error[0] = True
                 Global_objects.game_state.error[1] = time.time()
@@ -214,3 +215,6 @@ def check_click(Button):
         # Lorsque le bouton pour quitter la partie cliqué
         case "leave game":
             Global_objects.game_state.state = "Main Menu"
+        # Lorsqu'un bouton pour s'asseoir est cliqué
+        case "sit 1":
+            Global_objects.is_selecting_sit = False

@@ -110,7 +110,8 @@ if __name__ == "__main__":
     Global_objects.refreshbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "refresh", "REFRESH", "Roboto", 60, "#475F77", "#354B5E", "#D74B4B", "#354B5E", 220, 100, (600, 50), 6, 10)
     # Création de l'objet leavegamebutton
     Global_objects.leavegamebutton = Button(largeur_actuelle, hauteur_actuelle, screen, "leave game", "", "Roboto", 0, "#475F77", "#354B5E", "#D74B4B", "#354B5E", 80, 80, (1720, 995), 4, 10, current_folder + "backarrow.png")
-
+    # Création de l'objet sitbutton
+    Global_objects.sitbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "sit", "", "Roboto", 0, "#4CAF50", "#4CAF50", "#00FF00", "#4CAF50", 0, 0, (0, 0), 6, 0)
 
     # Création des Scrollboxs
     # Création de l'objet serverscrollbox 
@@ -159,6 +160,7 @@ if __name__ == "__main__":
     # Initialisation des autres variables globales stockées dans le fichier Global_objects.py
     Global_objects.volume_music = 1.0
     Global_objects.buttons_interactibles = True
+    Global_objects.is_selecting_sit = False
 
     # Gameloop
     while True:

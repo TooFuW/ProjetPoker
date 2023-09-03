@@ -37,11 +37,13 @@ class Button:
         self.pressed = False
         self.fonction = fonction
         self.courbure = round_border
+        self.largeur_actuelle = largeur_actuelle
+        self.hauteur_actuelle = hauteur_actuelle
+        self.width = width_scale(width, largeur_actuelle)
+        self.height = height_scale(height, self.hauteur_actuelle)
         self.pos_x = width_scale(pos[0], largeur_actuelle)
         self.pos_y = height_scale(pos[1], hauteur_actuelle)
         self.pos = (self.pos_x, self.pos_y)
-        self.largeur_actuelle = largeur_actuelle
-        self.hauteur_actuelle = hauteur_actuelle
         self.screen = screen
         # Pour savoir si on peut modifier ou non les paramètres du compte
         self.account_modifiable = False
@@ -53,28 +55,28 @@ class Button:
         self.original_y_pos = self.pos_y
 
         # Top rectangle
-        self.top_rect = pygame.Rect(self.pos, (width_scale(width, largeur_actuelle), height_scale(height, hauteur_actuelle)))
+        self.top_rect = pygame.Rect(self.pos, (self.width, self.height))
         self.top_color = top_color
         self.initial_top_color = top_color
         self.hovering_color = hovering_color
 
         # Bottom rectangle
-        self.bottom_rect = pygame.Rect(self.pos, (width_scale(width, largeur_actuelle), height_scale(elevation, hauteur_actuelle)))
+        self.bottom_rect = pygame.Rect(self.pos, (self.width, height_scale(self.elevation, self.hauteur_actuelle)))
         self.bottom_color = bottom_color
         self.initial_bottom_color = bottom_color
         self.hovering_bottom_color = hovering_bottom_color
 
         # Button text
         self.text = text
-        gui_font = pygame.font.SysFont(police, width_scale(textsize, largeur_actuelle), False, False)
-        self.text_surf = gui_font.render(text, True, "#FFFFFF")
+        gui_font = pygame.font.SysFont(police, width_scale(textsize, self.largeur_actuelle), False, False)
+        self.text_surf = gui_font.render(self.text, True, "#FFFFFF")
         self.text_rect = self.text_surf.get_rect(center = self.top_rect.center)
 
         # Button image
         self.image = None
         if image != None:
             self.image = pygame.image.load(image)
-            self.image = pygame.transform.scale(self.image, (width_scale(width, largeur_actuelle), height_scale(height, hauteur_actuelle)))
+            self.image = pygame.transform.scale(self.image, (self.width, self.height))
 
     def draw(self):
         """Génération/affichage du bouton
