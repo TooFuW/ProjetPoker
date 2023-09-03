@@ -217,4 +217,5 @@ def check_click(Button):
             Global_objects.game_state.state = "Main Menu"
         # Lorsqu'un bouton pour s'asseoir est cliqué
         case "sit 1" | "sit 2" | "sit 3" | "sit 4" | "sit 5" | "sit 6" | "sit 7" | "sit 8" | "sit 9" | "sit 10":
+            sit_down(Global_objects.client_socket, int(Button.fonction[-1] - 1))
             Global_objects.is_selecting_sit = False
