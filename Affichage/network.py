@@ -243,8 +243,8 @@ def edit_displayed_lobbys_list(liste):
 def recieve_sits_infos(liste): # On gère la récéption des infos de sièges
     try :
         # On affecte les infos de sièges à la bonne variable
+        print("\n\nokkkk\n\n")
         if Global_objects.is_selecting_sit :
-            print("\n\nokkkk\n\n")
             Global_objects.sit_1.player = liste
         else:
             Global_objects.previewlobbys.players = liste
