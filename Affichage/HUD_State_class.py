@@ -215,6 +215,7 @@ class HUD_State:
                             Global_objects.game_state.table_selected = None
                             Global_objects.game_state.back_pile = []
                             Global_objects.game_state.state = "Game Menu"
+                            Global_objects.is_selecting_sit = True
                         except:
                             self.error[0] = True
                             self.error[1] = time.time()
