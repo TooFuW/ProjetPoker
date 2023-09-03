@@ -24,15 +24,23 @@ Proposition :
     maintenant comment relier les deux ?
     Guette-ça 
 
-    def ask_lobby_exist(conn, lobby_id):
-        lobby_exist = None
-        id_lobby_exist = id(lobby_exist) # le pointeur qui dirige à la variable lobby_exist
+    il faut un dictionnaire dans self qui soit accessible par les 2 fonctions en meme temps:
 
-        # on envoie le paquet de demande d'existance du lobby_id à conn. ET id_lobby_exist
+    fonc_id_dict = {}
+
+    def ask_lobby_exist(conn, lobby_id):
+        
+        id_fonc_id_dict = un nombre aléatoire qui n'est pas déja une clé du dictionnaire
+        fonc_id_dict[id_fonc_id_dict] = None
+
+        lobby_exist = fonc_id_dict[id_fonc_id_dict] # CRUCIAL DE LE DEFINIR A PARTIR DU DICTIONNAIRE
+
+        # on envoie le paquet de demande d'existance du lobby_id à conn. ET id_fonc_id_dict
 
         compteur = 0  # on va attendre une réponse sous les 3 prochaines secondes
 
         while lobby_exist is None or compteur < 30:
+            lobby_exist = fonc_id_dict[id_fonc_id_dict] # CRUCIAL DE LE DEFINIR A PARTIR DU DICTIONNAIRE
             time.sleep(0.1)
             compteur += 1
         
@@ -40,7 +48,7 @@ Proposition :
 
     def manage_data():
         # on reçoit la réponse du serveur ici, True ou False AINSI QUE la variable correspondant au pointeur de lobby_exist
-        on modifie lobby_exist à True ou False à l'aide de son pointeur.
+        on modifie lobby_exist à True ou False à l'aide du dictionnaire.
 
     ici, soit 3 secondes passent sans réponse et la fonction renvoie None, soit on reçoit une réponse et la variable est modifiée en conséquences dans la fonction et renvoyée.
 

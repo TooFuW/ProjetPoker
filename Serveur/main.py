@@ -32,6 +32,7 @@ class Main:
         self.server_on = False
 
 
+
     def start(self):   #lance l'écoute serveur et le script
         try:
             self.server_socket = socket(AF_INET, SOCK_STREAM)
@@ -46,7 +47,10 @@ class Main:
 
         except Exception as ex :
             print("server closed", ex)
+            self.server_on = False
     
+
+
 
     def handle_client(self,socket : socket, address, id_thread : int):
         connected = True
@@ -63,6 +67,9 @@ class Main:
                 connected = False
 
         #protocole de déconnexion here
+
+
+
 
     def manage_data(self,packet : str, socket : socket, id_thread : int):
         try:

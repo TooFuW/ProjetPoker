@@ -18,9 +18,12 @@ def send_packet(conn : socket, packet : str) -> None:
     Args:
         conn (socket): objet socket à qui envoyer la paquet
         packet (str): le paquet à envoyer
+        
     """
-    conn.send(packet.encode("utf8"))
-
+    try :
+        conn.send(packet.encode("utf8"))
+    except Exception as e:
+        print(" Erreur dans network.send_packet : ",e)
 
 def ask_lobbys(client_socket):
     """Demande les lobbys au serveur
