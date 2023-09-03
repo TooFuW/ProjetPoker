@@ -7,6 +7,7 @@ from HandCombination import HandCombination
 from typing import List
 from Sit import Sit
 from Step import Step
+from Player import Player
 
 class Round:
     """
@@ -16,9 +17,16 @@ class Round:
         hand_combinations est un dictionnaire qui associe un player_id à sa HandCombination c'est ce qui permettra de tout comparer à la fin  
     
     """
-    def __init__(self, sits : List[Sit],dealer_id : int) -> None: # ATTENTION , les sièges doivent être modifiés par le lobby à chaque changement
+    def __init__(self, sits : List[Sit],dealer : Player) -> None: # ATTENTION , les sièges sont modifiés par le lobby à chaque changement (siège est mutable comme self.sits)
         self.sits = sits
-        self.dealer_id = dealer_id
+        self.dealer = dealer
+
+        self.little_blind = None
+        self.set_little_blind()     #La little blind se fait toujours avant la big blind !
+
+        self.big_blind = None
+        self.set_big_blind()
+
         self.step = None
 
         self.deck = new_shuffled_deck()
@@ -29,12 +37,6 @@ class Round:
 
     def start(self):
         pass
-
-    def edit_sits(self,new_sits : List[Sit]):
-        self.sits = new_sits
-        if not self.step is None:
-            self.step : Step
-            self.step.edit_sits(self.sits)
 
     def start_pre_flop(self):
         pass
@@ -80,6 +82,43 @@ class Round:
                 best_players_combination.append(pl_id)
                 
         return best_players_combination
+    
+    def set_little_blind(self) -> None:
+        dealer_sit_index = self.get_index_by_sit(self.get_sit_by_player(self.dealer)) # on prends l'indice du siège du dealer, on passe au suivant jusqu'à ce qu'il y ait un joueur.
+        for _ in range(len(self.sits)):
+            dealer_sit_index += 1
+            pl = self.sits[dealer_sit_index].get_player()
+            if isinstance(pl,Player):
+                self.little_blind = pl
+            
+        print("Warning, Round.set_little_blind !")
+        self.little_blind = pl
+        
+
+    def set_big_blind(self) -> None:
+        little_blind_sit_index = self.get_index_by_sit(self.get_sit_by_player(self.little_blind)) # on prends l'indice du siège de la little_blind, on passe au suivant jusqu'à ce qu'il y ait un joueur.
+        for _ in range(len(self.sits)):
+            little_blind_sit_index += 1
+            pl = self.sits[little_blind_sit_index].get_player()
+            if isinstance(pl,Player):
+                self.big_blind = pl
+            
+        print("Warning, Round.set_big_blind !")
+        self.big_blind = pl
+
+    def get_sit_by_player(self, player) -> Sit:
+        for sit in self.sits:
+            if sit.get_player() == player:
+                return sit
+            
+    def get_index_by_sit(self,sit):
+        try:
+            return self.sits.index(sit)
+        
+        except Exception as e:
+            print("Erreur dans Round.get_index_by_sit : ",e)
+            return 
+
 
 
 

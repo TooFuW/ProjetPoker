@@ -18,8 +18,8 @@ class Game:
     def __init__(self, sits : List[Sit], cave : int) -> None: # A chaque modification de sits dans le lobby, doit être modifié
 
         self.round_nb = 0 #le nombre de round effectués cans la game
-        self.dealer_index = 0 #index du dealer vis à vis de la liste self.players
-        self.dealer_id = 0 #identité du dealer
+        self.dealer_index = self.first_dealer_index() #index du dealer vis à vis de la liste self.sits
+        self.dealer = None #identité du dealer
         self.sits = sits
         
         self.cave = cave
@@ -49,14 +49,7 @@ class Game:
             print(sit)
 
     def init_round(self):
-        self.round = Round()
-
-    def edit_sits(self,new_sits : List[Sit]):
-        # Modifie les sièges de la game et modifie ceux du Round en cours.
-        self.sits = new_sits
-        if not self.round is None:
-            self.round : Round
-            self.round.edit_sits(self.sits)
+        self.round = Round(self.sits,self.dealer_id)
 
     
     def buy_in_all_players(self,sits : List[Sit] , cave : int) -> None:
@@ -94,14 +87,27 @@ class Game:
         except ValueError as e:
             print("Erreur dans Game.buy_in : ",e)
 
-    def new_dealer(self):
+    def new_dealer(self) -> Player:
         """passe au dealer suivant. incrémente à son appel le dealer index va s'incrémenter de 1 et prendre sa valeur modulo len(self.players) ce qui a
         pour effet de passer au suivant peu importe la taille de la liste
 
         Returns:
-            _type_: None
+            _type_: int
         """
-        pass
+        
+        for _ in range(len(self.sits)):
+
+            self.dealer_index += 1
+            if isinstance(self.sits[self.dealer_index].player,Player):  # On parcours les sièges jusqu'a ce qu'on ait un Player et il devient self.dealer
+                self.dealer = self.sits[self.dealer_index].get_player()
+                return self.dealer
+            
+        self.dealer = self.sits[self.dealer_index].get_player()
+        return self.dealer
+        
+    def first_dealer_index(self) -> int:
+        self.dealer_index = randint(0,len(self.sits)-1) #le premier dealer est aléatoire
+
 
     def is_game_winner(self):
         """renvoie True si quelqun a gagné la game (dernier joueur avec des jetons) et l'id du joueur. False sinon

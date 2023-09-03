@@ -18,7 +18,7 @@ class Lobby :
 
     """
     def __init__(self,id : int, name : str,  capacity : int, cave : int, is_private : bool, host : str,port : int) -> None:
-        self.players = []
+        self.players : List[Player] = []
         self.threads = []
         self.lobby_on = False
         self.is_game_starting = False
@@ -148,15 +148,31 @@ class Lobby :
                             former_sit.remove_player()
                             sit.set_player(player)
                             player.sitted = True
+                    
+                        self.sits_infos_edited()
 
                     else:
                         pass
-                        # packet siège occupé
+                        # siège occupé
 
                 except Exception as e:
-                    if e==ValueError:
+                    if type(e)==ValueError:
                         print("erreur fonction lobby.sit_down")
                         #packet erreur valeur
+                    else :
+                        print("erreur fonction lobby.sit_down")
+
+
+            case "sit_up":
+                player = self.get_player_by_conn()
+                sit = self.get_sit_by_player(player)
+                self.sits_infos_edited()
+    
+                if sit is None:
+                    # Le joueur n'est assis nulle part
+                    pass
+                else:
+                    sit.remove_player()
                         
             case "start_game":
                 print(id(self.sits))
@@ -324,10 +340,18 @@ class Lobby :
         if type(conn) == socket:
             return conn in [player.get_conn() for player in self.players]
         
+    def sits_infos_edited(self):
+        for pl in self.players:
+            conn = pl.get_conn()
+            thread_send_sits_infos = Thread(target=self.send_sits_infos, args=[conn])
+            thread_send_sits_infos.start()
+
+        
     def force_stop(self):
         """En cas de demande de fermeture forcée. 
         Enclenche la fermeture forcée de la game en cours avant de déconnecter de force tous les joueurs puis s'eteindre.
         """
+        pass
 
 
 def new_sits(n : int):

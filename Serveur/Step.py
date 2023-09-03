@@ -21,9 +21,6 @@ class Step:
     def stop(self):
         pass
 
-    def edit_sits(self,new_sits : List[Sit]):
-        self.sits = new_sits
-
     def flop_board(self):
         for _ in range(3):
             card = self.deck.draw()

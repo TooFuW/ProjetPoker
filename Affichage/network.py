@@ -50,6 +50,17 @@ def ask_sits_infos(client_socket : socket, lobby_id : int):
     except Exception as e :
         print("Erreur network.ask_sits_infos : ", e)
 
+def sit_down(client_socket : socket, sit_id : int):
+    try:
+        message = "sit_down="+str(sit_id)
+        
+        thread_sit_down = Thread(target=send_packet, args=(client_socket,message))
+        thread_sit_down.start()
+
+
+    except Exception as e:
+        print("Erreur network.sit_down : ",e)
+
 def recieve_data(conn : socket):
     connecte = True
     print("Écoute des paquets sur : ",conn)
