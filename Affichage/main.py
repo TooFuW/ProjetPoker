@@ -160,6 +160,7 @@ if __name__ == "__main__":
     # Initialisation des autres variables globales stockées dans le fichier Global_objects.py
     Global_objects.volume_music = 1.0
     Global_objects.buttons_interactibles = True
+    # Permet de savoir si [0] l'utilisateur est entrain de sélectionner un siège, [1] quel siège il a sélectionné
     Global_objects.is_selecting_sit = [False, -1]
 
     # Gameloop
