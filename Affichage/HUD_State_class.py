@@ -67,6 +67,8 @@ class HUD_State:
         self.table_selected = None
         # Savoir si le code entré dans lobby est valide, et laisser afficher 2 secondes l'erreur
         self.error = [False, 0]
+        # Savoir si on affiche un message de confirmation
+        self.confirmation = False
     
     def mainmenu(self):
         """mainmenu est la fonction qui fait tourner/afficher le menu principal
@@ -822,6 +824,15 @@ class HUD_State:
                 Global_objects.sit_10.x = width_scale(440, self.largeur_actuelle)
                 Global_objects.sit_10.y = height_scale(250, self.hauteur_actuelle)
                 Global_objects.sit_10.draw()
+
+        # Affichage d'une fenêtre de vérification si l'utilisateur clique sur le bouton leavegamebutton
+        if self.confirmation is True:
+            gui_font = pygame.font.SysFont("Roboto", width_scale(60, self.largeur_actuelle))
+            text_surf = gui_font.render("If you quit you will lose everything you put on the line.", True, "#FFFFFF")
+            pygame.draw.rect(self.screen, "#475F77", pygame.Rect((width_scale(410, self.largeur_actuelle), height_scale(400, self.hauteur_actuelle)), (width_scale(1100, self.largeur_actuelle), height_scale(170, self.hauteur_actuelle))), border_radius = 3)
+            self.screen.blit(text_surf, (width_scale(420, self.largeur_actuelle), height_scale(410, self.hauteur_actuelle)))
+            Global_objects.yesbutton.draw()
+            Global_objects.nobutton.draw()
 
         # Affichage des bouttons
         # Cliquer sur le bouton gamesettingsbutton affiche le menu des paramètres pendant la partie

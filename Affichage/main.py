@@ -110,8 +110,10 @@ if __name__ == "__main__":
     Global_objects.refreshbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "refresh", "REFRESH", "Roboto", 60, "#475F77", "#354B5E", "#D74B4B", "#354B5E", 220, 100, (600, 50), 6, 10)
     # Création de l'objet leavegamebutton
     Global_objects.leavegamebutton = Button(largeur_actuelle, hauteur_actuelle, screen, "leave game", "", "Roboto", 0, "#475F77", "#354B5E", "#D74B4B", "#354B5E", 80, 80, (1720, 995), 4, 10, current_folder + "backarrow.png")
-    # Création de l'objet sitbutton
-    Global_objects.sitbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "sit", "", "Roboto", 0, "#4CAF50", "#4CAF50", "#00FF00", "#4CAF50", 0, 0, (0, 0), 6, 0)
+    # Création de l'objet yesbutton
+    Global_objects.yesbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "yes", "YES", "Roboto", 60, "#4CAF50", "#4CAF50", "#00FF00", "#4CAF50", 150, 70, (770, 480), 3, 10)
+    # Création de l'objet nobutton
+    Global_objects.nobutton = Button(largeur_actuelle, hauteur_actuelle, screen, "no", "NO", "Roboto", 60, "#D32F2A", "#D32F2A", "#FF4F58", "#D32F2A", 150, 70, (970, 480), 3, 10)
 
     # Création des Scrollboxs
     # Création de l'objet serverscrollbox 
