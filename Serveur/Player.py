@@ -7,7 +7,7 @@ class Player:
       Represent a player who will play a game of poker.
     """
 
-    def __init__(self,id : int, pseudo : str, conn : socket, is_alive : bool, bank : int, hand = Hand(),actif : bool = False ,state : str = "peut parler", connected : bool = True ) -> None:
+    def __init__(self,id : int, pseudo : str, conn : socket, is_alive : bool, bank : int, address,hand = Hand(),actif : bool = False ,state : str = "peut parler", connected : bool = True ) -> None:
 
         if type(id) == int:
             self.id = id
@@ -44,6 +44,8 @@ class Player:
             print("erreur lors de la création du joueur.")
             raise TypeError
         
+        self.address = address
+        
         self.chips = 0
         self.sitted = False
         #print("le joueur a bien été créé")
@@ -70,6 +72,9 @@ class Player:
     def get_chips(self) -> int:
         return self.chips
     
+    def get_address(self):
+        return self.address
+    
     def edit_pseudo(self, pseudo : str):
         self.pseudo = pseudo
     
@@ -83,7 +88,7 @@ class Player:
             raise TypeError
         
     def set_conn(self, conn : socket):
-        if type(conn) == conn:
+        if type(conn) == socket:
             self.conn = conn
         else:
             raise TypeError

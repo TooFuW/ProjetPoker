@@ -83,9 +83,16 @@ class Lobby :
         id_thread = len(self.threads)
         self.threads.append(Thread(target=self.handle_client, args=(conn,address,id_thread)))
 
-        if not self.socket_in_players(conn): # on ne crée pas 2 players avec la même connexion.
-            new_player_thread = Thread(target=self.create_player, args=("dummy",conn,True,1800))  #gestion de bdd pour la bank
-            new_player = self.create_player("dummy",conn,True,1800)
+        if not self.address_in_players(address): # on ne crée pas 2 players avec la même connexion ou la même adresse.
+            #gestion de bdd pour la bank
+            print("new player, address : ",address)
+            new_player = self.create_player("dummy",conn,True,1800,address=address)
+
+        else :
+            print("suii")
+            pl = self.get_player_by_address(address)
+            pl.set_conn(conn)
+
             
             self.players.append(new_player)
 
@@ -159,7 +166,7 @@ class Lobby :
                             self.sits_infos_edited()
 
                         else:
-                            pass
+                            print("siege occupé")
                             # siège occupé
 
                     except Exception as e:
@@ -167,7 +174,7 @@ class Lobby :
                             print("erreur fonction lobby.sit_down")
                             #packet erreur valeur
                         else :
-                            print("erreur fonction lobby.sit_down")
+                            print("erreur fonction lobby.sit_down",e)
 
 
                 case "sit_up":
@@ -222,7 +229,7 @@ class Lobby :
             print(el)
 
 
-    def create_player(self,pseudo : str, conn : socket, is_alive : bool, bank : int, hand = None):
+    def create_player(self,pseudo : str, conn : socket, is_alive : bool, bank : int, address, hand = None):
 
         newid = randint(100000,999999)
         while newid in self.players_ids:
@@ -232,12 +239,12 @@ class Lobby :
         try:
             if not hand is None:
                 print("le player est sur le point d'etre créé.")
-                player  = Player(newid,pseudo,conn,is_alive,bank,hand)
+                player  = Player(newid,pseudo,conn,is_alive,bank,hand,address=address)
                 print(player)
                 return player
             else:
                 print("le player est sur le point d'etre créé.")
-                player = Player(newid,pseudo,conn,is_alive,bank)
+                player = Player(newid,pseudo,conn,is_alive,bank,address=address)
                 print(player)
                 return player
 
@@ -285,6 +292,19 @@ class Lobby :
         
         except Exception as e:
             print("erreur fonction lobby.get_player_by_conn : " , e)
+
+
+    def get_player_by_address(self,address):
+        try :
+
+            for pl in self.players:
+                if pl.get_address() == address:
+                    return pl
+            return None
+        
+        except Exception as e:
+            print("erreur fonction lobby.get_player_by_conn : " , e)
+
 
             
     def check_is_connected(self, player : Player):
@@ -358,6 +378,9 @@ class Lobby :
     def socket_in_players(self,conn : socket):
         if type(conn) == socket:
             return conn in [player.get_conn() for player in self.players]
+        
+    def address_in_players(self,address):
+        return address in [player.get_address() for player in self.players]
         
     def sits_infos_edited(self):
         for pl in self.players:
