@@ -75,3 +75,5 @@ class Sits:
                 text_surf = gui_font.render(elem, True, "#FFFFFF")
                 self.screen.blit(text_surf, (self.x + width_scale(40, self.largeur_actuelle), self.y + height_scale(height, self.hauteur_actuelle)))
                 height += 25
+        if self.player != [None, None] and Global_objects.is_selecting_sit[1] == int(sitbutton.fonction[-1]):
+            Global_objects.is_selecting_sit = [False, -1]

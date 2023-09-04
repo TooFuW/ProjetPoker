@@ -310,35 +310,6 @@ def recieve_sits_infos(liste : list,func_id : int = 0): # On gère la récéptio
         else:
             Global_objects.func_id_dict[func_id] = liste
 
-        if False:
-            # On affecte les infos de sièges à la bonne variable
-            print("\n\nokkkk\n\n")
-            if Global_objects.is_selecting_sit[0] is True:
-                # Si l'utilisateur sélectionne un siège, on cherche quel siège il a sélectionné afin d'y attribuer les nouvelles valeurs du siège
-                match Global_objects.is_selecting_sit[1]:
-                    case 0:
-                        Global_objects.sit_1.player = liste
-                    case 1:
-                        Global_objects.sit_2.player = liste
-                    case 2:
-                        Global_objects.sit_3.player = liste
-                    case 3:
-                        Global_objects.sit_4.player = liste
-                    case 4:
-                        Global_objects.sit_5.player = liste
-                    case 5:
-                        Global_objects.sit_6.player = liste
-                    case 6:
-                        Global_objects.sit_7.player = liste
-                    case 7:
-                        Global_objects.sit_8.player = liste
-                    case 8:
-                        Global_objects.sit_9.player = liste
-                    case 9:
-                        Global_objects.sit_10.player = liste
-                Global_objects.is_selecting_sit = [False, -1]
-            else:
-                Global_objects.previewlobbys.players = liste
     except Exception as e:
         print("Erreur dans network.recieve_sits_infos : ",e)
 

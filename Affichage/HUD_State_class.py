@@ -628,6 +628,19 @@ class HUD_State:
         Global_objects.callbutton.draw()
         Global_objects.foldbutton.draw()
         Global_objects.raisebutton.draw()
+        try:
+            Global_objects.sit_1.player = Global_objects.auto_arrived_sits[0]
+            Global_objects.sit_2.player = Global_objects.auto_arrived_sits[1]
+            Global_objects.sit_3.player = Global_objects.auto_arrived_sits[2]
+            Global_objects.sit_4.player = Global_objects.auto_arrived_sits[3]
+            Global_objects.sit_5.player = Global_objects.auto_arrived_sits[4]
+            Global_objects.sit_6.player = Global_objects.auto_arrived_sits[5]
+            Global_objects.sit_7.player = Global_objects.auto_arrived_sits[6]
+            Global_objects.sit_8.player = Global_objects.auto_arrived_sits[7]
+            Global_objects.sit_9.player = Global_objects.auto_arrived_sits[8]
+            Global_objects.sit_10.player = Global_objects.auto_arrived_sits[9]
+        except:
+            pass
         match len(Global_objects.previewlobbys.players):
 
             case 2:
