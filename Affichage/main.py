@@ -164,6 +164,8 @@ if __name__ == "__main__":
     Global_objects.is_selecting_sit = [False, -1]
     # Initialisation du dictionnaire global qui permettra aux paquets de correspondre avec la fonction qui l'appelle
     Global_objects.func_id_dict = {}
+    # Initialisation des sièges arrivés automatiquement
+    Global_objects.auto_arrived_sits = None
 
     # Gameloop
     while True:

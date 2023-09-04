@@ -305,7 +305,7 @@ def recieve_sits_infos(liste : list,func_id : int = 0): # On gère la récéptio
     try :
 
         if func_id == 0:
-            Global_objects.previewlobbys.players = liste
+            Global_objects.auto_arrived_sits = liste
 
         else:
             Global_objects.func_id_dict[func_id] = liste
