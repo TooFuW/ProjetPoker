@@ -828,9 +828,9 @@ class HUD_State:
         # Affichage d'une fenêtre de vérification si l'utilisateur clique sur le bouton leavegamebutton
         if self.confirmation is True:
             gui_font = pygame.font.SysFont("Roboto", width_scale(60, self.largeur_actuelle))
-            text_surf = gui_font.render("If you quit you will lose everything you put on the line.", True, "#FFFFFF")
-            pygame.draw.rect(self.screen, "#475F77", pygame.Rect((width_scale(410, self.largeur_actuelle), height_scale(400, self.hauteur_actuelle)), (width_scale(1100, self.largeur_actuelle), height_scale(170, self.hauteur_actuelle))), border_radius = 3)
-            self.screen.blit(text_surf, (width_scale(420, self.largeur_actuelle), height_scale(410, self.hauteur_actuelle)))
+            text_surf = gui_font.render("IF YOU QUIT YOU WILL LOSE EVERYTHING YOU PUT ON THE LINE.", True, "#FFFFFF")
+            pygame.draw.rect(self.screen, "#000000", pygame.Rect((width_scale(340, self.largeur_actuelle), height_scale(400, self.hauteur_actuelle)), (width_scale(1360, self.largeur_actuelle), height_scale(170, self.hauteur_actuelle))), border_radius = 3)
+            self.screen.blit(text_surf, (width_scale(350, self.largeur_actuelle), height_scale(410, self.hauteur_actuelle)))
             Global_objects.yesbutton.draw()
             Global_objects.nobutton.draw()
 

@@ -111,9 +111,9 @@ if __name__ == "__main__":
     # Création de l'objet leavegamebutton
     Global_objects.leavegamebutton = Button(largeur_actuelle, hauteur_actuelle, screen, "leave game", "", "Roboto", 0, "#475F77", "#354B5E", "#D74B4B", "#354B5E", 80, 80, (1720, 995), 4, 10, current_folder + "backarrow.png")
     # Création de l'objet yesbutton
-    Global_objects.yesbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "yes", "YES", "Roboto", 60, "#4CAF50", "#4CAF50", "#00FF00", "#4CAF50", 150, 70, (770, 480), 3, 10)
+    Global_objects.yesbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "yes", "YES", "Roboto", 60, "#4CAF50", "#4CAF50", "#00FF00", "#4CAF50", 150, 70, (790, 480), 3, 10)
     # Création de l'objet nobutton
-    Global_objects.nobutton = Button(largeur_actuelle, hauteur_actuelle, screen, "no", "NO", "Roboto", 60, "#D32F2A", "#D32F2A", "#FF4F58", "#D32F2A", 150, 70, (970, 480), 3, 10)
+    Global_objects.nobutton = Button(largeur_actuelle, hauteur_actuelle, screen, "no", "NO", "Roboto", 60, "#D32F2A", "#D32F2A", "#FF4F58", "#D32F2A", 150, 70, (990, 480), 3, 10)
 
     # Création des Scrollboxs
     # Création de l'objet serverscrollbox 
