@@ -124,7 +124,9 @@ class Lobby :
                 case "get_sits_infos":
                         try:
                             
-                            send_sits_infos_thread = Thread(target=self.send_sits_infos, args=[socket])
+                            body = body.split(";")
+
+                            send_sits_infos_thread = Thread(target=self.send_sits_infos, args=(socket, body[1]))
                             send_sits_infos_thread.start()
                             print("fonction envoi sièges lancées.")
                             
@@ -134,7 +136,9 @@ class Lobby :
 
                 case "sit_down":
                     try:
+
                         sit_id = int(body)
+
                         if not sit_id in range(10):
                             raise ValueError
                         
@@ -313,7 +317,7 @@ class Lobby :
             thread_new_player.join()
             print("packet broadcast envoyé.")
 
-    def send_sits_infos(self, conn : socket):
+    def send_sits_infos(self, conn : socket, func_id : str = ""):
         try:
             sits_infos = []
             for sit in self.sits:
@@ -330,7 +334,7 @@ class Lobby :
 
                 sits_infos.append(sit_infos)
 
-            sits_infos = str(sits_infos)
+            sits_infos = str(sits_infos)+";"+func_id
             packet = "sits_infos="+sits_infos
 
             thread_packet_send = Thread(target=self.send_packet, args=(packet,conn))

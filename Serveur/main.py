@@ -128,8 +128,13 @@ class Main:
                 case "get_sits_infos":
                     try:
                         print("requete sur main : get_sits_infos, lobby = "+body)
-                        lobby = self.get_lobby_by_id(int(body))
-                        thread_send_sits_infos = Thread(target=lobby.send_sits_infos, args=[socket])
+                        body = body.split(";")
+
+                        lobby_id = int(body[0])
+                        func_id = body[1]
+
+                        lobby = self.get_lobby_by_id(lobby_id)
+                        thread_send_sits_infos = Thread(target=lobby.send_sits_infos, args=[socket,func_id])
                         thread_send_sits_infos.start()
 
                     except Exception as e:

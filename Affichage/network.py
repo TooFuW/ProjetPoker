@@ -3,7 +3,10 @@ from threading import *
 from packet_separator import *
 from random import *
 import Global_objects
+import time
+from datetime import datetime
 
+print(datetime.utcnow())
 host, port = ('localhost', 5566)
 
 stop_sending_event = Event()
@@ -25,6 +28,36 @@ def send_packet(conn : socket, packet : str) -> None:
     except Exception as e:
         print(" Erreur dans network.send_packet : ",e)
 
+
+
+
+def new_func_id_dict_number() -> int:
+    """Renvoie une nouvelle clé pour func_id_dict
+
+    on prends un nombre aléatoire à 6 chiffres qui n'est pas déja une clé.
+
+    Returns:
+        int: la nouvelle clé
+    """
+   
+    nb = randint(100000, 999999)
+    while nb in Global_objects.func_id_dict.keys(): 
+        nb = randint(100000, 999999)
+    return nb
+
+def add_func_id_dict(key,value):
+    Global_objects.func_id_dict[key] = value
+
+def func_id_dict_object_by_key(key):
+    return Global_objects.func_id_dict[key]
+
+def delete_func_id_dict_key(key):
+    del Global_objects.func_id_dict[key]
+
+
+
+
+
 def ask_lobbys(client_socket):
     """Demande les lobbys au serveur
 
@@ -44,11 +77,27 @@ def ask_sits_infos(client_socket : socket, lobby_id : int):
         lobby_id (int): le lobby dont on veut connaitre les sièges
     """
     try : 
+        func_id = new_func_id_dict_number()
+        add_func_id_dict(func_id,None)
+        sits = func_id_dict_object_by_key(func_id)
+
         print("ask_sits_infos déclenché")
-        message = "get_sits_infos="+str(lobby_id)
+        message = "get_sits_infos="+str(lobby_id)+";"+str(func_id)
 
         thread_ask_sits = Thread(target=send_packet, args=(client_socket, message))
         thread_ask_sits.start()
+
+        cpt = 0
+
+        while sits is None and cpt < 10:
+            sits = func_id_dict_object_by_key(func_id)
+            cpt += 1
+            time.sleep(0.1)
+
+        delete_func_id_dict_key(func_id)
+        return sits
+            
+
 
     except Exception as e :
         print("Erreur network.ask_sits_infos : ", e)
@@ -156,16 +205,22 @@ def manage_data(conn : socket, packet : str):
             case "sits_infos":
                     try:
                         print(body)
-                        # on transforme la chaine de caractères en liste de chaines de caractères
-                        body = eval(body)
+                        body = body.split(";")
+                        func_id = body[1] # on récupère la func_id
+
+                        body = eval(body[0]) # on transforme la chaine de caractères en liste de chaines de caractères
 
                         # on trasforme chaque str dans body en liste
                         for i in range(len(body)):
                             if type(body) == str:
                                 body[i] = eval(body[i])
 
-                        # on appelle la fonction de gestion de données
-                        recieve_sits_infos(body)
+                        # on appelle la fonction de gestion de données, si une func_id est précisée ou non
+                        if func_id == "":
+                            recieve_sits_infos(body)
+                        else:
+                            recieve_sits_infos(body,int(func_id))
+
 
                     except Exception as e:
                         print("Erreur sur réception paquet sits_infos : ",e)
@@ -177,6 +232,8 @@ def manage_data(conn : socket, packet : str):
 
                     body = body.split(":")
                     host,port = body[0],int(body[1])
+                    # fermeture de l'ancien socket
+                    Global_objects.client_socket.close()
                     # création du socket lobby
                     client_socket_lobby = socket(AF_INET, SOCK_STREAM)
                     
@@ -244,36 +301,44 @@ def edit_displayed_lobbys_list(liste):
     print(Global_objects.displayed_lobbys_list)
 
 
-def recieve_sits_infos(liste): # On gère la récéption des infos de sièges
+def recieve_sits_infos(liste : list,func_id : int = 0): # On gère la récéption des infos de sièges
     try :
-        # On affecte les infos de sièges à la bonne variable
-        print("\n\nokkkk\n\n")
-        if Global_objects.is_selecting_sit[0] is True:
-            # Si l'utilisateur sélectionne un siège, on cherche quel siège il a sélectionné afin d'y attribuer les nouvelles valeurs du siège
-            match Global_objects.is_selecting_sit[1]:
-                case 0:
-                    Global_objects.sit_1.player = liste
-                case 1:
-                    Global_objects.sit_2.player = liste
-                case 2:
-                    Global_objects.sit_3.player = liste
-                case 3:
-                    Global_objects.sit_4.player = liste
-                case 4:
-                    Global_objects.sit_5.player = liste
-                case 5:
-                    Global_objects.sit_6.player = liste
-                case 6:
-                    Global_objects.sit_7.player = liste
-                case 7:
-                    Global_objects.sit_8.player = liste
-                case 8:
-                    Global_objects.sit_9.player = liste
-                case 9:
-                    Global_objects.sit_10.player = liste
-            Global_objects.is_selecting_sit = [False, -1]
-        else:
+
+        if func_id == 0:
             Global_objects.previewlobbys.players = liste
+
+        else:
+            Global_objects.func_id_dict[func_id] = liste
+
+        if False:
+            # On affecte les infos de sièges à la bonne variable
+            print("\n\nokkkk\n\n")
+            if Global_objects.is_selecting_sit[0] is True:
+                # Si l'utilisateur sélectionne un siège, on cherche quel siège il a sélectionné afin d'y attribuer les nouvelles valeurs du siège
+                match Global_objects.is_selecting_sit[1]:
+                    case 0:
+                        Global_objects.sit_1.player = liste
+                    case 1:
+                        Global_objects.sit_2.player = liste
+                    case 2:
+                        Global_objects.sit_3.player = liste
+                    case 3:
+                        Global_objects.sit_4.player = liste
+                    case 4:
+                        Global_objects.sit_5.player = liste
+                    case 5:
+                        Global_objects.sit_6.player = liste
+                    case 6:
+                        Global_objects.sit_7.player = liste
+                    case 7:
+                        Global_objects.sit_8.player = liste
+                    case 8:
+                        Global_objects.sit_9.player = liste
+                    case 9:
+                        Global_objects.sit_10.player = liste
+                Global_objects.is_selecting_sit = [False, -1]
+            else:
+                Global_objects.previewlobbys.players = liste
     except Exception as e:
         print("Erreur dans network.recieve_sits_infos : ",e)
 
@@ -305,6 +370,7 @@ def send_message(client_socket : socket):
             except Exception as e:
                 print("echec d'envoi de message : ",e)
                 connecte = False
+                break
                 
         
     

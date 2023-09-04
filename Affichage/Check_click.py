@@ -104,7 +104,8 @@ def check_click(Button):
                 Global_objects.game_state.table_selected = Button.text.split("          ")
                 try:
                     lobby_id = int(Global_objects.game_state.table_selected[-1])
-                    ask_sits_infos(Global_objects.client_socket,lobby_id)
+                    Global_objects.previewlobbys.players = ask_sits_infos(Global_objects.client_socket,lobby_id)
+                    print(Global_objects.previewlobbys.players)
                 except:
                     pass
                 time.sleep(0.2)
