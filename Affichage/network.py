@@ -158,6 +158,12 @@ def recieve_data(conn : socket):
         except Exception as e:
             print("Erreur sur network.recieve_data : ",e)
             connecte = False
+            break
+
+    print("fin d'écoute sur ",conn)
+
+
+
 
 def check_lobby_exist(conn : socket, lobby_id : int):
     """Demande au serveur si un numéro de lobby spécifié existe.
@@ -228,35 +234,41 @@ def manage_data(conn : socket, packet : str):
 
             case "redirect":
                 try:
+                    global listenning_thread
                     print("redirection...")
 
                     body = body.split(":")
                     host,port = body[0],int(body[1])
                     # fermeture de l'ancien socket
+                    stop_listenning(listenning_thread)
                     Global_objects.client_socket.close()
                     # création du socket lobby
                     client_socket_lobby = socket(AF_INET, SOCK_STREAM)
                     
 
                     # attribution du nouveau socket à la variable globale
+                    client_socket_lobby.connect((host, port))
+
                     Global_objects.client_socket = client_socket_lobby
 
-                    client_socket_lobby.connect((host, port))
                     print("Connecté au lobby.", host, port)
 
-                    global sending_thread
-                    global listenning_thread
-
-                    stop_sending(sending_thread)
-                    stop_listenning(sending_thread)
-
-                    start_sending(Global_objects.client_socket)
+        
                     start_listenning(Global_objects.client_socket)
                         # a suivre ...
 
                     
                 except:
                     print("Erreur network.manage_data case redirect")
+
+
+            case "handshake":
+                # réponse au handshake
+                print("packet handshake reçu : handshake = ",body)
+
+                message = "handshake="+body
+                thread_anserw_handshake = Thread(target=send_packet, args=(conn,message))
+                thread_anserw_handshake.start()
 
 
             case "pwd":
@@ -314,35 +326,35 @@ def recieve_sits_infos(liste : list,func_id : int = 0): # On gère la récéptio
         print("Erreur dans network.recieve_sits_infos : ",e)
 
 
-
-def send_message(client_socket : socket):
-    connecte = True
-    print("envoi, sur", client_socket)
-    while connecte:
-        if stop_sending_event.is_set():
-            print("fin d'envoi sur ",client_socket)
-            break
-
-        entete = input("Entrez une entete (/disconnect pour quitter) : \n> ")
-        message = input("Entrez un message (/disconnect pour quitter) : \n> ")
-
-        if message == "/disconnect":
-            break
-
-        message = entete+"="+message
-        print("message envoyé")
-        
-        if message == "get_lobbys=/disconnect":
-            break
-
-        else:
-            try:
-                client_socket.send(message.encode("utf-8"))
-            except Exception as e:
-                print("echec d'envoi de message : ",e)
-                connecte = False
+if False:
+    def send_message(client_socket : socket):
+        connecte = True
+        print("envoi, sur", client_socket)
+        while connecte:
+            if stop_sending_event.is_set():
+                print("fin d'envoi sur ",client_socket)
                 break
-                
+
+            entete = input("Entrez une entete (/disconnect pour quitter) : \n> ")
+            message = input("Entrez un message (/disconnect pour quitter) : \n> ")
+
+            if message == "/disconnect":
+                break
+
+            message = entete+"="+message
+            print("message envoyé")
+            
+            if message == "get_lobbys=/disconnect":
+                break
+
+            else:
+                try:
+                    client_socket.send(message.encode("utf-8"))
+                except Exception as e:
+                    print("echec d'envoi de message : ",e)
+                    connecte = False
+                    break
+                    
         
     
 
@@ -354,14 +366,14 @@ def start_listenning(conn : socket):
     listenning_thread = receive_thread
 
     receive_thread.start()
+if False:
+    def start_sending(conn : socket):
+        global sending_thread
 
-def start_sending(conn : socket):
-    global sending_thread
+        send_thread = Thread(target=send_message, args=[conn])
+        sending_thread = send_thread
 
-    send_thread = Thread(target=send_message, args=[conn])
-    sending_thread = send_thread
-
-    send_thread.start()
+        send_thread.start()
 
 def stop_listenning(thread : Thread):
     global stop_listenning_event
@@ -389,7 +401,6 @@ def start_client():
         print("Connecté au serveur.")
 
         start_listenning(client_socket)
-        start_sending(client_socket)
 
     except:
         print("Echec de connexion au serveur. (skill issue)")

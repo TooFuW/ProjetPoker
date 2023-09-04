@@ -65,6 +65,7 @@ class Main:
             except Exception as e:
                 print("Erreur dans main.handle_client : ",e)
                 connected = False
+                break
 
         #protocole de déconnexion here
 
@@ -164,6 +165,7 @@ class Main:
         redirect_thread.start()
 
         conn.close()
+        print("socket fermé sur main.")
 
     def close_server(self):
         pass #procédé fermeture serveur

@@ -7,6 +7,7 @@ from random import randint
 from Sit import Sit
 from packet_separator import packet_separator
 from typing import List
+import time
 
 
 class Lobby :
@@ -28,6 +29,8 @@ class Lobby :
         self.sits_number = capacity
         self.sits = new_sits(self.sits_number)
         self.sits : List[Sit]
+
+        self.func_id_dict = {}
 
         if type(name) == str and type(capacity) == int and type(cave) == int and type(is_private) == bool and type(host) == str and type(port) == int and type(id) == int:
             self.id = id
@@ -54,7 +57,30 @@ class Lobby :
         listen_connections = Thread(target=self.listen_connections, args=[])
         
         listen_connections.start()
-        
+    
+
+    def new_func_id_dict_number(self) -> int:
+        """Renvoie une nouvelle clé pour func_id_dict
+
+        on prends un nombre aléatoire à 6 chiffres qui n'est pas déja une clé.
+
+        Returns:
+            int: la nouvelle clé
+        """
+   
+        nb = randint(100000, 999999)
+        while nb in self.func_id_dict.keys(): 
+            nb = randint(100000, 999999)
+        return nb
+
+    def add_func_id_dict(self,key,value):
+        self.func_id_dict[key] = value
+
+    def func_id_dict_object_by_key(self,key):
+        return self.func_id_dict[key]
+
+    def delete_func_id_dict_key(self,key):
+        del self.func_id_dict[key]
 
     def handle_client(self,socket : socket, address, id_thread : int):
         connected = True
@@ -80,6 +106,13 @@ class Lobby :
             self.on_new_connection(self.client_socket, self.client_address)
     
     def on_new_connection(self,conn : socket, address):
+        """s'execute à l'acceptation d'un socket
+
+        Args:
+            conn (socket): _description_
+            address (_type_): _description_
+        """
+
         id_thread = len(self.threads)
         self.threads.append(Thread(target=self.handle_client, args=(conn,address,id_thread)))
 
@@ -90,15 +123,72 @@ class Lobby :
 
         else :
             print("suii")
-            pl = self.get_player_by_address(address)
-            pl.set_conn(conn)
+            new_player = self.get_player_by_address(address)
+            new_player.set_conn(conn)
 
-            
-            self.players.append(new_player)
+        
+
+        thread_check_connection = Thread(target=self.check_connection, args=[conn])
+        self.players.append(new_player)
 
         self.threads[id_thread].start()
         thread_broadcast = Thread(target=self.broadcast_new_connection, args=[new_player.get_pseudo()])
         thread_broadcast.start()
+        thread_check_connection.start()
+
+
+    def handshake(self,conn : socket):
+
+        func_id = self.new_func_id_dict_number()
+        self.add_func_id_dict(func_id,None)
+        message = "handshake="+str(func_id)
+
+        shake_result = self.func_id_dict_object_by_key(func_id)
+        cpt = 0
+
+        thread_send_handshake = Thread(target=self.send_packet, args=(message,conn))
+        thread_send_handshake.start()
+
+        while (shake_result is None and cpt < 5 ) or cpt == 0:
+            shake_result = self.func_id_dict_object_by_key(func_id)
+            time.sleep(0.2)
+            cpt += 1
+
+        self.delete_func_id_dict_key(func_id)
+        return shake_result
+
+
+
+    def check_connection(self,conn : socket):
+        """Envoie des handshake pour vérifier la présence de chaque connexion. 
+        en cas d'échec il entreprends le protocole de deconnexion du joueur.
+
+        Args:
+            conn (socket): _description_
+        """
+
+        print("Lancement check connection",conn)
+        failed_handshake_row = 0
+
+        while failed_handshake_row < 3:
+            current_handshake = self.handshake(conn)
+
+            if current_handshake is None:
+                failed_handshake_row += 1 # un handshake a echoué.
+                print("handshake échoué.")
+
+            if current_handshake:
+                failed_handshake_row = 0 # le handshake a réussi.
+                
+            else:
+                failed_handshake_row += 1 # ???
+
+        print(conn," DECONNECTE")
+
+
+        # PROTOCOLE DE DECONNEXION
+
+
     
 
     def manage_data(self, socket : socket, data : str,id_thread : int):
@@ -107,9 +197,24 @@ class Lobby :
             data = packet_separator(data)
             header,body = data[0],data[1]
 
-            print("packet reçu : ", header, "=", body)
+            if not header == "handshake":
+                print("packet reçu : ", header, "=", body)
 
             match header:
+
+                case "handshake":
+                    try:
+                        func_id = int(body)
+
+                        self.func_id_dict[func_id] = True   # on essaie de rendre le paquet bien reçu.
+
+
+                    except:
+                        print("erreur dans Lobby.manage_data case handshake") # le paquet n'a pas été reçu ou est erroné. handshake echoué.
+
+
+
+
                 case "get_players_pseudos":
                     packet = "players_pseudos=["
                     for player in self.players:

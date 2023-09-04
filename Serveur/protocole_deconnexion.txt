@@ -1,0 +1,8 @@
+lorsqu'un joueur échoue ses 3 paquets handshake : 
+
+
+on passe le joueur en deconnecté.
+
+on supprime immédiatement le joueur de self.players,
+le round regarde à son initialisation si le joueur est deconnecté il est enlevé de son siège
+si cest pendant un step on couche immédiatement le joueur.
