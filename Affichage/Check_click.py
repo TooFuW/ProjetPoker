@@ -28,6 +28,7 @@ def check_click(Button):
                 pass
             Global_objects.game_state.back_pile.append(Global_objects.game_state.state)
             Global_objects.game_state.state = "Lobby Menu"
+            Global_objects.auto_arrived_sits = None
         # Lorsque le bouton SETTINGS est cliqué
         case "settings":
             Global_objects.game_state.back_pile.append(Global_objects.game_state.state)
@@ -219,12 +220,12 @@ def check_click(Button):
         # Lorsque le bouton pour quitter la partie cliqué
         case "leave game":
             Global_objects.game_state.confirmation = True
-            Global_objects.is_selecting_sit = [False, -1]
         # Lorsque le joueur confirme qu'il veut quitter
         case "yes":
             Global_objects.game_state.state = "Main Menu"
             go_main(Global_objects.client_socket)
             Global_objects.game_state.confirmation = False
+            Global_objects.is_selecting_sit = [False, -1]
         # Lorsque le joueur ne confirme pas qu'il veut quitter
         case "no":
             Global_objects.game_state.confirmation = False
