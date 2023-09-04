@@ -2,7 +2,7 @@
 
 
 import pygame
-from Global_objects.Screen_adaptation import *
+from Screen_adaptation import *
 from Button_class import *
 from Scrollbox_class import *
 from TextInputBox_class import *
