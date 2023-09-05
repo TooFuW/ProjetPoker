@@ -22,7 +22,7 @@ if __name__ == "__main__":
     screen_info = pygame.display.Info()
     screen_width = screen_info.current_w
     screen_height = screen_info.current_h
-    screen = pygame.display.set_mode((screen_width, screen_height), pygame.FULLSCREEN)
+    screen = pygame.display.set_mode((screen_width, screen_height - 50), pygame.FULLSCREEN)
     largeur_actuelle = screen.get_width()
     hauteur_actuelle = screen.get_height()
     # Nom de la fenêtre
@@ -38,11 +38,11 @@ if __name__ == "__main__":
 
     # Chargement de l'image de fond
     pokerbackground = pygame.image.load(current_folder + "PokerBackground.jpg")
-    fond = pygame.transform.scale(pokerbackground, (screen_width, screen_height))
+    fond = pygame.transform.scale(pokerbackground, (largeur_actuelle, hauteur_actuelle))
 
     # Chargement de l'image de fond en jeu
     pokertable = pygame.image.load(current_folder + "PokerTable.png")
-    table_fond = pygame.transform.scale(pokertable, (screen_width, screen_height))
+    table_fond = pygame.transform.scale(pokertable, (largeur_actuelle, hauteur_actuelle))
 
     # Chargement du logo du jeu
     logojeu = pygame.image.load(current_folder + "logo jeu.jpg")
