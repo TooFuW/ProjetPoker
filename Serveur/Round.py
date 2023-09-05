@@ -33,7 +33,7 @@ class Round:
         self.big_blind = None
         self.set_big_blind()
 
-        self.step = None
+        self.step : Step = None
 
         self.deck = new_shuffled_deck()
         self.board = Board()

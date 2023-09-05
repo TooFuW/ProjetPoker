@@ -230,6 +230,7 @@ def check_click(Button):
             Global_objects.game_state.confirmation = False
         # Lorsqu'un bouton pour s'asseoir est cliqué
         case "sit 1":
+            print("sit 1")
             Global_objects.is_selecting_sit[1] = 0
             sit_down(Global_objects.client_socket, 0)
             Global_objects.is_selecting_sit = [False, -1]

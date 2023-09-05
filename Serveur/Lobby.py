@@ -257,21 +257,21 @@ class Lobby :
                         sit_id = int(body)
 
                         if not sit_id in range(10):
-                            raise ValueError
+                            print("siege n'existe pas")
                         
                         sit = self.sits[sit_id]
                         player = self.get_player_by_conn(socket)
-                    
+                        former_sit = self.get_sit_by_player(player)
 
                         if not sit.occupied:
-                            if not player.sitted:
+
+                            if former_sit is None:
                                 sit.set_player(player)
-                                player.sitted = True
+                                
                             else:
-                                former_sit = self.get_sit_by_player(player)
                                 former_sit.remove_player()
                                 sit.set_player(player)
-                                player.sitted = True
+                               
                         
                             self.sits_infos_edited()
 
@@ -411,8 +411,18 @@ class Lobby :
                 return self.game.round.started
             
         return False
+    
+    def is_step_started(self) -> bool:
+        """Retourne vrai s'il y a un step lancé dans un round lancé.
 
-
+        Returns:
+            bool: self.game.round.step pas None est demmaré.
+        """
+        if self.is_round_started():
+            if not self.game.round.step is None:
+                return self.game.round.step.started
+            
+        return False
 
     def edit_game_sits(self):
         pass
