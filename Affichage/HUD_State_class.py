@@ -630,6 +630,7 @@ class HUD_State:
         Global_objects.callbutton.draw()
         Global_objects.foldbutton.draw()
         Global_objects.raisebutton.draw()
+        Global_objects.sit_upbutton.draw()
         try:
             Global_objects.sit_1.player = Global_objects.auto_arrived_sits[0]
             Global_objects.sit_2.player = Global_objects.auto_arrived_sits[1]
