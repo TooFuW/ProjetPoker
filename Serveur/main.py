@@ -17,7 +17,7 @@ class Main:
         self.host, self.port = ("localhost",5566)
 
         self.lobbys_ports = (5567,5568,5569,5570,5571,5572,5573,5574,5575,5576,5577,5578,5579,5580,5581,5582,5583,5584,5585,5586,5587)
-        self.lobbys = [Lobby(randint(100000,999999),"lobby_"+str(i+1),randint(3,10),int(randint(25,1000)*10),False,"localhost",self.lobbys_ports[i]) for i in range(14)]
+        self.lobbys = [Lobby(randint(100000,999999),"lobby_"+str(i+1),randint(2,10),int(randint(25,1000)*10),False,"localhost",self.lobbys_ports[i]) for i in range(14)]
         self.lobby_ids = [lobby.get_id() for lobby in self.lobbys if type(lobby) == Lobby]
         self.port_id = 14
         print(self.lobbys)

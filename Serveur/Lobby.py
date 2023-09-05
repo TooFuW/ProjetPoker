@@ -190,8 +190,12 @@ class Lobby :
 
         print(conn," DECONNECTE")
 
+        pl = self.get_player_by_conn(conn)
 
-        # PROTOCOLE DE DECONNEXION
+        if not pl is None: 
+            self.on_player_deconnect(pl)  # PROTOCOLE DE DECONNEXION
+        else:
+            print("aucun joueur associé à ce socket : ",conn)
 
 
     
@@ -372,7 +376,13 @@ class Lobby :
     
     def init_game(self):
         if not self.is_game_starting:
-            self.game = Game(self.sits, self.cave)
+            if not self.is_game_started():
+                self.game = Game(self.sits, self.cave)
+            else:
+                print("Une game est déjà en cours.")
+
+        else:
+            print("une game est entrain d'être démarée")
 
     def start_game(self):
         self.is_game_starting = True
@@ -551,16 +561,17 @@ class Lobby :
         pass
 
 
+    def on_player_deconnect(self,player : Player):
+
+        player.connected = False # on set le joueur en deconnecté.
+        self.players.remove(player) # on le supprime de la liste des joueurs 
+
 def new_sits(n : int):
     sits = []
     for i in range(n):
         sit = Sit(i)
         sits.append(sit)
     return sits
-
-
-def on_player_deconnect(player : Player):
-    pass
 
 
 if __name__ == "__main__":

@@ -45,9 +45,9 @@ class Player:
             raise TypeError
         
         self.address = address
+        self.connected = connected
         
         self.chips = 0
-        self.sitted = False
         #print("le joueur a bien été créé")
         
 
