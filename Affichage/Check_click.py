@@ -109,7 +109,7 @@ def check_click(Button):
                     print(Global_objects.previewlobbys.players)
                 except:
                     pass
-                time.sleep(0.2)
+                time.sleep(0.1)
         # Lorsque le bouton JOIN est cliqué pour rejoindre la table sélectionnée et transmettre les infos nécessaires
         case "join table":
             try:

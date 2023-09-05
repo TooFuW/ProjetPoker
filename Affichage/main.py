@@ -115,7 +115,7 @@ if __name__ == "__main__":
     # Création de l'objet nobutton
     Global_objects.nobutton = Button(largeur_actuelle, hauteur_actuelle, screen, "no", "NO", "Roboto", 60, "#D32F2A", "#D32F2A", "#FF4F58", "#D32F2A", 150, 70, (990, 480), 3, 10)
     # Création de l'objet sit_upbutton
-    Global_objects.sit_upbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "sit up", "SIT UP", "Roboto", 60, "#475F77", "#354B5E", "#D74B4B", "#354B5E", 240, 80, (1430, 995), 6, 10)
+    Global_objects.sit_upbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "sit up", "SIT UP", "Roboto", 60, "#475F77", "#354B5E", "#D74B4B", "#354B5E", 250, 80, (1425, 995), 6, 10)
 
     # Création des Scrollboxs
     # Création de l'objet serverscrollbox 

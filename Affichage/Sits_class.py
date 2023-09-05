@@ -35,6 +35,7 @@ class Sits:
         self.selected = False
         # Référencement du siège sélectionné
         self.sit_selected = None
+        cards_folder = __file__[:-13] + "cards"
    
     def draw(self):
         """Génération/affichage du siège
@@ -57,6 +58,10 @@ class Sits:
                         check_click(self.sit_selected)
         # Sinon on affiche directement les infos du siège
         else:
+            # On dessine les cartes du joueur
+            pygame.draw.rect(self.screen, "#475F77", (self.x + width_scale(50, self.largeur_actuelle), self.y - height_scale(100, self.hauteur_actuelle), width_scale(80, self.largeur_actuelle), height_scale(150, self.hauteur_actuelle)), border_radius = 5)
+            pygame.draw.rect(self.screen, "#475F77", (self.x + width_scale(150, self.largeur_actuelle), self.y - height_scale(100, self.hauteur_actuelle), width_scale(80, self.largeur_actuelle), height_scale(150, self.hauteur_actuelle)), border_radius = 5)
+            # On affiche le fond transparent du widget du siège
             transparent_surface = pygame.Surface((self.width, self.height), pygame.SRCALPHA)
             pygame.draw.rect(transparent_surface, (0, 0, 0, 128), (0, 0, self.width, self.height), border_radius = 50)
             self.screen.blit(transparent_surface, (self.x, self.y))
