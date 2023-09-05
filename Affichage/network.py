@@ -140,6 +140,17 @@ def sit_down(client_socket : socket, sit_id : int):
     except Exception as e:
         print("Erreur network.sit_down : ",e)
 
+def sit_up(client_socket : socket):
+    try:
+        message = "sit_up="
+        
+        thread_sit_up = Thread(target=send_packet, args=(client_socket,message))
+        thread_sit_up.start()
+
+
+    except Exception as e:
+        print("Erreur network.sit_down : ",e)
+
 def recieve_data(conn : socket):
     connecte = True
     print("Écoute des paquets sur : ",conn)

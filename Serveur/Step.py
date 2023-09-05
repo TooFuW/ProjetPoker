@@ -9,6 +9,9 @@ class Step:
 
     """
     def __init__(self,type : str ,sits : List[Sit], board : Board, deck : Deck) -> None: # Les sièges doivent être edit par le lobby à chaque changement
+        
+        self.started = False # passe à  True au démmarage du step
+        
         self.type = type
         self.sits = sits
         self.board = board

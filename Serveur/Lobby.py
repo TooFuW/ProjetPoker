@@ -24,7 +24,7 @@ class Lobby :
         self.lobby_on = False
         self.is_game_starting = False
         self.players_ids = []
-        self.game = None
+        self.game : Game = None
 
         self.sits_number = capacity
         self.sits = new_sits(self.sits_number)
@@ -57,6 +57,8 @@ class Lobby :
         listen_connections = Thread(target=self.listen_connections, args=[])
         
         listen_connections.start()
+
+    
     
 
     def new_func_id_dict_number(self) -> int:
@@ -81,6 +83,9 @@ class Lobby :
 
     def delete_func_id_dict_key(self,key):
         del self.func_id_dict[key]
+
+
+
 
     def handle_client(self,socket : socket, address, id_thread : int):
         connected = True
@@ -285,13 +290,14 @@ class Lobby :
                 case "sit_up":
                     player = self.get_player_by_conn(socket)
                     sit = self.get_sit_by_player(player)
-                    self.sits_infos_edited()
         
                     if sit is None:
                         # Le joueur n'est assis nulle part
                         pass
                     else:
                         sit.remove_player()
+
+                        self.sits_infos_edited() # on édite seulement s'il se produit un changement.
                             
                 case "start_game":
                     print(id(self.sits))
@@ -373,6 +379,40 @@ class Lobby :
         # envoie packet game entrain de commencer
         # compteur 5 secondes
         self.game.start()
+
+    # les fonctions qui permettent de savoir si une game, un round, un step est demmaré.
+
+    def is_game_started(self) -> bool:
+        """Retourne vrai si la game du lobby est lancée.
+
+        Returns:
+            bool: self.game est démarrée ?
+        """
+
+        if self.game is None:
+            return False
+        
+        elif isinstance(self.game,Game):
+            return self.game.started
+        
+        else:
+            raise ValueError # self.game doit etre None ou une Game.
+        
+
+    def is_round_started(self) -> bool:
+        """Retourne vrai s'il y a un round lancé dans une game lancée.
+
+        Returns:
+            bool: self.game.round pas None et démarée
+        """
+
+        if self.is_game_started():
+            if not self.game.round is None:
+                return self.game.round.started
+            
+        return False
+
+
 
     def edit_game_sits(self):
         pass

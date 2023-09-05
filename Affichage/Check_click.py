@@ -280,3 +280,6 @@ def check_click(Button):
             sit_down(Global_objects.client_socket, 9)
             print("@@@@@@@@@@@@")
             Global_objects.is_selecting_sit = [False, -1]
+
+        case "sit up": #sit_up button clicked
+            sit_up(Global_objects.client_socket)

@@ -17,6 +17,8 @@ class Game:
     """
     def __init__(self, sits : List[Sit], cave : int) -> None: # A chaque modification de sits dans le lobby, doit être modifié
 
+        self.started = False # regarde si la game a commencé, passe à True avec self.start()
+        
         self.round_nb = 0 #le nombre de round effectués cans la game
         self.dealer_index = self.first_dealer_index() #index du dealer vis à vis de la liste self.sits
         self.dealer = None #identité du dealer
