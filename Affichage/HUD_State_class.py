@@ -371,9 +371,19 @@ class HUD_State:
                     self.is_pressing = False
             # Création du curseur de volume et de la barre derrière
             volume_bar = pygame.draw.rect(self.screen, "#FFFFFF", pygame.Rect((width_scale(490, self.largeur_actuelle), height_scale(200, self.hauteur_actuelle)), (width_scale(200, self.largeur_actuelle), height_scale(10, self.hauteur_actuelle))), border_radius = 6)
-            volume_cursor = pygame.draw.circle(self.screen, "#FFFFFF", (self.cursor_width, height_scale(205, self.hauteur_actuelle)), 15)
+            volume_cursor = pygame.draw.circle(self.screen, "#FFFFFF", (self.cursor_width, height_scale(205, self.hauteur_actuelle)), width_scale(15, self.largeur_actuelle))
             # On change la pos x du curseur de volume lorsque l'on clique dessus, sans dépasser les bordures
             if volume_cursor.collidepoint(mouse_pos) or volume_bar.collidepoint(mouse_pos):
+                info_son = pygame.draw.circle(self.screen, "#FFFFFF", (volume_cursor.centerx, volume_cursor.centery + height_scale(35, self.hauteur_actuelle)), width_scale(15, self.largeur_actuelle))
+                pygame.draw.rect(self.screen, "#FFFFFF", pygame.Rect((info_son.centerx - width_scale(15, self.largeur_actuelle), info_son.centery), (info_son.width, info_son.height)), border_radius = 1)
+                text = f"{round(Global_objects.volume_music * 100)}"
+                if text == "100":
+                    text_size = 25
+                else:
+                    text_size = 30
+                font = pygame.font.SysFont("Roboto", width_scale(text_size, self.largeur_actuelle))
+                text_info = font.render(text, True, "#000000")
+                self.screen.blit(text_info, (info_son.centerx - width_scale(14, self.largeur_actuelle), info_son.centery))
                 if pygame.mouse.get_pressed()[0]:
                     self.is_setting_volume = True
                     Global_objects.buttons_interactibles = False
