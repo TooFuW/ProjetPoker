@@ -147,8 +147,7 @@ def sit_up(client_socket : socket):
         
         thread_sit_up = Thread(target=send_packet, args=(client_socket,message))
         thread_sit_up.start()
-        thread_sit_up.join()
-        return
+        
 
 
     except Exception as e:
