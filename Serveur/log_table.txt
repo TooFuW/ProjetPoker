@@ -1,0 +1,5 @@
+Une table se définit par les sièges, le/les pot(s), des potentiels spectateurs, une liste de métadonnées
+ pot = pile
+ sits = plusieurs sit
+ un sit = place du siège et pseudo du joueurs/ID
+ metadonnées = données de la table
