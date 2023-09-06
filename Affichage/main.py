@@ -184,5 +184,5 @@ if __name__ == "__main__":
             pygame.mixer.music.play()
         # Cet appel permet de gérer l'interface active
         Global_objects.game_state.state_manager()
-        # Limite les FPS à 240 pour plus de fluidité
-        clock.tick(240)
+        # Limite les FPS à 120 pour plus de fluidité
+        clock.tick(120)
