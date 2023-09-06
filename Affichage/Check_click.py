@@ -214,15 +214,18 @@ def check_click(Button):
             # Lorsque le bouton pour quitter la partie cliqué
             case "leave game":
                 Global_objects.game_state.confirmation = True
+                Global_objects.buttons_interactibles = False
             # Lorsque le joueur confirme qu'il veut quitter
             case "yes":
                 Global_objects.game_state.state = "Main Menu"
                 go_main(Global_objects.client_socket)
                 Global_objects.game_state.confirmation = False
                 Global_objects.is_selecting_sit = [False, -1]
+                Global_objects.buttons_interactibles = True
             # Lorsque le joueur ne confirme pas qu'il veut quitter
             case "no":
                 Global_objects.game_state.confirmation = False
+                Global_objects.buttons_interactibles = True
             # Lorsqu'un bouton pour s'asseoir est cliqué
             case "sit 1":
                 print("sit 1")
