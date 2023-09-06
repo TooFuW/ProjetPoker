@@ -31,7 +31,8 @@ class Game:
 
     def start(self):
         #paie la cave pour tous les joueurs, envoie les paquets d'attente, attends tous les packets de confirmations, lance les rounds jusqu'à ce qu'un joueur reste en vie.
-        pass
+        
+
     def on_deconnect(self,player : Player):
         pass
 

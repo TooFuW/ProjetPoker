@@ -7,7 +7,8 @@ Rappel :
 Problème : 
     prenons un exemple pour illustrer mon besoin :
     jai besoin de savoir si un lobby existe ou non. pour cela j'envoie une requete au serveur et celui-ci me répondra
-    étant donné le nombre de paquets pouvant être reçus par le client en peu de temps l'information du serveur impossible de faire en sorte que le premier paquet reçu après la requete contienne la réponse à ma question.
+    étant donné le nombre de paquets pouvant être reçus par le client en peu de temps l'information du serveur impossible 
+    de faire en sorte que le premier paquet reçu après la requete contienne la réponse à ma question.
     comment donc m'y prendre ?
 
 Proposition :
@@ -50,7 +51,8 @@ Proposition :
         # on reçoit la réponse du serveur ici, True ou False AINSI QUE la variable correspondant au pointeur de lobby_exist
         on modifie lobby_exist à True ou False à l'aide du dictionnaire.
 
-    ici, soit 3 secondes passent sans réponse et la fonction renvoie None, soit on reçoit une réponse et la variable est modifiée en conséquences dans la fonction et renvoyée.
+    ici, soit 3 secondes passent sans réponse et la fonction renvoie None, soit on reçoit une réponse et la variable
+     est modifiée en conséquences dans la fonction et renvoyée.
 
     le tout permet d'avoir le résultat d'un paquet réseau retourné par une fonction avec certitude sur le paquet.
 

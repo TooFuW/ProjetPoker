@@ -43,12 +43,25 @@ class Round:
 
     def start(self):
         pass
+        
 
     def start_step(self):
         pass
 
     def stop_step(self):
         pass
+
+    def remaining_players(self) -> int:
+        '''Retourne le nombre de joueur qui peuvent parler'''
+        cpt = 0
+        for sit in self.sits:
+            pl = sit.get_player()
+            if not pl is None:
+                if pl.get_state() == "peut_parler":
+                    cpt += 1
+        return cpt
+
+    
 
     def init_step(self,step_type):
         """Initialise la prochaine step à venir

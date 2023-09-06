@@ -7,7 +7,7 @@ class Player:
       Represent a player who will play a game of poker.
     """
 
-    def __init__(self,id : int, pseudo : str, conn : socket, is_alive : bool, bank : int, address,hand = Hand(),actif : bool = False ,state : str = "peut parler", connected : bool = True ) -> None:
+    def __init__(self,id : int, pseudo : str, conn : socket, is_alive : bool, bank : int, address,hand = Hand(),actif : bool = True ,state : str = "ne_peut_pas_parler", connected : bool = True ) -> None:
 
         if type(id) == int:
             self.id = id
@@ -46,6 +46,9 @@ class Player:
         
         self.address = address
         self.connected = connected
+
+        self.state = state
+        #Initialise l'état du joueur
         
         self.chips = 0
         #print("le joueur a bien été créé")
@@ -122,6 +125,14 @@ class Player:
                 raise ValueError
         else:
             raise TypeError
+        
+    def update_state(self, new_state : str):
+        '''Cette fonction permet de changer l'état d'un joueur en un autre'''
+        self.state = new_state
+
+    def get_state(self):
+        '''Permet d'obtenir l'état d'un joueur'''
+        return self.state
 
     
     
