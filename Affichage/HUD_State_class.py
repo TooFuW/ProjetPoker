@@ -120,8 +120,8 @@ class HUD_State:
         self.screen.blit(text_surf, (width_scale(1550, self.largeur_actuelle), height_scale(40, self.hauteur_actuelle)))
         # Cliquer sur le bouton EXIT ferme la fenêtre purement et simplement
         Global_objects.exitbutton.draw()
-        # Cliquer sur le bouton GAMES HISTORY affiche l'historique des parties
-        Global_objects.gamehistorybutton.draw()
+        # Cliquer sur le bouton SHOP affiche l'historique des parties
+        Global_objects.shopbutton.draw()
 
         # Met à jour l'affichage de l'interface
         pygame.display.update()
@@ -146,9 +146,8 @@ class HUD_State:
                         Global_objects.previewlobbys.players = None
                         try:
                             lobby_id = int(Global_objects.tablecodeinput.user_text)
-                            ask_sits_infos(Global_objects.client_socket,lobby_id)
+                            Global_objects.previewlobbys.players = ask_sits_infos(Global_objects.client_socket,lobby_id)
                             join_lobby(Global_objects.client_socket,lobby_id)
-                            time.sleep(0.2)
                             if len(Global_objects.previewlobbys.players) == 1:
                                 Global_objects.sit_1.player = Global_objects.previewlobbys.players[0]
                             if len(Global_objects.previewlobbys.players) == 2:
@@ -374,6 +373,7 @@ class HUD_State:
             volume_cursor = pygame.draw.circle(self.screen, "#FFFFFF", (self.cursor_width, height_scale(205, self.hauteur_actuelle)), width_scale(15, self.largeur_actuelle))
             # On change la pos x du curseur de volume lorsque l'on clique dessus, sans dépasser les bordures
             if volume_cursor.collidepoint(mouse_pos) or volume_bar.collidepoint(mouse_pos):
+                # On affiche les infos du curseur si la souris est dessus
                 info_son = pygame.draw.circle(self.screen, "#FFFFFF", (volume_cursor.centerx, volume_cursor.centery + height_scale(35, self.hauteur_actuelle)), width_scale(15, self.largeur_actuelle))
                 pygame.draw.rect(self.screen, "#FFFFFF", pygame.Rect((info_son.centerx - width_scale(15, self.largeur_actuelle), info_son.centery), (info_son.width, info_son.height)), border_radius = 1)
                 text = f"{round(Global_objects.volume_music * 100)}"
@@ -527,30 +527,17 @@ class HUD_State:
         # Met à jour l'affichage de l'interface
         pygame.display.update()
 
-    def historymenu(self):
-        """historymenu est la fonction qui fait tourner/afficher le menu de l'historique des parties du compte actif
+    def shopmenu(self):
+        """shopmenu est la fonction qui fait tourner/afficher le shop du jeu
         """
         # Rassemblement de tout les événements
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                # Molette de la souris vers le haut
-                if event.button == 4:
-                    Global_objects.historyscrollbox.scroll_up()
-                # Molette de la souris vers le bas    
-                elif event.button == 5:
-                    Global_objects.historyscrollbox.scroll_down()
 
         # Dessine l'image de fond sur la self.screen de l'écran (IMPORANT CAR SE SUPERPOSE A L'INTERFACE PRECEDENT ET PERMET DE "L'EFFACER")
         self.screen.blit(self.fond, (0, 0))
-
-        # Dessin de la scrollbox
-        Global_objects.historyscrollbox.draw()  
-
-        # On crée la preview des tables
-        Global_objects.previewhistory.draw()
 
         # Affichage des bouttons
         # Cliquer sur le bouton BACK retourne une page en arrière
@@ -866,8 +853,8 @@ class HUD_State:
                 self.settingmenu()
             case "Account Menu":
                 self.accountmenu()
-            case "History Menu":
-                self.historymenu()
+            case "Shop Menu":
+                self.shopmenu()
             case "Create Menu":
                 self.createtable()
             case "Game Menu":
