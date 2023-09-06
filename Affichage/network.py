@@ -118,7 +118,6 @@ def go_main(conn : socket):
     try:
         message = "go_main="
 
-        sit_up(conn)
         thread_join_lobby = Thread(target=send_packet, args=(conn,message))
         thread_join_lobby.start()
 

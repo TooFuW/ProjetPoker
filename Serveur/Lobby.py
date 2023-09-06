@@ -192,8 +192,10 @@ class Lobby :
 
         pl = self.get_player_by_conn(conn)
 
-        if not pl is None: 
+        if not pl is None:
+            print("protocole de deconnexion") 
             self.on_player_deconnect(pl)  # PROTOCOLE DE DECONNEXION
+            
         else:
             print("aucun joueur associé à ce socket : ",conn)
 
@@ -292,16 +294,7 @@ class Lobby :
 
 
                 case "sit_up":
-                    player = self.get_player_by_conn(socket)
-                    sit = self.get_sit_by_player(player)
-        
-                    if sit is None:
-                        # Le joueur n'est assis nulle part
-                        pass
-                    else:
-                        sit.remove_player()
-
-                        self.sits_infos_edited() # on édite seulement s'il se produit un changement.
+                    self.sit_up(socket)
                             
                 case "start_game":
                     print(id(self.sits))
@@ -342,6 +335,24 @@ class Lobby :
             conn.send(packet.encode("utf8"))
         except Exception as el:
             print(el)
+
+
+
+    def sit_up(self,conn):
+        player = self.get_player_by_conn(conn)
+        sit = self.get_sit_by_player(player)
+        
+
+        if sit is None:
+            
+            # Le joueur n'est assis nulle part
+            pass
+        else:
+         
+            sit.remove_player()
+
+            self.sits_infos_edited() # on édite seulement s'il se produit un changement.
+
 
 
     def create_player(self,pseudo : str, conn : socket, is_alive : bool, bank : int, address, hand = None):
@@ -562,9 +573,23 @@ class Lobby :
 
 
     def on_player_deconnect(self,player : Player):
+        print("deconnexion de : ",player)
+        
 
         player.connected = False # on set le joueur en deconnecté.
-        self.players.remove(player) # on le supprime de la liste des joueurs 
+        #self.players.remove(player) # on le supprime de la liste des joueurs 
+
+        print(self.players)
+
+        if not self.is_round_started():
+            print("on lève le player : ",player)
+            self.sit_up(player.get_conn()) #si aucun round n'est lancé, on lève le joueur.
+
+        else:
+            print("round started.")
+
+        print("...")
+
 
 def new_sits(n : int):
     sits = []
