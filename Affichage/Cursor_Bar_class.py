@@ -53,7 +53,7 @@ class Cursor_Bar:
             text = f"{variable}"
             font = pygame.font.SysFont("Roboto", width_scale(text_size, self.largeur_actuelle))
             text_info = font.render(text, True, "#000000")
-            self.screen.blit(text_info, (info.centerx - width_scale(text_size - 10, self.largeur_actuelle), info.centery))
+            self.screen.blit(text_info, (info.centerx - width_scale(14, self.largeur_actuelle), info.centery))
             if pygame.mouse.get_pressed()[0]:
                 self.is_selected = True
                 Global_objects.buttons_interactibles = False
@@ -70,7 +70,7 @@ class Cursor_Bar:
                 text = f"{variable}"
                 font = pygame.font.SysFont("Roboto", width_scale(text_size, self.largeur_actuelle))
                 text_info = font.render(text, True, "#000000")
-                self.screen.blit(text_info, (info.centerx - width_scale(text_size - 10, self.largeur_actuelle), info.centery))
+                self.screen.blit(text_info, (info.centerx - width_scale(14, self.largeur_actuelle), info.centery))
                 # On gére les cas où l'utilisateur pousserait le curseur en dehors de la barre
                 if self.cursor_width >= self.x + self.width:
                     self.cursor_width = self.x + self.width

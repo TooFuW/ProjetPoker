@@ -60,8 +60,7 @@ class HUD_State:
         self.gamesettings = False
         # Page par défaut dans le menu des paramètres
         self.setting_page = 1
-        # Valeur par défaut du curseur de volume
-        self.cursor_width = width_scale(690, self.largeur_actuelle)
+        # Savoir si l'utilisateur paramètre le son
         self.is_setting_volume = False
         # Savoir si une table a été sélectionnée ou non (self.table_selected contient les infos de la table si oui, None si non)
         self.table_selected = None
@@ -342,14 +341,20 @@ class HUD_State:
             text_surf = gui_font.render("Volume", True, "#FFFFFF")
             pygame.draw.rect(self.screen, "#0000E0", pygame.Rect((width_scale(280, self.largeur_actuelle), height_scale(180, self.hauteur_actuelle)), (width_scale(450, self.largeur_actuelle), height_scale(50, self.hauteur_actuelle))), border_radius = 3)
             self.screen.blit(text_surf, (width_scale(290, self.largeur_actuelle), height_scale(190, self.hauteur_actuelle)))
+            # On affiche la barre de son
+            if round(Global_objects.volume_music * 100) == 100:
+                text_size = 25
+            else:
+                text_size = 30
+            Global_objects.sound_bar.draw(round(Global_objects.volume_music * 100), text_size)
             # On gére l'affichage avec les icônes de son
-            if self.cursor_width <= width_scale(490, self.largeur_actuelle) or self.sound_on is False:
+            if Global_objects.sound_bar.cursor_width <= width_scale(490, self.largeur_actuelle) or self.sound_on is False:
                 volume_icon = self.screen.blit(self.sounds_icons[0], (width_scale(415, self.largeur_actuelle), height_scale(172, self.hauteur_actuelle)))
-            elif self.cursor_width > width_scale(490, self.largeur_actuelle) and self.cursor_width <= width_scale(556, self.largeur_actuelle):
+            elif Global_objects.sound_bar.cursor_width > width_scale(490, self.largeur_actuelle) and Global_objects.sound_bar.cursor_width <= width_scale(556, self.largeur_actuelle):
                 volume_icon = self.screen.blit(self.sounds_icons[1], (width_scale(415, self.largeur_actuelle), height_scale(172, self.hauteur_actuelle)))
-            elif self.cursor_width > width_scale(556, self.largeur_actuelle) and self.cursor_width <= width_scale(622, self.largeur_actuelle):
+            elif Global_objects.sound_bar.cursor_width > width_scale(556, self.largeur_actuelle) and Global_objects.sound_bar.cursor_width <= width_scale(622, self.largeur_actuelle):
                 volume_icon = self.screen.blit(self.sounds_icons[2], (width_scale(415, self.largeur_actuelle), height_scale(172, self.hauteur_actuelle)))
-            elif self.cursor_width > width_scale(622, self.largeur_actuelle) and self.cursor_width <= width_scale(690, self.largeur_actuelle):
+            elif Global_objects.sound_bar.cursor_width > width_scale(622, self.largeur_actuelle) and Global_objects.sound_bar.cursor_width <= width_scale(690, self.largeur_actuelle):
                 volume_icon = self.screen.blit(self.sounds_icons[3], (width_scale(415, self.largeur_actuelle), height_scale(172, self.hauteur_actuelle)))
             # On gére l'utilisation/les interactions avec le bouton de son
             if self.is_setting_volume is False:
@@ -359,59 +364,17 @@ class HUD_State:
                     else:
                         if self.is_pressing is True:
                             if self.sound_on is True:
-                                self.last_sound = self.cursor_width
-                                self.cursor_width = width_scale(490, self.largeur_actuelle)
+                                self.last_sound = Global_objects.sound_bar.cursor_width
+                                Global_objects.sound_bar.cursor_width = width_scale(490, self.largeur_actuelle)
                                 self.sound_on = False
                             elif self.sound_on is False:
-                                self.cursor_width = self.last_sound
+                                Global_objects.sound_bar.cursor_width = self.last_sound
                                 self.sound_on = True
                             self.is_pressing = False
                 else:
                     self.is_pressing = False
-            # Création du curseur de volume et de la barre derrière
-            volume_bar = pygame.draw.rect(self.screen, "#FFFFFF", pygame.Rect((width_scale(490, self.largeur_actuelle), height_scale(200, self.hauteur_actuelle)), (width_scale(200, self.largeur_actuelle), height_scale(10, self.hauteur_actuelle))), border_radius = 6)
-            volume_cursor = pygame.draw.circle(self.screen, "#FFFFFF", (self.cursor_width, height_scale(205, self.hauteur_actuelle)), width_scale(15, self.largeur_actuelle))
-            # On change la pos x du curseur de volume lorsque l'on clique dessus, sans dépasser les bordures
-            if volume_cursor.collidepoint(mouse_pos) or volume_bar.collidepoint(mouse_pos):
-                # On affiche les infos du curseur si la souris est dessus
-                info_son = pygame.draw.circle(self.screen, "#FFFFFF", (volume_cursor.centerx, volume_cursor.centery + height_scale(35, self.hauteur_actuelle)), width_scale(15, self.largeur_actuelle))
-                pygame.draw.rect(self.screen, "#FFFFFF", pygame.Rect((info_son.centerx - width_scale(15, self.largeur_actuelle), info_son.centery), (info_son.width, info_son.height)), border_radius = 1)
-                text = f"{round(Global_objects.volume_music * 100)}"
-                if text == "100":
-                    text_size = 25
-                else:
-                    text_size = 30
-                font = pygame.font.SysFont("Roboto", width_scale(text_size, self.largeur_actuelle))
-                text_info = font.render(text, True, "#000000")
-                self.screen.blit(text_info, (info_son.centerx - width_scale(14, self.largeur_actuelle), info_son.centery))
-                if pygame.mouse.get_pressed()[0]:
-                    self.is_setting_volume = True
-                    Global_objects.buttons_interactibles = False
-            # Amélioration de l'interaction avec le curseur
-            if self.is_setting_volume is True:
-                if not pygame.mouse.get_pressed()[0]:
-                    self.is_setting_volume = False
-                    Global_objects.buttons_interactibles = True
-                else:
-                    self.cursor_width = mouse_pos[0]
-                    # On gére les cas où l'utilisateur pousserait le curseur en dehors de la barre de son
-                    if self.cursor_width >= width_scale(690, self.largeur_actuelle):
-                        self.cursor_width = width_scale(690, self.largeur_actuelle)
-                    elif self.cursor_width <= width_scale(490, self.largeur_actuelle):
-                        self.cursor_width = width_scale(490, self.largeur_actuelle)
-                        self.sound_on = False
-                    elif self.cursor_width > width_scale(490, self.largeur_actuelle):
-                        self.sound_on = True
-            # On vérifie en dehors du if les cas où l'utilisateur pousserait le curseur en dehors de la barre de son
-            if self.cursor_width >= width_scale(690, self.largeur_actuelle):
-                self.cursor_width = width_scale(690, self.largeur_actuelle)
-            elif self.cursor_width <= width_scale(490, self.largeur_actuelle):
-                self.cursor_width = width_scale(490, self.largeur_actuelle)
-                self.sound_on = False
-            elif self.cursor_width > width_scale(490, self.largeur_actuelle):
-                self.sound_on = True
             # On récupère le volume actuel
-            Global_objects.volume_music = (self.cursor_width - width_scale(490, self.largeur_actuelle)) / (width_scale(690, self.largeur_actuelle) - width_scale(490, self.largeur_actuelle))
+            Global_objects.volume_music = (Global_objects.sound_bar.cursor_width - width_scale(490, self.largeur_actuelle)) / (width_scale(690, self.largeur_actuelle) - width_scale(490, self.largeur_actuelle))
         # Page 2
         elif self.setting_page == 2:
             # Temporaire
