@@ -8,6 +8,7 @@ from Scrollbox_class import *
 from TextInputBox_class import *
 from Preview_Table_class import *
 from HUD_State_class import *
+from Cursor_Bar_class import *
 import Global_objects
 from socket import *
 from threading import *
@@ -84,8 +85,8 @@ if __name__ == "__main__":
     Global_objects.backbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "back", "", "Roboto", 0, "#475F77", "#354B5E", "#D74B4B", "#354B5E", 125, 125, (25, 25), 6, 10, current_folder + "backarrow.png")
     # Création de l'objet createtablebutton
     Global_objects.createtablebutton = Button(largeur_actuelle, hauteur_actuelle, screen, "create table", "CREATE TABLE", "Roboto", 60, "#475F77", "#354B5E", "#D74B4B", "#354B5E", 400, 100, (175, 50), 6, 10)
-    # Création de l'objet gamehistorybutton
-    Global_objects.gamehistorybutton = Button(largeur_actuelle, hauteur_actuelle, screen, "history", "HISTORY", "Roboto", 70, "#475F77", "#354B5E", "#D74B4B", "#354B5E", 300, 500, (1310, 365), 6, 10)
+    # Création de l'objet shopbutton
+    Global_objects.shopbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "shop", "SHOP", "Roboto", 70, "#475F77", "#354B5E", "#D74B4B", "#354B5E", 300, 500, (1310, 365), 6, 10)
     # Création de l'objet deconnexionbutton
     Global_objects.deconnexionbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "deconnexion", "LOG OUT", "Roboto", 60, "#475F77", "#354B5E", "#D74B4B", "#354B5E", 300, 100, (1605, 970), 6, 10)
     # Création de l'objet accountsettingsbutton
@@ -120,9 +121,7 @@ if __name__ == "__main__":
     # Création des Scrollboxs
     # Création de l'objet serverscrollbox 
     Global_objects.serverscrollbox = ScrollBox(largeur_actuelle, hauteur_actuelle, screen, 210, 215, 1000, 760, Global_objects.displayed_lobbys_list)
-    # Création de l'objet historyscrollbox
-    Global_objects.historyscrollbox = ScrollBox(largeur_actuelle, hauteur_actuelle, screen, 210, 215, 1000, 760, Global_objects.displayed_lobbys_list)
-
+    
     # Création des TextInputBox
     # Création de l'objet tablecodeinput
     Global_objects.tablecodeinput = TextInputBox(largeur_actuelle, hauteur_actuelle, screen, 150, (1360, 890), 400, 100, "#333333", "#888888", 400, False, 6, True)
@@ -134,8 +133,6 @@ if __name__ == "__main__":
     # Création des Previews_Table
     # Création de l'objet previewlobbys
     Global_objects.previewlobbys = Preview_Table(largeur_actuelle, hauteur_actuelle, screen, table_fond, (1270, 215))
-    # Création de l'objet previewhistory
-    Global_objects.previewhistory = Preview_Table(largeur_actuelle, hauteur_actuelle, screen, table_fond, (1270, 215))
 
     # Création des sits
     # Création de l'objet sit_1
@@ -160,6 +157,10 @@ if __name__ == "__main__":
     Global_objects.sit_9 = Sits(largeur_actuelle, hauteur_actuelle, screen, 250, 80, (0, 0), pdpplayer)
     # Création de l'objet sit_10
     Global_objects.sit_10 = Sits(largeur_actuelle, hauteur_actuelle, screen, 250, 80, (0, 0), pdpplayer)
+
+    # Création des cursor_bar
+    # Création de l'objet sound_bar
+    Global_objects.sound_bar = Cursor_Bar(largeur_actuelle, hauteur_actuelle, screen, 200, 10, (490, 200), "", "", 690)
 
     # Initialisation des autres variables globales stockées dans le fichier Global_objects.py
     Global_objects.volume_music = 1.0
