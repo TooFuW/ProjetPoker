@@ -70,8 +70,8 @@ if __name__ == "__main__":
     iconsound_max = pygame.transform.scale(iconsound_max, (width_scale(70, largeur_actuelle), height_scale(70, hauteur_actuelle)))
 
     # On charge les images des cartes ici (sinon pygame lag car il va charger en boucle les images)
-    Global_objects.card1 = pygame.image.load(current_folder + "Cards\Bleu pastel\Bleu_pastel 1.png")
-    Global_objects.card2 = pygame.image.load(current_folder + "Cards\Bleu pastel\Bleu_pastel 2.png")
+    Global_objects.trefle_7_bleupastel = pygame.image.load(current_folder + "Cards\Bleu pastel\\7_trefle.png")
+    Global_objects.trefle_8_bleupastel = pygame.image.load(current_folder + "Cards\Bleu pastel\\8_trefle.png")
 
     # Initialisation de la fenêtre actuelle
     Global_objects.game_state = HUD_State(largeur_actuelle, hauteur_actuelle, screen, fond, logojeu, logomwte, logomwte_rect, pdpplayer, table_fond, [iconsound_mute, iconsound_low, iconsound_mid, iconsound_max])
