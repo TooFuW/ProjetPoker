@@ -343,18 +343,18 @@ class HUD_State:
             self.screen.blit(text_surf, (width_scale(290, self.largeur_actuelle), height_scale(190, self.hauteur_actuelle)))
             # On affiche la barre de son
             if round(Global_objects.volume_music * 100) == 100:
-                text_size = 25
+                text_size = 20
             else:
-                text_size = 30
+                text_size = 25
             Global_objects.sound_bar.draw(round(Global_objects.volume_music * 100), text_size)
             # On gére l'affichage avec les icônes de son
-            if Global_objects.sound_bar.cursor_width <= width_scale(490, self.largeur_actuelle) or self.sound_on is False:
+            if Global_objects.sound_bar.cursor_width <= width_scale(500, self.largeur_actuelle) or self.sound_on is False:
                 volume_icon = self.screen.blit(self.sounds_icons[0], (width_scale(415, self.largeur_actuelle), height_scale(172, self.hauteur_actuelle)))
-            elif Global_objects.sound_bar.cursor_width > width_scale(490, self.largeur_actuelle) and Global_objects.sound_bar.cursor_width <= width_scale(556, self.largeur_actuelle):
+            elif Global_objects.sound_bar.cursor_width > width_scale(500, self.largeur_actuelle) and Global_objects.sound_bar.cursor_width <= width_scale(566, self.largeur_actuelle):
                 volume_icon = self.screen.blit(self.sounds_icons[1], (width_scale(415, self.largeur_actuelle), height_scale(172, self.hauteur_actuelle)))
-            elif Global_objects.sound_bar.cursor_width > width_scale(556, self.largeur_actuelle) and Global_objects.sound_bar.cursor_width <= width_scale(622, self.largeur_actuelle):
+            elif Global_objects.sound_bar.cursor_width > width_scale(566, self.largeur_actuelle) and Global_objects.sound_bar.cursor_width <= width_scale(632, self.largeur_actuelle):
                 volume_icon = self.screen.blit(self.sounds_icons[2], (width_scale(415, self.largeur_actuelle), height_scale(172, self.hauteur_actuelle)))
-            elif Global_objects.sound_bar.cursor_width > width_scale(622, self.largeur_actuelle) and Global_objects.sound_bar.cursor_width <= width_scale(690, self.largeur_actuelle):
+            elif Global_objects.sound_bar.cursor_width > width_scale(632, self.largeur_actuelle):
                 volume_icon = self.screen.blit(self.sounds_icons[3], (width_scale(415, self.largeur_actuelle), height_scale(172, self.hauteur_actuelle)))
             # On gére l'utilisation/les interactions avec le bouton de son
             if self.is_setting_volume is False:
@@ -365,7 +365,7 @@ class HUD_State:
                         if self.is_pressing is True:
                             if self.sound_on is True:
                                 self.last_sound = Global_objects.sound_bar.cursor_width
-                                Global_objects.sound_bar.cursor_width = width_scale(490, self.largeur_actuelle)
+                                Global_objects.sound_bar.cursor_width = width_scale(500, self.largeur_actuelle)
                                 self.sound_on = False
                             elif self.sound_on is False:
                                 Global_objects.sound_bar.cursor_width = self.last_sound
@@ -374,7 +374,7 @@ class HUD_State:
                 else:
                     self.is_pressing = False
             # On récupère le volume actuel
-            Global_objects.volume_music = (Global_objects.sound_bar.cursor_width - width_scale(490, self.largeur_actuelle)) / (width_scale(690, self.largeur_actuelle) - width_scale(490, self.largeur_actuelle))
+            Global_objects.volume_music = (Global_objects.sound_bar.cursor_width - width_scale(500, self.largeur_actuelle)) / (width_scale(700, self.largeur_actuelle) - width_scale(500, self.largeur_actuelle))
         # Page 2
         elif self.setting_page == 2:
             # Temporaire
@@ -407,7 +407,7 @@ class HUD_State:
                         Global_objects.accountpseudoinput.user_text = Global_objects.accountpseudoinput.user_text[:-1]
                     # Si on clique sur entrer
                     elif event.key == pygame.K_RETURN:
-                        Global_objects.accountpseudoinput.user_text = ""
+                        Global_objects.accountpseudoinput.active = False
                     # Si on clique sur n'importe quoi d'autre
                     else:
                         # On gère tout les cas de paramètres des objets de la classe TextInputBox (se référer au fichier TextInputBox_class.py pour plus d'informations sur ces paramètres)
@@ -438,7 +438,7 @@ class HUD_State:
                         Global_objects.accountinformationinput.user_text = Global_objects.accountinformationinput.user_text[:-1]
                     # Si on clique sur entrer
                     elif event.key == pygame.K_RETURN:
-                        Global_objects.accountinformationinput.user_text = ""
+                        Global_objects.accountinformationinput.active = False
                     # Si on clique sur n'importe quoi d'autre
                     else:
                         # On gère tout les cas de paramètres des objets de la classe TextInputBox (se référer au fichier TextInputBox_class.py pour plus d'informations sur ces paramètres)
@@ -502,6 +502,11 @@ class HUD_State:
         # Dessine l'image de fond sur la self.screen de l'écran (IMPORANT CAR SE SUPERPOSE A L'INTERFACE PRECEDENT ET PERMET DE "L'EFFACER")
         self.screen.blit(self.fond, (0, 0))
 
+        # Affichage des infos de la table sélectionnée en placeholder
+        gui_font = pygame.font.SysFont("Roboto", width_scale(40, self.largeur_actuelle))
+        text_surf = gui_font.render("PAGE EN CONSTRUCTION : CETTE PAGE ACCUEILLERA UN SHOP PERMETTANT AUX JOUEURS D'ACHETER DES COSMETIQUES", True, "#FFFFFF")
+        self.screen.blit(text_surf, (width_scale(510, self.largeur_actuelle), height_scale(510, self.hauteur_actuelle)))
+
         # Affichage des bouttons
         # Cliquer sur le bouton BACK retourne une page en arrière
         Global_objects.backbutton.draw()
@@ -560,6 +565,11 @@ class HUD_State:
         self.screen.blit(transparent_surface, (width_scale(1300, self.largeur_actuelle), height_scale(560, self.hauteur_actuelle)))
         self.screen.blit(transparent_surface, (width_scale(1300, self.largeur_actuelle), height_scale(710, self.hauteur_actuelle)))
         self.screen.blit(transparent_surface, (width_scale(1300, self.largeur_actuelle), height_scale(860, self.hauteur_actuelle)))
+        
+        # Affichage des infos de la table sélectionnée en placeholder
+        gui_font = pygame.font.SysFont("Roboto", width_scale(40, self.largeur_actuelle))
+        text_surf = gui_font.render("PAGE EN CONSTRUCTION : CETTE PAGE ACCUEILLERA DES OPTIONS A SELECTIONNER AVANT DE CREER UNE PARTIE", True, "#FFFFFF")
+        self.screen.blit(text_surf, (width_scale(510, self.largeur_actuelle), height_scale(510, self.hauteur_actuelle)))
 
         # Met à jour l'affichage de l'interface
         pygame.display.update()

@@ -8,7 +8,7 @@ import Global_objects
 
 class Cursor_Bar:
 
-    def __init__(self, largeur_actuelle : int, hauteur_actuelle : int, screen : pygame.Surface, width : int, height : int, pos : tuple, bar_color : str or int, cursor_color : str or int, cursor_basic_pos : int):
+    def __init__(self, largeur_actuelle : int, hauteur_actuelle : int, screen : pygame.Surface, width : int, height : int, pos : tuple, bar_color : str or int, cursor_color : str or int, text_color : str or int, cursor_basic_pos : int):
         """Initialisation de la classe Cursor_bar
 
         Args:
@@ -31,6 +31,7 @@ class Cursor_Bar:
         self.y = height_scale(pos[1], self.hauteur_actuelle)
         self.bar_color = bar_color
         self.cursor_color = cursor_color
+        self.text_color = text_color
         self.cursor_width = cursor_basic_pos
         self.is_selected = False
 
@@ -43,17 +44,19 @@ class Cursor_Bar:
         """
         mouse_pos = pygame.mouse.get_pos()
         # Création du curseur et de la barre derrière
-        bar = pygame.draw.rect(self.screen, "#FFFFFF", pygame.Rect((self.x, self.y), (self.width, self.height)), border_radius = 6)
-        cursor = pygame.draw.circle(self.screen, "#FFFFFF", (self.cursor_width, self.y + height_scale(4, self.hauteur_actuelle)), self.height * 1.5)
+        bar = pygame.draw.rect(self.screen, self.bar_color, pygame.Rect((self.x, self.y), (self.width, self.height)), border_radius = 10)
+        cursor = pygame.draw.circle(self.screen, self.cursor_color, (self.cursor_width, self.y + self.height//2), self.height)
         # On change la pos x du curseur lorsque l'on clique dessus, sans dépasser les bordures
         if cursor.collidepoint(mouse_pos) or bar.collidepoint(mouse_pos):
             # On affiche les infos du curseur si la souris est dessus
-            info = pygame.draw.circle(self.screen, "#FFFFFF", (cursor.centerx, cursor.centery + height_scale(35, self.hauteur_actuelle)), width_scale(15, self.largeur_actuelle))
-            pygame.draw.rect(self.screen, "#FFFFFF", pygame.Rect((info.centerx - width_scale(15, self.largeur_actuelle), info.centery), (info.width, info.height)), border_radius = 1)
+            info = pygame.draw.circle(self.screen, self.cursor_color, (cursor.centerx, cursor.centery + cursor.height), max(cursor.width//4, width_scale(10, self.largeur_actuelle)))
+            info_surf = pygame.Rect((info.centerx - info.width//2, info.centery), (info.width, info.height))
+            pygame.draw.rect(self.screen, self.cursor_color, info_surf, border_radius = 1)
             text = f"{variable}"
             font = pygame.font.SysFont("Roboto", width_scale(text_size, self.largeur_actuelle))
-            text_info = font.render(text, True, "#000000")
-            self.screen.blit(text_info, (info.centerx - width_scale(14, self.largeur_actuelle), info.centery))
+            text_info = font.render(text, True, self.text_color)
+            text_rect = text_info.get_rect(center = info_surf.center)
+            self.screen.blit(text_info, text_rect)
             if pygame.mouse.get_pressed()[0]:
                 self.is_selected = True
                 Global_objects.buttons_interactibles = False
@@ -65,12 +68,14 @@ class Cursor_Bar:
             else:
                 self.cursor_width = mouse_pos[0]
                 # On affiche les infos du curseur si la souris est dessus
-                info = pygame.draw.circle(self.screen, "#FFFFFF", (cursor.centerx, cursor.centery + height_scale(35, self.hauteur_actuelle)), width_scale(15, self.largeur_actuelle))
-                pygame.draw.rect(self.screen, "#FFFFFF", pygame.Rect((info.centerx - width_scale(15, self.largeur_actuelle), info.centery), (info.width, info.height)), border_radius = 1)
+                info = pygame.draw.circle(self.screen, self.cursor_color, (cursor.centerx, cursor.centery + cursor.height), max(cursor.width//4, width_scale(10, self.largeur_actuelle)))
+                info_surf = pygame.Rect((info.centerx - info.width//2, info.centery), (info.width, info.height))
+                pygame.draw.rect(self.screen, self.cursor_color, info_surf, border_radius = 1)
                 text = f"{variable}"
                 font = pygame.font.SysFont("Roboto", width_scale(text_size, self.largeur_actuelle))
-                text_info = font.render(text, True, "#000000")
-                self.screen.blit(text_info, (info.centerx - width_scale(14, self.largeur_actuelle), info.centery))
+                text_info = font.render(text, True, self.text_color)
+                text_rect = text_info.get_rect(center = info_surf.center)
+                self.screen.blit(text_info, text_rect)
                 # On gére les cas où l'utilisateur pousserait le curseur en dehors de la barre
                 if self.cursor_width >= self.x + self.width:
                     self.cursor_width = self.x + self.width

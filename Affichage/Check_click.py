@@ -189,7 +189,10 @@ def check_click(Button):
                 Global_objects.game_state.state = "Create Menu"
             # Lorsque le bouton REFRESH est cliqué  pour réactualiser les tables affichés dans l'objet serverscrollbox
             case "refresh":
-                ask_lobbys(Global_objects.client_socket)
+                try:
+                    ask_lobbys(Global_objects.client_socket)
+                except:
+                    pass
                 Global_objects.serverscrollbox.scroll_pos = 0
                 Global_objects.game_state.table_selected = None
             # Lorsque le bouton BACK (fléche retour) est cliqué

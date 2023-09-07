@@ -23,7 +23,7 @@ if __name__ == "__main__":
     screen_info = pygame.display.Info()
     screen_width = screen_info.current_w
     screen_height = screen_info.current_h
-    screen = pygame.display.set_mode((screen_width, screen_height - 50), pygame.FULLSCREEN)
+    screen = pygame.display.set_mode((screen_width, screen_height), pygame.FULLSCREEN)
     largeur_actuelle = screen.get_width()
     hauteur_actuelle = screen.get_height()
     # Nom de la fenêtre
@@ -164,7 +164,7 @@ if __name__ == "__main__":
 
     # Création des cursor_bar
     # Création de l'objet sound_bar
-    Global_objects.sound_bar = Cursor_Bar(largeur_actuelle, hauteur_actuelle, screen, 200, 10, (490, 200), "", "", 690)
+    Global_objects.sound_bar = Cursor_Bar(largeur_actuelle, hauteur_actuelle, screen, 200, 15, (500, 198), "#FFFFFF", "#FFFFFF", "#000000", 700)
 
     # Initialisation des autres variables globales stockées dans le fichier Global_objects.py
     Global_objects.volume_music = 1.0
