@@ -181,8 +181,8 @@ def check_click(Button):
                     Global_objects.game_state.state = "Game Menu"
                     Global_objects.is_selecting_sit[0] = True
                     # Attributions à changer plus tard, elles devront être attribuées par le serveur
-                    Global_objects.game_state.starting_sits = Global_objects.auto_arrived_sits
                     Global_objects.game_state.round_started = False
+                    Global_objects.game_state.timer = 20
                 except:
                     Global_objects.game_state.error[0] = True
                     Global_objects.game_state.error[1] = time.time()

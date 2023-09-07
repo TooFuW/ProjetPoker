@@ -70,7 +70,6 @@ class HUD_State:
         self.confirmation = False
         # Timer de début de la partie
         self.timer = 20 # Attribution à changer plus tard, elle devra être attribuée par le serveur
-        self.timer_reset = None # Attribution à changer plus tard, elle devra être attribuée par le serveur
         self.round_started = False # Attribution à changer plus tard, elle devra être attribuée par le serveur
     
     def mainmenu(self):
@@ -223,8 +222,8 @@ class HUD_State:
                             Global_objects.game_state.state = "Game Menu"
                             Global_objects.is_selecting_sit[0] = True
                             # Attributions à changer plus tard, elles devront être attribuées par le serveur
-                            self.starting_sits = Global_objects.auto_arrived_sits
-                            Global_objects.game_state.round_started = False
+                            self.round_started = False
+                            self.timer = 20
                         except:
                             self.error[0] = True
                             self.error[1] = time.time()
@@ -513,7 +512,7 @@ class HUD_State:
         # Affichage des infos de la table sélectionnée en placeholder
         gui_font = pygame.font.SysFont("Roboto", width_scale(40, self.largeur_actuelle))
         text_surf = gui_font.render("PAGE EN CONSTRUCTION : CETTE PAGE ACCUEILLERA UN SHOP PERMETTANT AUX JOUEURS D'ACHETER DES COSMETIQUES", True, "#FFFFFF")
-        self.screen.blit(text_surf, (width_scale(510, self.largeur_actuelle), height_scale(510, self.hauteur_actuelle)))
+        self.screen.blit(text_surf, (width_scale(100, self.largeur_actuelle), height_scale(510, self.hauteur_actuelle)))
 
         # Affichage des bouttons
         # Cliquer sur le bouton BACK retourne une page en arrière
@@ -577,7 +576,7 @@ class HUD_State:
         # Affichage des infos de la table sélectionnée en placeholder
         gui_font = pygame.font.SysFont("Roboto", width_scale(40, self.largeur_actuelle))
         text_surf = gui_font.render("PAGE EN CONSTRUCTION : CETTE PAGE ACCUEILLERA DES OPTIONS A SELECTIONNER AVANT DE CREER UNE PARTIE", True, "#FFFFFF")
-        self.screen.blit(text_surf, (width_scale(510, self.largeur_actuelle), height_scale(510, self.hauteur_actuelle)))
+        self.screen.blit(text_surf, (width_scale(100, self.largeur_actuelle), height_scale(510, self.hauteur_actuelle)))
 
         # Met à jour l'affichage de l'interface
         pygame.display.update()
@@ -614,9 +613,6 @@ class HUD_State:
                 text_rect = text_surf.get_rect(center = (self.largeur_actuelle//2, 30))
                 self.screen.blit(text_surf, text_rect)
                 self.timer -= 0.01
-            if self.timer > 0 and self.timer_reset != Global_objects.auto_arrived_sits:
-                self.timer = 20
-                self.timer_reset = Global_objects.auto_arrived_sits
             if self.timer <= 0:
                 self.round_started = True
 
