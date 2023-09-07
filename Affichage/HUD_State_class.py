@@ -56,8 +56,6 @@ class HUD_State:
         self.is_pressing = False
         # Placeholder de la description des serveurs lorsqu'on clique dessus
         self.server_test = "Loading ..."
-        # Savoir si on affiche ou non le menu des paramètres en jeu pour gérer l'interface
-        self.gamesettings = False
         # Page par défaut dans le menu des paramètres
         self.setting_page = 1
         # Savoir si l'utilisateur paramètre le son

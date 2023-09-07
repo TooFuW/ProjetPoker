@@ -205,7 +205,6 @@ def check_click(Button):
                 Global_objects.settingpage1button.hovering_bottom_color = "#D74B4B"
                 Global_objects.settingpage2button.initial_bottom_color = "#354B5E"
                 Global_objects.settingpage3button.initial_bottom_color = "#354B5E"
-                Global_objects.game_state.gamesettings = False
                 Global_objects.game_state.state = Global_objects.game_state.back_pile.pop()
                 Global_objects.game_state.table_selected = None
             # Lorsque le bouton des paramètres en jeu est cliqué
