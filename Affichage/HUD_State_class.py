@@ -68,6 +68,10 @@ class HUD_State:
         self.error = [False, 0]
         # Savoir si on affiche un message de confirmation
         self.confirmation = False
+        # Timer de début de la partie
+        self.timer = 20 # Attribution à changer plus tard, elle devra être attribuée par le serveur
+        self.timer_reset = None # Attribution à changer plus tard, elle devra être attribuée par le serveur
+        self.round_started = False # Attribution à changer plus tard, elle devra être attribuée par le serveur
     
     def mainmenu(self):
         """mainmenu est la fonction qui fait tourner/afficher le menu principal
@@ -146,6 +150,7 @@ class HUD_State:
                         try:
                             lobby_id = int(Global_objects.tablecodeinput.user_text)
                             Global_objects.previewlobbys.players = ask_sits_infos(Global_objects.client_socket,lobby_id)
+                            time.sleep(0.1)
                             join_lobby(Global_objects.client_socket,lobby_id)
                             if len(Global_objects.previewlobbys.players) == 1:
                                 Global_objects.sit_1.player = Global_objects.previewlobbys.players[0]
@@ -217,6 +222,9 @@ class HUD_State:
                             Global_objects.game_state.back_pile = []
                             Global_objects.game_state.state = "Game Menu"
                             Global_objects.is_selecting_sit[0] = True
+                            # Attributions à changer plus tard, elles devront être attribuées par le serveur
+                            self.starting_sits = Global_objects.auto_arrived_sits
+                            Global_objects.game_state.round_started = False
                         except:
                             self.error[0] = True
                             self.error[1] = time.time()
@@ -594,13 +602,32 @@ class HUD_State:
         text_surf = gui_font.render(self.server_test, True, "#FFFFFF")
         self.screen.blit(text_surf, (width_scale(510, self.largeur_actuelle), height_scale(510, self.hauteur_actuelle)))
 
+        # Affichage du timer avant que la partie commence
+        if self.round_started is False:
+            if self.timer > 0:
+                Global_objects.sit_upbutton.draw()
+                gui_font = pygame.font.SysFont("Roboto", width_scale(60, self.largeur_actuelle))
+                if self.timer > 5:
+                    text_surf = gui_font.render(f"{round(self.timer)}", True, "#FFFFFF")
+                else:
+                    text_surf = gui_font.render(f"{round(self.timer, 1)}", True, "#FFFFFF")
+                text_rect = text_surf.get_rect(center = (self.largeur_actuelle//2, 30))
+                self.screen.blit(text_surf, text_rect)
+                self.timer -= 0.01
+            if self.timer > 0 and self.timer_reset != Global_objects.auto_arrived_sits:
+                self.timer = 20
+                self.timer_reset = Global_objects.auto_arrived_sits
+            if self.timer <= 0:
+                self.round_started = True
+
         # Affichage de la zone qui comportera les actions du joueur
         # Boutons d'actions
         Global_objects.checkbutton.draw()
         Global_objects.callbutton.draw()
         Global_objects.foldbutton.draw()
         Global_objects.raisebutton.draw()
-        Global_objects.sit_upbutton.draw()
+
+        # Attribution des infos des sièges
         try:
             Global_objects.sit_1.player = Global_objects.auto_arrived_sits[0]
             Global_objects.sit_2.player = Global_objects.auto_arrived_sits[1]
@@ -614,6 +641,8 @@ class HUD_State:
             Global_objects.sit_10.player = Global_objects.auto_arrived_sits[9]
         except:
             pass
+
+        # Affichage des sièges en fonction du pattern suivant
         match len(Global_objects.previewlobbys.players):
 
             case 2:

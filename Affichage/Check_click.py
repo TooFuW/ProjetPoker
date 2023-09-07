@@ -180,6 +180,9 @@ def check_click(Button):
                     Global_objects.game_state.back_pile = []
                     Global_objects.game_state.state = "Game Menu"
                     Global_objects.is_selecting_sit[0] = True
+                    # Attributions à changer plus tard, elles devront être attribuées par le serveur
+                    Global_objects.game_state.starting_sits = Global_objects.auto_arrived_sits
+                    Global_objects.game_state.round_started = False
                 except:
                     Global_objects.game_state.error[0] = True
                     Global_objects.game_state.error[1] = time.time()
@@ -220,7 +223,6 @@ def check_click(Button):
                 Global_objects.buttons_interactibles = False
             # Lorsqu'un bouton pour s'asseoir est cliqué
             case "sit 1":
-                print("sit 1")
                 Global_objects.is_selecting_sit[1] = 0
                 sit_down(Global_objects.client_socket, 0)
                 Global_objects.is_selecting_sit = [False, -1]
