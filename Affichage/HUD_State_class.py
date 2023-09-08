@@ -599,20 +599,36 @@ class HUD_State:
         text_surf = gui_font.render(self.server_test, True, "#FFFFFF")
         self.screen.blit(text_surf, (width_scale(510, self.largeur_actuelle), height_scale(510, self.hauteur_actuelle)))
 
-        # Affichage du timer avant que la partie commence
         if self.round_started is False:
+        # Affichage du timer avant que la partie commence
+            Global_objects.sit_upbutton.draw()
             if self.timer > 0:
-                Global_objects.sit_upbutton.draw()
+                # On ne peut se lever que si la partie n'est pas encore commencée
                 gui_font = pygame.font.SysFont("Roboto", width_scale(60, self.largeur_actuelle))
                 if self.timer > 5:
                     text_surf = gui_font.render(f"{round(self.timer)}", True, "#FFFFFF")
                 else:
                     text_surf = gui_font.render(f"{round(self.timer, 1)}", True, "#FFFFFF")
-                text_rect = text_surf.get_rect(center = (self.largeur_actuelle//2, 30))
+                text_rect = text_surf.get_rect(center = (self.largeur_actuelle//2 - width_scale(100, self.largeur_actuelle), 30))
                 self.screen.blit(text_surf, text_rect)
                 self.timer -= 0.01
-            if self.timer <= 0:
+            elif self.timer <= 0:
                 self.round_started = True
+        # Affichage du nombre de joueurs présents sur le nombre de joueurs max
+            try:
+                gui_font = pygame.font.SysFont("Roboto", width_scale(60, self.largeur_actuelle))
+                players = 0
+                if Global_objects.auto_arrived_sits is None:
+                    text_surf = gui_font.render(f"0/{len(Global_objects.previewlobbys.players)}", True, "#FFFFFF")
+                else:
+                    for player in Global_objects.auto_arrived_sits:
+                        if player[1] is not None:
+                            players += 1
+                    text_surf = gui_font.render(f"{players}/{len(Global_objects.auto_arrived_sits)}", True, "#FFFFFF")
+                text_rect = text_surf.get_rect(center = (self.largeur_actuelle//2 + width_scale(100, self.largeur_actuelle), 30))
+                self.screen.blit(text_surf, text_rect)
+            except:
+                pass
 
         # Affichage de la zone qui comportera les actions du joueur
         # Boutons d'actions
