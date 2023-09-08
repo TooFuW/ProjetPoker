@@ -353,13 +353,13 @@ class HUD_State:
                 text_size = 25
             Global_objects.sound_bar.draw(round(Global_objects.volume_music * 100), text_size)
             # On gére l'affichage avec les icônes de son
-            if Global_objects.sound_bar.cursor_width <= width_scale(500, self.largeur_actuelle) or self.sound_on is False:
+            if Global_objects.sound_bar.cursor_width <= Global_objects.sound_bar.x: # Barre à 0
                 volume_icon = self.screen.blit(self.sounds_icons[0], (width_scale(415, self.largeur_actuelle), height_scale(172, self.hauteur_actuelle)))
-            elif Global_objects.sound_bar.cursor_width > width_scale(500, self.largeur_actuelle) and Global_objects.sound_bar.cursor_width <= width_scale(566, self.largeur_actuelle):
+            elif Global_objects.sound_bar.cursor_width > Global_objects.sound_bar.x and Global_objects.sound_bar.cursor_width <= Global_objects.sound_bar.width//3 + Global_objects.sound_bar.x: # Barre à 1/3
                 volume_icon = self.screen.blit(self.sounds_icons[1], (width_scale(415, self.largeur_actuelle), height_scale(172, self.hauteur_actuelle)))
-            elif Global_objects.sound_bar.cursor_width > width_scale(566, self.largeur_actuelle) and Global_objects.sound_bar.cursor_width <= width_scale(632, self.largeur_actuelle):
+            elif Global_objects.sound_bar.cursor_width > Global_objects.sound_bar.width//3 + Global_objects.sound_bar.x and Global_objects.sound_bar.cursor_width <= (Global_objects.sound_bar.width//3)*2 + Global_objects.sound_bar.x: # Barre à 2/3
                 volume_icon = self.screen.blit(self.sounds_icons[2], (width_scale(415, self.largeur_actuelle), height_scale(172, self.hauteur_actuelle)))
-            elif Global_objects.sound_bar.cursor_width > width_scale(632, self.largeur_actuelle):
+            elif Global_objects.sound_bar.cursor_width > (Global_objects.sound_bar.width//3)*2 + Global_objects.sound_bar.x: # Barre au dessus de 2/3
                 volume_icon = self.screen.blit(self.sounds_icons[3], (width_scale(415, self.largeur_actuelle), height_scale(172, self.hauteur_actuelle)))
             # On gére l'utilisation/les interactions avec le bouton de son
             if self.is_setting_volume is False:
@@ -370,7 +370,7 @@ class HUD_State:
                         if self.is_pressing is True:
                             if self.sound_on is True:
                                 self.last_sound = Global_objects.sound_bar.cursor_width
-                                Global_objects.sound_bar.cursor_width = width_scale(500, self.largeur_actuelle)
+                                Global_objects.sound_bar.cursor_width = Global_objects.sound_bar.x
                                 self.sound_on = False
                             elif self.sound_on is False:
                                 Global_objects.sound_bar.cursor_width = self.last_sound
@@ -378,6 +378,10 @@ class HUD_State:
                             self.is_pressing = False
                 else:
                     self.is_pressing = False
+            if Global_objects.sound_bar.cursor_width <= Global_objects.sound_bar.x:
+                self.sound_on = False
+            else:
+                self.sound_on = True
             # On récupère le volume actuel
             Global_objects.volume_music = (Global_objects.sound_bar.cursor_width - width_scale(500, self.largeur_actuelle)) / (width_scale(700, self.largeur_actuelle) - width_scale(500, self.largeur_actuelle))
         # Page 2
@@ -609,7 +613,7 @@ class HUD_State:
                     text_surf = gui_font.render(f"{round(self.timer)}", True, "#FFFFFF")
                 else:
                     text_surf = gui_font.render(f"{round(self.timer, 1)}", True, "#FFFFFF")
-                text_rect = text_surf.get_rect(center = (self.largeur_actuelle//2 - width_scale(100, self.largeur_actuelle), 30))
+                text_rect = text_surf.get_rect(center = (self.largeur_actuelle//2 - width_scale(100, self.largeur_actuelle), height_scale(30, self.hauteur_actuelle)))
                 self.screen.blit(text_surf, text_rect)
                 self.timer -= 0.01
             elif self.timer <= 0:
@@ -625,7 +629,7 @@ class HUD_State:
                         if player[1] is not None:
                             players += 1
                     text_surf = gui_font.render(f"{players}/{len(Global_objects.auto_arrived_sits)}", True, "#FFFFFF")
-                text_rect = text_surf.get_rect(center = (self.largeur_actuelle//2 + width_scale(100, self.largeur_actuelle), 30))
+                text_rect = text_surf.get_rect(center = (self.largeur_actuelle//2 + width_scale(100, self.largeur_actuelle), height_scale(30, self.hauteur_actuelle)))
                 self.screen.blit(text_surf, text_rect)
             except:
                 pass
