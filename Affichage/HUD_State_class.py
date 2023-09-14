@@ -601,7 +601,7 @@ class HUD_State:
         # Affichage des infos de la table sélectionnée en placeholder
         gui_font = pygame.font.SysFont("Roboto", width_scale(40, self.largeur_actuelle))
         text_surf = gui_font.render(self.server_test, True, "#FFFFFF")
-        self.screen.blit(text_surf, (width_scale(510, self.largeur_actuelle), height_scale(510, self.hauteur_actuelle)))
+        self.screen.blit(text_surf, (width_scale(550, self.largeur_actuelle), height_scale(200, self.hauteur_actuelle)))
 
         if self.round_started is False:
         # Affichage du timer avant que la partie commence
@@ -633,6 +633,20 @@ class HUD_State:
                 self.screen.blit(text_surf, text_rect)
             except:
                 pass
+        
+        # Affichage du texte POT au dessus de la zone du pot
+        gui_font = pygame.font.SysFont("Roboto", width_scale(45, self.largeur_actuelle))
+        text_surf = gui_font.render(f"POT", True, "#FFFFFF")
+        self.screen.blit(text_surf, (width_scale(935, self.largeur_actuelle), height_scale(445, self.hauteur_actuelle)))
+        # Affichage de la zone du pot de la partie
+        pot_surface = pygame.Surface((width_scale(50, self.largeur_actuelle), height_scale(50, self.hauteur_actuelle)), pygame.SRCALPHA)
+        pygame.draw.rect(pot_surface, (0, 0, 0, 128), (0, 0, width_scale(50, self.largeur_actuelle), height_scale(50, self.hauteur_actuelle)), border_radius = 100)
+        pot_surface = self.screen.blit(pot_surface, (width_scale(940, self.largeur_actuelle), height_scale(480, self.hauteur_actuelle)))
+        # On place la valeur du pot au milieu de la zone
+        gui_font = pygame.font.SysFont("Roboto", width_scale(40, self.largeur_actuelle))
+        text_surf = gui_font.render(f"x", True, "#FFFFFF")
+        text_rect = text_surf.get_rect(center = (pot_surface.centerx, pot_surface.centery))
+        self.screen.blit(text_surf, text_rect)
 
         # Affichage de la zone qui comportera les actions du joueur
         # Boutons d'actions
