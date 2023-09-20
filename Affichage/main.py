@@ -80,7 +80,7 @@ if __name__ == "__main__":
     # Création de l'objet accountbutton
     Global_objects.accountbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "account", "ACCOUNT", "Roboto", 30, "#475F77", "#354B5E", "#D74B4B", "#354B5E", 150, 75, (1750, 20), 3, 10)
     # Création de l'objet playbutton
-    Global_objects.playbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "play", "PLAY", "Roboto", 150, "#475F77", "#354B5E", "#D74B4B", "#354B5E", 500, 500, (710, 365), 6, 10)
+    Global_objects.playbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "play", "", "Roboto", 0, "#000000", "#000000", "#404040", "#404040", 500, 500, (710, 365), 6, 400, current_folder + "logo play.jpg")
     # Création de l'objet settingsbutton
     Global_objects.settingsbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "settings", "SETTINGS", "Roboto", 70, "#475F77", "#354B5E", "#D74B4B", "#354B5E", 300, 500, (310, 365), 6, 10)
     # Création de l'objet quitbutton
