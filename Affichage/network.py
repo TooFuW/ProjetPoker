@@ -301,6 +301,9 @@ def manage_data(conn : socket, packet : str):
                 print(body, "a rejoint le lobby !")
                 thread_players_count = Thread(target=send_packet, args=[conn, "players_count="])
                 thread_players_count.start()
+                
+            case "refused-connection":
+                print("Serveur indique : ",body)
 
 
     except Exception as e:

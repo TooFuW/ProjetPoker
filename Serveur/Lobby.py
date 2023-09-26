@@ -8,6 +8,7 @@ from Sit import Sit
 from packet_separator import packet_separator
 from typing import List
 import time
+from Log import *
 
 
 class Lobby :
@@ -118,28 +119,36 @@ class Lobby :
             address (_type_): _description_
         """
 
-        id_thread = len(self.threads)
-        self.threads.append(Thread(target=self.handle_client, args=(conn,address,id_thread)))
+        if is_ip_in_blacklist(address[0]):
 
-        if not self.address_in_players(address): # on ne crée pas 2 players avec la même connexion ou la même adresse.
-            #gestion de bdd pour la bank
-            print("new player, address : ",address)
-            new_player = self.create_player("dummy",conn,True,1800,address=address)
+            self.refuse_connection(conn, address)
 
-        else :
-            print("suii")
-            new_player = self.get_player_by_address(address)
-            new_player.set_conn(conn)
+        else:    
 
-        
+            id_thread = len(self.threads)
+            self.threads.append(Thread(target=self.handle_client, args=(conn,address,id_thread)))
 
-        thread_check_connection = Thread(target=self.check_connection, args=[conn])
-        self.players.append(new_player)
+            if not self.address_in_players(address): # on ne crée pas 2 players avec la même connexion ou la même adresse.
+                #gestion de bdd pour la bank
+                print("new player, address : ",address)
+                new_player = self.create_player("dummy",conn,True,1800,address=address)
 
-        self.threads[id_thread].start()
-        thread_broadcast = Thread(target=self.broadcast_new_connection, args=[new_player.get_pseudo()])
-        thread_broadcast.start()
-        thread_check_connection.start()
+            else :
+                print("suii")
+                new_player = self.get_player_by_address(address)
+                new_player.set_conn(conn)
+
+            write_lobby_connexion(address, self.id,True)
+
+            
+
+            thread_check_connection = Thread(target=self.check_connection, args=[conn])
+            self.players.append(new_player)
+
+            self.threads[id_thread].start()
+            thread_broadcast = Thread(target=self.broadcast_new_connection, args=[new_player.get_pseudo()])
+            thread_broadcast.start()
+            thread_check_connection.start()
 
 
     def handshake(self,conn : socket):
@@ -570,6 +579,13 @@ class Lobby :
         Enclenche la fermeture forcée de la game en cours avant de déconnecter de force tous les joueurs puis s'eteindre.
         """
         pass
+
+    def refuse_connection(self,conn : socket,address):
+        packet = "refused-connection=Connection Refused."
+        thread_refuse_connection_packet = Thread(target=self.send_packet, args=(packet,conn))
+        thread_refuse_connection_packet.start()
+        conn.close()
+        write_refused_connection(address)
 
 
     def on_player_deconnect(self,player : Player):

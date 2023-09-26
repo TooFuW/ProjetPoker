@@ -6,6 +6,7 @@ from sqlite3 import *
 from random import randint
 import sys
 from packet_separator import packet_separator
+from Log import *
 
 a = []
 print(sys.getsizeof(a))
@@ -42,6 +43,7 @@ class Main:
             self.server_on = True
 
             while self.server_on:
+                
                 self.client_socket, self.client_address = self.server_socket.accept()
                 self.on_new_connection(socket=self.client_socket, address=self.client_address)
 
@@ -152,11 +154,21 @@ class Main:
             raise TypeError
 
 
-    def on_new_connection(self,socket : socket,address):
+    def on_new_connection(self,socket : socket,address : tuple):
 
-        id_thread = len(self.threads)
-        self.threads.append(Thread(target=self.handle_client, args=(socket,address,id_thread)))
-        self.threads[id_thread].start()
+        # check si connexion autorisée
+        if is_ip_in_blacklist(address[0]):
+
+            refuse_connection(socket,address)
+
+        else:
+
+            id_thread = len(self.threads)
+            self.threads.append(Thread(target=self.handle_client, args=(socket,address,id_thread)))
+
+            write_connexion(address, True) # On écrit la connexion dans le Log.
+
+            self.threads[id_thread].start()
 
 
     def redirect_to_lobby(self,lobby : Lobby, conn : socket):
@@ -220,6 +232,14 @@ def send_packet(packet : str, conn : socket):
         conn.send(packet.encode("utf8"))
     except Exception as el:
         print(el)
+
+def refuse_connection(conn : socket,address):
+    packet = "refused-connection=Connection Refused."
+    thread_refuse_connection_packet = Thread(target=send_packet, args=(packet,conn))
+    thread_refuse_connection_packet.start()
+    conn.close()
+    write_refused_connection(address)
+
 
 def send_lobbys(conn : socket, lobbys_display : list):
     print("envoi lobbys",socket)
