@@ -15,4 +15,4 @@ Tout les états d'un joueur:
 
 lexique des états:
     "ne_peut_pas_parler"
-    "peut_parler"
+    "peut_parler"cd 
