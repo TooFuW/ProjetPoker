@@ -49,3 +49,8 @@
 ('127.0.0.1', 18437) : accepted connection at 2023-10-02 03:00:49.076305
 ('127.0.0.1', 18438) : connection accepted in lobby 302126 at 2023-10-02 03:00:52.373132
 ('127.0.0.1', 18439) : accepted connection at 2023-10-02 03:00:57.644882
+('127.0.0.1', 47471) : accepted connection at 2023-10-02 04:18:40.365840
+('127.0.0.1', 47472) : connection accepted in lobby 685639 at 2023-10-02 04:18:46.266209
+('127.0.0.1', 47473) : accepted connection at 2023-10-02 04:19:05.112453
+('127.0.0.1', 47482) : accepted connection at 2023-10-02 04:21:36.075886
+('127.0.0.1', 47493) : accepted connection at 2023-10-02 04:22:24.663727
