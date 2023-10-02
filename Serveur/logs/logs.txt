@@ -37,6 +37,7 @@
 ('127.0.0.1', 62319) : accepted connection at 2023-10-01 21:48:24.492268
 ('127.0.0.1', 62321) : connection accepted in lobby 834422 at 2023-10-01 21:48:27.348925
 ('127.0.0.1', 62322) : accepted connection at 2023-10-01 21:48:54.358250
+<<<<<<< HEAD
 ('127.0.0.1', 56751) : accepted connection at 2023-10-02 02:37:13.828021
 ('127.0.0.1', 56762) : connection accepted in lobby 189287 at 2023-10-02 02:37:20.227613
 ('127.0.0.1', 56845) : accepted connection at 2023-10-02 02:37:50.638081
@@ -59,3 +60,22 @@
 ('127.0.0.1', 65322) : accepted connection at 2023-10-02 04:41:28.364243
 ('127.0.0.1', 65325) : connection accepted in lobby 292117 at 2023-10-02 04:41:38.568406
 ('127.0.0.1', 65330) : accepted connection at 2023-10-02 04:42:36.299129
+=======
+('127.0.0.1', 18394) : accepted connection at 2023-10-02 02:55:23.153989
+('127.0.0.1', 18395) : connection accepted in lobby 377353 at 2023-10-02 02:55:28.122856
+('127.0.0.1', 18406) : accepted connection at 2023-10-02 02:55:51.898015
+('127.0.0.1', 18415) : connection accepted in lobby 377353 at 2023-10-02 02:55:55.744891
+('127.0.0.1', 18416) : accepted connection at 2023-10-02 02:55:58.394823
+('127.0.0.1', 18417) : connection accepted in lobby 267225 at 2023-10-02 02:56:00.441998
+('127.0.0.1', 18418) : accepted connection at 2023-10-02 02:56:02.287455
+('127.0.0.1', 18433) : accepted connection at 2023-10-02 03:00:15.868289
+('127.0.0.1', 18435) : connection accepted in lobby 267225 at 2023-10-02 03:00:21.258525
+('127.0.0.1', 18437) : accepted connection at 2023-10-02 03:00:49.076305
+('127.0.0.1', 18438) : connection accepted in lobby 302126 at 2023-10-02 03:00:52.373132
+('127.0.0.1', 18439) : accepted connection at 2023-10-02 03:00:57.644882
+('127.0.0.1', 47471) : accepted connection at 2023-10-02 04:18:40.365840
+('127.0.0.1', 47472) : connection accepted in lobby 685639 at 2023-10-02 04:18:46.266209
+('127.0.0.1', 47473) : accepted connection at 2023-10-02 04:19:05.112453
+('127.0.0.1', 47482) : accepted connection at 2023-10-02 04:21:36.075886
+('127.0.0.1', 47493) : accepted connection at 2023-10-02 04:22:24.663727
+>>>>>>> c0ab4ce199e847e34301fb9d0ea875d43ee4379b

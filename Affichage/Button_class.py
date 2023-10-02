@@ -47,6 +47,7 @@ class Button:
         self.screen = screen
         # Pour savoir si on peut modifier ou non les paramètres du compte
         self.account_modifiable = False
+        self.button_interactible = True
 
         # self.elevation sert à garder la valeur par défaut de l'élévation, on va plutôt utiliser self.dynamic_elevation dans le code
         self.elevation = elevation
@@ -117,7 +118,8 @@ class Button:
                 self.dynamic_elevation = self.elevation
                 if self.pressed == True:
                     self.pressed = False
-                    Check_click.check_click(self)
+                    if self.button_interactible is True:
+                        Check_click.check_click(self)
         # Le else est là pour reset l'état du bouton lorsqu'il n'y a plus aucune interaction
         else:
             self.dynamic_elevation = self.elevation
