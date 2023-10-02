@@ -584,7 +584,7 @@ class HUD_State:
         pygame.display.update()
 
     def gamemenu(self):
-        """game est la fonction qui fait tourner/afficher l'interface en jeu
+        """gamemenu est la fonction qui fait tourner/afficher l'interface en jeu
         """
         # Rassemblement de tout les événements
         for event in pygame.event.get():
