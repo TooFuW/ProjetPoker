@@ -26,6 +26,7 @@ class Lobby :
         self.is_game_starting = False
         self.players_ids = []
         self.game : Game = None
+        self.timer = 20
 
         self.sits_number = capacity
         self.sits = new_sits(self.sits_number)
@@ -56,8 +57,10 @@ class Lobby :
         print(f"\nLobby waiting for connections on {self.host}:{self.port}")
 
         listen_connections = Thread(target=self.listen_connections, args=[])
+        listen_state = Thread(target=self.listen_state)
         
         listen_connections.start()
+        #listen_state.start()
 
     
     
@@ -346,6 +349,30 @@ class Lobby :
             print(el)
 
 
+    def check_players_state(self):
+        func_timer_id = self.new_func_id_dict_number()
+      
+
+        count = 0
+        for sit in self.sits:
+            sit_pl = sit.get_player()
+            if not sit_pl is None:
+                if sit_pl.connected:
+                    count += 1
+
+        if count >= 2:
+            self.add_func_id_dict(func_timer_id, True)
+            
+            thread_timer = Thread(target=self.start_timer, args=[func_timer_id])
+            thread_timer.start()
+
+        else:
+            self.add_func_id_dict(func_timer_id, False)
+
+
+
+
+
 
     def sit_up(self,conn):
         player = self.get_player_by_conn(conn)
@@ -362,7 +389,18 @@ class Lobby :
 
             self.sits_infos_edited() # on édite seulement s'il se produit un changement.
 
+    def start_timer (self,func_id):
+        is_continue = self.func_id_dict_object_by_key(func_id)
+        start_time = time.time()
 
+        while self.timer > 0 and is_continue:
+            is_continue = self.func_id_dict_object_by_key(func_id)
+        
+            timer = 20 - (time.time() - start_time)
+            print(timer)
+
+        if is_continue:
+            print("GAME COMMENCEE")  # PROTOCOLE LANCEMENT DE GAME 
 
     def create_player(self,pseudo : str, conn : socket, is_alive : bool, bank : int, address, hand = None):
 
