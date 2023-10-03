@@ -177,7 +177,7 @@ if __name__ == "__main__":
     Global_objects.auto_arrived_sits = None
     # Initialisation de la référence du client actuel
     Global_objects.client_actuel = None
-    # Pour savoir qui a la parole (= entier qui est le numéro du siège qui a la parole)
+    # Pour savoir qui a la parole (= entier qui est le numéro du siège qui a la parole) (sur 1 pour l'instant pour faire les tests)
     Global_objects.parole = 1
 
     # Gameloop

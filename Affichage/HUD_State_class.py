@@ -650,6 +650,7 @@ class HUD_State:
 
         # Affichage de la zone qui comportera les actions du joueur
         # Boutons d'actions
+        # On rend les boutons interagissables en fonction de si le siège sur lequel le joueur est assis et le siège qui posséde la parole ou non
         if Global_objects.parole == Global_objects.client_actuel:
             Global_objects.checkbutton.button_interactible = True
             Global_objects.callbutton.button_interactible = True
@@ -660,6 +661,7 @@ class HUD_State:
             Global_objects.callbutton.button_interactible = False
             Global_objects.foldbutton.button_interactible = False
             Global_objects.raisebutton.button_interactible = False
+        # On dessine les boutons
         Global_objects.checkbutton.draw()
         Global_objects.callbutton.draw()
         Global_objects.foldbutton.draw()
