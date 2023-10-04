@@ -23,11 +23,13 @@ if __name__ == "__main__":
     screen_info = pygame.display.Info()
     screen_width = screen_info.current_w
     screen_height = screen_info.current_h
-    screen = pygame.display.set_mode((screen_width, screen_height), pygame.FULLSCREEN)
+    screen = pygame.display.set_mode((1000, 800), pygame.RESIZABLE)
     largeur_actuelle = screen.get_width()
     hauteur_actuelle = screen.get_height()
+    saved_largeur = largeur_actuelle
+    saved_hauteur = hauteur_actuelle
     # Nom de la fenêtre
-    pygame.display.set_caption("Menu Jeu Poker")
+    pygame.display.set_caption("MWTE Poker")
     clock = pygame.time.Clock()
 
     # On initialise current_folder pour faciliter la manipulation des chemins d'accès
@@ -184,6 +186,11 @@ if __name__ == "__main__":
     while True:
         largeur_actuelle = screen.get_width()
         hauteur_actuelle = screen.get_height()
+        # Changer tous les objets pour qu'ils aient la bonne taille
+        if largeur_actuelle != saved_largeur or hauteur_actuelle != saved_hauteur:
+            pass
+        saved_largeur = largeur_actuelle
+        saved_hauteur = hauteur_actuelle
         # Chargement de la musique de fond et mise en boucle
         pygame.mixer.music.set_volume(Global_objects.volume_music)
         if pygame.mixer.music.get_busy() != True:
