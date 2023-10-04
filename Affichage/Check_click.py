@@ -276,6 +276,7 @@ def check_click(Button):
             case "sit up":
                 sit_up(Global_objects.client_socket)
                 Global_objects.is_selecting_sit[0] = True
+                Global_objects.client_actuel = 0
             # Lorsque l'on clique sur le bouton check
             case "check":
                 pass
