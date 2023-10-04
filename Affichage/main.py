@@ -23,7 +23,7 @@ if __name__ == "__main__":
     screen_info = pygame.display.Info()
     screen_width = screen_info.current_w
     screen_height = screen_info.current_h
-    screen = pygame.display.set_mode((1000, 800), pygame.RESIZABLE)
+    screen = pygame.display.set_mode((screen_width, screen_height), pygame.FULLSCREEN)
     largeur_actuelle = screen.get_width()
     hauteur_actuelle = screen.get_height()
     saved_largeur = largeur_actuelle
