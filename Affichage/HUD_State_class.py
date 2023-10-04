@@ -219,9 +219,9 @@ class HUD_State:
                             Global_objects.game_state.back_pile = []
                             Global_objects.game_state.state = "Game Menu"
                             Global_objects.is_selecting_sit[0] = True
-                            # Attributions à changer plus tard, elles devront être attribuées par le serveur
                             self.round_started = False
-                            self.timer[1] = time.time()
+                            self.timer = [20, time.time()]
+                            Global_objects.parole = 1
                         except:
                             self.error[0] = True
                             self.error[1] = time.time()
@@ -618,6 +618,7 @@ class HUD_State:
                 self.timer[0] = 20 - (time.time() - self.timer[1])
             elif self.timer[0] <= 0:
                 self.round_started = True
+                self.timer = [15, time.time()]
         # Affichage du nombre de joueurs présents sur le nombre de joueurs max
             try:
                 gui_font = pygame.font.SysFont("Roboto", width_scale(60, self.largeur_actuelle))
@@ -647,6 +648,19 @@ class HUD_State:
         text_surf = gui_font.render(f"x", True, "#FFFFFF")
         text_rect = text_surf.get_rect(center = (pot_surface.centerx, pot_surface.centery))
         self.screen.blit(text_surf, text_rect)
+
+        # Boucle pour calculer le timer de chaque joueur pour prendre une décision 
+        if self.round_started is True:
+            if self.timer[0] > 0:
+                self.timer[0] = 15 - (time.time() - self.timer[1])
+            elif self.timer[0] <= 0:
+                Global_objects.parole += 1
+                if Global_objects.parole > len(Global_objects.previewlobbys.players):
+                    Global_objects.parole = 1
+                self.timer = [15, time.time()]
+            gui_font = pygame.font.SysFont("Roboto", width_scale(40, self.largeur_actuelle))
+            text_surf = gui_font.render(f"Parole à la chaise : {Global_objects.parole} ({round(self.timer[0], 1)})", True, "#FFFFFF")
+            self.screen.blit(text_surf, (width_scale(800, self.largeur_actuelle), height_scale(20, self.hauteur_actuelle)))
 
         # Affichage de la zone qui comportera les actions du joueur
         # Boutons d'actions

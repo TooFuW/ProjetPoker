@@ -180,10 +180,9 @@ def check_click(Button):
                     Global_objects.game_state.back_pile = []
                     Global_objects.game_state.state = "Game Menu"
                     Global_objects.is_selecting_sit[0] = True
-                    # Attributions à changer plus tard, elles devront être attribuées par le serveur
                     Global_objects.game_state.round_started = False
-                    Global_objects.game_state.timer[0] = 20
-                    Global_objects.game_state.timer[1] = time.time()
+                    Global_objects.game_state.timer = [20, time.time()]
+                    Global_objects.parole = 1
                 except:
                     Global_objects.game_state.error[0] = True
                     Global_objects.game_state.error[1] = time.time()
