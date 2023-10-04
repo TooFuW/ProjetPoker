@@ -27,6 +27,7 @@ class Lobby :
         self.players_ids = []
         self.game : Game = None
         self.timer = 20
+        self.is_continue_timer = False
 
         self.sits_number = capacity
         self.sits = new_sits(self.sits_number)
@@ -57,7 +58,7 @@ class Lobby :
         print(f"\nLobby waiting for connections on {self.host}:{self.port}")
 
         listen_connections = Thread(target=self.listen_connections, args=[])
-        listen_state = Thread(target=self.listen_state)
+        #listen_state = Thread(target=self.listen_state)
         
         listen_connections.start()
         #listen_state.start()
@@ -293,6 +294,7 @@ class Lobby :
                         
                             self.sits_infos_edited()
 
+
                         else:
                             print("siege occupé")
                             # siège occupé
@@ -389,18 +391,32 @@ class Lobby :
 
             self.sits_infos_edited() # on édite seulement s'il se produit un changement.
 
-    def start_timer (self,func_id):
-        is_continue = self.func_id_dict_object_by_key(func_id)
-        start_time = time.time()
-
-        while self.timer > 0 and is_continue:
-            is_continue = self.func_id_dict_object_by_key(func_id)
+    def start_timer (self):
         
-            timer = 20 - (time.time() - start_time)
-            print(timer)
+        start_time = time.time()
+        timer = 20
 
-        if is_continue:
-            print("GAME COMMENCEE")  # PROTOCOLE LANCEMENT DE GAME 
+        while timer > 0 and self.is_continue_timer:
+            
+            if len([pl.get_player() for pl in self.sits if pl.get_player() != None]) >= 2:
+
+                time.sleep(1)
+                timer -= 1
+                print(timer)
+
+            else:
+
+                self.is_continue_timer = False
+
+
+        if self.is_continue_timer:
+            print("GAME COMMENCE")  # PROTOCOLE LANCEMENT DE GAME 
+        else:
+            print("timer arreté")
+
+    def stop_timer(self):
+        self.is_continue_timer = False
+
 
     def create_player(self,pseudo : str, conn : socket, is_alive : bool, bank : int, address, hand = None):
 
@@ -606,6 +622,10 @@ class Lobby :
         return address in [player.get_address() for player in self.players]
         
     def sits_infos_edited(self):
+
+        print("protocole timer") # on applique le protocole du timer
+        self.timer_protocol()
+
         for pl in self.players:
             conn = pl.get_conn()
             thread_send_sits_infos = Thread(target=self.send_sits_infos, args=[conn])
@@ -625,6 +645,17 @@ class Lobby :
         conn.close()
         write_refused_connection(address)
 
+    def timer_protocol(self):
+        if len([pl.get_player() for pl in self.sits if pl.get_player() != None]) >= 2: # on regarde si au moins 2 joueurs assis
+            print("le timer peut commencer")
+            self.is_continue_timer = True
+            thread_timer = Thread(target=self.start_timer)
+            thread_timer.start()
+
+        else:
+            print("pas assez de joueurs pour commencer")
+            self.is_continue_timer = False
+
 
     def on_player_deconnect(self,player : Player):
         print("deconnexion de : ",player)
@@ -634,7 +665,8 @@ class Lobby :
         #self.players.remove(player) # on le supprime de la liste des joueurs 
 
         print(self.players)
-
+        print("protocole timer")
+        self.timer_protocol()
         if not self.is_round_started():
             print("on lève le player : ",player)
             self.sit_up(player.get_conn()) #si aucun round n'est lancé, on lève le joueur.

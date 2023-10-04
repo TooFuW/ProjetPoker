@@ -79,3 +79,27 @@
 ('127.0.0.1', 47482) : accepted connection at 2023-10-02 04:21:36.075886
 ('127.0.0.1', 47493) : accepted connection at 2023-10-02 04:22:24.663727
 >>>>>>> c0ab4ce199e847e34301fb9d0ea875d43ee4379b
+('127.0.0.1', 60124) : accepted connection at 2023-10-04 00:20:00.006907
+('127.0.0.1', 60126) : connection accepted in lobby 134433 at 2023-10-04 00:20:03.582323
+('127.0.0.1', 60128) : accepted connection at 2023-10-04 00:20:16.435764
+('127.0.0.1', 60362) : accepted connection at 2023-10-04 00:32:50.439515
+('127.0.0.1', 60366) : connection accepted in lobby 876458 at 2023-10-04 00:32:54.804564
+('127.0.0.1', 60380) : accepted connection at 2023-10-04 00:33:56.564254
+('127.0.0.1', 60384) : accepted connection at 2023-10-04 00:34:10.347637
+('127.0.0.1', 60385) : connection accepted in lobby 876458 at 2023-10-04 00:34:13.252353
+('127.0.0.1', 60388) : connection accepted in lobby 876458 at 2023-10-04 00:34:21.934781
+('127.0.0.1', 60437) : accepted connection at 2023-10-04 00:37:10.917640
+('127.0.0.1', 60441) : accepted connection at 2023-10-04 00:37:26.522834
+('127.0.0.1', 60442) : connection accepted in lobby 202903 at 2023-10-04 00:37:32.858770
+('127.0.0.1', 60444) : connection accepted in lobby 202903 at 2023-10-04 00:37:36.666513
+('127.0.0.1', 56492) : accepted connection at 2023-10-04 01:10:31.923707
+('127.0.0.1', 56509) : accepted connection at 2023-10-04 01:11:00.864765
+('127.0.0.1', 56511) : connection accepted in lobby 640320 at 2023-10-04 01:11:08.808953
+('127.0.0.1', 56513) : connection accepted in lobby 640320 at 2023-10-04 01:11:13.502134
+('127.0.0.1', 56587) : accepted connection at 2023-10-04 01:14:38.500801
+('127.0.0.1', 56590) : accepted connection at 2023-10-04 01:14:52.326684
+('127.0.0.1', 56594) : connection accepted in lobby 569328 at 2023-10-04 01:15:04.504582
+('127.0.0.1', 56598) : connection accepted in lobby 569328 at 2023-10-04 01:15:09.233462
+('127.0.0.1', 56612) : accepted connection at 2023-10-04 01:15:48.446551
+('127.0.0.1', 56613) : connection accepted in lobby 569328 at 2023-10-04 01:15:50.822898
+('127.0.0.1', 56649) : accepted connection at 2023-10-04 01:16:58.086512
