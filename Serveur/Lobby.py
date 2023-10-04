@@ -28,6 +28,7 @@ class Lobby :
         self.game : Game = None
         self.timer = 20
         self.is_continue_timer = False
+        self.timer_running = False
 
         self.sits_number = capacity
         self.sits = new_sits(self.sits_number)
@@ -58,11 +59,7 @@ class Lobby :
         print(f"\nLobby waiting for connections on {self.host}:{self.port}")
 
         listen_connections = Thread(target=self.listen_connections, args=[])
-<<<<<<< HEAD
         #listen_state = Thread(target=self.listen_state)
-=======
-        listen_state = Thread(target=self.listen_connections)
->>>>>>> f7cb56a835909ddb23702dab0bfe90a0d7086afc
         
         listen_connections.start()
         #listen_state.start()
@@ -397,26 +394,32 @@ class Lobby :
 
     def start_timer (self):
         
-        start_time = time.time()
         timer = 20
+        if not self.timer_running:
 
-        while timer > 0 and self.is_continue_timer:
-            
-            if len([pl.get_player() for pl in self.sits if pl.get_player() != None]) >= 2:
+            self.timer_running = True
 
-                time.sleep(1)
-                timer -= 1
-                print(timer)
+            while timer > 0 and self.is_continue_timer:
+                
+                if len([pl.get_player() for pl in self.sits if pl.get_player() != None]) >= 2:
 
+                    time.sleep(1)
+                    timer -= 1
+                    print(timer)
+
+                else:
+
+                    self.is_continue_timer = False
+
+            self.timer_running = False
+
+            if self.is_continue_timer:
+                print("GAME COMMENCE")  # PROTOCOLE LANCEMENT DE GAME 
             else:
+                print("timer arreté")
 
-                self.is_continue_timer = False
-
-
-        if self.is_continue_timer:
-            print("GAME COMMENCE")  # PROTOCOLE LANCEMENT DE GAME 
         else:
-            print("timer arreté")
+            print("le timer est déja lancé ailleurs")# le timer est déja lancé ailleurs
 
     def stop_timer(self):
         self.is_continue_timer = False
@@ -626,9 +629,12 @@ class Lobby :
         return address in [player.get_address() for player in self.players]
         
     def sits_infos_edited(self):
-
-        print("protocole timer") # on applique le protocole du timer
-        self.timer_protocol()
+        
+        if not self.timer_running:
+            print("protocole timer") # on applique le protocole du timer
+            self.timer_protocol()
+        else:
+            print("timer already running")
 
         for pl in self.players:
             conn = pl.get_conn()
