@@ -58,7 +58,11 @@ class Lobby :
         print(f"\nLobby waiting for connections on {self.host}:{self.port}")
 
         listen_connections = Thread(target=self.listen_connections, args=[])
+<<<<<<< HEAD
         #listen_state = Thread(target=self.listen_state)
+=======
+        listen_state = Thread(target=self.listen_connections)
+>>>>>>> f7cb56a835909ddb23702dab0bfe90a0d7086afc
         
         listen_connections.start()
         #listen_state.start()

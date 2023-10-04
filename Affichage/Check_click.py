@@ -226,42 +226,52 @@ def check_click(Button):
                 Global_objects.is_selecting_sit[1] = 0
                 sit_down(Global_objects.client_socket, 0)
                 Global_objects.is_selecting_sit = [False, -1]
+                Global_objects.client_actuel = 1
             case "sit 2":
                 Global_objects.is_selecting_sit[1] = 1
                 sit_down(Global_objects.client_socket, 1)
                 Global_objects.is_selecting_sit = [False, -1]
+                Global_objects.client_actuel = 2
             case "sit 3":
                 Global_objects.is_selecting_sit[1] = 2
                 sit_down(Global_objects.client_socket, 2)
                 Global_objects.is_selecting_sit = [False, -1]
+                Global_objects.client_actuel = 3
             case "sit 4":
                 Global_objects.is_selecting_sit[1] = 3
                 sit_down(Global_objects.client_socket, 3)
                 Global_objects.is_selecting_sit = [False, -1]
+                Global_objects.client_actuel = 4
             case "sit 5":
                 Global_objects.is_selecting_sit[1] = 4
                 sit_down(Global_objects.client_socket, 4)
                 Global_objects.is_selecting_sit = [False, -1]
+                Global_objects.client_actuel = 5
             case "sit 6":
                 Global_objects.is_selecting_sit[1] = 5
                 sit_down(Global_objects.client_socket, 5)
                 Global_objects.is_selecting_sit = [False, -1]
+                Global_objects.client_actuel = 6
             case "sit 7":
                 Global_objects.is_selecting_sit[1] = 6
                 sit_down(Global_objects.client_socket, 6)
                 Global_objects.is_selecting_sit = [False, -1]
+                Global_objects.client_actuel = 7
             case "sit 8":
                 Global_objects.is_selecting_sit[1] = 7
                 sit_down(Global_objects.client_socket, 7)
                 Global_objects.is_selecting_sit = [False, -1]
+                Global_objects.client_actuel = 8
             case "sit 9":
                 Global_objects.is_selecting_sit[1] = 8
                 sit_down(Global_objects.client_socket, 8)
                 Global_objects.is_selecting_sit = [False, -1]
+                Global_objects.client_actuel = 9
             case "sit 10":
                 Global_objects.is_selecting_sit[1] = 9
                 sit_down(Global_objects.client_socket, 9)
                 Global_objects.is_selecting_sit = [False, -1]
+                Global_objects.client_actuel = 10
             # Lorsque le bouton pour se lever est cliqué
             case "sit up":
                 sit_up(Global_objects.client_socket)

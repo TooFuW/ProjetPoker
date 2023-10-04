@@ -174,11 +174,11 @@ if __name__ == "__main__":
     # Initialisation du dictionnaire global qui permettra aux paquets de correspondre avec la fonction qui l'appelle
     Global_objects.func_id_dict = {}
     # Initialisation des sièges arrivés automatiquement
-    Global_objects.auto_arrived_sits = None
+    Global_objects.auto_arrived_sits = []
     # Initialisation de la référence du client actuel
-    Global_objects.client_actuel = None
-    # Pour savoir qui a la parole
-    Global_objects.parole = 0
+    Global_objects.client_actuel = 0
+    # Pour savoir qui a la parole (= entier qui est le numéro du siège qui a la parole) (sur 1 pour l'instant pour faire les tests)
+    Global_objects.parole = 1
 
     # Gameloop
     while True:
