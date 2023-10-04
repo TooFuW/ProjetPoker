@@ -276,6 +276,18 @@ def check_click(Button):
             case "sit up":
                 sit_up(Global_objects.client_socket)
                 Global_objects.is_selecting_sit[0] = True
+            # Lorsque l'on clique sur le bouton check
+            case "check":
+                pass
+            # Lorsque l'on clique sur le bouton call
+            case "call":
+                pass
+            # Lorsque l'on clique sur le bouton fold
+            case "fold":
+                pass
+            # Lorsque l'on clique sur le bouton raise
+            case "raise":
+                pass
     # Cas des boutons non affectés par Global_objects.buttons_interactibles
     match Button.fonction:
         # Lorsque le joueur confirme qu'il veut quitter
