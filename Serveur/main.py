@@ -196,7 +196,9 @@ class Main:
         conn.close()
 
     def create_lobby(self, name : str, capacity : int, cave : int, is_private : bool, host : str):
+        
         try:
+
             # conditions vérification paramètres ...
             id_new_lobby = randint(100000,999999)
             while id_new_lobby in self.lobby_ids:
@@ -205,7 +207,9 @@ class Main:
             return Lobby(id_new_lobby,name,capacity,cave,is_private,host,self.next_lobby_port())
         
         except TypeError:
+
             raise TypeError
+        
         
     def next_lobby_port(self):
         new_port = self.lobbys_ports[self.port_id]

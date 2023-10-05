@@ -9,6 +9,7 @@ from packet_separator import packet_separator
 from typing import List
 import time
 from Log import *
+from Pot import Pot
 
 
 class Lobby :
@@ -20,13 +21,14 @@ class Lobby :
 
     """
     def __init__(self,id : int, name : str,  capacity : int, cave : int, is_private : bool, host : str,port : int) -> None:
+
         self.players : List[Player] = []
         self.threads : List[Thread] = []
+        self.pots : List[Pot] = []
         self.lobby_on = False
         self.is_game_starting = False
         self.players_ids = []
         self.game : Game = None
-        self.timer = 20
         self.is_continue_timer = False
         self.timer_running = False
 
@@ -352,6 +354,12 @@ class Lobby :
             print(el)
 
 
+    def broadcast_packet(self,packet : str):
+        for pl in self.players:
+            thread_send_packet = Thread(target=self.send_packet, args=(packet,pl.get_conn()))
+            thread_send_packet.start()
+
+
     def check_players_state(self):
         func_timer_id = self.new_func_id_dict_number()
       
@@ -398,6 +406,9 @@ class Lobby :
         if not self.timer_running:
 
             self.timer_running = True
+
+            thread_start_timer = Thread(target=self.broadcast_packet,args=['start_timer=20'])
+            thread_start_timer.start()
 
             while timer > 0 and self.is_continue_timer:
                 

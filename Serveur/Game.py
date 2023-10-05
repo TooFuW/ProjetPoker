@@ -49,6 +49,7 @@ class Game:
     def stop_round(self):
         # Arrête le round en cours.
         pass
+    
 
     def print_sits(self):
         for sit in self.sits:
@@ -91,6 +92,7 @@ class Game:
             print("Erreur dans Game.buy_in : ",e)
 
     def new_dealer(self) -> Player:
+
         """passe au dealer suivant. incrémente à son appel le dealer index va s'incrémenter de 1 et prendre sa valeur modulo len(self.players) ce qui a
         pour effet de passer au suivant peu importe la taille de la liste
 

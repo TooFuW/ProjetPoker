@@ -305,6 +305,13 @@ def manage_data(conn : socket, packet : str):
             case "refused-connection":
                 print("Serveur indique : ",body)
 
+            case "start_timer":
+
+                ''' ICI ON RECOIT LE PAQUET START_TIMER'''
+
+                Global_objects.game_state.timer[2] = True
+                temps_timer = body
+
 
     except Exception as e:
         print("Erreur sur network.manage_data : ",e)

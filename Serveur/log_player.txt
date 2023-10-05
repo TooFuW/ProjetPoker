@@ -1,6 +1,6 @@
 Tout les états d'un joueur:
     état du joueur:
-    -ne peut pas parler (le joueur ne peut rien faire)
+    -folded (le joueur ne peut rien faire)
     -a parlé (le joueur a effectuer son action et doit attendre la prochaine step avnt que sont état repasse a "peut parler")
     -peut parler (ce n'est pas encore le tour du joueur mais il aura la possibilité de parler quand ce sera son tour)
     -doit parler (lorsque c'est au tour d'un joueur qui "peut parler" il passe en "doit parler". Il peut alors effectuer ses actions)
