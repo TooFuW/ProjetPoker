@@ -312,6 +312,10 @@ def manage_data(conn : socket, packet : str):
                 Global_objects.game_state.timer[2] = True
                 temps_timer = body
 
+            case "stop_timer":
+
+                '''ICI ON RECOIT LE PAQUET D'ARRET DU SERVEUR (nb de joueurs inssuffisant pour continuer)'''
+
 
     except Exception as e:
         print("Erreur sur network.manage_data : ",e)

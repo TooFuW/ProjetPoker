@@ -428,6 +428,9 @@ class Lobby :
                 print("GAME COMMENCE")  # PROTOCOLE LANCEMENT DE GAME 
             else:
                 print("timer arreté")
+                thread_start_timer = Thread(target=self.broadcast_packet,args=['stop_timer='])
+                thread_start_timer.start()
+
 
         else:
             print("le timer est déja lancé ailleurs")# le timer est déja lancé ailleurs
