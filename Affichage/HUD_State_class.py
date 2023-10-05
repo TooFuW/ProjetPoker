@@ -605,7 +605,6 @@ class HUD_State:
 
         if self.round_started is False and self.timer[2] is True:
         # Affichage du timer avant que la partie commence
-            Global_objects.sit_upbutton.draw()
             if self.timer[0] > 0:
                 # On ne peut se lever que si la partie n'est pas encore commencée
                 gui_font = pygame.font.SysFont("Roboto", width_scale(60, self.largeur_actuelle))
@@ -621,6 +620,7 @@ class HUD_State:
                 self.timer = [15, time.time(), False]
         # Affichage du nombre de joueurs présents sur le nombre de joueurs max
         if self.round_started is False:
+            Global_objects.sit_upbutton.draw()
             try:
                 gui_font = pygame.font.SysFont("Roboto", width_scale(60, self.largeur_actuelle))
                 players = 0

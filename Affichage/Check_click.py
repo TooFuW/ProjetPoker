@@ -97,15 +97,11 @@ def check_click(Button):
                     Global_objects.accountsettingsbutton.account_modifiable = True
             # Lorsqu'un bouton de serveur est cliqué
             case "server":
-                if Global_objects.game_state.state == "Lobby Menu":
-                    Global_objects.game_state.server_test = Button.text
-                    Global_objects.game_state.table_selected = Button.text.split("          ")
-                    try:
-                        lobby_id = int(Global_objects.game_state.table_selected[-1])
-                        Global_objects.previewlobbys.players = ask_sits_infos(Global_objects.client_socket,lobby_id)
-                    except:
-                        pass
-                    time.sleep(0.1)
+                Global_objects.game_state.server_test = Button.text
+                Global_objects.game_state.table_selected = Button.text.split("          ")
+                lobby_id = int(Global_objects.game_state.table_selected[-1])
+                Global_objects.previewlobbys.players = ask_sits_infos(Global_objects.client_socket,lobby_id)
+                time.sleep(0.1)
             # Lorsque le bouton JOIN est cliqué pour rejoindre la table sélectionnée et transmettre les infos nécessaires
             case "join table":
                 try:
