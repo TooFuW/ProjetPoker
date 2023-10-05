@@ -181,7 +181,7 @@ def check_click(Button):
                     Global_objects.game_state.state = "Game Menu"
                     Global_objects.is_selecting_sit[0] = True
                     Global_objects.game_state.round_started = False
-                    Global_objects.game_state.timer = [20, time.time()]
+                    Global_objects.game_state.timer[1] = time.time()
                     Global_objects.parole = 1
                 except:
                     Global_objects.game_state.error[0] = True
@@ -292,6 +292,8 @@ def check_click(Button):
     match Button.fonction:
         # Lorsque le joueur confirme qu'il veut quitter
         case "yes":
+            sit_up(Global_objects.client_socket)
+            Global_objects.client_actuel = 0
             Global_objects.game_state.state = "Main Menu"
             go_main(Global_objects.client_socket)
             Global_objects.game_state.confirmation = False

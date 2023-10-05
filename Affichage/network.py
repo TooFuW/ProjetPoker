@@ -310,11 +310,14 @@ def manage_data(conn : socket, packet : str):
                 ''' ICI ON RECOIT LE PAQUET START_TIMER'''
 
                 Global_objects.game_state.timer[2] = True
-                temps_timer = body
+                Global_objects.game_state.timer[1] = time.time()
+                Global_objects.game_state.timer[0] = int(body)
 
             case "stop_timer":
 
                 '''ICI ON RECOIT LE PAQUET D'ARRET DU SERVEUR (nb de joueurs inssuffisant pour continuer)'''
+                Global_objects.game_state.timer[2] = False
+                Global_objects.game_state.timer[0] = 20
 
 
     except Exception as e:
