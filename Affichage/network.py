@@ -310,7 +310,7 @@ def manage_data(conn : socket, packet : str):
                 ''' ICI ON RECOIT LE PAQUET START_TIMER'''
 
                 Global_objects.game_state.timer[2] = True
-                temps_timer = body
+                Global_objects.game_state.timer[0] = int(body)
 
 
     except Exception as e:

@@ -67,7 +67,7 @@ class HUD_State:
         # Savoir si on affiche un message de confirmation
         self.confirmation = False
         # Timer de début de la partie
-        self.timer = [20, 0] # Attribution à changer plus tard, elle devra être attribuée par le serveur
+        self.timer = [None, 0, False] # Attribution à changer plus tard, elle devra être attribuée par le serveur
         self.round_started = False # Attribution à changer plus tard, elle devra être attribuée par le serveur
     
     def mainmenu(self):
@@ -220,7 +220,7 @@ class HUD_State:
                             Global_objects.game_state.state = "Game Menu"
                             Global_objects.is_selecting_sit[0] = True
                             self.round_started = False
-                            self.timer = [20, time.time()]
+                            self.timer[1] = time.time()
                             Global_objects.parole = 1
                         except:
                             self.error[0] = True
@@ -603,26 +603,24 @@ class HUD_State:
         text_surf = gui_font.render(self.server_test, True, "#FFFFFF")
         self.screen.blit(text_surf, (width_scale(550, self.largeur_actuelle), height_scale(200, self.hauteur_actuelle)))
 
-        if self.round_started is False:
+        if self.round_started is False and self.timer[2] is True:
         # Affichage du timer avant que la partie commence
             Global_objects.sit_upbutton.draw()
-            try:
-                if self.timer[0] > 0:
-                    # On ne peut se lever que si la partie n'est pas encore commencée
-                    gui_font = pygame.font.SysFont("Roboto", width_scale(60, self.largeur_actuelle))
-                    if self.timer[0] > 5:
-                        text_surf = gui_font.render(f"{round(self.timer[0])}", True, "#FFFFFF")
-                    else:
-                        text_surf = gui_font.render(f"{round(self.timer[0], 1)}", True, "#FFFFFF")
-                    text_rect = text_surf.get_rect(center = (self.largeur_actuelle//2 - width_scale(100, self.largeur_actuelle), height_scale(30, self.hauteur_actuelle)))
-                    self.screen.blit(text_surf, text_rect)
-                    self.timer[0] = 20 - (time.time() - self.timer[1])
-                elif self.timer[0] <= 0:
-                    self.round_started = True
-                    self.timer = [15, time.time()]
-            except:
-                pass
+            if self.timer[0] > 0:
+                # On ne peut se lever que si la partie n'est pas encore commencée
+                gui_font = pygame.font.SysFont("Roboto", width_scale(60, self.largeur_actuelle))
+                if self.timer[0] > 5:
+                    text_surf = gui_font.render(f"{round(self.timer[0])}", True, "#FFFFFF")
+                else:
+                    text_surf = gui_font.render(f"{round(self.timer[0], 1)}", True, "#FFFFFF")
+                text_rect = text_surf.get_rect(center = (self.largeur_actuelle//2 - width_scale(100, self.largeur_actuelle), height_scale(30, self.hauteur_actuelle)))
+                self.screen.blit(text_surf, text_rect)
+                self.timer[0] = 20 - (time.time() - self.timer[1])
+            elif self.timer[0] <= 0:
+                self.round_started = True
+                self.timer = [15, time.time()]
         # Affichage du nombre de joueurs présents sur le nombre de joueurs max
+        if self.round_started is False:
             try:
                 gui_font = pygame.font.SysFont("Roboto", width_scale(60, self.largeur_actuelle))
                 players = 0
