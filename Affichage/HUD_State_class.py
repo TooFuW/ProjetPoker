@@ -618,7 +618,7 @@ class HUD_State:
                 self.timer[0] = 20 - (time.time() - self.timer[1])
             elif self.timer[0] <= 0:
                 self.round_started = True
-                self.timer = [15, time.time()]
+                self.timer = [15, time.time(), False]
         # Affichage du nombre de joueurs présents sur le nombre de joueurs max
         if self.round_started is False:
             try:
@@ -658,7 +658,7 @@ class HUD_State:
                 Global_objects.parole += 1
                 if Global_objects.parole > len(Global_objects.previewlobbys.players):
                     Global_objects.parole = 1
-                self.timer = [15, time.time()]
+                self.timer = [15, time.time(), False]
             gui_font = pygame.font.SysFont("Roboto", width_scale(40, self.largeur_actuelle))
             text_surf = gui_font.render(f"Parole à la chaise : {Global_objects.parole} ({round(self.timer[0], 1)})", True, "#FFFFFF")
             self.screen.blit(text_surf, (width_scale(800, self.largeur_actuelle), height_scale(20, self.hauteur_actuelle)))

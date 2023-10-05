@@ -213,3 +213,43 @@
 ('127.0.0.1', 3287) : connection accepted in lobby 764959 at 2023-10-05 04:51:13.821303
 ('127.0.0.1', 3289) : accepted connection at 2023-10-05 04:51:21.632962
 ('127.0.0.1', 3290) : accepted connection at 2023-10-05 04:51:24.409757
+('127.0.0.1', 3351) : accepted connection at 2023-10-05 04:54:51.741561
+('127.0.0.1', 3377) : accepted connection at 2023-10-05 04:55:06.276709
+('127.0.0.1', 3379) : connection accepted in lobby 336670 at 2023-10-05 04:55:14.953664
+('127.0.0.1', 3381) : connection accepted in lobby 336670 at 2023-10-05 04:55:25.254328
+('127.0.0.1', 3382) : accepted connection at 2023-10-05 04:55:37.150537
+('127.0.0.1', 3401) : accepted connection at 2023-10-05 04:56:49.640300
+('127.0.0.1', 3402) : accepted connection at 2023-10-05 04:56:51.239260
+('127.0.0.1', 3404) : connection accepted in lobby 192543 at 2023-10-05 04:57:00.497797
+('127.0.0.1', 3412) : connection accepted in lobby 192543 at 2023-10-05 04:57:17.317549
+('127.0.0.1', 3421) : accepted connection at 2023-10-05 04:57:31.872063
+('127.0.0.1', 3428) : accepted connection at 2023-10-05 04:57:53.573263
+('127.0.0.1', 3429) : connection accepted in lobby 152716 at 2023-10-05 04:58:00.130525
+('127.0.0.1', 3448) : accepted connection at 2023-10-05 04:59:57.167173
+('127.0.0.1', 3450) : accepted connection at 2023-10-05 04:59:59.493373
+('127.0.0.1', 3455) : connection accepted in lobby 764959 at 2023-10-05 05:00:09.186866
+('127.0.0.1', 3458) : accepted connection at 2023-10-05 05:00:12.384894
+('127.0.0.1', 3465) : accepted connection at 2023-10-05 05:01:06.246813
+('127.0.0.1', 3477) : accepted connection at 2023-10-05 05:01:35.793354
+('127.0.0.1', 3485) : accepted connection at 2023-10-05 05:01:47.010188
+('127.0.0.1', 3489) : connection accepted in lobby 921608 at 2023-10-05 05:02:01.761071
+('127.0.0.1', 3492) : connection accepted in lobby 921608 at 2023-10-05 05:02:09.700738
+('127.0.0.1', 3493) : accepted connection at 2023-10-05 05:02:34.349278
+('127.0.0.1', 3502) : accepted connection at 2023-10-05 05:03:30.711462
+('127.0.0.1', 3510) : accepted connection at 2023-10-05 05:03:44.709947
+('127.0.0.1', 3511) : connection accepted in lobby 921608 at 2023-10-05 05:03:50.767021
+('127.0.0.1', 3515) : connection accepted in lobby 921608 at 2023-10-05 05:04:00.066962
+('127.0.0.1', 3520) : accepted connection at 2023-10-05 05:04:23.590434
+('127.0.0.1', 3521) : accepted connection at 2023-10-05 05:04:27.232551
+('127.0.0.1', 3545) : accepted connection at 2023-10-05 05:07:33.537871
+('127.0.0.1', 3547) : accepted connection at 2023-10-05 05:07:36.231257
+('127.0.0.1', 3579) : accepted connection at 2023-10-05 05:09:40.187774
+('127.0.0.1', 3585) : accepted connection at 2023-10-05 05:09:51.803083
+('127.0.0.1', 3587) : connection accepted in lobby 914399 at 2023-10-05 05:09:56.789731
+('127.0.0.1', 3589) : connection accepted in lobby 914399 at 2023-10-05 05:10:04.037753
+('127.0.0.1', 3594) : accepted connection at 2023-10-05 05:10:17.736428
+('127.0.0.1', 3595) : connection accepted in lobby 914399 at 2023-10-05 05:10:21.611240
+('127.0.0.1', 3596) : accepted connection at 2023-10-05 05:10:34.343063
+('127.0.0.1', 3597) : connection accepted in lobby 914399 at 2023-10-05 05:10:37.743708
+('127.0.0.1', 3598) : accepted connection at 2023-10-05 05:11:02.743726
+('127.0.0.1', 3600) : connection accepted in lobby 914399 at 2023-10-05 05:11:06.526716

@@ -292,6 +292,8 @@ def check_click(Button):
     match Button.fonction:
         # Lorsque le joueur confirme qu'il veut quitter
         case "yes":
+            sit_up(Global_objects.client_socket)
+            Global_objects.client_actuel = 0
             Global_objects.game_state.state = "Main Menu"
             go_main(Global_objects.client_socket)
             Global_objects.game_state.confirmation = False
