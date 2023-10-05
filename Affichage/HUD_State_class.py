@@ -606,19 +606,22 @@ class HUD_State:
         if self.round_started is False:
         # Affichage du timer avant que la partie commence
             Global_objects.sit_upbutton.draw()
-            if self.timer[0] > 0:
-                # On ne peut se lever que si la partie n'est pas encore commencée
-                gui_font = pygame.font.SysFont("Roboto", width_scale(60, self.largeur_actuelle))
-                if self.timer[0] > 5:
-                    text_surf = gui_font.render(f"{round(self.timer[0])}", True, "#FFFFFF")
-                else:
-                    text_surf = gui_font.render(f"{round(self.timer[0], 1)}", True, "#FFFFFF")
-                text_rect = text_surf.get_rect(center = (self.largeur_actuelle//2 - width_scale(100, self.largeur_actuelle), height_scale(30, self.hauteur_actuelle)))
-                self.screen.blit(text_surf, text_rect)
-                self.timer[0] = 20 - (time.time() - self.timer[1])
-            elif self.timer[0] <= 0:
-                self.round_started = True
-                self.timer = [15, time.time()]
+            try:
+                if self.timer[0] > 0:
+                    # On ne peut se lever que si la partie n'est pas encore commencée
+                    gui_font = pygame.font.SysFont("Roboto", width_scale(60, self.largeur_actuelle))
+                    if self.timer[0] > 5:
+                        text_surf = gui_font.render(f"{round(self.timer[0])}", True, "#FFFFFF")
+                    else:
+                        text_surf = gui_font.render(f"{round(self.timer[0], 1)}", True, "#FFFFFF")
+                    text_rect = text_surf.get_rect(center = (self.largeur_actuelle//2 - width_scale(100, self.largeur_actuelle), height_scale(30, self.hauteur_actuelle)))
+                    self.screen.blit(text_surf, text_rect)
+                    self.timer[0] = 20 - (time.time() - self.timer[1])
+                elif self.timer[0] <= 0:
+                    self.round_started = True
+                    self.timer = [15, time.time()]
+            except:
+                pass
         # Affichage du nombre de joueurs présents sur le nombre de joueurs max
             try:
                 gui_font = pygame.font.SysFont("Roboto", width_scale(60, self.largeur_actuelle))
