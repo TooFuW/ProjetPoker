@@ -172,13 +172,15 @@ def check_click(Button):
                         Global_objects.sit_8.player = Global_objects.previewlobbys.players[7]
                         Global_objects.sit_9.player = Global_objects.previewlobbys.players[8]
                         Global_objects.sit_10.player = Global_objects.previewlobbys.players[9]
-                    Global_objects.game_state.table_selected = None
                     Global_objects.game_state.back_pile = []
                     Global_objects.game_state.state = "Game Menu"
                     Global_objects.is_selecting_sit[0] = True
                     Global_objects.game_state.round_started = False
                     Global_objects.game_state.timer[1] = time.time()
                     Global_objects.parole = 1
+                    """lobby_id = int(Global_objects.game_state.table_selected[-1])
+                    Global_objects.auto_arrived_sits = ask_sits_infos(Global_objects.client_socket,lobby_id)
+                    print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",Global_objects.auto_arrived_sits)"""
                 except:
                     Global_objects.game_state.error[0] = True
                     Global_objects.game_state.error[1] = time.time()
@@ -288,13 +290,13 @@ def check_click(Button):
     match Button.fonction:
         # Lorsque le joueur confirme qu'il veut quitter
         case "yes":
-            sit_up(Global_objects.client_socket)
             Global_objects.client_actuel = 0
             Global_objects.game_state.state = "Main Menu"
             go_main(Global_objects.client_socket)
             Global_objects.game_state.confirmation = False
             Global_objects.is_selecting_sit = [False, -1]
             Global_objects.buttons_interactibles = True
+            Global_objects.game_state.table_selected = None
         # Lorsque le joueur ne confirme pas qu'il veut quitter
         case "no":
             Global_objects.game_state.confirmation = False
