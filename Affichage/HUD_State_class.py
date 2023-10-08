@@ -646,7 +646,7 @@ class HUD_State:
         pot_surface = self.screen.blit(pot_surface, (width_scale(940, self.largeur_actuelle), height_scale(480, self.hauteur_actuelle)))
         # On place la valeur du pot au milieu de la zone
         gui_font = pygame.font.SysFont("Roboto", width_scale(40, self.largeur_actuelle))
-        text_surf = gui_font.render(f"x", True, "#FFFFFF")
+        text_surf = gui_font.render(f"{Global_objects.pot}", True, "#FFFFFF")
         text_rect = text_surf.get_rect(center = (pot_surface.centerx, pot_surface.centery))
         self.screen.blit(text_surf, text_rect)
 
