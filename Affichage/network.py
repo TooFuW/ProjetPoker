@@ -340,8 +340,6 @@ def edit_displayed_lobbys_list(liste):
     Global_objects.displayed_lobbys_list = display_list
     print("================= Liste de preview de edit_displayed_lobbys_list()",Global_objects.displayed_lobbys_list,"======================")
     Global_objects.serverscrollbox.servers =  Global_objects.displayed_lobbys_list
-    print("IMPORTANT :")
-    print(Global_objects.displayed_lobbys_list)
 
 
 def recieve_sits_infos(liste : list,func_id : int = 0): # On gère la récéption des infos de sièges

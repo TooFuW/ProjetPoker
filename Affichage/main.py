@@ -181,6 +181,8 @@ if __name__ == "__main__":
     Global_objects.client_actuel = 0
     # Pour savoir qui a la parole (= entier qui est le numéro du siège qui a la parole) (sur 1 pour l'instant pour faire les tests)
     Global_objects.parole = 1
+    # Pot de la partie
+    Global_objects.pot = 0
 
     # Gameloop
     while True:
