@@ -126,7 +126,7 @@ if __name__ == "__main__":
 
     # Création des Scrollboxs
     # Création de l'objet serverscrollbox 
-    Global_objects.serverscrollbox = ScrollBox(largeur_actuelle, hauteur_actuelle, screen, 210, 215, 1000, 760, Global_objects.displayed_lobbys_list)
+    Global_objects.serverscrollbox = ScrollBox(largeur_actuelle, hauteur_actuelle, screen, 210, 240, 1000, 760, Global_objects.displayed_lobbys_list)
     
     # Création des TextInputBox
     # Création de l'objet tablecodeinput
