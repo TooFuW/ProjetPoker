@@ -136,6 +136,8 @@ if __name__ == "__main__":
     Global_objects.card_Ad = pygame.image.load(current_folder + "Cards\\Ad.png")
     Global_objects.card_Ah = pygame.image.load(current_folder + "Cards\\Ah.png")
     Global_objects.card_As = pygame.image.load(current_folder + "Cards\\As.png")
+    
+    Global_objects.card_Dos = pygame.image.load(current_folder + "Cards\\Dos.png")
 
     # Initialisation de la fenêtre actuelle
     Global_objects.game_state = HUD_State(largeur_actuelle, hauteur_actuelle, screen, fond, logojeu, logomwte, logomwte_rect, pdpplayer, table_fond, [iconsound_mute, iconsound_low, iconsound_mid, iconsound_max])
@@ -245,6 +247,7 @@ if __name__ == "__main__":
     Global_objects.parole = 1
     # Pot de la partie
     Global_objects.pot = 0
+    # Cartes du client
 
     # Gameloop
     while True:

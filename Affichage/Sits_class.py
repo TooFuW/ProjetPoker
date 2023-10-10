@@ -57,9 +57,13 @@ class Sits:
                         check_click(self.sit_selected)
         # Sinon on affiche directement les infos du siège
         else:
-            # On dessine les cartes du joueur
-            card1 = pygame.transform.scale(Global_objects.card_5d, (width_scale(70, self.largeur_actuelle), height_scale(110, self.hauteur_actuelle)))
-            card2 = pygame.transform.scale(Global_objects.card_Js, (width_scale(70, self.largeur_actuelle), height_scale(110, self.hauteur_actuelle)))
+            # On dessine les cartes du joueur s'il est le client sinon on met des dos de cartes
+            if Global_objects.client_actuel == self.player[0] + 1:
+                card1 = pygame.transform.scale(Global_objects.card_5d, (width_scale(70, self.largeur_actuelle), height_scale(110, self.hauteur_actuelle)))
+                card2 = pygame.transform.scale(Global_objects.card_Js, (width_scale(70, self.largeur_actuelle), height_scale(110, self.hauteur_actuelle)))
+            else:
+                card1 = pygame.transform.scale(Global_objects.card_Dos, (width_scale(70, self.largeur_actuelle), height_scale(110, self.hauteur_actuelle)))
+                card2 = pygame.transform.scale(Global_objects.card_Dos, (width_scale(70, self.largeur_actuelle), height_scale(110, self.hauteur_actuelle)))
             self.screen.blit(card1, (self.x + width_scale(40, self.largeur_actuelle), self.y - height_scale(100, self.hauteur_actuelle), width_scale(80, self.largeur_actuelle), height_scale(150, self.hauteur_actuelle)))
             self.screen.blit(card2, (self.x + width_scale(140, self.largeur_actuelle), self.y - height_scale(100, self.hauteur_actuelle), width_scale(80, self.largeur_actuelle), height_scale(150, self.hauteur_actuelle)))
             # On affiche le fond transparent du widget du siège
