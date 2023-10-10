@@ -642,11 +642,17 @@ class HUD_State:
         self.screen.blit(text_surf, (width_scale(935, self.largeur_actuelle), height_scale(445, self.hauteur_actuelle)))
         # Affichage de la zone du pot de la partie
         pot_surface = pygame.Surface((width_scale(50, self.largeur_actuelle), height_scale(50, self.hauteur_actuelle)), pygame.SRCALPHA)
-        pygame.draw.rect(pot_surface, (0, 0, 0, 128), (0, 0, width_scale(50, self.largeur_actuelle), height_scale(50, self.hauteur_actuelle)), border_radius = 100)
-        pot_surface = self.screen.blit(pot_surface, (width_scale(940, self.largeur_actuelle), height_scale(480, self.hauteur_actuelle)))
+        pygame.draw.circle(self.screen, (0, 0, 0, 128), (965, 515), 35)
+        pot_surface = self.screen.blit(pot_surface, (width_scale(940, self.largeur_actuelle), height_scale(490, self.hauteur_actuelle)))
         # On place la valeur du pot au milieu de la zone
-        gui_font = pygame.font.SysFont("Roboto", width_scale(40, self.largeur_actuelle))
-        text_surf = gui_font.render(f"{Global_objects.pot}", True, "#FFFFFF")
+        gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
+        pot_texte = ""
+        for caract in Global_objects.pot:
+            if caract.lower() == "k":
+                pot_texte += "000"
+            else:
+                pot_texte += caract
+        text_surf = gui_font.render(f"{pot_texte}", True, "#FFFFFF")
         text_rect = text_surf.get_rect(center = (pot_surface.centerx, pot_surface.centery))
         self.screen.blit(text_surf, text_rect)
 

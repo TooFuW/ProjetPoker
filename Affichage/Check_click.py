@@ -178,6 +178,7 @@ def check_click(Button):
                     Global_objects.game_state.round_started = False
                     Global_objects.game_state.timer[1] = time.time()
                     Global_objects.parole = 1
+                    Global_objects.pot = Global_objects.game_state.table_selected[3]
                     """lobby_id = int(Global_objects.game_state.table_selected[-1])
                     Global_objects.auto_arrived_sits = ask_sits_infos(Global_objects.client_socket,lobby_id)
                     print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",Global_objects.auto_arrived_sits)"""
