@@ -219,7 +219,7 @@ class Lobby :
     
 
     def manage_data(self, socket : socket, data : str,id_thread : int):
-        try:
+        try :
         
             data = packet_separator(data)
             header,body = data[0],data[1]
@@ -312,6 +312,7 @@ class Lobby :
 
                 case "sit_up":
                     self.sit_up(socket)
+                     ########### TEST GAME ###########
                             
                 case "start_game":
                     print(id(self.sits))
@@ -339,7 +340,8 @@ class Lobby :
                     print(len(self.threads), self.threads)
 
 
-        except Exception as e:
+
+        except Exception as e :
             print("Erreur dans Lobby.manage_data : ",e)
 
 
@@ -400,6 +402,7 @@ class Lobby :
 
             self.sits_infos_edited() # on édite seulement s'il se produit un changement.
 
+        
     def start_timer (self):
         
         timer = 20
@@ -472,7 +475,7 @@ class Lobby :
     def init_game(self):
         if not self.is_game_starting:
             if not self.is_game_started():
-                self.game = Game(self.sits, self.cave)
+                self.game = Game(self.sits, self.cave, self.players)
             else:
                 print("Une game est déjà en cours.")
 
@@ -686,7 +689,10 @@ class Lobby :
         
 
         player.connected = False # on set le joueur en deconnecté.
-        #self.players.remove(player) # on le supprime de la liste des joueurs 
+        try:
+            self.players.remove(player) # on le supprime de la liste des joueurs 
+        except:
+            print("joueur deconnecté pas dans self.players")
 
         print(self.players)
         print("protocole timer")

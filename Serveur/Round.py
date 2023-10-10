@@ -8,6 +8,8 @@ from typing import List
 from Sit import Sit
 from Step import Step
 from Player import Player
+from socket import *
+from threading import *
 
 class Round:
     """
@@ -101,6 +103,28 @@ class Round:
             new_hand = Hand(new_hand_list)
             player.set_hand(new_hand)
 
+    def send_hand_packet(self):
+        players =  [sit.get_player() for sit in self.sits if sit.occupied]
+        for player in players:
+            conn = player.get_conn()
+            hand = player.get_hand()
+
+            packet = f"your_cards=['{self.card_to_str_for_packet(hand.get_hand()[0])}',{self.card_to_str_for_packet(hand.get_hand()[1])}]"
+            
+            thread_send_hand = Thread(target=self.send_packet, args=[packet,conn])
+            thread_send_hand.start()
+
+            
+
+    def card_to_str_for_packet(card : Card):
+        rank = card.get_rank()
+        suit = card.get_suit()
+
+        rank_table = {"2":"2","3":"3","4":"4","5":"5","6":"6","7":"7","8":"8","9":"9","10":"t","jack":"j","queen":"q","king":"k","ace":"1"}
+        suit_table = {"club":"c","heart":"h","spade":"s","diamond":"d"}
+
+        return rank_table[rank]+suit_table[suit]
+
     def set_hand_combinations(self):
         for pl in self.players:
             pl_id = pl.get_id()
@@ -154,6 +178,49 @@ class Round:
         except Exception as e:
             print("Erreur dans Round.get_index_by_sit : ",e)
             return 
+        
+    def send_packet(self, packet : str, conn : socket):
+        try:
+            conn.send(packet.encode("utf8"))
+        except Exception as el:
+            print(el)
+
+
+    def send_sits_infos(self, conn : socket, func_id : str = ""):
+        try:
+            sits_infos = []
+            for sit in self.sits:
+                sit_infos = []
+                sit_infos.append(sit.get_sit_id())
+                if not sit.occupied:
+                    sit_infos.append(None)
+                    sits_infos.append(sit_infos)
+                    continue
+
+                sit_infos.append("'"+str(sit.get_player().get_pseudo())+"'")
+                sit_infos.append(sit.get_player().get_chips())
+                sit_infos.append("link to player account")
+
+                sits_infos.append(sit_infos)
+
+            sits_infos = str(sits_infos)+";"+func_id
+            packet = "sits_infos="+sits_infos
+
+            thread_packet_send = Thread(target=self.send_packet, args=(packet,conn))
+            thread_packet_send.start()
+
+        except Exception as e:
+            print(e)
+
+
+    def sits_infos_edited(self):
+        print("on envoie les chanhgements à tlm")
+        for pl in self.players:
+            conn = pl.get_conn()
+            thread_send_sits_infos = Thread(target=self.send_sits_infos, args=[conn])
+            thread_send_sits_infos.start()
+
+
 
 
 

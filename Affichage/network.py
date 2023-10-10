@@ -316,9 +316,13 @@ def manage_data(conn : socket, packet : str):
 
             case "stop_timer":
 
-                '''ICI ON RECOIT LE PAQUET D'ARRET DU SERVEUR (nb de joueurs inssuffisant pour continuer)'''
+                '''ICI ON RECOIT LE PAQUET D'ARRET DU TIMER (nb de joueurs inssuffisant pour continuer)'''
                 Global_objects.game_state.timer[2] = False
                 Global_objects.game_state.timer[0] = 20
+
+
+            case "your_cards":
+                '''ICI ON RECOIT LE PAQUET AVEC LES CARTES DE NOTRE MAIN SELON LA SYNTAXE INDIQUEE SUR DISCORD'''
 
 
     except Exception as e:
