@@ -71,9 +71,71 @@ if __name__ == "__main__":
     iconsound_max = pygame.image.load(current_folder + "sound_max.png")
     iconsound_max = pygame.transform.scale(iconsound_max, (width_scale(70, largeur_actuelle), height_scale(70, hauteur_actuelle)))
 
-    # On charge les images des cartes ici (sinon pygame lag car il va charger en boucle les images)
-    Global_objects.trefle_7_bleupastel = pygame.image.load(current_folder + "Cards\Bleu pastel\\7_trefle.png")
-    Global_objects.trefle_8_bleupastel = pygame.image.load(current_folder + "Cards\Bleu pastel\\8_trefle.png")
+    # On charge les images des cartes
+    Global_objects.card_2c = pygame.image.load(current_folder + "Cards\\2c.png")
+    Global_objects.card_2d = pygame.image.load(current_folder + "Cards\\2d.png")
+    Global_objects.card_2h = pygame.image.load(current_folder + "Cards\\2h.png")
+    Global_objects.card_2s = pygame.image.load(current_folder + "Cards\\2s.png")
+
+    Global_objects.card_3c = pygame.image.load(current_folder + "Cards\\3c.png")
+    Global_objects.card_3d = pygame.image.load(current_folder + "Cards\\3d.png")
+    Global_objects.card_3h = pygame.image.load(current_folder + "Cards\\3h.png")
+    Global_objects.card_3s = pygame.image.load(current_folder + "Cards\\3s.png")
+
+    Global_objects.card_4c = pygame.image.load(current_folder + "Cards\\4c.png")
+    Global_objects.card_4d = pygame.image.load(current_folder + "Cards\\4d.png")
+    Global_objects.card_4h = pygame.image.load(current_folder + "Cards\\4h.png")
+    Global_objects.card_4s = pygame.image.load(current_folder + "Cards\\4s.png")
+
+    Global_objects.card_5c = pygame.image.load(current_folder + "Cards\\5c.png")
+    Global_objects.card_5d = pygame.image.load(current_folder + "Cards\\5d.png")
+    Global_objects.card_5h = pygame.image.load(current_folder + "Cards\\5h.png")
+    Global_objects.card_5s = pygame.image.load(current_folder + "Cards\\5s.png")
+
+    Global_objects.card_6c = pygame.image.load(current_folder + "Cards\\6c.png")
+    Global_objects.card_6d = pygame.image.load(current_folder + "Cards\\6d.png")
+    Global_objects.card_6h = pygame.image.load(current_folder + "Cards\\6h.png")
+    Global_objects.card_6s = pygame.image.load(current_folder + "Cards\\6s.png")
+
+    Global_objects.card_7c = pygame.image.load(current_folder + "Cards\\7c.png")
+    Global_objects.card_7d = pygame.image.load(current_folder + "Cards\\7d.png")
+    Global_objects.card_7h = pygame.image.load(current_folder + "Cards\\7h.png")
+    Global_objects.card_7s = pygame.image.load(current_folder + "Cards\\7s.png")
+
+    Global_objects.card_8c = pygame.image.load(current_folder + "Cards\\8c.png")
+    Global_objects.card_8d = pygame.image.load(current_folder + "Cards\\8d.png")
+    Global_objects.card_8h = pygame.image.load(current_folder + "Cards\\8h.png")
+    Global_objects.card_8s = pygame.image.load(current_folder + "Cards\\8s.png")
+
+    Global_objects.card_9c = pygame.image.load(current_folder + "Cards\\9c.png")
+    Global_objects.card_9d = pygame.image.load(current_folder + "Cards\\9d.png")
+    Global_objects.card_9h = pygame.image.load(current_folder + "Cards\\9h.png")
+    Global_objects.card_9s = pygame.image.load(current_folder + "Cards\\9s.png")
+
+    Global_objects.card_10c = pygame.image.load(current_folder + "Cards\\10c.png")
+    Global_objects.card_10d = pygame.image.load(current_folder + "Cards\\10d.png")
+    Global_objects.card_10h = pygame.image.load(current_folder + "Cards\\10h.png")
+    Global_objects.card_10s = pygame.image.load(current_folder + "Cards\\10s.png")
+
+    Global_objects.card_Jc = pygame.image.load(current_folder + "Cards\\Jc.png")
+    Global_objects.card_Jd = pygame.image.load(current_folder + "Cards\\Jd.png")
+    Global_objects.card_Jh = pygame.image.load(current_folder + "Cards\\Jh.png")
+    Global_objects.card_Js = pygame.image.load(current_folder + "Cards\\Js.png")
+
+    Global_objects.card_Qc = pygame.image.load(current_folder + "Cards\\Qc.png")
+    Global_objects.card_Qd = pygame.image.load(current_folder + "Cards\\Qd.png")
+    Global_objects.card_Qh = pygame.image.load(current_folder + "Cards\\Qh.png")
+    Global_objects.card_Qs = pygame.image.load(current_folder + "Cards\\Qs.png")
+
+    Global_objects.card_Kc = pygame.image.load(current_folder + "Cards\\Kc.png")
+    Global_objects.card_Kd = pygame.image.load(current_folder + "Cards\\Kd.png")
+    Global_objects.card_Kh = pygame.image.load(current_folder + "Cards\\Kh.png")
+    Global_objects.card_Ks = pygame.image.load(current_folder + "Cards\\Ks.png")
+
+    Global_objects.card_Ac = pygame.image.load(current_folder + "Cards\\Ac.png")
+    Global_objects.card_Ad = pygame.image.load(current_folder + "Cards\\Ad.png")
+    Global_objects.card_Ah = pygame.image.load(current_folder + "Cards\\Ah.png")
+    Global_objects.card_As = pygame.image.load(current_folder + "Cards\\As.png")
 
     # Initialisation de la fenêtre actuelle
     Global_objects.game_state = HUD_State(largeur_actuelle, hauteur_actuelle, screen, fond, logojeu, logomwte, logomwte_rect, pdpplayer, table_fond, [iconsound_mute, iconsound_low, iconsound_mid, iconsound_max])
