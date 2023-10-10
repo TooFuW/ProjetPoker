@@ -323,6 +323,7 @@ def manage_data(conn : socket, packet : str):
 
             case "your_cards":
                 '''ICI ON RECOIT LE PAQUET AVEC LES CARTES DE NOTRE MAIN SELON LA SYNTAXE INDIQUEE SUR DISCORD'''
+                print("________________________",body,"______________________________")
 
 
     except Exception as e:

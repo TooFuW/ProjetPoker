@@ -262,8 +262,18 @@ class HUD_State:
 
         # Dessin de la scrollbox et des infos des colonnes de la scrollbox
         gui_font = pygame.font.SysFont("Roboto", width_scale(27, self.largeur_actuelle))
-        text_surf = gui_font.render("    Lobby name    |    Number of players     |     Bet amount      |      Medium pot      |      Medium rug    |   ID of the table", True, "#FFFFFF")
-        self.screen.blit(text_surf, (width_scale(215, self.largeur_actuelle), height_scale(210, self.hauteur_actuelle)))
+        text_surf = gui_font.render("Lobby name", True, "#FFFFFF")
+        self.screen.blit(text_surf, (width_scale(225, self.largeur_actuelle), height_scale(210, self.hauteur_actuelle)))
+        text_surf = gui_font.render("Number of players", True, "#FFFFFF")
+        self.screen.blit(text_surf, (width_scale(370, self.largeur_actuelle), height_scale(210, self.hauteur_actuelle)))
+        text_surf = gui_font.render("Bet amount", True, "#FFFFFF")
+        self.screen.blit(text_surf, (width_scale(570, self.largeur_actuelle), height_scale(210, self.hauteur_actuelle)))
+        text_surf = gui_font.render("Medium pot", True, "#FFFFFF")
+        self.screen.blit(text_surf, (width_scale(740, self.largeur_actuelle), height_scale(210, self.hauteur_actuelle)))
+        text_surf = gui_font.render("Medium rug", True, "#FFFFFF")
+        self.screen.blit(text_surf, (width_scale(900, self.largeur_actuelle), height_scale(210, self.hauteur_actuelle)))
+        text_surf = gui_font.render("ID of the table", True, "#FFFFFF")
+        self.screen.blit(text_surf, (width_scale(1080, self.largeur_actuelle), height_scale(210, self.hauteur_actuelle)))
         Global_objects.serverscrollbox.draw()
 
         # Affichage des bouttons
