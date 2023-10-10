@@ -322,7 +322,9 @@ def manage_data(conn : socket, packet : str):
 
 
             case "your_cards":
-                '''ICI ON RECOIT LE PAQUET AVEC LES CARTES DE NOTRE MAIN SELON LA SYNTAXE INDIQUEE SUR DISCORD'''
+                '''ICI ON RECOIT LE PAQUET AVEC LES CARTES DE NOTRE MAIN SELON LA SYNTAXE INDIQUEE SUR DISCORD (ex : ["kh","1d"])
+                => Pour une liste de 2 chaines de caractères, le 1er caractère c'est le rang parmi : "123456789tjqka" où t est un 10, j un valet, q une dame, k un roi et a un as
+                => Le 2éme caractère c'est la famille parmi : hdsc =  h pour hearth, d pour diamond, s pour spade et c pour club'''
                 print("________________________",body,"______________________________")
 
 

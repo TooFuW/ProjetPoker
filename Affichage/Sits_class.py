@@ -29,14 +29,12 @@ class Sits:
         self.y = height_scale(pos[1], self.hauteur_actuelle)
         self.width = width_scale(width, self.largeur_actuelle)
         self.height = height_scale(height, self.hauteur_actuelle)
-        # Une liste contenant tous les joueurs dans la table actuelle sous la forme [sit_id, idplayer, pseudo, chips, link] par joueur
+        # Une liste contenant toutes les infos du joueur assi sur ce siège [sit_id, idplayer, pseudo, chips, link]
         self.player = [None, None]
         self.profile_picture = pygame.transform.scale(profile_picture, (width_scale(120, largeur_actuelle), height_scale(120, hauteur_actuelle)))
         self.selected = False
         # Référencement du siège sélectionné
         self.sit_selected = None
-        # Lien vers le fichier des cartes
-        self.cards_folder = __file__[:-13] + "cards"
    
     def draw(self):
         """Génération/affichage du siège
