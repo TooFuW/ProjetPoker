@@ -4,6 +4,8 @@ from Sit import Sit
 from typing import List
 from random import randint
 from Round import Round
+from socket import *
+from threading import *
 
 class Game:
     """
@@ -15,22 +17,27 @@ class Game:
         start démmarre le jeu en lançant des rounds jusqu'à ce qu'un joueur gagne ou que le serveur pour x raison ferme la game. 
 
     """
-    def __init__(self, sits : List[Sit], cave : int) -> None: # A chaque modification de sits dans le lobby, doit être modifié
-
+    def __init__(self,sits : List[Sit],cave : int, players : List[Player]) -> None: # A chaque modification de sits dans le lobby, doit être modifié
         self.started = False # regarde si la game a commencé, passe à True avec self.start()
         
-        self.round_nb = 0 #le nombre de round effectués cans la game
-        self.dealer_index = self.first_dealer_index() #index du dealer vis à vis de la liste self.sits
-        self.dealer = None #identité du dealer
         self.sits = sits
+        self.players = players
+
+
+        self.round_nb = 0  # le nombre de round effectués dans la game
+        #self.dealer_index = self.first_dealer_index() #index du dealer vis à vis de la liste self.sits
+        self.dealer = None  # identité du dealer
+
+        
         
         self.cave = cave
 
         self.round = None
+        print("game initiée.", cave)
 
 
     def start(self):
-        #paie la cave pour tous les joueurs, envoie les paquets d'attente, attends tous les packets de confirmations, lance les rounds jusqu'à ce qu'un joueur reste en vie.
+        #paie la cave pour tous les joueurs, lance les rounds jusqu'à ce qu'un joueur reste en vie.
         pass
 
     def on_deconnect(self,player : Player):
@@ -112,6 +119,72 @@ class Game:
         
     def first_dealer_index(self) -> int:
         self.dealer_index = randint(0,len(self.sits)-1) #le premier dealer est aléatoire
+
+    def players_for_next_round(self):
+
+        """On adapte les sièges pour ne garder que les joueurs pouvant jouer = joueur avec un statut connecté, joueurs avec assez de jetons pour une grosse blind 
+        """
+
+
+
+    def kick_disconnected_players(self):
+
+        """On retire de leurs sièges tous les joueurs deconectés
+        """
+        changes = 0
+        for sit in self.sits:
+            pl = sit.get_player()
+            if not pl is None:
+                if not pl.connected:
+                    sit.remove_player()
+                    changes += 1
+                    
+        if changes > 0:        
+            self.sits_infos_edited()
+
+    def sits_infos_edited(self):
+        print("on envoie les chanhgements à tlm")
+        for pl in self.players:
+            conn = pl.get_conn()
+            thread_send_sits_infos = Thread(target=self.send_sits_infos, args=[conn])
+            thread_send_sits_infos.start()
+
+    def send_sits_infos(self, conn : socket, func_id : str = ""):
+        try:
+            sits_infos = []
+            for sit in self.sits:
+                sit_infos = []
+                sit_infos.append(sit.get_sit_id())
+                if not sit.occupied:
+                    sit_infos.append(None)
+                    sits_infos.append(sit_infos)
+                    continue
+
+                sit_infos.append("'"+str(sit.get_player().get_pseudo())+"'")
+                sit_infos.append(sit.get_player().get_chips())
+                sit_infos.append("link to player account")
+
+                sits_infos.append(sit_infos)
+
+            sits_infos = str(sits_infos)+";"+func_id
+            packet = "sits_infos="+sits_infos
+
+            thread_packet_send = Thread(target=self.send_packet, args=(packet,conn))
+            thread_packet_send.start()
+
+        except Exception as e:
+            print(e)
+
+
+
+    def send_packet(self, packet : str, conn : socket):
+        try:
+            conn.send(packet.encode("utf8"))
+        except Exception as el:
+            print(el)
+
+
+
 
 
     def is_game_winner(self):
