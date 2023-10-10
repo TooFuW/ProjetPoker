@@ -92,10 +92,10 @@ class HUD_State:
         # On vérifie si la position de la souris est sur le bouton
         if self.logomwte_rect.collidepoint(mouse_pos):
             # On affiche le texte d'information à côté de la souris lorsqu'elle est sur le logo MWTE
-            gui_font = pygame.font.SysFont("Roboto", 20, False, True)
-            text_surf = gui_font.render("Aller sur le site officiel MWTE", True, "#000000")
-            pygame.draw.rect(self.screen, "#FFFFFF", pygame.Rect((mouse_pos[0], mouse_pos[1] + 15), (200, 20)), border_radius = 3)
-            self.screen.blit(text_surf, (mouse_pos[0], mouse_pos[1] + 20))
+            gui_font = pygame.font.SysFont("Roboto", width_scale(20, self.largeur_actuelle), False, True)
+            text_surf = gui_font.render("Go to the official MWTE website", True, "#000000")
+            pygame.draw.rect(self.screen, "#FFFFFF", pygame.Rect((width_scale(mouse_pos[0], self.largeur_actuelle), height_scale(mouse_pos[1] + 15, self.hauteur_actuelle)), (width_scale(210, self.largeur_actuelle), height_scale(20, self.hauteur_actuelle))), border_radius = 3)
+            self.screen.blit(text_surf, (width_scale(mouse_pos[0], self.largeur_actuelle), height_scale(mouse_pos[1] + 20, self.hauteur_actuelle)))
             # On gére le cas où on clique sur le logo pour ouvrir UNE SEULE FOIS notre site web
             if pygame.mouse.get_pressed()[0]:
                 self.is_pressing = True
@@ -222,6 +222,7 @@ class HUD_State:
                             self.round_started = False
                             self.timer[1] = time.time()
                             Global_objects.parole = 1
+                            Global_objects.pot = Global_objects.game_state.table_selected[3]
                         except:
                             self.error[0] = True
                             self.error[1] = time.time()
@@ -259,7 +260,10 @@ class HUD_State:
         # Dessine l'image de fond sur la self.screen de l'écran
         self.screen.blit(self.fond, (0, 0))
 
-        # Dessin de la scrollbox
+        # Dessin de la scrollbox et des infos des colonnes de la scrollbox
+        gui_font = pygame.font.SysFont("Roboto", width_scale(27, self.largeur_actuelle))
+        text_surf = gui_font.render("    Lobby name    |    Number of players     |     Bet amount      |      Medium pot      |      Medium rug    |   ID of the table", True, "#FFFFFF")
+        self.screen.blit(text_surf, (width_scale(215, self.largeur_actuelle), height_scale(210, self.hauteur_actuelle)))
         Global_objects.serverscrollbox.draw()
 
         # Affichage des bouttons
@@ -388,13 +392,13 @@ class HUD_State:
         elif self.setting_page == 2:
             # Temporaire
             gui_font = pygame.font.SysFont("Roboto", 40)
-            settingtext_surf = gui_font.render("Page 2 des paramètres", True, "#FFFFFF")
+            settingtext_surf = gui_font.render("2nd setting's page", True, "#FFFFFF")
             self.screen.blit(settingtext_surf, (width_scale(270, self.largeur_actuelle), height_scale(170, self.hauteur_actuelle)))
         # Page 3
         elif self.setting_page == 3:
             # Temporaire
             gui_font = pygame.font.SysFont("Roboto", 40)
-            settingtext_surf = gui_font.render("Page 3 des paramètres", True, "#FFFFFF")
+            settingtext_surf = gui_font.render("3rd setting's page", True, "#FFFFFF")
             self.screen.blit(settingtext_surf, (width_scale(270, self.largeur_actuelle), height_scale(170, self.hauteur_actuelle)))
 
         # Met à jour l'affichage de l'interface
@@ -642,11 +646,17 @@ class HUD_State:
         self.screen.blit(text_surf, (width_scale(935, self.largeur_actuelle), height_scale(445, self.hauteur_actuelle)))
         # Affichage de la zone du pot de la partie
         pot_surface = pygame.Surface((width_scale(50, self.largeur_actuelle), height_scale(50, self.hauteur_actuelle)), pygame.SRCALPHA)
-        pygame.draw.rect(pot_surface, (0, 0, 0, 128), (0, 0, width_scale(50, self.largeur_actuelle), height_scale(50, self.hauteur_actuelle)), border_radius = 100)
-        pot_surface = self.screen.blit(pot_surface, (width_scale(940, self.largeur_actuelle), height_scale(480, self.hauteur_actuelle)))
+        pygame.draw.circle(self.screen, (0, 0, 0, 128), (965, 515), 35)
+        pot_surface = self.screen.blit(pot_surface, (width_scale(940, self.largeur_actuelle), height_scale(490, self.hauteur_actuelle)))
         # On place la valeur du pot au milieu de la zone
-        gui_font = pygame.font.SysFont("Roboto", width_scale(40, self.largeur_actuelle))
-        text_surf = gui_font.render(f"{Global_objects.pot}", True, "#FFFFFF")
+        gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
+        pot_texte = ""
+        for caract in Global_objects.pot:
+            if caract.lower() == "k":
+                pot_texte += "000"
+            else:
+                pot_texte += caract
+        text_surf = gui_font.render(f"{pot_texte}", True, "#FFFFFF")
         text_rect = text_surf.get_rect(center = (pot_surface.centerx, pot_surface.centery))
         self.screen.blit(text_surf, text_rect)
 

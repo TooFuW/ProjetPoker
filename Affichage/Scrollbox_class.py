@@ -37,7 +37,7 @@ class ScrollBox:
         self.servers = servers
         # Position de la scrollbox à partir du point de départ (0)
         self.scroll_pos = 0
-        self.indentation = "          "# Len = 10
+        self.indentation = "                                   "# Len = 35
         self.hauteurbox = 50
         self.selected = False
         # Référencement du serveur sélectionné
