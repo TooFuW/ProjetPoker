@@ -182,6 +182,14 @@ def check_click(Button):
                     Global_objects.game_state.timer[1] = time.time()
                     Global_objects.parole = 1
                     Global_objects.pot = Global_objects.game_state.table_selected[3]
+                    # Temporaire pour afficher les cartes le temps que je recoive réellement des cartes
+                    body = ["kh","1d"]
+                    Global_objects.nombre_cartes = len(body)
+                    try:
+                        Global_objects.card_1 = body[0]
+                        Global_objects.card_2 = body[1]
+                    except:
+                        pass
                 except:
                     Global_objects.game_state.error[0] = True
                     Global_objects.game_state.error[1] = time.time()

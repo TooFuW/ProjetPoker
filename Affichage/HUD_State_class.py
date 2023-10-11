@@ -214,7 +214,11 @@ class HUD_State:
                                 Global_objects.sit_8.player = Global_objects.previewlobbys.players[7]
                                 Global_objects.sit_9.player = Global_objects.previewlobbys.players[8]
                                 Global_objects.sit_10.player = Global_objects.previewlobbys.players[9]
-                            Global_objects.game_state.server_test = Global_objects.tablecodeinput.user_text
+                            for lobby in Global_objects.displayed_lobbys_list:
+                                if lobby[-1] == Global_objects.tablecodeinput.user_text:
+                                    self.server_test = f"{lobby[0]}                                   {lobby[1]}                                   {lobby[2]}                                   {lobby[3]}                                   {lobby[4]}"
+                                    Global_objects.pot = lobby[3]
+                                    break
                             Global_objects.game_state.table_selected = None
                             Global_objects.game_state.back_pile = []
                             Global_objects.game_state.state = "Game Menu"
@@ -222,7 +226,14 @@ class HUD_State:
                             self.round_started = False
                             self.timer[1] = time.time()
                             Global_objects.parole = 1
-                            Global_objects.pot = Global_objects.game_state.table_selected[3]
+                            # Temporaire pour afficher les cartes le temps que je recoive réellement des cartes
+                            body = ["kh","1d"]
+                            Global_objects.nombre_cartes = len(body)
+                            try:
+                                Global_objects.card_1 = body[0]
+                                Global_objects.card_2 = body[1]
+                            except:
+                                pass
                         except:
                             self.error[0] = True
                             self.error[1] = time.time()
@@ -615,7 +626,7 @@ class HUD_State:
         # Affichage des infos de la table sélectionnée en placeholder
         gui_font = pygame.font.SysFont("Roboto", width_scale(40, self.largeur_actuelle))
         text_surf = gui_font.render(self.server_test, True, "#FFFFFF")
-        self.screen.blit(text_surf, (width_scale(550, self.largeur_actuelle), height_scale(200, self.hauteur_actuelle)))
+        self.screen.blit(text_surf, (width_scale(250, self.largeur_actuelle), height_scale(100, self.hauteur_actuelle)))
 
         if self.round_started is False and self.timer[2] is True:
         # Affichage du timer avant que la partie commence
@@ -661,6 +672,7 @@ class HUD_State:
         # On place la valeur du pot au milieu de la zone
         gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
         pot_texte = ""
+        print(Global_objects.pot)
         for caract in Global_objects.pot:
             if caract.lower() == "k":
                 pot_texte += "000"
