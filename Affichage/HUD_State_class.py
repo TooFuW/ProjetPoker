@@ -13,6 +13,7 @@ from Preview_Table_class import *
 from Sits_class import *
 from Check_click import *
 import time
+from icecream import ic
 
 
 
@@ -67,8 +68,8 @@ class HUD_State:
         # Savoir si on affiche un message de confirmation
         self.confirmation = False
         # Timer de début de la partie
-        self.timer = [None, 0, False] # Attribution à changer plus tard, elle devra être attribuée par le serveur
-        self.round_started = False # Attribution à changer plus tard, elle devra être attribuée par le serveur
+        self.timer = [None, 0, False]
+        self.round_started = False
     
     def mainmenu(self):
         """mainmenu est la fonction qui fait tourner/afficher le menu principal
@@ -139,7 +140,7 @@ class HUD_State:
                 if event.type == pygame.KEYDOWN:
                     # Si on clique sur delete
                     if event.key == pygame.K_BACKSPACE:
-                        Global_objects.tablecodeinput.user_text = Global_objects.tablecodeinput.user_text[:-1]
+                        Global_objects.tablecodeinput.backspace = True
                     # Si on clique sur entrer
                     elif event.key == pygame.K_RETURN:
                         # On essaie de rejoindre la partie avec le code entré
@@ -260,6 +261,9 @@ class HUD_State:
                                             Global_objects.tablecodeinput.user_text += event.unicode
                                     else:
                                         Global_objects.tablecodeinput.user_text += event.unicode
+                elif event.type == pygame.KEYUP:
+                    if event.key == pygame.K_BACKSPACE:
+                        Global_objects.tablecodeinput.backspace = False
             if event.type == pygame.MOUSEBUTTONDOWN:
                 # Molette de la souris vers le haut
                 if event.button == 4:
@@ -304,6 +308,14 @@ class HUD_State:
 
         # On crée la box dans laquelle on pourra écrire un code de partie pour rejoindre
         Global_objects.tablecodeinput.draw()
+        # On gére le cas où l'utilisateur garde appuyé la touche backspace
+        try:
+            if Global_objects.tablecodeinput.backspace:
+                if time.time() >= Global_objects.backspace_timer:
+                    Global_objects.tablecodeinput.user_text = Global_objects.tablecodeinput.user_text[:-1]
+                    Global_objects.backspace_timer = time.time() + 0.1
+        except:
+            pass
         # On affiche un texte au-dessus de la box qui indique ce que cette dernière fait
         gui_font = pygame.font.SysFont("Roboto", 50)
         text_surf = gui_font.render("Private Table Code", True, "#000000")
@@ -436,9 +448,9 @@ class HUD_State:
             # Si on a sélectionne la accountpseudoinput
             if Global_objects.accountpseudoinput.active == True:
                 if event.type == pygame.KEYDOWN:
-                    # Si on clique sur delete
+                    # Si on clique sur supprimer
                     if event.key == pygame.K_BACKSPACE:
-                        Global_objects.accountpseudoinput.user_text = Global_objects.accountpseudoinput.user_text[:-1]
+                        Global_objects.accountpseudoinput.backspace = True
                     # Si on clique sur entrer
                     elif event.key == pygame.K_RETURN:
                         Global_objects.accountpseudoinput.active = False
@@ -464,12 +476,15 @@ class HUD_State:
                                             Global_objects.accountpseudoinput.user_text += event.unicode
                                     else:
                                         Global_objects.accountpseudoinput.user_text += event.unicode
+                elif event.type == pygame.KEYUP:
+                    if event.key == pygame.K_BACKSPACE:
+                        Global_objects.accountpseudoinput.backspace = False
             # Si on a sélectionne la accountpseudoinput
             if Global_objects.accountinformationinput.active == True:
                 if event.type == pygame.KEYDOWN:
                     # Si on clique sur delete
                     if event.key == pygame.K_BACKSPACE:
-                        Global_objects.accountinformationinput.user_text = Global_objects.accountinformationinput.user_text[:-1]
+                        Global_objects.accountinformationinput.backspace = True
                     # Si on clique sur entrer
                     elif event.key == pygame.K_RETURN:
                         Global_objects.accountinformationinput.active = False
@@ -495,7 +510,9 @@ class HUD_State:
                                             Global_objects.accountinformationinput.user_text += event.unicode
                                     else:
                                         Global_objects.accountinformationinput.user_text += event.unicode
-
+                elif event.type == pygame.KEYUP:
+                    if event.key == pygame.K_BACKSPACE:
+                        Global_objects.accountinformationinput.backspace = False
 
         # Dessine l'image de fond sur la self.screen de l'écran (IMPORANT CAR SE SUPERPOSE A L'INTERFACE PRECEDENT ET PERMET DE "L'EFFACER")
         self.screen.blit(self.fond, (0, 0))
@@ -512,15 +529,31 @@ class HUD_State:
         text_surf = gui_font.render("Chips : ", True, "#FFFFFF")
         pygame.draw.rect(self.screen, "#475F77", pygame.Rect((width_scale(400, self.largeur_actuelle), height_scale(465, self.hauteur_actuelle)), (width_scale(225, self.largeur_actuelle), height_scale(50, self.hauteur_actuelle))), border_radius = 3)
         self.screen.blit(text_surf, (width_scale(410, self.largeur_actuelle), height_scale(475, self.hauteur_actuelle)))
-        # Affichage du pseudo de l'utilisateur
-        Global_objects.accountpseudoinput.draw()
-        # Affichage des infos de l'utilisateur
-        Global_objects.accountinformationinput.draw()
         # Affichage du bouton de déconnexion de l'utilisateur
         Global_objects.deconnexionbutton.draw()
         # Affichage du bouton de paramètres du compte de l'utilisateur
         Global_objects.accountsettingsbutton.draw()
-        
+        # Affichage du pseudo de l'utilisateur
+        Global_objects.accountpseudoinput.draw()
+        # On gére le cas où l'utilisateur garde appuyé la touche backspace
+        try:
+            if Global_objects.accountpseudoinput.backspace:
+                if time.time() >= Global_objects.backspace_timer:
+                    Global_objects.accountpseudoinput.user_text = Global_objects.accountpseudoinput.user_text[:-1]
+                    Global_objects.backspace_timer = time.time() + 0.1
+        except:
+            pass
+        # Affichage des infos de l'utilisateur
+        Global_objects.accountinformationinput.draw()
+        # On gére le cas où l'utilisateur garde appuyé la touche backspace
+        try:
+            if Global_objects.accountinformationinput.backspace:
+                if time.time() >= Global_objects.backspace_timer:
+                    Global_objects.accountinformationinput.user_text = Global_objects.accountinformationinput.user_text[:-1]
+                    Global_objects.backspace_timer = time.time() + 0.1
+        except:
+            pass
+
         # Met à jour l'affichage de l'interface
         pygame.display.update()
 

@@ -239,6 +239,8 @@ if __name__ == "__main__":
     Global_objects.card_2 = None
     # Nombre de cartes à afficher (que les joueurs ont en main)
     Global_objects.nombre_cartes = 0
+    # Délai entre 2 caractéres supprimés
+    Global_objects.backspace_timer = time.time() + 0.1
 
     # Gameloop
     while True:

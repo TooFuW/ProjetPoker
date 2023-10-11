@@ -36,6 +36,7 @@ class TextInputBox:
         self.screen = screen
         # Paramères du texte
         self.base_font = pygame.font.SysFont("Roboto", width_scale(text_size, largeur_actuelle))
+        # Texte "pur"
         self.user_text = starting_text
         self.max_caracteres = max_caracteres
         # Position du texte
@@ -51,6 +52,9 @@ class TextInputBox:
         self.text_size = 0
         self.num_only = num_only
         self.interactible = interactible
+        # Texte à dessiner
+        self.draw_text = ""
+        self.backspace = False
     
     def draw(self):
         """On dessine la box et le texte écrit par l'utilisateur
@@ -71,25 +75,34 @@ class TextInputBox:
             self.color = self.color_passive
         # On dessine le texte et la box
         pygame.draw.rect(self.screen, self.color, self.input_rect, border_radius = 10)
+        # On fait des sauts à la ligne si nécessaire
+        self.draw_text = ""
+        for caract in self.user_text:
+            text_actuel = self.draw_text.split("\n")
+            text_surface = self.base_font.render(text_actuel[-1], True, "#FFFFFF")
+            if text_surface.get_width() >= self.base_size - width_scale(25, self.largeur_actuelle):
+                self.draw_text += f"\n{caract}"
+            else:
+                self.draw_text += caract
         # Dessin du texte par lignes si la box n'est pas adaptative et que le texte dépasse, sinon le texte est dessiné normalement
         if self.adaptative_size == False:
             y = self.input_rect.y + 5
-            for line in self.user_text.split("\n"):
+            for line in self.draw_text.split("\n"):
                 text_surface = self.base_font.render(line, True, "#FFFFFF")
                 self.screen.blit(text_surface, (self.input_rect.x + 5, y))
                 y += text_surface.get_height()
         else:
-            text_surface = self.base_font.render(self.user_text, True, "#FFFFFF")
+            text_surface = self.base_font.render(self.draw_text, True, "#FFFFFF")
             self.screen.blit(text_surface, (self.input_rect.x + 5, self.input_rect.y + 5))
-        self.text_size = text_surface.get_width() + 25
         # On crée une taille de box adaptative
         if self.adaptative_size == True:
             # Taille de la box qui est de base 200 et qui augmente si le texte dépasse
             self.input_rect.w = width_scale(max(self.base_size, text_surface.get_width() + 10), self.largeur_actuelle)
         else:
-            self.input_rect.w = width_scale(self.base_size, self.largeur_actuelle)
+            """self.input_rect.w = width_scale(self.base_size, self.largeur_actuelle)"""
             # Si le texte dépasse mais que la box n'est pas adaptative on retourne à la ligne
-            if len(self.user_text) > 0 and self.user_text[-1] == "\n":
-                self.user_text = self.user_text[:-1]
-            if self.text_size > width_scale(self.base_size, self.largeur_actuelle):
-                self.user_text += "\n"
+            try:
+                if self.draw_text[-1] == "\n":
+                    self.draw_text = self.draw_text[:-1]
+            except:
+                pass
