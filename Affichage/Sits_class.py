@@ -1,4 +1,4 @@
-# Sits_class
+"""Document contenant la classe Sits qui crée des sièges sur lesquels les joueurs peuvent s'asseoir, siège qui stocke alors les données de ce joueur qui est lié à ce siège pour la partie"""
 
 
 import pygame

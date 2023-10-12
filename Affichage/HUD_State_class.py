@@ -1,4 +1,4 @@
-# HUD_State class
+"""Document contenant la classe HUD_State qui va gérer l'affichage de chaque menu/page du jeu"""
 
 
 import pygame

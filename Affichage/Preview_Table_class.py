@@ -1,4 +1,4 @@
-# Preview_Table class
+"""Document contenant la classe Preview_Table qui permet d'afficher une preview d'un serveur sélectionné"""
 
 
 import pygame

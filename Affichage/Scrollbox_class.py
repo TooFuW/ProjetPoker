@@ -1,4 +1,4 @@
-# Scrollbox class
+"""Document contenant la classe ScrollBox qui permet d'afficher une liste de tous les serveurs disponibles et de sélectionner celui qu'on veut"""
 
 
 import pygame
@@ -8,7 +8,7 @@ import Button_class
 
 
 class ScrollBox:
-    """Classe ScrollBox pour créer des ScrollSox (classe compliquée, pas bien écrite mais fonctionne donc éviter de modifier xD)
+    """Classe ScrollBox pour créer des scrollbox contenant une "liste" de boutons, chacun relié à un serveur donné
     """
 
     def __init__(self, largeur_actuelle : int, hauteur_actuelle : int, screen : pygame.Surface, x : int, y : int, width : int, height : int, servers : list):

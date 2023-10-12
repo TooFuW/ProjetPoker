@@ -1,3 +1,6 @@
+"""Document contenant toutes les fonctions permettant de lier le client au serveur"""
+
+
 from socket import *
 from threading import *
 from packet_separator import *

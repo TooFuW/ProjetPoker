@@ -1,4 +1,4 @@
-# Screen adaptation
+"""Document contenant les deux fonctions (une pour la largeur, l'autre pour la hauteur) permettant d'adapter tout ce qui s'affiche à l'écran par rapport à la taille de l'écran en question"""
 
 
 def width_scale(largeur : int, largeur_screen : int) -> int:

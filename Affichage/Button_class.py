@@ -1,10 +1,9 @@
-# Button Class
+"""Document contenant la classe Button où sont définis les boutons"""
 
 
 import pygame
 from Screen_adaptation import *
 import Check_click
-import Global_objects
 
 
 class Button:

@@ -1,4 +1,4 @@
-# Check player's clicks
+"""Document contenant la fonction check_click qui fait les actions liées aux interactions de l'utilisateur"""
 
 
 import pygame

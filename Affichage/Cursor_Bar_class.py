@@ -1,4 +1,4 @@
-# Cursor_Bar_class
+"""Document contenant la classe Cursor_Bar où sont définis les barre avec curseur (comme pour une barre de son)"""
 
 
 import pygame

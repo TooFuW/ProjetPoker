@@ -1,4 +1,4 @@
-# TextInputBox class
+"""Document contenant la classe TextInputBox qui permet de créer des boxs où l'utilisateur peut entrer du texte tout en ayant une myriade de paramètres"""
 
 
 import pygame

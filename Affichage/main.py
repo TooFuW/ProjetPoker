@@ -1,4 +1,4 @@
-#Menu du jeu Poker 
+"""Document contenant le fichier principal à exécuter pour lancer le jeu"""
 
 
 import pygame
