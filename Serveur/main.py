@@ -108,7 +108,7 @@ class Main:
 
 
                     except:
-                        pass # envoi packet error
+                        pass # le lobby n'est surement pas un nombre
 
                 case "create_lobby":
                     try:
@@ -148,6 +148,25 @@ class Main:
 
                     thread_send_pwd = Thread(target=send_packet, args=[pwd,socket])
                     thread_send_pwd.start()
+
+                case "is_lobby_exist":
+                    try:
+                        body = int(body.lstrip())
+                        lobby_existe = body in [lobby.get_id() for lobby in self.lobbys if type(lobby) == Lobby]
+                        if lobby_existe:
+                            thread_lobby_existe = Thread(target=send_packet, args=["lobby_exists="+str(body), socket])
+                            thread_lobby_existe.start()
+                        else:
+                            error_thread = Thread(target=send_packet, args=[f"404_lobby_not_exist={str(body)}", socket])
+                            error_thread.start()
+
+
+                    except:
+                        # le lobby envoyé n'est pas un nombre
+                        error_thread = Thread(target=send_packet, args=[f"404_lobby_not_exist={body.lstrip()}", socket])
+                        error_thread.start()
+
+                    
 
 
         except:

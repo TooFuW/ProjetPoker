@@ -326,7 +326,9 @@ def manage_data(conn : socket, packet : str):
             case "your_cards":
                 '''ICI ON RECOIT LE PAQUET AVEC LES CARTES DE NOTRE MAIN SELON LA SYNTAXE INDIQUEE SUR DISCORD (ex : ["kh","1d"])
                 => Pour une liste de 2 chaines de caractères, le 1er caractère c'est le rang parmi : "123456789tjqk" où t est un 10, j un valet, q une dame, k un roi et 1 un as
-                => Le 2éme caractère c'est la famille parmi : hdsc =  h pour hearth, d pour diamond, s pour spade et c pour club'''
+                => Le 2éme caractère c'est la famille parmi : hdsc =  h pour hearth, d pour diamond, s pour spade et c pour club
+                Pas encore testé si tout marche'''
+                
                 body = eval(body)
                 print(body)
                 Global_objects.nombre_cartes = len(body)
@@ -336,8 +338,19 @@ def manage_data(conn : socket, packet : str):
                 except:
                     pass
 
+            case "lobby_exists":
+                # NE SACTIVE QUE SI ON DEMANDE UN LOBBY ET QU'IL EXISTE (body est l'id du lobby)
+                # SI LE LOBBY N'EXISTE PAS ON GERE CA DANS 404_LOBBY_NOT_EXIST
+                print(body)
+
     except Exception as e:
         print("Erreur sur network.manage_data : ",e)
+
+
+def check_lobby_exist(conn,lobby_id):
+    thread_ask_for_lobby = Thread(target=send_packet, args=[conn,"is_lobby_exist="+str(lobby_id)])
+    thread_ask_for_lobby.start()
+    # si le lobby n'existe pas tu recevras dans 
 
 
 def edit_displayed_lobbys_list(liste):
