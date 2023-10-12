@@ -15,7 +15,7 @@ def check_click(Button):
     Args:
         Button (Button class object): Boutton sur lequel l'utilisateur a cliqué et qui va faire l'action correspondante
     """
-    if Global_objects.buttons_interactibles is True:
+    if Global_objects.buttons_interactibles:
         match Button.fonction:
             # Lorsque le bouton PLAY est cliqué
             case "play":
@@ -39,7 +39,7 @@ def check_click(Button):
             case "account":
                 Global_objects.game_state.back_pile.append(Global_objects.game_state.state)
                 Global_objects.game_state.state = "Account Menu"
-                if Global_objects.accountsettingsbutton.account_modifiable == True:
+                if Global_objects.accountsettingsbutton.account_modifiable:
                     Global_objects.accountpseudoinput.interactible = False
                     Global_objects.accountinformationinput.interactible = False
                     Global_objects.accountpseudoinput.color_passive = "#475F77"
@@ -79,7 +79,7 @@ def check_click(Button):
                 Global_objects.settingpage3button.hovering_bottom_color = "#D74B4B"
             # Lorsque le bouton des paramètres dans ACCOUNT est cliqué
             case "account settings":
-                if Global_objects.accountsettingsbutton.account_modifiable == True:
+                if Global_objects.accountsettingsbutton.account_modifiable:
                     Global_objects.accountpseudoinput.interactible = False
                     Global_objects.accountinformationinput.interactible = False
                     Global_objects.accountpseudoinput.color_passive = "#475F77"
@@ -285,16 +285,20 @@ def check_click(Button):
                 Global_objects.client_actuel = 0
             # Lorsque l'on clique sur le bouton check
             case "check":
-                pass
+                # On renvoit une information sous la forme "my_play=action,montant"
+                print("my_play=check")
             # Lorsque l'on clique sur le bouton call
             case "call":
-                pass
+                # On renvoit une information sous la forme "my_play=action,montant"
+                print("my_play=call")
             # Lorsque l'on clique sur le bouton fold
             case "fold":
-                pass
+                # On renvoit une information sous la forme "my_play=action,montant"
+                print("my_play=fold")
             # Lorsque l'on clique sur le bouton raise
             case "raise":
-                pass
+                # On renvoit une information sous la forme "my_play=action,montant"
+                print("my_play=raise")
     # Cas des boutons non affectés par Global_objects.buttons_interactibles
     match Button.fonction:
         # Lorsque le joueur confirme qu'il veut quitter

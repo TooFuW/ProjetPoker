@@ -95,7 +95,6 @@ def ask_sits_infos(client_socket : socket, lobby_id : int):
             time.sleep(0.1)
 
         delete_func_id_dict_key(func_id)
-        print("+++++++++++++++++++++++++++ Sièges de la table de ask_sits_infos()",sits,"++++++++++++++++++++++++++++++++")
         return sits
             
 
@@ -351,7 +350,6 @@ def edit_displayed_lobbys_list(liste):
         display_list[i].append(str(liste[i][0]))
 
     Global_objects.displayed_lobbys_list = display_list
-    print("================= Liste de preview de edit_displayed_lobbys_list()",Global_objects.displayed_lobbys_list,"======================")
     Global_objects.serverscrollbox.servers =  Global_objects.displayed_lobbys_list
 
 
@@ -360,7 +358,6 @@ def recieve_sits_infos(liste : list,func_id : int = 0): # On gère la récéptio
 
         if func_id == 0:
             Global_objects.auto_arrived_sits = liste
-            print("############### Liste de sièges de recieve_sits_infos()", liste, "###############")
 
         else:
             Global_objects.func_id_dict[func_id] = liste

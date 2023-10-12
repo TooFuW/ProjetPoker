@@ -61,7 +61,7 @@ class Cursor_Bar:
                 self.is_selected = True
                 Global_objects.buttons_interactibles = False
         # Amélioration de l'interaction avec le curseur
-        if self.is_selected is True:
+        if self.is_selected:
             if not pygame.mouse.get_pressed()[0]:
                 self.is_selected = False
                 Global_objects.buttons_interactibles = True

@@ -116,7 +116,7 @@ class Button:
             else:
                 # CODE POUR QUAND LE BOUTON EST CLIQUE
                 self.dynamic_elevation = self.elevation
-                if self.pressed == True:
+                if self.pressed:
                     self.pressed = False
                     if self.button_interactible is True:
                         Check_click.check_click(self)

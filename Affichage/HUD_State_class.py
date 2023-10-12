@@ -101,7 +101,7 @@ class HUD_State:
             if pygame.mouse.get_pressed()[0]:
                 self.is_pressing = True
             else:
-                if self.is_pressing == True:
+                if self.is_pressing:
                     self.is_pressing = False
                     webbrowser.open("https://mwtestudio.wixsite.com/mwte-studio")
         else:
@@ -136,7 +136,7 @@ class HUD_State:
                 pygame.quit()
                 sys.exit()
             # Si on a sélectionne la TextInputBox
-            if Global_objects.tablecodeinput.active == True:
+            if Global_objects.tablecodeinput.active:
                 if event.type == pygame.KEYDOWN:
                     # Si on clique sur delete
                     if event.key == pygame.K_BACKSPACE:
@@ -242,11 +242,11 @@ class HUD_State:
                     # Si on clique sur n'importe quoi d'autre
                     else:
                         # On gère tout les cas de paramètres des objets de la classe TextInputBox (se référer au fichier TextInputBox_class.py pour plus d'informations sur ces paramètres)
-                        if Global_objects.tablecodeinput.num_only == True:
+                        if Global_objects.tablecodeinput.num_only:
                             if event.unicode in ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]:
                                 if Global_objects.tablecodeinput.max_caracteres > 0:
                                     if len(Global_objects.tablecodeinput.user_text) < Global_objects.tablecodeinput.max_caracteres:
-                                        if Global_objects.tablecodeinput.adaptative_size == False:
+                                        if Global_objects.tablecodeinput.adaptative_size is False:
                                             if Global_objects.tablecodeinput.text_size < Global_objects.tablecodeinput.base_size:
                                                 Global_objects.tablecodeinput.user_text += event.unicode
                                         else:
@@ -254,7 +254,7 @@ class HUD_State:
                         else:
                             if Global_objects.tablecodeinput.max_caracteres > 0:
                                 if len(Global_objects.tablecodeinput.user_text) < Global_objects.tablecodeinput.max_caracteres:
-                                    if Global_objects.tablecodeinput.adaptative_size == False:
+                                    if Global_objects.tablecodeinput.adaptative_size is False:
                                         if Global_objects.tablecodeinput.text_size < Global_objects.tablecodeinput.base_size:
                                             Global_objects.tablecodeinput.user_text += event.unicode
                                         else:
@@ -328,7 +328,7 @@ class HUD_State:
             except:
                 pass
         
-        if self.error[0] is True:
+        if self.error[0]:
             # Affichage d'un message d'erreur dans le cas où le code de lobby n'existe pas
             gui_font = pygame.font.SysFont("Roboto", width_scale(70, self.largeur_actuelle))
             text_surf = gui_font.render("ERROR : NO GAME FOUND", True, "#FFFFFF")
@@ -404,8 +404,8 @@ class HUD_State:
                     if pygame.mouse.get_pressed()[0]:
                         self.is_pressing = True
                     else:
-                        if self.is_pressing is True:
-                            if self.sound_on is True:
+                        if self.is_pressing:
+                            if self.sound_on:
                                 self.last_sound = Global_objects.sound_bar.cursor_width
                                 Global_objects.sound_bar.cursor_width = Global_objects.sound_bar.x
                                 self.sound_on = False
@@ -446,7 +446,7 @@ class HUD_State:
                 pygame.quit()
                 sys.exit()
             # Si on a sélectionne la accountpseudoinput
-            if Global_objects.accountpseudoinput.active == True:
+            if Global_objects.accountpseudoinput.active:
                 if event.type == pygame.KEYDOWN:
                     # Si on clique sur supprimer
                     if event.key == pygame.K_BACKSPACE:
@@ -457,11 +457,11 @@ class HUD_State:
                     # Si on clique sur n'importe quoi d'autre
                     else:
                         # On gère tout les cas de paramètres des objets de la classe TextInputBox (se référer au fichier TextInputBox_class.py pour plus d'informations sur ces paramètres)
-                        if Global_objects.accountpseudoinput.num_only == True:
+                        if Global_objects.accountpseudoinput.num_only:
                             if event.unicode in ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]:
                                 if Global_objects.accountpseudoinput.max_caracteres > 0:
                                     if len(Global_objects.accountpseudoinput.user_text) < Global_objects.accountpseudoinput.max_caracteres:
-                                        if Global_objects.accountpseudoinput.adaptative_size == False:
+                                        if Global_objects.accountpseudoinput.adaptative_size is False:
                                             if Global_objects.accountpseudoinput.text_size < Global_objects.accountpseudoinput.base_size:
                                                 Global_objects.accountpseudoinput.user_text += event.unicode
                                         else:
@@ -469,7 +469,7 @@ class HUD_State:
                         else:
                             if Global_objects.accountpseudoinput.max_caracteres > 0:
                                 if len(Global_objects.accountpseudoinput.user_text) < Global_objects.accountpseudoinput.max_caracteres:
-                                    if Global_objects.accountpseudoinput.adaptative_size == False:
+                                    if Global_objects.accountpseudoinput.adaptative_size is False:
                                         if Global_objects.accountpseudoinput.text_size < Global_objects.accountpseudoinput.base_size:
                                             Global_objects.accountpseudoinput.user_text += event.unicode
                                         else:
@@ -480,7 +480,7 @@ class HUD_State:
                     if event.key == pygame.K_BACKSPACE:
                         Global_objects.accountpseudoinput.backspace = False
             # Si on a sélectionne la accountpseudoinput
-            if Global_objects.accountinformationinput.active == True:
+            if Global_objects.accountinformationinput.active:
                 if event.type == pygame.KEYDOWN:
                     # Si on clique sur delete
                     if event.key == pygame.K_BACKSPACE:
@@ -491,11 +491,11 @@ class HUD_State:
                     # Si on clique sur n'importe quoi d'autre
                     else:
                         # On gère tout les cas de paramètres des objets de la classe TextInputBox (se référer au fichier TextInputBox_class.py pour plus d'informations sur ces paramètres)
-                        if Global_objects.accountinformationinput.num_only == True:
+                        if Global_objects.accountinformationinput.num_only:
                             if event.unicode in ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]:
                                 if Global_objects.accountinformationinput.max_caracteres > 0:
                                     if len(Global_objects.accountinformationinput.user_text) < Global_objects.accountinformationinput.max_caracteres:
-                                        if Global_objects.accountinformationinput.adaptative_size == False:
+                                        if Global_objects.accountinformationinput.adaptative_size is False:
                                             if Global_objects.accountinformationinput.text_size < Global_objects.accountinformationinput.base_size:
                                                 Global_objects.accountinformationinput.user_text += event.unicode
                                         else:
@@ -503,7 +503,7 @@ class HUD_State:
                         else:
                             if Global_objects.accountinformationinput.max_caracteres > 0:
                                 if len(Global_objects.accountinformationinput.user_text) < Global_objects.accountinformationinput.max_caracteres:
-                                    if Global_objects.accountinformationinput.adaptative_size == False:
+                                    if Global_objects.accountinformationinput.adaptative_size is False:
                                         if Global_objects.accountinformationinput.text_size < Global_objects.accountinformationinput.base_size:
                                             Global_objects.accountinformationinput.user_text += event.unicode
                                         else:
@@ -661,7 +661,7 @@ class HUD_State:
         text_surf = gui_font.render(self.server_test, True, "#FFFFFF")
         self.screen.blit(text_surf, (width_scale(250, self.largeur_actuelle), height_scale(100, self.hauteur_actuelle)))
 
-        if self.round_started is False and self.timer[2] is True:
+        if self.round_started is False and self.timer[2]:
         # Affichage du timer avant que la partie commence
             if self.timer[0] > 0:
                 # On ne peut se lever que si la partie n'est pas encore commencée
@@ -705,7 +705,6 @@ class HUD_State:
         # On place la valeur du pot au milieu de la zone
         gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
         pot_texte = ""
-        #print(Global_objects.pot)
         for caract in Global_objects.pot:
             if caract.lower() == "k":
                 pot_texte += "000"
@@ -716,7 +715,7 @@ class HUD_State:
         self.screen.blit(text_surf, text_rect)
 
         # Boucle pour calculer le timer de chaque joueur pour prendre une décision 
-        if self.round_started is True:
+        if self.round_started:
             if self.timer[0] > 0:
                 self.timer[0] = 15 - (time.time() - self.timer[1])
             elif self.timer[0] <= 0:
@@ -731,7 +730,7 @@ class HUD_State:
         # Affichage de la zone qui comportera les actions du joueur
         # Boutons d'actions
         # On rend les boutons interagissables en fonction de si le siège sur lequel le joueur est assis et le siège qui posséde la parole ou non
-        if Global_objects.parole == Global_objects.client_actuel:
+        if Global_objects.parole == Global_objects.client_actuel and self.round_started:
             Global_objects.checkbutton.button_interactible = True
             Global_objects.callbutton.button_interactible = True
             Global_objects.foldbutton.button_interactible = True
@@ -947,7 +946,7 @@ class HUD_State:
                 Global_objects.sit_10.draw()
 
         # Affichage d'une fenêtre de vérification si l'utilisateur clique sur le bouton leavegamebutton
-        if self.confirmation is True:
+        if self.confirmation:
             gui_font = pygame.font.SysFont("Roboto", width_scale(60, self.largeur_actuelle))
             text_surf = gui_font.render("IF YOU QUIT YOU WILL LOSE EVERYTHING YOU PUT ON THE LINE.", True, "#FFFFFF")
             pygame.draw.rect(self.screen, "#000000", pygame.Rect((width_scale(340, self.largeur_actuelle), height_scale(400, self.hauteur_actuelle)), (width_scale(1360, self.largeur_actuelle), height_scale(170, self.hauteur_actuelle))), border_radius = 3)

@@ -63,13 +63,13 @@ class TextInputBox:
         mouse_pos = pygame.mouse.get_pos()
         # On vérifie si la box a été sélectionnée
         if pygame.mouse.get_pressed()[0]:
-            if self.interactible == True:
+            if self.interactible:
                 if self.input_rect.collidepoint(mouse_pos):
                     self.active = True
                 else:
                     self.active = False
         # On définit la couleur de la box en fonction de si elle est sélectionnée ou non
-        if self.active == True:
+        if self.active:
                 self.color = self.color_active
         else:
             self.color = self.color_passive
@@ -85,7 +85,7 @@ class TextInputBox:
             else:
                 self.draw_text += caract
         # Dessin du texte par lignes si la box n'est pas adaptative et que le texte dépasse, sinon le texte est dessiné normalement
-        if self.adaptative_size == False:
+        if self.adaptative_size is False:
             y = self.input_rect.y + 5
             for line in self.draw_text.split("\n"):
                 text_surface = self.base_font.render(line, True, "#FFFFFF")
@@ -95,7 +95,7 @@ class TextInputBox:
             text_surface = self.base_font.render(self.draw_text, True, "#FFFFFF")
             self.screen.blit(text_surface, (self.input_rect.x + 5, self.input_rect.y + 5))
         # On crée une taille de box adaptative
-        if self.adaptative_size == True:
+        if self.adaptative_size:
             # Taille de la box qui est de base 200 et qui augmente si le texte dépasse
             self.input_rect.w = width_scale(max(self.base_size, text_surface.get_width() + 10), self.largeur_actuelle)
         else:

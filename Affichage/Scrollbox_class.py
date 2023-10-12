@@ -75,7 +75,7 @@ class ScrollBox:
                         self.selected = True
                         self.server_selected = item_rect
                     else:
-                        if self.selected == True:
+                        if self.selected:
                             self.selected = False
                             Check_click.check_click(self.server_selected)
                 # Affichage des serveurs disponibles
