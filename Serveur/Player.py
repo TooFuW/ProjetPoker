@@ -107,8 +107,12 @@ class Player:
         
     def bank_remove(self, amount : int):
         if type(amount) == int:
+            if self.bank < amount:
+                raise ValueError
             if amount >=0:
                 self.bank -= amount
+            if self.bank < 0:
+                self.bank = 0
                 #completer avec gestion de base de données
             else:
                 raise ValueError

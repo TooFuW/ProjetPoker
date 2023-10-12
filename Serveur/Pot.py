@@ -18,7 +18,7 @@ class Pot :
     def remove_player(self, player : Player):
         self.players.remove(player)
 
-    def clear_list(self):
+    def clear_players(self):
         self.players = []
 
     

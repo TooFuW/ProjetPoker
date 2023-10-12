@@ -25,7 +25,7 @@ class Game:
 
 
         self.round_nb = 0  # le nombre de round effectués dans la game
-        #self.dealer_index = self.first_dealer_index() #index du dealer vis à vis de la liste self.sits
+        self.dealer_index = self.first_dealer_index() #index du dealer vis à vis de la liste self.sits
         self.dealer = None  # identité du dealer
 
         
@@ -51,7 +51,7 @@ class Game:
         pass
 
     def init_round(self):
-        self.round = Round(self.sits,self.dealer_id)
+        self.round = Round(self.sits,self.sits[self.new_dealer_index()])
 
     def stop_round(self):
         # Arrête le round en cours.
@@ -89,16 +89,19 @@ class Game:
         """
         if type(player) != Player or type(cave) != int:
             raise TypeError
+        
         if player.bank < cave or cave <= 0:
-            raise ValueError
+            return False
+        
         try:
             player.bank_remove(cave)
             player.chips += cave
+            return True
 
         except ValueError as e:
             print("Erreur dans Game.buy_in : ",e)
 
-    def new_dealer(self) -> Player:
+    def new_dealer_index(self) -> Player:
 
         """passe au dealer suivant. incrémente à son appel le dealer index va s'incrémenter de 1 et prendre sa valeur modulo len(self.players) ce qui a
         pour effet de passer au suivant peu importe la taille de la liste
@@ -110,9 +113,9 @@ class Game:
         for _ in range(len(self.sits)):
 
             self.dealer_index += 1
-            if isinstance(self.sits[self.dealer_index].player,Player):  # On parcours les sièges jusqu'a ce qu'on ait un Player et il devient self.dealer
+            if isinstance(self.sits[self.dealer_index].get_player(),Player):  # On parcours les sièges jusqu'a ce qu'on ait un Player et il devient self.dealer
                 self.dealer = self.sits[self.dealer_index].get_player()
-                return self.dealer
+                return self.dealer_index
             
         self.dealer = self.sits[self.dealer_index].get_player()
         return self.dealer

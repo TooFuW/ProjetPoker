@@ -705,7 +705,7 @@ class HUD_State:
         # On place la valeur du pot au milieu de la zone
         gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
         pot_texte = ""
-        print(Global_objects.pot)
+        #print(Global_objects.pot)
         for caract in Global_objects.pot:
             if caract.lower() == "k":
                 pot_texte += "000"

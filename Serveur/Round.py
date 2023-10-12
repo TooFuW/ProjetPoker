@@ -10,7 +10,7 @@ from Step import Step
 from Player import Player
 from socket import *
 from threading import *
-
+from Pot import Pot
 class Round:
     """
         Represent a round (pre-flop to river) and manage winner players ... 
@@ -19,11 +19,13 @@ class Round:
         hand_combinations est un dictionnaire qui associe un player_id à sa HandCombination c'est ce qui permettra de tout comparer à la fin  
     
     """
-    def __init__(self, sits : List[Sit],dealer : Player) -> None: # ATTENTION , les sièges sont modifiés par le lobby à chaque changement (siège est mutable comme self.sits)
+    def __init__(self, sits : List[Sit],dealer : Player, players : List[Player]) -> None: # ATTENTION , les sièges sont modifiés par le lobby à chaque changement (siège est mutable comme self.sits)
         # La plupart des attributions de valeurs se feront dans self.start() , si un joueur quitte entre le set du round et le start, il ne sera pas pris en compte dans l'attribution des blinds
         # attention il faut modifier self.step après un appel de self.step.stop()
 
         self.started = False # indique si le round a commencé, passe à True dans la fonction start()
+        self.pots : List[Pot]= [Pot()] #création de la liste des pots et du main Pot
+        self.players = players
 
 
         self.sits = sits
