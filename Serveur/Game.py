@@ -18,6 +18,7 @@ class Game:
 
     """
     def __init__(self,sits : List[Sit],cave : int, players : List[Player]) -> None: # A chaque modification de sits dans le lobby, doit être modifié
+
         self.started = False # regarde si la game a commencé, passe à True avec self.start()
         
         self.sits = sits
@@ -113,8 +114,9 @@ class Game:
         for _ in range(len(self.sits)):
 
             self.dealer_index += 1
-            if isinstance(self.sits[self.dealer_index].get_player(),Player):  # On parcours les sièges jusqu'a ce qu'on ait un Player et il devient self.dealer
-                self.dealer = self.sits[self.dealer_index].get_player()
+            pl = self.sits[self.dealer_index].get_player()
+            if isinstance(pl,Player):  # On parcours les sièges jusqu'a ce qu'on ait un Player et il devient self.dealer
+                self.dealer = pl
                 return self.dealer_index
             
         self.dealer = self.sits[self.dealer_index].get_player()

@@ -37,6 +37,9 @@ class Round:
         self.big_blind = None
         self.set_big_blind()
 
+        self.sit_to_play_index = None
+        self.sit_to_play_index = self.set_sit_to_play_index()
+
         self.step : Step = None
 
         self.deck = new_shuffled_deck()
@@ -46,7 +49,8 @@ class Round:
 
 
     def start(self):
-        pass
+        self.started = True
+        # on start le round 
         
 
     def start_step(self):
@@ -77,7 +81,7 @@ class Round:
         match step_type:
 
             case "pre_flop":
-                pass
+                self.step = Step("pre_flop", self.sits, self.board, self.deck, self.players, )
 
             case "flop":
                 pass
@@ -167,6 +171,25 @@ class Round:
             
         print("Warning, Round.set_big_blind !")
         self.big_blind = pl
+
+    def set_sit_to_play_index(self) -> int:
+        if self.sit_to_play_index is None : # si on a pas encore défini le siège à jouer : 
+            big_blind_sit_index =  self.get_index_by_sit(self.get_sit_by_player(self.little_blind))
+            for _ in range(len(self.sits)):
+                big_blind_sit_index += 1
+                pl = self.sits[big_blind_sit_index].get_player()
+                if isinstance(pl,Player):
+                    self.sit_to_play_index = self.sits.index(pl)
+
+        else:
+            for _ in range(len(self.sits)):
+                self.sit_to_play_index += 1
+                pl = self.sits[big_blind_sit_index].get_player()
+                if isinstance(pl,Player):
+                    break
+
+
+
 
     def get_sit_by_player(self, player) -> Sit:
         for sit in self.sits:

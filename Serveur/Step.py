@@ -13,17 +13,19 @@ class Step:
         Represent a step of the game (pre-flop, flop, turn, river) and call the methods for each player
 
     """
-    def __init__(self,type : str ,sits : List[Sit], board : Board, deck : Deck, players : List[Player]) -> None: # Les sièges doivent être edit par le lobby à chaque changement
+    def __init__(self,type : str ,sits : List[Sit], board : Board, deck : Deck, players : List[Player],sit_to_play_index : int) -> None: # Les sièges doivent être edit par le lobby à chaque changement
         
         self.started = False # passe à  True au démmarage du step
         
-        self.type = type
-        self.sits = sits
-        self.board = board
-        self.deck = deck
-        self.players = players
+        self.type = type # type de la step (preflop flop turn river)
+        self.sits = sits # liste des sièges de la table
+        self.board = board # les cartes du centre aka le board
+        self.deck = deck # la pioche
+        self.players = players # liste de tous les joueurs dont les spectateurs
 
-        self.bet = 0
+        self.sit_to_play_index = sit_to_play_index # l'index du siège ayant la parole
+
+        self.bet = 0 # mise courante toujours initiée à 0
         
 
     def start(self):

@@ -531,6 +531,55 @@ class Lobby :
                 return self.game.round.step.started
             
         return False
+    
+
+    def is_game_initied(self) -> bool:
+        """Retourne vrai si la game du lobby est initiée (affectée à une variable).
+
+        Returns:
+            bool: self.game est démarrée ?
+        """
+
+        if self.game is None:
+            return False
+        
+        elif isinstance(self.game,Game):
+            return True
+        
+        else:
+            raise ValueError # self.game doit etre None ou une Game.
+        
+
+        
+    def is_round_initied(self) -> bool:
+        """Retourne vrai s'il y a un round initié dans une game lancée.
+
+        Returns:
+            bool: self.game.round pas None
+        """
+
+        if self.is_game_started():
+            if self.game.round is None:
+                return False
+            return True
+            
+        return False
+    
+
+    def is_step_initied(self) -> bool:
+        """Retourne vrai s'il y a un step initié dans un round lancé.
+
+        Returns:
+            bool: self.game.round.step pas None est demmaré.
+        """
+        if self.is_round_started():
+            if self.game.round.step is None:
+                return False
+            return True
+            
+        return False
+    
+
 
     def edit_game_sits(self):
         pass
@@ -697,7 +746,9 @@ class Lobby :
         print(self.players)
         print("protocole timer")
         self.timer_protocol()
-        if not self.is_round_started():
+
+        
+        if not self.is_round_initied():
             print("on lève le player : ",player)
             self.sit_up(player.get_conn()) #si aucun round n'est lancé, on lève le joueur.
 
