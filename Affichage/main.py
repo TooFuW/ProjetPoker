@@ -219,7 +219,7 @@ if __name__ == "__main__":
     # Création de l'objet sound_bar
     Global_objects.sound_bar = Cursor_Bar(largeur_actuelle, hauteur_actuelle, screen, 200, 15, (500, 198), "#FFFFFF", "#FFFFFF", "#000000", 700)
     # Création de l'objet raise_bar
-    Global_objects.raise_bar = Cursor_Bar(largeur_actuelle, hauteur_actuelle, screen, 800, 30, (500, 500), "#FFFFFF", "#FFFFFF", "#000000", 500)
+    Global_objects.raise_bar = Cursor_Bar(largeur_actuelle, hauteur_actuelle, screen, 1130, 30, (400, 400), "#FFFFFF", "#FFFFFF", "#000000", 400)
 
     # Initialisation des autres variables globales stockées dans le fichier Global_objects.py
     Global_objects.volume_music = 1.0
@@ -241,8 +241,10 @@ if __name__ == "__main__":
     Global_objects.card_2 = None
     # Nombre de cartes à afficher (que les joueurs ont en main)
     Global_objects.nombre_cartes = 0
-    # Délai entre 2 caractéres supprimés
+    # Délai entre 2 caractéres supprimés pour les TextInputBox
     Global_objects.backspace_timer = time.time() + 0.1
+    # Infos du client/joueur connecté sous la forme [idplayer, pseudo, chips, link]
+    Global_objects.connected_account = [None, "dummy", 20000, "link"]
 
     # Gameloop
     while True:

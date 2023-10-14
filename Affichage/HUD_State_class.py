@@ -70,6 +70,9 @@ class HUD_State:
         # Timer de début de la partie
         self.timer = [None, 0, False]
         self.round_started = False
+        self.is_raising = False
+        # Montant par défaut lorsque le joueur veut faire l'action "raise"
+        self.raised_amount = 0
     
     def mainmenu(self):
         """mainmenu est la fonction qui fait tourner/afficher le menu principal
@@ -942,7 +945,10 @@ class HUD_State:
                 Global_objects.sit_10.draw()
 
         # Dessin de la raise_bar pour choisir le montant
-        #Global_objects.raise_bar.draw(100, width_scale(60, self.largeur_actuelle))
+        """if self.is_raising:
+        Global_objects.raise_bar.draw(round(((Global_objects.connected_account[2]/100)*self.raised_amount)*100), width_scale(60, self.largeur_actuelle))
+        self.raised_amount = (Global_objects.raise_bar.cursor_width - width_scale(400, self.largeur_actuelle)) / (width_scale(1530, self.largeur_actuelle) - width_scale(400, self.largeur_actuelle))
+        """
         
         # Affichage d'une fenêtre de vérification si l'utilisateur clique sur le bouton leavegamebutton
         if self.confirmation:

@@ -298,6 +298,7 @@ def check_click(Button):
             # Lorsque l'on clique sur le bouton raise
             case "raise":
                 # On renvoit une information sous la forme "my_play=action,montant"
+                Global_objects.game_state.is_raising = True
                 print("my_play=raise")
     # Cas des boutons non affectés par Global_objects.buttons_interactibles
     match Button.fonction:
