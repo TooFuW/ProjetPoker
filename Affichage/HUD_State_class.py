@@ -723,9 +723,6 @@ class HUD_State:
                 if Global_objects.parole > len(Global_objects.previewlobbys.players):
                     Global_objects.parole = 1
                 self.timer = [15, time.time(), False]
-            gui_font = pygame.font.SysFont("Roboto", width_scale(40, self.largeur_actuelle))
-            text_surf = gui_font.render(f"Parole à la chaise : {Global_objects.parole} ({round(self.timer[0], 1)})", True, "#FFFFFF")
-            self.screen.blit(text_surf, (width_scale(800, self.largeur_actuelle), height_scale(20, self.hauteur_actuelle)))
 
         # Affichage de la zone qui comportera les actions du joueur
         # Boutons d'actions
