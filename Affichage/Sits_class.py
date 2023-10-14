@@ -35,6 +35,8 @@ class Sits:
         self.selected = False
         # Référencement du siège sélectionné
         self.sit_selected = None
+        # Variable pour savoir le temps restant au joueur pour parler et ainsi l'afficher
+        self.temps_pourcent = 0
    
     def draw(self):
         """Génération/affichage du siège
@@ -78,6 +80,13 @@ class Sits:
             self.screen.blit(transparent_surface, (self.x, self.y))
             # On affiche la pdp du joueur
             self.screen.blit(self.profile_picture, (self.x - width_scale(65, self.largeur_actuelle), self.y - height_scale(22, self.hauteur_actuelle)))
+            # On affiche les barre qui représentent le temps restant au joueur pour parler
+            # Barre blanche du fond
+            pygame.draw.rect(self.screen, "#FFFFFF", pygame.Rect((self.x + width_scale(35, self.largeur_actuelle), self.y + self.height - height_scale(20, self.hauteur_actuelle)), (self.width - width_scale(70, self.largeur_actuelle), height_scale(10, self.hauteur_actuelle))), border_radius = 10)
+            # Barre de remplissage
+            pygame.draw.rect(self.screen, "#FF0000", pygame.Rect((self.x + width_scale(35, self.largeur_actuelle), self.y + self.height - height_scale(20, self.hauteur_actuelle)), (self.temps_pourcent, height_scale(10, self.hauteur_actuelle))), border_radius = 10)
+            if Global_objects.game_state.round_started and Global_objects.parole == self.player[0] + 1:
+                self.temps_pourcent = int((self.width - width_scale(70, self.largeur_actuelle)) * Global_objects.game_state.timer[0] / 15)
         # Affichage des infos du joueur du siège actuel par dessus la surface transparente
         if self.player[1] is None:
             text = "Sit Available"
