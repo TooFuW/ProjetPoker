@@ -388,7 +388,7 @@ class HUD_State:
                 text_size = 20
             else:
                 text_size = 25
-            Global_objects.sound_bar.draw(round(Global_objects.volume_music * 100), text_size)
+            Global_objects.sound_bar.draw(round(Global_objects.volume_music * 100), width_scale(text_size, self.largeur_actuelle))
             # On gére l'affichage avec les icônes de son
             if Global_objects.sound_bar.cursor_width <= Global_objects.sound_bar.x: # Barre à 0
                 volume_icon = self.screen.blit(self.sounds_icons[0], (width_scale(415, self.largeur_actuelle), height_scale(172, self.hauteur_actuelle)))
@@ -743,7 +743,6 @@ class HUD_State:
         Global_objects.foldbutton.draw()
         Global_objects.raisebutton.draw()
 
-
         # Attribution des infos des sièges
         try:
             Global_objects.sit_1.player = Global_objects.auto_arrived_sits[0]
@@ -942,6 +941,9 @@ class HUD_State:
                 Global_objects.sit_10.y = height_scale(340, self.hauteur_actuelle)
                 Global_objects.sit_10.draw()
 
+        # Dessin de la raise_bar pour choisir le montant
+        #Global_objects.raise_bar.draw(100, width_scale(60, self.largeur_actuelle))
+        
         # Affichage d'une fenêtre de vérification si l'utilisateur clique sur le bouton leavegamebutton
         if self.confirmation:
             gui_font = pygame.font.SysFont("Roboto", width_scale(60, self.largeur_actuelle))
@@ -951,7 +953,7 @@ class HUD_State:
             Global_objects.yesbutton.draw()
             Global_objects.nobutton.draw()
 
-        # Affichage des bouttons
+        # Affichage des boutons par dessus tout le reste
         # Cliquer sur le bouton gamesettingsbutton affiche le menu des paramètres pendant la partie
         Global_objects.gamesettingsbutton.draw()
         # Cliquer sur le bouton leavegamebutton retourne au menu principal

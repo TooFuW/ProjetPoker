@@ -218,6 +218,8 @@ if __name__ == "__main__":
     # Création des cursor_bar
     # Création de l'objet sound_bar
     Global_objects.sound_bar = Cursor_Bar(largeur_actuelle, hauteur_actuelle, screen, 200, 15, (500, 198), "#FFFFFF", "#FFFFFF", "#000000", 700)
+    # Création de l'objet raise_bar
+    Global_objects.raise_bar = Cursor_Bar(largeur_actuelle, hauteur_actuelle, screen, 800, 30, (500, 500), "#FFFFFF", "#FFFFFF", "#000000", 500)
 
     # Initialisation des autres variables globales stockées dans le fichier Global_objects.py
     Global_objects.volume_music = 1.0
