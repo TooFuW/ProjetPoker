@@ -391,7 +391,7 @@ class HUD_State:
                 text_size = 20
             else:
                 text_size = 25
-            Global_objects.sound_bar.draw(round(Global_objects.volume_music * 100), width_scale(text_size, self.largeur_actuelle))
+            Global_objects.sound_bar.draw(round(Global_objects.volume_music * 100), width_scale(text_size, self.largeur_actuelle), width_scale(12, self.largeur_actuelle), height_scale(1, self.hauteur_actuelle))
             # On gére l'affichage avec les icônes de son
             if Global_objects.sound_bar.cursor_width <= Global_objects.sound_bar.x: # Barre à 0
                 volume_icon = self.screen.blit(self.sounds_icons[0], (width_scale(415, self.largeur_actuelle), height_scale(172, self.hauteur_actuelle)))
@@ -945,10 +945,12 @@ class HUD_State:
                 Global_objects.sit_10.draw()
 
         # Dessin de la raise_bar pour choisir le montant
-        """if self.is_raising:
-        Global_objects.raise_bar.draw(round(((Global_objects.connected_account[2]/100)*self.raised_amount)*100), width_scale(60, self.largeur_actuelle))
+        #if self.is_raising:
+        gui_font = pygame.font.SysFont("Roboto", width_scale(60, self.largeur_actuelle))
+        text_surf = gui_font.render("Choose the bet", True, "#FFFFFF")
+        pygame.draw.rect(self.screen, "#000000", pygame.Rect((width_scale(340, self.largeur_actuelle), height_scale(350, self.hauteur_actuelle)), (width_scale(1360, self.largeur_actuelle), height_scale(170, self.hauteur_actuelle))), border_radius = 3)
+        Global_objects.raise_bar.draw(round(((Global_objects.connected_account[2]/100)*self.raised_amount)*100), width_scale(30, self.largeur_actuelle), width_scale(30, self.largeur_actuelle), height_scale(2.5, self.hauteur_actuelle))
         self.raised_amount = (Global_objects.raise_bar.cursor_width - width_scale(400, self.largeur_actuelle)) / (width_scale(1530, self.largeur_actuelle) - width_scale(400, self.largeur_actuelle))
-        """
         
         # Affichage d'une fenêtre de vérification si l'utilisateur clique sur le bouton leavegamebutton
         if self.confirmation:

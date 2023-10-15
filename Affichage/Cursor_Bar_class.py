@@ -35,7 +35,7 @@ class Cursor_Bar:
         self.cursor_width = cursor_basic_pos
         self.is_selected = False
 
-    def draw(self, variable, text_size : int):
+    def draw(self, variable, text_size : int, info_box_width : int, height_reductor : float):
         """On dessine la cursor_bar
 
         Args:
@@ -49,8 +49,8 @@ class Cursor_Bar:
         # On change la pos x du curseur lorsque l'on clique dessus, sans dépasser les bordures
         if cursor.collidepoint(mouse_pos) or bar.collidepoint(mouse_pos):
             # On affiche les infos du curseur si la souris est dessus
-            info = pygame.draw.circle(self.screen, self.cursor_color, (cursor.centerx, cursor.centery + cursor.height), max(cursor.width//4, width_scale(10, self.largeur_actuelle)))
-            info_surf = pygame.Rect((info.centerx - info.width//2, info.centery), (info.width, info.height))
+            info = pygame.draw.circle(self.screen, self.cursor_color, (cursor.centerx, cursor.centery + cursor.height), info_box_width)
+            info_surf = pygame.Rect((info.centerx - info.width//2, info.centery), (info.width, info.height//height_reductor))
             pygame.draw.rect(self.screen, self.cursor_color, info_surf, border_radius = 1)
             text = f"{variable}"
             font = pygame.font.SysFont("Roboto", width_scale(text_size, self.largeur_actuelle))
@@ -68,8 +68,8 @@ class Cursor_Bar:
             else:
                 self.cursor_width = mouse_pos[0]
                 # On affiche les infos du curseur si la souris est dessus
-                info = pygame.draw.circle(self.screen, self.cursor_color, (cursor.centerx, cursor.centery + cursor.height), max(cursor.width//4, width_scale(10, self.largeur_actuelle)))
-                info_surf = pygame.Rect((info.centerx - info.width//2, info.centery), (info.width, info.height))
+                info = pygame.draw.circle(self.screen, self.cursor_color, (cursor.centerx, cursor.centery + cursor.height), max(info_box_width, width_scale(10, self.largeur_actuelle)))
+                info_surf = pygame.Rect((info.centerx - info.width//2, info.centery), (info.width, info.height//height_reductor))
                 pygame.draw.rect(self.screen, self.cursor_color, info_surf, border_radius = 1)
                 text = f"{variable}"
                 font = pygame.font.SysFont("Roboto", width_scale(text_size, self.largeur_actuelle))
