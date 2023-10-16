@@ -182,6 +182,17 @@ class Game:
 
 
 
+    def send_game_start(self):
+        for pl in self.players:
+            try:
+                thread_game_start = Thread(target=self.send_packet, args=("game_start=",pl.get_conn()))
+                thread_game_start.start()
+
+
+            except:
+                pass
+
+
     def send_packet(self, packet : str, conn : socket):
         try:
             conn.send(packet.encode("utf8"))

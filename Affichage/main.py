@@ -28,12 +28,13 @@ if __name__ == "__main__":
     hauteur_actuelle = screen.get_height()
     saved_largeur = largeur_actuelle
     saved_hauteur = hauteur_actuelle
-    # Nom de la fenêtre
-    pygame.display.set_caption("MWTE Poker")
-    clock = pygame.time.Clock()
-
     # On initialise current_folder pour faciliter la manipulation des chemins d'accès
     current_folder = __file__[:-7]
+    # Nom de la fenêtre
+    pygame.display.set_caption("MWTE Poker")
+    pygame_icon = pygame.image.load(current_folder + "logo mwte.jpg")
+    pygame.display.set_icon(pygame_icon)
+    clock = pygame.time.Clock()
 
     # Récupération de la liste des lobbys disponibles et de leurs informations ([0] = Nom de la table, [1] = Nombre de joueurs/nombre de joueurs max, [2] = Montant de la mise, [3] = Pot moyen, [4] = Tapis moyen, [5] = ID de la table)
     # On initialise globalement displayed_lobbys_list ici car plus bas une erreur se produit

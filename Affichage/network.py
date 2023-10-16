@@ -113,6 +113,7 @@ def join_lobby(conn : socket, lobby_id : int):
         thread_join_lobby = Thread(target=send_packet, args=(conn,message))
         thread_join_lobby.start()
 
+
     except Exception as e:
         print("Erreur dans network.join_lobby : ",e)
 
@@ -343,6 +344,9 @@ def manage_data(conn : socket, packet : str):
                 # SI LE LOBBY N'EXISTE PAS ON GERE CA DANS 404_LOBBY_NOT_EXIST
                 print(body)
 
+            case "bet":
+                print(body) # montant de la mise courante
+
     except Exception as e:
         print("Erreur sur network.manage_data : ",e)
 
@@ -350,7 +354,15 @@ def manage_data(conn : socket, packet : str):
 def check_lobby_exist(conn,lobby_id):
     thread_ask_for_lobby = Thread(target=send_packet, args=[conn,"is_lobby_exist="+str(lobby_id)])
     thread_ask_for_lobby.start()
-    # si le lobby n'existe pas tu recevras dans 
+    # si le lobby n'existe pas tu recevras dans
+
+
+def send_action(conn : socket, action : tuple):
+
+    packet=f"my_play={action[0]},{str(action[1])}"
+    thread_send_action = Thread(target=send_packet, args=[conn,packet])
+    thread_send_action.start()
+    
 
 
 def edit_displayed_lobbys_list(liste):

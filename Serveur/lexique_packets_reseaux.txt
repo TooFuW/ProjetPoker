@@ -36,11 +36,12 @@ flop="['td','9h','1s']" envoie au client les cartes qui constituent le flop et i
 turn="['1h']" envoie au client les cartes qui constituent le turn et indiquent qu'un turn est en train d'avoir lieu
 river="['2c']" envoie au client les cartes qui constituent le turn et indiquent qu'un turn est en train d'avoir lieu
 your_turn= indique à un client que c'est à son tour de jouer
+game_start="" : previent le client que la game commence avec tous les joueurs qui sont assis
 
 à faire ...
 
 
-game_start="" : previent le client que la game commence avec tous les joueurs qui sont assis
+
 pots="[[],[],...]" : liste des pots triés dans l'ordre de priorité 
 sit_to_play=7 : indique à tous les joueurs la personne (et donc le numéro de siège à aui c'est de jouer)
 action=7,raise,700 indique à tous les joueurs que le siège n°7 à qui c'etait de jouer à relancé à un montant de 700 (est toujours suivi de bet et pots pour mettre à jour ces infos)

@@ -53,6 +53,8 @@ class Step:
         rank_table = {"2":"2","3":"3","4":"4","5":"5","6":"6","7":"7","8":"8","9":"9","10":"t","jack":"j","queen":"q","king":"k","ace":"1"}
         suit_table = {"club":"c","heart":"h","spade":"s","diamond":"d"}
 
+        return rank_table[rank]+suit_table[suit]
+
     def turn_board(self):
         card = self.deck.draw()
         self.board.add_card(card)
@@ -108,6 +110,7 @@ class Step:
     def ask_player_to_play(self, player : Player):
         conn = player.get_conn()
         thread_packet = Thread(target=self.send_packet, args=["your_turn=",conn])
+        thread_packet.start()
 
     def send_bet(self,player : Player):
         conn = player.get_conn()

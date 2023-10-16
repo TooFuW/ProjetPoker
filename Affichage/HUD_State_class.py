@@ -13,7 +13,7 @@ from Preview_Table_class import *
 from Sits_class import *
 from Check_click import *
 import time
-from icecream import ic
+#from icecream import ic
 
 
 
@@ -946,12 +946,12 @@ class HUD_State:
 
         # Dessin de la raise_bar pour choisir le montant
         #if self.is_raising:
-        gui_font = pygame.font.SysFont("Roboto", width_scale(60, self.largeur_actuelle))
+        """gui_font = pygame.font.SysFont("Roboto", width_scale(60, self.largeur_actuelle))
         text_surf = gui_font.render("Choose the bet", True, "#FFFFFF")
         pygame.draw.rect(self.screen, "#000000", pygame.Rect((width_scale(340, self.largeur_actuelle), height_scale(350, self.hauteur_actuelle)), (width_scale(1360, self.largeur_actuelle), height_scale(170, self.hauteur_actuelle))), border_radius = 3)
         Global_objects.raise_bar.draw(round(((Global_objects.connected_account[2]/100)*self.raised_amount)*100), width_scale(30, self.largeur_actuelle), width_scale(30, self.largeur_actuelle), height_scale(2.5, self.hauteur_actuelle))
         self.raised_amount = (Global_objects.raise_bar.cursor_width - width_scale(400, self.largeur_actuelle)) / (width_scale(1530, self.largeur_actuelle) - width_scale(400, self.largeur_actuelle))
-        
+        """
         # Affichage d'une fenêtre de vérification si l'utilisateur clique sur le bouton leavegamebutton
         if self.confirmation:
             gui_font = pygame.font.SysFont("Roboto", width_scale(60, self.largeur_actuelle))

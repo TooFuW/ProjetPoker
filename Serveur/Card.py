@@ -61,10 +61,8 @@ class Card():
 
 def is_new_card_valid(suit,rank):
 
-    if suit in ("club","heart","spade","diamond") and rank in ("ace","2","3","4","5","6","7","8","9","10","jack","queen","king"):
-        return True
-    else:
-        return False
+    return suit in ("club","heart","spade","diamond") and rank in ("ace","2","3","4","5","6","7","8","9","10","jack","queen","king")
+        
     
 def set_value(rank):
     ranks = ("2","3","4","5","6","7","8","9","10","jack","queen","king","ace")

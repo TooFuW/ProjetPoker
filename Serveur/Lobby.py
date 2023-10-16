@@ -51,7 +51,7 @@ class Lobby :
         
         self.start() #écoute du lobby
         
-    def __str__(self):
+    def __str__(self) -> str:
         return f"[{self.id}, '{self.name}', {self.capacity},{self.cave}, {self.is_private}, '{self.host}', {self.port}]"
         
     def start(self):
@@ -738,15 +738,6 @@ class Lobby :
         
 
         player.connected = False # on set le joueur en deconnecté.
-        try:
-            self.players.remove(player) # on le supprime de la liste des joueurs 
-        except:
-            print("joueur deconnecté pas dans self.players")
-
-        print(self.players)
-        print("protocole timer")
-        self.timer_protocol()
-
         
         if not self.is_round_initied():
             print("on lève le player : ",player)
@@ -755,7 +746,14 @@ class Lobby :
         else:
             print("round started.")
 
-        print("...")
+
+        try:
+            self.players.remove(player) # on le supprime de la liste des joueurs 
+        except:
+            print("joueur deconnecté pas dans self.players")
+
+        print(self.players)
+        
 
 
 def new_sits(n : int):

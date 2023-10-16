@@ -284,22 +284,27 @@ def check_click(Button):
                 Global_objects.is_selecting_sit[0] = True
                 Global_objects.client_actuel = 0
             # Lorsque l'on clique sur le bouton check
+            # appelle la fonction send_action de network avec l'action dans un tuple (action,montant)
             case "check":
                 # On renvoit une information sous la forme "my_play=action,montant"
                 print("my_play=check")
+                send_action(Global_objects.client_socket,("check",0))
             # Lorsque l'on clique sur le bouton call
             case "call":
                 # On renvoit une information sous la forme "my_play=action,montant"
                 print("my_play=call")
+                send_action(Global_objects.client_socket,("call",0))
             # Lorsque l'on clique sur le bouton fold
             case "fold":
                 # On renvoit une information sous la forme "my_play=action,montant"
                 print("my_play=fold")
+                send_action(Global_objects.client_socket,("fold",0))
             # Lorsque l'on clique sur le bouton raise
             case "raise":
                 # On renvoit une information sous la forme "my_play=action,montant"
                 Global_objects.game_state.is_raising = True
                 print("my_play=raise")
+                send_action(Global_objects.client_socket,("raise",1)) # INSERER MONTANT DU RAISE AVANT LAPPEL
     # Cas des boutons non affectés par Global_objects.buttons_interactibles
     match Button.fonction:
         # Lorsque le joueur confirme qu'il veut quitter

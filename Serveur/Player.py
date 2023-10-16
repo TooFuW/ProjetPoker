@@ -50,7 +50,7 @@ class Player:
         self.state = state
         #Initialise l'état du joueur
         
-        self.chips = 0
+        self.chips = 1500
         #print("le joueur a bien été créé")
         
 
