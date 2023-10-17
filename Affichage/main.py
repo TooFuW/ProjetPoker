@@ -28,13 +28,12 @@ if __name__ == "__main__":
     hauteur_actuelle = screen.get_height()
     saved_largeur = largeur_actuelle
     saved_hauteur = hauteur_actuelle
-    # On initialise current_folder pour faciliter la manipulation des chemins d'accès
-    current_folder = __file__[:-7]
     # Nom de la fenêtre
     pygame.display.set_caption("MWTE Poker")
-    pygame_icon = pygame.image.load(current_folder + "logo mwte.jpg")
-    pygame.display.set_icon(pygame_icon)
     clock = pygame.time.Clock()
+
+    # On initialise current_folder pour faciliter la manipulation des chemins d'accès
+    current_folder = __file__[:-7]
 
     # Récupération de la liste des lobbys disponibles et de leurs informations ([0] = Nom de la table, [1] = Nombre de joueurs/nombre de joueurs max, [2] = Montant de la mise, [3] = Pot moyen, [4] = Tapis moyen, [5] = ID de la table)
     # On initialise globalement displayed_lobbys_list ici car plus bas une erreur se produit
@@ -57,6 +56,8 @@ if __name__ == "__main__":
     logomwte = pygame.transform.scale(logomwte, (width_scale(175, largeur_actuelle), height_scale(175, hauteur_actuelle)))
     logomwte_rect = logomwte.get_rect()
     logomwte_rect.topleft = (width_scale(10, largeur_actuelle), height_scale(890, hauteur_actuelle))
+    # On change l'îcone du jeu pour le logo MWTE
+    pygame.display.set_icon(logomwte)
 
     # Chargement de la photo de profil du joueur
     pdpplayer = pygame.image.load(current_folder + "logo mwte.jpg")
