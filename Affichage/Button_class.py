@@ -4,7 +4,6 @@
 import pygame
 from Screen_adaptation import *
 import Check_click
-import Global_objects
 
 
 class Button:
@@ -35,6 +34,8 @@ class Button:
         """
         # Attributs généraux
         self.pressed = False
+        # self.pressed diéfférent de self.is_pressing, ce dernier sert à savoir si le bouton est simplement cliqué quand le premier sert pour gérer les interactions dans la classe
+        self.is_pressing = False
         self.fonction = fonction
         self.courbure = round_border
         self.largeur_actuelle = largeur_actuelle
@@ -104,7 +105,7 @@ class Button:
         mouse_pos = pygame.mouse.get_pos()
         # On vérifie si la position de la souris est sur le bouton
         if self.top_rect.collidepoint(mouse_pos):
-            if self.fonction[:3] == "yes" or self.fonction[:2] == "no":
+            if self.button_interactible:
                 # On change la couleur du bouton lorsque la souris est dessus
                 self.top_color = self.hovering_color
                 self.bottom_color = self.hovering_bottom_color
@@ -113,6 +114,7 @@ class Button:
                     # On anime le bouton et change son état
                     self.dynamic_elevation = 0
                     self.pressed = True
+                    self.is_pressing = True
                 # On fait les actions souhaitées lorsque le clic est relaché
                 else:
                     # CODE POUR QUAND LE BOUTON EST CLIQUE
@@ -120,23 +122,8 @@ class Button:
                     if self.pressed:
                         self.pressed = False
                         Check_click.check_click(self)
-            else:
-                if Global_objects.buttons_interactibles:
-                    # On change la couleur du bouton lorsque la souris est dessus
-                    self.top_color = self.hovering_color
-                    self.bottom_color = self.hovering_bottom_color
-                    # On vérifie si l'utilisateur clique sur le clic gauche ([0] = gauche, [1] = molette, [2] = droit)
-                    if pygame.mouse.get_pressed()[0]:
-                        # On anime le bouton et change son état
-                        self.dynamic_elevation = 0
-                        self.pressed = True
-                    # On fait les actions souhaitées lorsque le clic est relaché
-                    else:
-                        # CODE POUR QUAND LE BOUTON EST CLIQUE
-                        self.dynamic_elevation = self.elevation
-                        if self.pressed:
-                            self.pressed = False
-                            Check_click.check_click(self)
+                    if self.is_pressing:
+                        self.is_pressing = False
         # Le else est là pour reset l'état du bouton lorsqu'il n'y a plus aucune interaction
         else:
             self.dynamic_elevation = self.elevation

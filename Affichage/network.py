@@ -313,9 +313,7 @@ def manage_data(conn : socket, packet : str):
 
                 ''' ICI ON RECOIT LE PAQUET START_TIMER'''
 
-                Global_objects.game_state.timer[2] = True
-                Global_objects.game_state.timer[1] = time.time()
-                Global_objects.game_state.timer[0] = int(body)
+                Global_objects.game_state.timer = [int(body), time.time(), True]
 
             case "stop_timer":
 

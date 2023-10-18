@@ -248,7 +248,7 @@ class HUD_State:
                             if event.unicode in ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]:
                                 if Global_objects.tablecodeinput.max_caracteres > 0:
                                     if len(Global_objects.tablecodeinput.user_text) < Global_objects.tablecodeinput.max_caracteres:
-                                        if Global_objects.tablecodeinput.adaptative_size is False:
+                                        if not Global_objects.tablecodeinput.adaptative_size:
                                             if Global_objects.tablecodeinput.text_size < Global_objects.tablecodeinput.base_size:
                                                 Global_objects.tablecodeinput.user_text += event.unicode
                                         else:
@@ -256,7 +256,7 @@ class HUD_State:
                         else:
                             if Global_objects.tablecodeinput.max_caracteres > 0:
                                 if len(Global_objects.tablecodeinput.user_text) < Global_objects.tablecodeinput.max_caracteres:
-                                    if Global_objects.tablecodeinput.adaptative_size is False:
+                                    if not Global_objects.tablecodeinput.adaptative_size:
                                         if Global_objects.tablecodeinput.text_size < Global_objects.tablecodeinput.base_size:
                                             Global_objects.tablecodeinput.user_text += event.unicode
                                         else:
@@ -401,7 +401,7 @@ class HUD_State:
             elif Global_objects.sound_bar.cursor_width > (Global_objects.sound_bar.width//3)*2 + Global_objects.sound_bar.x: # Barre au dessus de 2/3
                 volume_icon = self.screen.blit(self.sounds_icons[3], (width_scale(415, self.largeur_actuelle), height_scale(172, self.hauteur_actuelle)))
             # On gére l'utilisation/les interactions avec le bouton de son
-            if self.is_setting_volume is False:
+            if not self.is_setting_volume:
                 if volume_icon.collidepoint(mouse_pos):
                     if pygame.mouse.get_pressed()[0]:
                         self.is_pressing = True
@@ -411,7 +411,7 @@ class HUD_State:
                                 self.last_sound = Global_objects.sound_bar.cursor_width
                                 Global_objects.sound_bar.cursor_width = Global_objects.sound_bar.x
                                 self.sound_on = False
-                            elif self.sound_on is False:
+                            elif not self.sound_on:
                                 Global_objects.sound_bar.cursor_width = self.last_sound
                                 self.sound_on = True
                             self.is_pressing = False
@@ -463,7 +463,7 @@ class HUD_State:
                             if event.unicode in ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]:
                                 if Global_objects.accountpseudoinput.max_caracteres > 0:
                                     if len(Global_objects.accountpseudoinput.user_text) < Global_objects.accountpseudoinput.max_caracteres:
-                                        if Global_objects.accountpseudoinput.adaptative_size is False:
+                                        if not Global_objects.accountpseudoinput.adaptative_size:
                                             if Global_objects.accountpseudoinput.text_size < Global_objects.accountpseudoinput.base_size:
                                                 Global_objects.accountpseudoinput.user_text += event.unicode
                                         else:
@@ -471,7 +471,7 @@ class HUD_State:
                         else:
                             if Global_objects.accountpseudoinput.max_caracteres > 0:
                                 if len(Global_objects.accountpseudoinput.user_text) < Global_objects.accountpseudoinput.max_caracteres:
-                                    if Global_objects.accountpseudoinput.adaptative_size is False:
+                                    if not Global_objects.accountpseudoinput.adaptative_size:
                                         if Global_objects.accountpseudoinput.text_size < Global_objects.accountpseudoinput.base_size:
                                             Global_objects.accountpseudoinput.user_text += event.unicode
                                         else:
@@ -497,7 +497,7 @@ class HUD_State:
                             if event.unicode in ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]:
                                 if Global_objects.accountinformationinput.max_caracteres > 0:
                                     if len(Global_objects.accountinformationinput.user_text) < Global_objects.accountinformationinput.max_caracteres:
-                                        if Global_objects.accountinformationinput.adaptative_size is False:
+                                        if not Global_objects.accountinformationinput.adaptative_size:
                                             if Global_objects.accountinformationinput.text_size < Global_objects.accountinformationinput.base_size:
                                                 Global_objects.accountinformationinput.user_text += event.unicode
                                         else:
@@ -505,7 +505,7 @@ class HUD_State:
                         else:
                             if Global_objects.accountinformationinput.max_caracteres > 0:
                                 if len(Global_objects.accountinformationinput.user_text) < Global_objects.accountinformationinput.max_caracteres:
-                                    if Global_objects.accountinformationinput.adaptative_size is False:
+                                    if not Global_objects.accountinformationinput.adaptative_size:
                                         if Global_objects.accountinformationinput.text_size < Global_objects.accountinformationinput.base_size:
                                             Global_objects.accountinformationinput.user_text += event.unicode
                                         else:
@@ -670,7 +670,7 @@ class HUD_State:
                             if event.unicode in ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]:
                                 if Global_objects.raiseamountinput.max_caracteres > 0:
                                     if len(Global_objects.raiseamountinput.user_text) < Global_objects.raiseamountinput.max_caracteres:
-                                        if Global_objects.raiseamountinput.adaptative_size is False:
+                                        if not Global_objects.raiseamountinput.adaptative_size:
                                             if Global_objects.raiseamountinput.text_size < Global_objects.raiseamountinput.base_size:
                                                 Global_objects.raiseamountinput.user_text += event.unicode
                                         else:
@@ -678,7 +678,7 @@ class HUD_State:
                         else:
                             if Global_objects.raiseamountinput.max_caracteres > 0:
                                 if len(Global_objects.raiseamountinput.user_text) < Global_objects.raiseamountinput.max_caracteres:
-                                    if Global_objects.raiseamountinput.adaptative_size is False:
+                                    if not Global_objects.raiseamountinput.adaptative_size:
                                         if Global_objects.raiseamountinput.text_size < Global_objects.raiseamountinput.base_size:
                                             Global_objects.raiseamountinput.user_text += event.unicode
                                         else:
@@ -700,7 +700,7 @@ class HUD_State:
         text_surf = gui_font.render(self.server_test, True, "#FFFFFF")
         self.screen.blit(text_surf, (width_scale(250, self.largeur_actuelle), height_scale(100, self.hauteur_actuelle)))
 
-        if self.round_started is False and self.timer[2]:
+        if not self.round_started and self.timer[2]:
         # Affichage du timer avant que la partie commence
             if self.timer[0] > 0:
                 # On ne peut se lever que si la partie n'est pas encore commencée
@@ -711,12 +711,12 @@ class HUD_State:
                     text_surf = gui_font.render(f"{round(self.timer[0], 1)}", True, "#FFFFFF")
                 text_rect = text_surf.get_rect(center = (self.largeur_actuelle//2 - width_scale(100, self.largeur_actuelle), height_scale(30, self.hauteur_actuelle)))
                 self.screen.blit(text_surf, text_rect)
-                self.timer[0] = 20 - (time.time() - self.timer[1])
+                self.timer[0] = 15 - (time.time() - self.timer[1])
             elif self.timer[0] <= 0:
                 self.round_started = True
                 self.timer = [15, time.time(), False]
         # Affichage du nombre de joueurs présents sur le nombre de joueurs max
-        if self.round_started is False:
+        if not self.round_started:
             Global_objects.sit_upbutton.draw()
             try:
                 gui_font = pygame.font.SysFont("Roboto", width_scale(60, self.largeur_actuelle))
@@ -1004,12 +1004,15 @@ class HUD_State:
                 pass
             # On récupére la position de la souris
             mouse_pos = pygame.mouse.get_pos()
-            # On vérifie si la position de la souris est sur le fond noir de la zone pour raise et si non et que l'utilisateur clique, la zone disparait
-            if not raise_background.collidepoint(mouse_pos):
+            # On vérifie si la position de la souris est sur le fond noir de la zone pour raise et si non et que l'utilisateur clique, la zone disparait et tout redevient cliquable
+            if not raise_background.collidepoint(mouse_pos) and not Global_objects.raise_bar.is_selected and not Global_objects.confirmraisebutton.is_pressing and not Global_objects.cancelraisebutton.is_pressing and not Global_objects.all_inbutton.is_pressing and not Global_objects.minus100button.is_pressing and not Global_objects.add100button.is_pressing:
                 # On vérifie si l'utilisateur clique sur le clic gauche ([0] = gauche, [1] = molette, [2] = droit)
                 if pygame.mouse.get_pressed()[0]:
                     self.is_raising = False
-                    Global_objects.buttons_interactibles = True
+                    self.timer = [0.5, time.time(), True]
+        """elif not self.is_raising and self.round_started and self.timer[0] > 0:
+            self.timer[0] = 0.5 - (time.time() - self.timer[1])
+            Global_objects.buttons_interactibles = True"""
 
         # Affichage d'une fenêtre de vérification si l'utilisateur clique sur le bouton leavegamebutton
         if self.confirmation:
