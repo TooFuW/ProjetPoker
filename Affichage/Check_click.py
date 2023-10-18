@@ -6,6 +6,7 @@ import sys
 import Global_objects
 from network import *
 import time
+from Screen_adaptation import *
 
 
 # La fonction check_click est appellée à chaque fois que l'utilisateur clique sur un bouton
@@ -303,12 +304,12 @@ def check_click(Button):
             case "raise":
                 # On renvoit une information sous la forme "my_play=action,montant"
                 Global_objects.game_state.is_raising = True
+                Global_objects.buttons_interactibles = False
                 print("my_play=raise")
-                send_action(Global_objects.client_socket,("raise",1)) # INSERER MONTANT DU RAISE AVANT LAPPEL
     # Cas des boutons non affectés par Global_objects.buttons_interactibles
     match Button.fonction:
         # Lorsque le joueur confirme qu'il veut quitter
-        case "yes":
+        case "yes_leave":
             go_main(Global_objects.client_socket)
             Global_objects.client_actuel = 0
             Global_objects.game_state.state = "Main Menu"
@@ -317,6 +318,26 @@ def check_click(Button):
             Global_objects.buttons_interactibles = True
             Global_objects.game_state.table_selected = None
         # Lorsque le joueur ne confirme pas qu'il veut quitter
-        case "no":
+        case "no_leave":
             Global_objects.game_state.confirmation = False
+            Global_objects.buttons_interactibles = True
+        # Lorsque l'on clique sur le bouton all_in
+        case "all_in":
+            Global_objects.raise_bar.cursor_width = 1530
+        # Lorsque l'on clique sur le bouton add_100
+        case "add_100":
+            nouvelle_valeur = (((Global_objects.connected_account[2]/100)*Global_objects.game_state.raised_amount)*100) + 100 if (((Global_objects.connected_account[2]/100)*Global_objects.game_state.raised_amount)*100) + 100 <= Global_objects.connected_account[2] else Global_objects.connected_account[2]
+            Global_objects.raise_bar.cursor_width = width_scale(400, Button.largeur_actuelle) + (nouvelle_valeur / Global_objects.connected_account[2]) * (width_scale(1530, Button.largeur_actuelle) - width_scale(400, Button.largeur_actuelle))
+        # Lorsque l'on clique sur le bouton minus_100
+        case "minus_100":
+            nouvelle_valeur = (((Global_objects.connected_account[2]/100)*Global_objects.game_state.raised_amount)*100) - 100 if (((Global_objects.connected_account[2]/100)*Global_objects.game_state.raised_amount)*100) - 100 >= 0 else 0
+            Global_objects.raise_bar.cursor_width = width_scale(400, Button.largeur_actuelle) + (nouvelle_valeur / Global_objects.connected_account[2]) * (width_scale(1530, Button.largeur_actuelle) - width_scale(400, Button.largeur_actuelle))
+        # Lorsque l'on clique sur le bouton yes_raise
+        case "yes_raise":
+            send_action(Global_objects.client_socket,("raise",(((Global_objects.connected_account[2]/100)*Global_objects.game_state.raised_amount)*100))) # INSERER MONTANT DU RAISE AVANT LAPPEL
+            Global_objects.game_state.is_raising = False
+            Global_objects.buttons_interactibles = True
+        # Lorsque l'on clique sur le bouton no_raise
+        case "no_raise":
+            Global_objects.game_state.is_raising = False
             Global_objects.buttons_interactibles = True

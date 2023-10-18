@@ -41,6 +41,8 @@ class Cursor_Bar:
         Args:
             variable (variable): Valeur à afficher
             text_size (int): Taille du texte
+            info_box_width (int): Largeur de la bulle d'info
+            height_reductor (float): Multiplicateur de réduction de la hauteir de la bulle d'info
         """
         mouse_pos = pygame.mouse.get_pos()
         # Création du curseur et de la barre derrière

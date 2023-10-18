@@ -16,7 +16,6 @@ import time
 #from icecream import ic
 
 
-
 class HUD_State:
     """Classe HUD_State pour gérer l'interface active (https://www.youtube.com/watch?v=j9yMFG3D7fg)
     """
@@ -652,6 +651,43 @@ class HUD_State:
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
+            # Si on a sélectionne la raiseamountinput
+            if Global_objects.raiseamountinput.active:
+                if event.type == pygame.KEYDOWN:
+                    # Si on clique sur supprimer
+                    if event.key == pygame.K_BACKSPACE:
+                        Global_objects.raiseamountinput.backspace = True
+                    # Si on clique sur entrer
+                    elif event.key == pygame.K_RETURN:
+                        nouvelle_valeur = int(Global_objects.raiseamountinput.user_text) if int(Global_objects.raiseamountinput.user_text) <= Global_objects.connected_account[2] and int(Global_objects.raiseamountinput.user_text) >= 0 else (((Global_objects.connected_account[2]/100)*Global_objects.game_state.raised_amount)*100)
+                        Global_objects.raise_bar.cursor_width = width_scale(400, self.largeur_actuelle) + (nouvelle_valeur / Global_objects.connected_account[2]) * (width_scale(1530, self.largeur_actuelle) - width_scale(400, self.largeur_actuelle))
+                        Global_objects.raiseamountinput.user_text = ""
+                        Global_objects.raiseamountinput.active = False
+                    # Si on clique sur n'importe quoi d'autre
+                    else:
+                        # On gère tout les cas de paramètres des objets de la classe TextInputBox (se référer au fichier TextInputBox_class.py pour plus d'informations sur ces paramètres)
+                        if Global_objects.raiseamountinput.num_only:
+                            if event.unicode in ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]:
+                                if Global_objects.raiseamountinput.max_caracteres > 0:
+                                    if len(Global_objects.raiseamountinput.user_text) < Global_objects.raiseamountinput.max_caracteres:
+                                        if Global_objects.raiseamountinput.adaptative_size is False:
+                                            if Global_objects.raiseamountinput.text_size < Global_objects.raiseamountinput.base_size:
+                                                Global_objects.raiseamountinput.user_text += event.unicode
+                                        else:
+                                            Global_objects.raiseamountinput.user_text += event.unicode
+                        else:
+                            if Global_objects.raiseamountinput.max_caracteres > 0:
+                                if len(Global_objects.raiseamountinput.user_text) < Global_objects.raiseamountinput.max_caracteres:
+                                    if Global_objects.raiseamountinput.adaptative_size is False:
+                                        if Global_objects.raiseamountinput.text_size < Global_objects.raiseamountinput.base_size:
+                                            Global_objects.raiseamountinput.user_text += event.unicode
+                                        else:
+                                            Global_objects.raiseamountinput.user_text += event.unicode
+                                    else:
+                                        Global_objects.raiseamountinput.user_text += event.unicode
+                elif event.type == pygame.KEYUP:
+                    if event.key == pygame.K_BACKSPACE:
+                        Global_objects.raiseamountinput.backspace = False
 
         # Fond noir
         pygame.draw.rect(self.screen, (0, 0, 0), pygame.Rect((0, 0), (self.largeur_actuelle, self.hauteur_actuelle)))
@@ -945,21 +981,43 @@ class HUD_State:
                 Global_objects.sit_10.draw()
 
         # Dessin de la raise_bar pour choisir le montant
-        #if self.is_raising:
-        """gui_font = pygame.font.SysFont("Roboto", width_scale(60, self.largeur_actuelle))
-        text_surf = gui_font.render("Choose the bet", True, "#FFFFFF")
-        pygame.draw.rect(self.screen, "#000000", pygame.Rect((width_scale(340, self.largeur_actuelle), height_scale(350, self.hauteur_actuelle)), (width_scale(1360, self.largeur_actuelle), height_scale(170, self.hauteur_actuelle))), border_radius = 3)
-        Global_objects.raise_bar.draw(round(((Global_objects.connected_account[2]/100)*self.raised_amount)*100), width_scale(30, self.largeur_actuelle), width_scale(30, self.largeur_actuelle), height_scale(2.5, self.hauteur_actuelle))
-        self.raised_amount = (Global_objects.raise_bar.cursor_width - width_scale(400, self.largeur_actuelle)) / (width_scale(1530, self.largeur_actuelle) - width_scale(400, self.largeur_actuelle))
-        """
+        if self.is_raising:
+            gui_font = pygame.font.SysFont("Roboto", width_scale(60, self.largeur_actuelle))
+            text_surf = gui_font.render("Choose the bet", True, "#FFFFFF")
+            raise_background = pygame.draw.rect(self.screen, "#000000", pygame.Rect((width_scale(340, self.largeur_actuelle), height_scale(300, self.hauteur_actuelle)), (width_scale(1250, self.largeur_actuelle), height_scale(300, self.hauteur_actuelle))), border_radius = 3)
+            self.screen.blit(text_surf, (width_scale(820, self.largeur_actuelle), height_scale(320, self.hauteur_actuelle)))
+            Global_objects.raise_bar.draw(round(((Global_objects.connected_account[2]/100)*self.raised_amount)*100), width_scale(25, self.largeur_actuelle), width_scale(25, self.largeur_actuelle), height_scale(2.8, self.hauteur_actuelle))
+            self.raised_amount = (Global_objects.raise_bar.cursor_width - width_scale(400, self.largeur_actuelle)) / (width_scale(1530, self.largeur_actuelle) - width_scale(400, self.largeur_actuelle))
+            Global_objects.confirmraisebutton.draw()
+            Global_objects.cancelraisebutton.draw()
+            Global_objects.all_inbutton.draw()
+            Global_objects.minus100button.draw()
+            Global_objects.add100button.draw()
+            Global_objects.raiseamountinput.draw()
+            # On gére le cas où l'utilisateur garde appuyé la touche backspace
+            try:
+                if Global_objects.raiseamountinput.backspace:
+                    if time.time() >= Global_objects.backspace_timer:
+                        Global_objects.raiseamountinput.user_text = Global_objects.raiseamountinput.user_text[:-1]
+                        Global_objects.backspace_timer = time.time() + 0.1
+            except:
+                pass
+            # On récupére la position de la souris
+            mouse_pos = pygame.mouse.get_pos()
+            # On vérifie si la position de la souris est sur le fond noir de la zone pour raise et si non et que l'utilisateur clique, la zone disparait
+            if not raise_background.collidepoint(mouse_pos):
+                # On vérifie si l'utilisateur clique sur le clic gauche ([0] = gauche, [1] = molette, [2] = droit)
+                if pygame.mouse.get_pressed()[0]:
+                    self.is_raising = False
+
         # Affichage d'une fenêtre de vérification si l'utilisateur clique sur le bouton leavegamebutton
         if self.confirmation:
             gui_font = pygame.font.SysFont("Roboto", width_scale(60, self.largeur_actuelle))
             text_surf = gui_font.render("IF YOU QUIT YOU WILL LOSE EVERYTHING YOU PUT ON THE LINE.", True, "#FFFFFF")
-            pygame.draw.rect(self.screen, "#000000", pygame.Rect((width_scale(340, self.largeur_actuelle), height_scale(400, self.hauteur_actuelle)), (width_scale(1360, self.largeur_actuelle), height_scale(170, self.hauteur_actuelle))), border_radius = 3)
-            self.screen.blit(text_surf, (width_scale(350, self.largeur_actuelle), height_scale(410, self.hauteur_actuelle)))
-            Global_objects.yesbutton.draw()
-            Global_objects.nobutton.draw()
+            pygame.draw.rect(self.screen, "#000000", pygame.Rect((width_scale(280, self.largeur_actuelle), height_scale(400, self.hauteur_actuelle)), (width_scale(1360, self.largeur_actuelle), height_scale(170, self.hauteur_actuelle))), border_radius = 3)
+            self.screen.blit(text_surf, (width_scale(290, self.largeur_actuelle), height_scale(410, self.hauteur_actuelle)))
+            Global_objects.yesleavebutton.draw()
+            Global_objects.noleavebutton.draw()
 
         # Affichage des boutons par dessus tout le reste
         # Cliquer sur le bouton gamesettingsbutton affiche le menu des paramètres pendant la partie

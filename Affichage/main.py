@@ -170,12 +170,22 @@ if __name__ == "__main__":
     Global_objects.refreshbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "refresh", "REFRESH", "Roboto", 60, "#475F77", "#354B5E", "#D74B4B", "#354B5E", 220, 100, (600, 50), 6, 10)
     # Création de l'objet leavegamebutton
     Global_objects.leavegamebutton = Button(largeur_actuelle, hauteur_actuelle, screen, "leave game", "", "Roboto", 0, "#475F77", "#354B5E", "#D74B4B", "#354B5E", 80, 80, (1720, 995), 4, 10, current_folder + "backarrow.png")
-    # Création de l'objet yesbutton
-    Global_objects.yesbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "yes", "YES", "Roboto", 60, "#4CAF50", "#4CAF50", "#00FF00", "#4CAF50", 150, 70, (790, 480), 3, 10)
-    # Création de l'objet nobutton
-    Global_objects.nobutton = Button(largeur_actuelle, hauteur_actuelle, screen, "no", "NO", "Roboto", 60, "#D32F2A", "#D32F2A", "#FF4F58", "#D32F2A", 150, 70, (990, 480), 3, 10)
+    # Création de l'objet yesleavebutton
+    Global_objects.yesleavebutton = Button(largeur_actuelle, hauteur_actuelle, screen, "yes_leave", "YES", "Roboto", 60, "#4CAF50", "#4CAF50", "#00FF00", "#4CAF50", 150, 70, (790, 480), 3, 10)
+    # Création de l'objet noleavebutton
+    Global_objects.noleavebutton = Button(largeur_actuelle, hauteur_actuelle, screen, "no_leave", "NO", "Roboto", 60, "#D32F2A", "#D32F2A", "#FF4F58", "#D32F2A", 150, 70, (990, 480), 3, 10)
     # Création de l'objet sit_upbutton
     Global_objects.sit_upbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "sit up", "SIT UP", "Roboto", 60, "#475F77", "#354B5E", "#D74B4B", "#354B5E", 250, 80, (1425, 995), 6, 10)
+    # Création de l'objet minus100button
+    Global_objects.minus100button = Button(largeur_actuelle, hauteur_actuelle, screen, "minus_100", "- 100", "Roboto", 60, "#475F77", "#354B5E", "#D74B4B", "#354B5E", 150, 70, (355, 520), 3, 10)
+    # Création de l'objet add100button
+    Global_objects.add100button = Button(largeur_actuelle, hauteur_actuelle, screen, "add_100", "+ 100", "Roboto", 60, "#475F77", "#354B5E", "#D74B4B", "#354B5E", 150, 70, (815, 520), 3, 10)
+    # Création de l'objet all_inbutton
+    Global_objects.all_inbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "all_in", "ALL IN", "Roboto", 60, "#475F77", "#354B5E", "#D74B4B", "#354B5E", 150, 70, (985, 520), 3, 10)
+    # Création de l'objet confirmraisebutton
+    Global_objects.confirmraisebutton = Button(largeur_actuelle, hauteur_actuelle, screen, "yes_raise", "CONFIRM", "Roboto", 60, "#4CAF50", "#4CAF50", "#00FF00", "#4CAF50", 200, 70, (1155, 520), 3, 10)
+    # Création de l'objet cancelraisebutton
+    Global_objects.cancelraisebutton = Button(largeur_actuelle, hauteur_actuelle, screen, "no_raise", "CANCEL", "Roboto", 60, "#D32F2A", "#D32F2A", "#FF4F58", "#D32F2A", 200, 70, (1375, 520), 3, 10)
 
     # Création des Scrollboxs
     # Création de l'objet serverscrollbox 
@@ -188,6 +198,8 @@ if __name__ == "__main__":
     Global_objects.accountpseudoinput = TextInputBox(largeur_actuelle, hauteur_actuelle, screen, 60, (685, 190), 600, 100, "#333333", "#475F77", 600, False, 15, False, False, "PSEUDO")
     # Création de l'objet accountinformationinput
     Global_objects.accountinformationinput = TextInputBox(largeur_actuelle, hauteur_actuelle, screen, 60, (685, 315), 600, 650, "#333333", "#475F77", 600, False, 100, False, False, "INFORMATIONS")
+    # Création de l'objet raiseamountinput
+    Global_objects.raiseamountinput = TextInputBox(largeur_actuelle, hauteur_actuelle, screen, 100, (525, 518), 270, 72, "#333333", "#888888", 270, False, 6, True)
 
     # Création des Previews_Table
     # Création de l'objet previewlobbys
@@ -246,7 +258,7 @@ if __name__ == "__main__":
     # Délai entre 2 caractéres supprimés pour les TextInputBox
     Global_objects.backspace_timer = time.time() + 0.1
     # Infos du client/joueur connecté sous la forme [idplayer, pseudo, chips, link]
-    Global_objects.connected_account = [None, "dummy", 20000, "link"]
+    Global_objects.connected_account = [None, "dummy", 1500, "link"]
 
     # Gameloop
     while True:
