@@ -84,7 +84,7 @@ class Sits:
             # Barre blanche du fond
             pygame.draw.rect(self.screen, "#FFFFFF", pygame.Rect((self.x + width_scale(35, self.largeur_actuelle), self.y + self.height - height_scale(20, self.hauteur_actuelle)), (self.width - width_scale(70, self.largeur_actuelle), height_scale(10, self.hauteur_actuelle))), border_radius = 10)
             # Barre de remplissage
-            pygame.draw.rect(self.screen, "#FF0000", pygame.Rect((self.x + width_scale(35, self.largeur_actuelle), self.y + self.height - height_scale(20, self.hauteur_actuelle)), (self.temps_pourcent, height_scale(10, self.hauteur_actuelle))), border_radius = 10)
+            pygame.draw.rect(self.screen, "#FF0000", pygame.Rect((self.x + width_scale(35, self.largeur_actuelle), self.y + self.height - height_scale(20, self.hauteur_actuelle)), (width_scale(self.temps_pourcent, self.largeur_actuelle), height_scale(10, self.hauteur_actuelle))), border_radius = 10)
             if Global_objects.game_state.round_started and Global_objects.parole == self.player[0] + 1:
                 self.temps_pourcent = int((self.width - width_scale(70, self.largeur_actuelle)) * Global_objects.game_state.timer[0] / 15)
         # Affichage des infos du joueur du siège actuel par dessus la surface transparente
@@ -94,9 +94,9 @@ class Sits:
             text = f"{self.player[1]}\n{self.player[2]}"
             text = text.replace("'", "")
         gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
-        height = 10
+        height = height_scale(10, self.hauteur_actuelle)
         if Global_objects.is_selecting_sit[0] is False or self.player[1] is not None:
             for elem in text.split("\n"):
                 text_surf = gui_font.render(elem, True, "#FFFFFF")
                 self.screen.blit(text_surf, (self.x + width_scale(40, self.largeur_actuelle), self.y + height_scale(height, self.hauteur_actuelle)))
-                height += 25
+                height += height_scale(25, self.hauteur_actuelle)

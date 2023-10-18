@@ -739,7 +739,7 @@ class HUD_State:
         self.screen.blit(text_surf, (width_scale(935, self.largeur_actuelle), height_scale(445, self.hauteur_actuelle)))
         # Affichage de la zone du pot de la partie
         pot_surface = pygame.Surface((width_scale(50, self.largeur_actuelle), height_scale(50, self.hauteur_actuelle)), pygame.SRCALPHA)
-        pygame.draw.circle(self.screen, (0, 0, 0, 128), (965, 515), 35)
+        pygame.draw.circle(self.screen, (0, 0, 0, 128), (width_scale(965, self.largeur_actuelle), height_scale(515, self.hauteur_actuelle)), width_scale(35, self.largeur_actuelle))
         pot_surface = self.screen.blit(pot_surface, (width_scale(940, self.largeur_actuelle), height_scale(490, self.hauteur_actuelle)))
         # On place la valeur du pot au milieu de la zone
         gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
