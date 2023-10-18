@@ -1009,6 +1009,7 @@ class HUD_State:
                 # On vérifie si l'utilisateur clique sur le clic gauche ([0] = gauche, [1] = molette, [2] = droit)
                 if pygame.mouse.get_pressed()[0]:
                     self.is_raising = False
+                    Global_objects.buttons_interactibles = True
 
         # Affichage d'une fenêtre de vérification si l'utilisateur clique sur le bouton leavegamebutton
         if self.confirmation:
