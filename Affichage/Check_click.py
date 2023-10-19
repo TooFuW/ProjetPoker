@@ -290,16 +290,19 @@ def check_click(Button):
                 # On renvoit une information sous la forme "my_play=action,montant"
                 print("my_play=check")
                 send_action(Global_objects.client_socket,("check",0))
+                Global_objects.game_state.timer[0] = 0
             # Lorsque l'on clique sur le bouton call
             case "call":
                 # On renvoit une information sous la forme "my_play=action,montant"
                 print("my_play=call")
                 send_action(Global_objects.client_socket,("call",0))
+                Global_objects.game_state.timer[0] = 0
             # Lorsque l'on clique sur le bouton fold
             case "fold":
                 # On renvoit une information sous la forme "my_play=action,montant"
                 print("my_play=fold")
                 send_action(Global_objects.client_socket,("fold",0))
+                Global_objects.game_state.timer[0] = 0
             # Lorsque l'on clique sur le bouton raise
             case "raise":
                 # On renvoit une information sous la forme "my_play=action,montant"
@@ -334,9 +337,13 @@ def check_click(Button):
             Global_objects.raise_bar.cursor_width = width_scale(400, Button.largeur_actuelle) + (nouvelle_valeur / Global_objects.connected_account[2]) * (width_scale(1530, Button.largeur_actuelle) - width_scale(400, Button.largeur_actuelle))
         # Lorsque l'on clique sur le bouton yes_raise
         case "yes_raise":
-            send_action(Global_objects.client_socket,("raise",(((Global_objects.connected_account[2]/100)*Global_objects.game_state.raised_amount)*100))) # INSERER MONTANT DU RAISE AVANT LAPPEL
+            if round(((Global_objects.connected_account[2]/100)*Global_objects.game_state.raised_amount)*100) > 0:
+                send_action(Global_objects.client_socket,("raise",round(((Global_objects.connected_account[2]/100)*Global_objects.game_state.raised_amount)*100))) # INSERER MONTANT DU RAISE AVANT LAPPEL
+            else:
+                send_action(Global_objects.client_socket,("check",0))
             Global_objects.game_state.is_raising = False
             Global_objects.buttons_interactibles = True
+            Global_objects.game_state.timer[0] = 0
         # Lorsque l'on clique sur le bouton no_raise
         case "no_raise":
             Global_objects.game_state.is_raising = False

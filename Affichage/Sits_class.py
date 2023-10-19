@@ -86,6 +86,7 @@ class Sits:
             # Barre de remplissage
             pygame.draw.rect(self.screen, "#FF0000", pygame.Rect((self.x + width_scale(35, self.largeur_actuelle), self.y + self.height - height_scale(20, self.hauteur_actuelle)), (width_scale(self.temps_pourcent, self.largeur_actuelle), height_scale(10, self.hauteur_actuelle))), border_radius = 10)
             if Global_objects.game_state.round_started and Global_objects.parole == self.player[0] + 1:
+                Global_objects.active_sit = self
                 self.temps_pourcent = int((self.width - width_scale(70, self.largeur_actuelle)) * Global_objects.game_state.timer[0] / 15)
         # Affichage des infos du joueur du siège actuel par dessus la surface transparente
         if self.player[1] is None:
