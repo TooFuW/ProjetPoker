@@ -688,6 +688,12 @@ class HUD_State:
                 elif event.type == pygame.KEYUP:
                     if event.key == pygame.K_BACKSPACE:
                         Global_objects.raiseamountinput.backspace = False
+            # On gére les raccourcis clavier
+            elif event.type == pygame.KEYDOWN:
+                if event.unicode in Global_objects.raccourcis_gamemenu.keys():
+                    if event.unicode in list(Global_objects.raccourcis_gamemenu.keys())[:4]:
+                        if Global_objects.parole == Global_objects.client_actuel:
+                            check_click(Global_objects.raccourcis_gamemenu[event.unicode])
 
         # Fond noir
         pygame.draw.rect(self.screen, (0, 0, 0), pygame.Rect((0, 0), (self.largeur_actuelle, self.hauteur_actuelle)))
@@ -711,10 +717,10 @@ class HUD_State:
                     text_surf = gui_font.render(f"{round(self.timer[0], 1)}", True, "#FFFFFF")
                 text_rect = text_surf.get_rect(center = (self.largeur_actuelle//2 - width_scale(100, self.largeur_actuelle), height_scale(30, self.hauteur_actuelle)))
                 self.screen.blit(text_surf, text_rect)
-                self.timer[0] = 15 - (time.time() - self.timer[1])
+                self.timer[0] = 20 - (time.time() - self.timer[1])
             elif self.timer[0] <= 0:
                 self.round_started = True
-                self.timer = [15, time.time(), False]
+                self.timer = [20, time.time(), False]
         # Affichage du nombre de joueurs présents sur le nombre de joueurs max
         if not self.round_started:
             Global_objects.sit_upbutton.draw()

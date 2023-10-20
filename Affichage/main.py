@@ -187,6 +187,12 @@ if __name__ == "__main__":
     # Création de l'objet cancelraisebutton
     Global_objects.cancelraisebutton = Button(largeur_actuelle, hauteur_actuelle, screen, "no_raise", "CANCEL", "Roboto", 60, "#D32F2A", "#D32F2A", "#FF4F58", "#D32F2A", 200, 70, (1375, 520), 3, 10)
 
+    # Raccourcis clavier pour les boutons
+    Global_objects.raccourcis_gamemenu = {"c" : Global_objects.checkbutton,
+                                        "v" : Global_objects.callbutton,
+                                        "b" : Global_objects.foldbutton,
+                                        "n" : Global_objects.raisebutton,}
+
     # Création des Scrollboxs
     # Création de l'objet serverscrollbox 
     Global_objects.serverscrollbox = ScrollBox(largeur_actuelle, hauteur_actuelle, screen, 210, 240, 1000, 760, Global_objects.displayed_lobbys_list)
