@@ -13,7 +13,7 @@ from Preview_Table_class import *
 from Sits_class import *
 from Check_click import *
 import time
-#from icecream import ic
+from icecream import ic
 
 
 class HUD_State:
@@ -81,6 +81,11 @@ class HUD_State:
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
+            elif event.type == pygame.KEYDOWN:
+                if event.unicode in Global_objects.raccourcis_mainmenu.keys():
+                    check_click(Global_objects.raccourcis_mainmenu[event.unicode])
+            if event.type == pygame.KEYDOWN:
+                ic(event.unicode)
 
         # Dessine l'image de fond sur le self.screen de l'écran
         self.screen.blit(self.fond, (0, 0))
@@ -351,6 +356,9 @@ class HUD_State:
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
+            elif event.type == pygame.KEYDOWN:
+                if event.unicode in Global_objects.raccourcis_settingmenu.keys():
+                    check_click(Global_objects.raccourcis_settingmenu[event.unicode])
 
         # Dessine l'image de fond sur la self.screen de l'écran (IMPORANT CAR SE SUPERPOSE A L'INTERFACE PRECEDENT ET PERMET DE "L'EFFACER")
         self.screen.blit(self.fond, (0, 0))
@@ -694,6 +702,24 @@ class HUD_State:
                     if event.unicode in list(Global_objects.raccourcis_gamemenu.keys())[:4]:
                         if Global_objects.parole == Global_objects.client_actuel:
                             check_click(Global_objects.raccourcis_gamemenu[event.unicode])
+                    elif event.unicode in list(Global_objects.raccourcis_gamemenu.keys())[4]:
+                        if self.is_raising:
+                            check_click(Global_objects.raccourcis_gamemenu[event.unicode][1])
+                        elif self.confirmation:
+                            check_click(Global_objects.raccourcis_gamemenu[event.unicode][0])
+                    elif event.unicode in list(Global_objects.raccourcis_gamemenu.keys())[5]:
+                        if self.is_raising:
+                            check_click(Global_objects.raccourcis_gamemenu[event.unicode][1])
+                        elif self.confirmation:
+                            check_click(Global_objects.raccourcis_gamemenu[event.unicode][0])
+                    elif event.unicode in list(Global_objects.raccourcis_gamemenu.keys())[6:9]:
+                        if self.is_raising:
+                            check_click(Global_objects.raccourcis_gamemenu[event.unicode])
+                    elif event.unicode in list(Global_objects.raccourcis_gamemenu.keys())[9]:
+                        if not self.round_started:
+                            check_click(Global_objects.raccourcis_gamemenu[event.unicode])
+                    else:
+                        check_click(Global_objects.raccourcis_gamemenu[event.unicode])
 
         # Fond noir
         pygame.draw.rect(self.screen, (0, 0, 0), pygame.Rect((0, 0), (self.largeur_actuelle, self.hauteur_actuelle)))

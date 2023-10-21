@@ -85,7 +85,7 @@ class TextInputBox:
             else:
                 self.draw_text += caract
         # Dessin du texte par lignes si la box n'est pas adaptative et que le texte dépasse, sinon le texte est dessiné normalement
-        if self.adaptative_size is False:
+        if not self.adaptative_size:
             y = self.input_rect.y + 5
             for line in self.draw_text.split("\n"):
                 text_surface = self.base_font.render(line, True, "#FFFFFF")

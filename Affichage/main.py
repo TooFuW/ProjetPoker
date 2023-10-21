@@ -188,10 +188,30 @@ if __name__ == "__main__":
     Global_objects.cancelraisebutton = Button(largeur_actuelle, hauteur_actuelle, screen, "no_raise", "CANCEL", "Roboto", 60, "#D32F2A", "#D32F2A", "#FF4F58", "#D32F2A", 200, 70, (1375, 520), 3, 10)
 
     # Raccourcis clavier pour les boutons
-    Global_objects.raccourcis_gamemenu = {"c" : Global_objects.checkbutton,
-                                        "v" : Global_objects.callbutton,
-                                        "b" : Global_objects.foldbutton,
-                                        "n" : Global_objects.raisebutton,}
+    Global_objects.raccourcis_gamemenu = {"w" : Global_objects.checkbutton,
+                                          "x" : Global_objects.callbutton,
+                                          "c" : Global_objects.foldbutton,
+                                          "v" : Global_objects.raisebutton,
+                                          "\r" : (Global_objects.yesleavebutton, Global_objects.confirmraisebutton),
+                                          "\x08" : (Global_objects.noleavebutton, Global_objects.cancelraisebutton),
+                                          "," : Global_objects.minus100button,
+                                          ";" : Global_objects.add100button,
+                                          ":" : Global_objects.all_inbutton,
+                                          "b" : Global_objects.sit_upbutton,
+                                          "n" : Global_objects.leavegamebutton,
+                                          "\x1b" : Global_objects.gamesettingsbutton}
+    
+    Global_objects.raccourcis_mainmenu = {"s" : Global_objects.playbutton,
+                                          "q" : Global_objects.settingsbutton,
+                                          "d" : Global_objects.shopbutton,
+                                          "z" : Global_objects.accountbutton,
+                                          "\x1b" : Global_objects.exitbutton}
+    
+    Global_objects.raccourcis_settingmenu = {"&" : Global_objects.settingpage1button,
+                                             "é" : Global_objects.settingpage2button,
+                                             '"' : Global_objects.settingpage3button,
+                                             "z" : Global_objects.accountbutton,
+                                             "\x1b" : Global_objects.backbutton}
 
     # Création des Scrollboxs
     # Création de l'objet serverscrollbox 
