@@ -187,32 +187,6 @@ if __name__ == "__main__":
     # Création de l'objet cancelraisebutton
     Global_objects.cancelraisebutton = Button(largeur_actuelle, hauteur_actuelle, screen, "no_raise", "CANCEL", "Roboto", 60, "#D32F2A", "#D32F2A", "#FF4F58", "#D32F2A", 200, 70, (1375, 520), 3, 10)
 
-    # Raccourcis clavier pour les boutons
-    Global_objects.raccourcis_gamemenu = {"w" : Global_objects.checkbutton,
-                                          "x" : Global_objects.callbutton,
-                                          "c" : Global_objects.foldbutton,
-                                          "v" : Global_objects.raisebutton,
-                                          "\r" : (Global_objects.yesleavebutton, Global_objects.confirmraisebutton),
-                                          "\x08" : (Global_objects.noleavebutton, Global_objects.cancelraisebutton),
-                                          "," : Global_objects.minus100button,
-                                          ";" : Global_objects.add100button,
-                                          ":" : Global_objects.all_inbutton,
-                                          "b" : Global_objects.sit_upbutton,
-                                          "n" : Global_objects.leavegamebutton,
-                                          "\x1b" : Global_objects.gamesettingsbutton}
-    
-    Global_objects.raccourcis_mainmenu = {"s" : Global_objects.playbutton,
-                                          "q" : Global_objects.settingsbutton,
-                                          "d" : Global_objects.shopbutton,
-                                          "z" : Global_objects.accountbutton,
-                                          "\x1b" : Global_objects.exitbutton}
-    
-    Global_objects.raccourcis_settingmenu = {"&" : Global_objects.settingpage1button,
-                                             "é" : Global_objects.settingpage2button,
-                                             '"' : Global_objects.settingpage3button,
-                                             "z" : Global_objects.accountbutton,
-                                             "\x1b" : Global_objects.backbutton}
-
     # Création des Scrollboxs
     # Création de l'objet serverscrollbox 
     Global_objects.serverscrollbox = ScrollBox(largeur_actuelle, hauteur_actuelle, screen, 210, 240, 1000, 760, Global_objects.displayed_lobbys_list)
@@ -288,6 +262,44 @@ if __name__ == "__main__":
     # Objet Sit actif
     Global_objects.active_sit = None
 
+    # Raccourcis clavier pour les boutons
+    Global_objects.raccourcis_gamemenu = {"w" : Global_objects.checkbutton,
+                                          "x" : Global_objects.callbutton,
+                                          "c" : Global_objects.foldbutton,
+                                          "v" : Global_objects.raisebutton,
+                                          "\r" : (Global_objects.yesleavebutton, Global_objects.confirmraisebutton),
+                                          "\x08" : (Global_objects.noleavebutton, Global_objects.cancelraisebutton),
+                                          "," : Global_objects.minus100button,
+                                          ";" : Global_objects.add100button,
+                                          ":" : Global_objects.all_inbutton,
+                                          "b" : Global_objects.sit_upbutton,
+                                          "n" : Global_objects.leavegamebutton,
+                                          "\x1b" : Global_objects.gamesettingsbutton}
+    
+    Global_objects.raccourcis_mainmenu = {"s" : Global_objects.playbutton,
+                                          "q" : Global_objects.settingsbutton,
+                                          "d" : Global_objects.shopbutton,
+                                          "z" : Global_objects.accountbutton,
+                                          "\x1b" : Global_objects.exitbutton}
+    
+    Global_objects.raccourcis_settingmenu = {"&" : Global_objects.settingpage1button,
+                                             "é" : Global_objects.settingpage2button,
+                                             '"' : Global_objects.settingpage3button,
+                                             "z" : Global_objects.accountbutton,
+                                             "\x1b" : Global_objects.backbutton}
+    
+    Global_objects.raccourcis_accountmenu = {"q" : Global_objects.accountpseudoinput,
+                                             "s" : Global_objects.accountinformationinput,
+                                             "a" : Global_objects.accountsettingsbutton,
+                                             "w" : Global_objects.deconnexionbutton,
+                                             "\x1b" : Global_objects.backbutton}
+    
+    """Global_objects.raccourcis_lobbymenu = {"q" : Global_objects.accountpseudoinput,
+                                           "s" : Global_objects.accountinformationinput,
+                                           "a" : Global_objects.accountsettingsbutton,
+                                           "w" : Global_objects.deconnexionbutton,
+                                           "\x1b" : Global_objects.backbutton}"""
+    
     # Gameloop
     while True:
         largeur_actuelle = screen.get_width()

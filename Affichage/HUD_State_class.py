@@ -84,8 +84,6 @@ class HUD_State:
             elif event.type == pygame.KEYDOWN:
                 if event.unicode in Global_objects.raccourcis_mainmenu.keys():
                     check_click(Global_objects.raccourcis_mainmenu[event.unicode])
-            if event.type == pygame.KEYDOWN:
-                ic(event.unicode)
 
         # Dessine l'image de fond sur le self.screen de l'écran
         self.screen.blit(self.fond, (0, 0))
@@ -143,7 +141,7 @@ class HUD_State:
                 pygame.quit()
                 sys.exit()
             # Si on a sélectionne la TextInputBox
-            if Global_objects.tablecodeinput.active:
+            elif Global_objects.tablecodeinput.active:
                 if event.type == pygame.KEYDOWN:
                     # Si on clique sur delete
                     if event.key == pygame.K_BACKSPACE:
@@ -271,6 +269,14 @@ class HUD_State:
                 elif event.type == pygame.KEYUP:
                     if event.key == pygame.K_BACKSPACE:
                         Global_objects.tablecodeinput.backspace = False
+            elif event.type == pygame.KEYDOWN:
+                if event.unicode in Global_objects.raccourcis_accountmenu.keys():
+                    if event.unicode == list(Global_objects.raccourcis_accountmenu.keys())[0] and Global_objects.accountsettingsbutton.account_modifiable:
+                        Global_objects.accountpseudoinput.active = True
+                    elif event.unicode == list(Global_objects.raccourcis_accountmenu.keys())[1] and Global_objects.accountsettingsbutton.account_modifiable:
+                        Global_objects.accountinformationinput.active = True
+                    else:
+                        check_click(Global_objects.raccourcis_accountmenu[event.unicode])
             if event.type == pygame.MOUSEBUTTONDOWN:
                 # Molette de la souris vers le haut
                 if event.button == 4:
@@ -490,7 +496,7 @@ class HUD_State:
                     if event.key == pygame.K_BACKSPACE:
                         Global_objects.accountpseudoinput.backspace = False
             # Si on a sélectionne la accountpseudoinput
-            if Global_objects.accountinformationinput.active:
+            elif Global_objects.accountinformationinput.active:
                 if event.type == pygame.KEYDOWN:
                     # Si on clique sur delete
                     if event.key == pygame.K_BACKSPACE:
@@ -523,6 +529,14 @@ class HUD_State:
                 elif event.type == pygame.KEYUP:
                     if event.key == pygame.K_BACKSPACE:
                         Global_objects.accountinformationinput.backspace = False
+            elif event.type == pygame.KEYDOWN:
+                if event.unicode in Global_objects.raccourcis_accountmenu.keys():
+                    if event.unicode == list(Global_objects.raccourcis_accountmenu.keys())[0] and Global_objects.accountsettingsbutton.account_modifiable:
+                        Global_objects.accountpseudoinput.active = True
+                    elif event.unicode == list(Global_objects.raccourcis_accountmenu.keys())[1] and Global_objects.accountsettingsbutton.account_modifiable:
+                        Global_objects.accountinformationinput.active = True
+                    else:
+                        check_click(Global_objects.raccourcis_accountmenu[event.unicode])
 
         # Dessine l'image de fond sur la self.screen de l'écran (IMPORANT CAR SE SUPERPOSE A L'INTERFACE PRECEDENT ET PERMET DE "L'EFFACER")
         self.screen.blit(self.fond, (0, 0))
