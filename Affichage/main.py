@@ -294,11 +294,11 @@ if __name__ == "__main__":
                                              "w" : Global_objects.deconnexionbutton,
                                              "\x1b" : Global_objects.backbutton}
     
-    """Global_objects.raccourcis_lobbymenu = {"q" : Global_objects.accountpseudoinput,
-                                           "s" : Global_objects.accountinformationinput,
-                                           "a" : Global_objects.accountsettingsbutton,
-                                           "w" : Global_objects.deconnexionbutton,
-                                           "\x1b" : Global_objects.backbutton}"""
+    Global_objects.raccourcis_lobbymenu = {"w" : Global_objects.tablecodeinput,
+                                           "\r" : Global_objects.previewlobbys.jointablebutton,
+                                           "a" : Global_objects.createtablebutton,
+                                           "z" : Global_objects.accountbutton,
+                                           "\x1b" : Global_objects.backbutton}
     
     # Gameloop
     while True:
