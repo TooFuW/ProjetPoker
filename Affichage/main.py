@@ -263,6 +263,24 @@ if __name__ == "__main__":
     Global_objects.active_sit = None
 
     # Raccourcis clavier pour les boutons
+    Global_objects.raccourcis_mainmenu = {"s" : Global_objects.playbutton,
+                                          "q" : Global_objects.settingsbutton,
+                                          "d" : Global_objects.shopbutton,
+                                          "z" : Global_objects.accountbutton,
+                                          "\x1b" : Global_objects.exitbutton}
+
+    Global_objects.raccourcis_settingmenu = {"&" : Global_objects.settingpage1button,
+                                             "é" : Global_objects.settingpage2button,
+                                             '"' : Global_objects.settingpage3button,
+                                             "z" : Global_objects.accountbutton,
+                                             "\x1b" : Global_objects.backbutton}
+    
+    Global_objects.raccourcis_accountmenu = {"a" : Global_objects.accountsettingsbutton,
+                                             "q" : Global_objects.accountpseudoinput,
+                                             "s" : Global_objects.accountinformationinput,
+                                             "w" : Global_objects.deconnexionbutton,
+                                             "\x1b" : Global_objects.backbutton}
+    
     Global_objects.raccourcis_gamemenu = {"w" : Global_objects.checkbutton,
                                           "x" : Global_objects.callbutton,
                                           "c" : Global_objects.foldbutton,
@@ -276,30 +294,24 @@ if __name__ == "__main__":
                                           "n" : Global_objects.leavegamebutton,
                                           "\x1b" : Global_objects.gamesettingsbutton}
     
-    Global_objects.raccourcis_mainmenu = {"s" : Global_objects.playbutton,
-                                          "q" : Global_objects.settingsbutton,
-                                          "d" : Global_objects.shopbutton,
-                                          "z" : Global_objects.accountbutton,
-                                          "\x1b" : Global_objects.exitbutton}
-    
-    Global_objects.raccourcis_settingmenu = {"&" : Global_objects.settingpage1button,
-                                             "é" : Global_objects.settingpage2button,
-                                             '"' : Global_objects.settingpage3button,
-                                             "z" : Global_objects.accountbutton,
-                                             "\x1b" : Global_objects.backbutton}
-    
-    Global_objects.raccourcis_accountmenu = {"q" : Global_objects.accountpseudoinput,
-                                             "s" : Global_objects.accountinformationinput,
-                                             "a" : Global_objects.accountsettingsbutton,
-                                             "w" : Global_objects.deconnexionbutton,
-                                             "\x1b" : Global_objects.backbutton}
-    
     Global_objects.raccourcis_lobbymenu = {"w" : Global_objects.tablecodeinput,
                                            "\r" : Global_objects.previewlobbys.jointablebutton,
                                            "a" : Global_objects.createtablebutton,
                                            "z" : Global_objects.accountbutton,
                                            "\x1b" : Global_objects.backbutton}
     
+    # Création des TextInputBox pour les raccourcis
+    # Création de l'objet raccourci_mainmenu_play
+    Global_objects.raccourci_mainmenu_play = TextInputBox(largeur_actuelle, hauteur_actuelle, screen, 40, (450, 240), 20, 35, "#333333", "#888888", 20, starting_text=list(Global_objects.raccourcis_mainmenu)[0][0] if list(Global_objects.raccourcis_mainmenu)[0][0] not in ["\x1b", "\r", "\x08", "\t"] else "Enter" if list(Global_objects.raccourcis_mainmenu)[0][0] == "\r" else "Backspace" if list(Global_objects.raccourcis_mainmenu)[0][0] == "\x08" else "Esc" if list(Global_objects.raccourcis_mainmenu)[0][0] == "\x1b" else "Tab" if list(Global_objects.raccourcis_mainmenu)[0][0] == "\t" else "")
+    # Création de l'objet raccourci_mainmenu_settings
+    Global_objects.raccourci_mainmenu_settings = TextInputBox(largeur_actuelle, hauteur_actuelle, screen, 40, (500, 280), 20, 35, "#333333", "#888888", 20, starting_text=list(Global_objects.raccourcis_mainmenu)[1][0] if list(Global_objects.raccourcis_mainmenu)[1][0] not in ["\x1b", "\r", "\x08", "\t"] else "Enter" if list(Global_objects.raccourcis_mainmenu)[1][0] == "\r" else "Backspace" if list(Global_objects.raccourcis_mainmenu)[1][0] == "\x08" else "Esc" if list(Global_objects.raccourcis_mainmenu)[1][0] == "\x1b" else "Tab" if list(Global_objects.raccourcis_mainmenu)[1][0] == "\t" else "")
+    # Création de l'objet raccourci_mainmenu_shop
+    Global_objects.raccourci_mainmenu_shop = TextInputBox(largeur_actuelle, hauteur_actuelle, screen, 40, (465, 320), 20, 35, "#333333", "#888888", 20, starting_text=list(Global_objects.raccourcis_mainmenu)[2][0] if list(Global_objects.raccourcis_mainmenu)[2][0] not in ["\x1b", "\r", "\x08", "\t"] else "Enter" if list(Global_objects.raccourcis_mainmenu)[2][0] == "\r" else "Backspace" if list(Global_objects.raccourcis_mainmenu)[2][0] == "\x08" else "Esc" if list(Global_objects.raccourcis_mainmenu)[2][0] == "\x1b" else "Tab" if list(Global_objects.raccourcis_mainmenu)[2][0] == "\t" else "")
+    # Création de l'objet raccourci_mainmenu_account
+    Global_objects.raccourci_mainmenu_account = TextInputBox(largeur_actuelle, hauteur_actuelle, screen, 40, (500, 360), 20, 35, "#333333", "#888888", 20, starting_text=list(Global_objects.raccourcis_mainmenu)[3][0] if list(Global_objects.raccourcis_mainmenu)[3][0] not in ["\x1b", "\r", "\x08", "\t"] else "Enter" if list(Global_objects.raccourcis_mainmenu)[3][0] == "\r" else "Backspace" if list(Global_objects.raccourcis_mainmenu)[3][0] == "\x08" else "Esc" if list(Global_objects.raccourcis_mainmenu)[3][0] == "\x1b" else "Tab" if list(Global_objects.raccourcis_mainmenu)[3][0] == "\t" else "")
+    # Création de l'objet raccourci_mainmenu_back
+    Global_objects.raccourci_mainmenu_back = TextInputBox(largeur_actuelle, hauteur_actuelle, screen, 40, (450, 400), 20, 35, "#333333", "#888888", 20, starting_text=list(Global_objects.raccourcis_mainmenu)[4][0] if list(Global_objects.raccourcis_mainmenu)[4][0] not in ["\x1b", "\r", "\x08", "\t"] else "Enter" if list(Global_objects.raccourcis_mainmenu)[4][0] == "\r" else "Backspace" if list(Global_objects.raccourcis_mainmenu)[4][0] == "\x08" else "Esc" if list(Global_objects.raccourcis_mainmenu)[4][0] == "\x1b" else "Tab" if list(Global_objects.raccourcis_mainmenu)[4][0] == "\t" else "")
+
     # Gameloop
     while True:
         largeur_actuelle = screen.get_width()

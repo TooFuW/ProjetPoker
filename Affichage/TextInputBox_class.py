@@ -3,6 +3,7 @@
 
 import pygame
 from Screen_adaptation import *
+from icecream import ic
 
 
 class TextInputBox:
@@ -24,7 +25,7 @@ class TextInputBox:
             passive_color (str): Couleur de la boîte lorsque l'on ne peut pas écrire dedans
             base_size (int): Taille minimum de la box (DOIT ETRE EGAL A WIDTH SI ADAPTATIVE = FALSE)
             adaptative (bool) = True: True si la taille de la boîte peut changer en fonction de la taille du texte, False si elle est fixe (le texte ne pourra alors pas dépasser de la boîte)
-            max_caractere (int) = -1: -1 si les caractères sont illimités, entier positif sinon
+            max_caracteres (int) = -1: -1 si les caractères sont illimités, entier positif sinon
             num_only (bool) = False: True si on ne peut entrer que des chiffres, False sinon
             interactible (bool) = True: True si on peut interagir avec, False sinon
             starting_text (str) = "": Chaîne de caractère vide par défaut, sinon le texte de départ
@@ -80,7 +81,7 @@ class TextInputBox:
         for caract in self.user_text:
             text_actuel = self.draw_text.split("\n")
             text_surface = self.base_font.render(text_actuel[-1], True, "#FFFFFF")
-            if text_surface.get_width() >= self.base_size - width_scale(25, self.largeur_actuelle):
+            if text_surface.get_width() >= self.base_size - width_scale(25, self.largeur_actuelle) and not self.adaptative_size:
                 self.draw_text += f"\n{caract}"
             else:
                 self.draw_text += caract
