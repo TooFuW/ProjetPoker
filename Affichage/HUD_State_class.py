@@ -224,7 +224,7 @@ class HUD_State:
                                 Global_objects.sit_10.player = Global_objects.previewlobbys.players[9]
                             for lobby in Global_objects.displayed_lobbys_list:
                                 if lobby[-1] == Global_objects.tablecodeinput.user_text:
-                                    self.server_test = f"{lobby[0]}{" "*width_scale(35, Button.largeur_actuelle)}{lobby[1]}{" "*width_scale(35, Button.largeur_actuelle)}{lobby[2]}{" "*width_scale(35, Button.largeur_actuelle)}{lobby[3]}{" "*width_scale(35, Button.largeur_actuelle)}{lobby[4]}"
+                                    self.server_test = f"{lobby[0]}{' '*width_scale(35, Button.largeur_actuelle)}{lobby[1]}{' '*width_scale(35, Button.largeur_actuelle)}{lobby[2]}{' '*width_scale(35, Button.largeur_actuelle)}{lobby[3]}{' '*width_scale(35, Button.largeur_actuelle)}{lobby[4]}"
                                     Global_objects.pot = lobby[3]
                                     break
                             Global_objects.game_state.table_selected = None
