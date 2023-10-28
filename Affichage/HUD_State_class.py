@@ -13,6 +13,7 @@ from Preview_Table_class import *
 from Sits_class import *
 from Check_click import *
 import time
+from Fonctions_pratiques import *
 from icecream import ic
 
 
@@ -325,10 +326,7 @@ class HUD_State:
         Global_objects.tablecodeinput.draw()
         # On gére le cas où l'utilisateur garde appuyé la touche backspace
         try:
-            if Global_objects.tablecodeinput.backspace:
-                if time.time() >= Global_objects.backspace_timer:
-                    Global_objects.tablecodeinput.user_text = Global_objects.tablecodeinput.user_text[:-1]
-                    Global_objects.backspace_timer = time.time() + 0.1
+            timer_backspace(Global_objects.tablecodeinput)
         except:
             pass
         # On affiche un texte au-dessus de la box qui indique ce que cette dernière fait
@@ -398,44 +396,11 @@ class HUD_State:
                     # Si on clique sur n'importe quoi d'autre
                     elif event.unicode != "":
                         # On gère tout les cas de paramètres des objets de la classe TextInputBox (se référer au fichier TextInputBox_class.py pour plus d'informations sur ces paramètres)
-                        if Global_objects.raccourci_mainmenu_play.num_only:
-                            if event.unicode in ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]:
-                                if Global_objects.raccourci_mainmenu_play.max_caracteres > 0:
-                                    if len(Global_objects.raccourci_mainmenu_play.user_text) < Global_objects.raccourci_mainmenu_play.max_caracteres:
-                                        if not Global_objects.raccourci_mainmenu_play.adaptative_size:
-                                            if Global_objects.raccourci_mainmenu_play.text_size < Global_objects.raccourci_mainmenu_play.base_size:
-                                                Global_objects.raccourci_mainmenu_play.user_text = event.unicode
-                                                Global_objects.raccourci_mainmenu_play.active = False
-                                                dict_list = list(Global_objects.raccourcis_mainmenu.items())
-                                                dict_list[0] = (Global_objects.raccourci_mainmenu_play.user_text, dict_list[0][1])
-                                                Global_objects.raccourcis_mainmenu = dict(dict_list)
-                                        else:
-                                            Global_objects.raccourci_mainmenu_play.user_text = event.unicode
-                                            Global_objects.raccourci_mainmenu_play.active = False
-                                            dict_list = list(Global_objects.raccourcis_mainmenu.items())
-                                            dict_list[0] = (Global_objects.raccourci_mainmenu_play.user_text, dict_list[0][1])
-                                            Global_objects.raccourcis_mainmenu = dict(dict_list)
-                        else:
-                            if len(Global_objects.raccourci_mainmenu_play.user_text) < Global_objects.raccourci_mainmenu_play.max_caracteres or Global_objects.raccourci_mainmenu_play.max_caracteres == -1:
-                                if not Global_objects.raccourci_mainmenu_play.adaptative_size:
-                                    if Global_objects.raccourci_mainmenu_play.text_size < Global_objects.raccourci_mainmenu_play.base_size:
-                                        Global_objects.raccourci_mainmenu_play.user_text = event.unicode
-                                        Global_objects.raccourci_mainmenu_play.active = False
-                                        dict_list = list(Global_objects.raccourcis_mainmenu.items())
-                                        dict_list[0] = (Global_objects.raccourci_mainmenu_play.user_text, dict_list[0][1])
-                                        Global_objects.raccourcis_mainmenu = dict(dict_list)
-                                    else:
-                                        Global_objects.raccourci_mainmenu_play.user_text = event.unicode
-                                        Global_objects.raccourci_mainmenu_play.active = False
-                                        dict_list = list(Global_objects.raccourcis_mainmenu.items())
-                                        dict_list[0] = (Global_objects.raccourci_mainmenu_play.user_text, dict_list[0][1])
-                                        Global_objects.raccourcis_mainmenu = dict(dict_list)
-                                else:
-                                    Global_objects.raccourci_mainmenu_play.user_text = event.unicode
-                                    Global_objects.raccourci_mainmenu_play.active = False
-                                    dict_list = list(Global_objects.raccourcis_mainmenu.items())
-                                    dict_list[0] = (Global_objects.raccourci_mainmenu_play.user_text, dict_list[0][1])
-                                    Global_objects.raccourcis_mainmenu = dict(dict_list)
+                        Global_objects.raccourci_mainmenu_play.user_text = event.unicode
+                        Global_objects.raccourci_mainmenu_play.active = False
+                        dict_list = list(Global_objects.raccourcis_mainmenu.items())
+                        dict_list[0] = (Global_objects.raccourci_mainmenu_play.user_text, dict_list[0][1])
+                        Global_objects.raccourcis_mainmenu = dict(dict_list)
             # Si on a sélectionne la raccourci_mainmenu_settings
             if Global_objects.raccourci_mainmenu_settings.active:
                 if event.type == pygame.KEYDOWN:
@@ -470,44 +435,11 @@ class HUD_State:
                     # Si on clique sur n'importe quoi d'autre
                     elif event.unicode != "":
                         # On gère tout les cas de paramètres des objets de la classe TextInputBox (se référer au fichier TextInputBox_class.py pour plus d'informations sur ces paramètres)
-                        if Global_objects.raccourci_mainmenu_settings.num_only:
-                            if event.unicode in ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]:
-                                if Global_objects.raccourci_mainmenu_settings.max_caracteres > 0:
-                                    if len(Global_objects.raccourci_mainmenu_settings.user_text) < Global_objects.raccourci_mainmenu_settings.max_caracteres:
-                                        if not Global_objects.raccourci_mainmenu_settings.adaptative_size:
-                                            if Global_objects.raccourci_mainmenu_settings.text_size < Global_objects.raccourci_mainmenu_settings.base_size:
-                                                Global_objects.raccourci_mainmenu_settings.user_text = event.unicode
-                                                Global_objects.raccourci_mainmenu_settings.active = False
-                                                dict_list = list(Global_objects.raccourcis_mainmenu.items())
-                                                dict_list[1] = (Global_objects.raccourci_mainmenu_settings.user_text, dict_list[1][1])
-                                                Global_objects.raccourcis_mainmenu = dict(dict_list)
-                                        else:
-                                            Global_objects.raccourci_mainmenu_settings.user_text = event.unicode
-                                            Global_objects.raccourci_mainmenu_settings.active = False
-                                            dict_list = list(Global_objects.raccourcis_mainmenu.items())
-                                            dict_list[1] = (Global_objects.raccourci_mainmenu_settings.user_text, dict_list[1][1])
-                                            Global_objects.raccourcis_mainmenu = dict(dict_list)
-                        else:
-                            if len(Global_objects.raccourci_mainmenu_settings.user_text) < Global_objects.raccourci_mainmenu_settings.max_caracteres or Global_objects.raccourci_mainmenu_settings.max_caracteres == -1:
-                                if not Global_objects.raccourci_mainmenu_settings.adaptative_size:
-                                    if Global_objects.raccourci_mainmenu_settings.text_size < Global_objects.raccourci_mainmenu_settings.base_size:
-                                        Global_objects.raccourci_mainmenu_settings.user_text = event.unicode
-                                        Global_objects.raccourci_mainmenu_settings.active = False
-                                        dict_list = list(Global_objects.raccourcis_mainmenu.items())
-                                        dict_list[1] = (Global_objects.raccourci_mainmenu_settings.user_text, dict_list[1][1])
-                                        Global_objects.raccourcis_mainmenu = dict(dict_list)
-                                    else:
-                                        Global_objects.raccourci_mainmenu_settings.user_text = event.unicode
-                                        Global_objects.raccourci_mainmenu_settings.active = False
-                                        dict_list = list(Global_objects.raccourcis_mainmenu.items())
-                                        dict_list[1] = (Global_objects.raccourci_mainmenu_settings.user_text, dict_list[1][1])
-                                        Global_objects.raccourcis_mainmenu = dict(dict_list)
-                                else:
-                                    Global_objects.raccourci_mainmenu_settings.user_text = event.unicode
-                                    Global_objects.raccourci_mainmenu_settings.active = False
-                                    dict_list = list(Global_objects.raccourcis_mainmenu.items())
-                                    dict_list[1] = (Global_objects.raccourci_mainmenu_settings.user_text, dict_list[1][1])
-                                    Global_objects.raccourcis_mainmenu = dict(dict_list)
+                        Global_objects.raccourci_mainmenu_settings.user_text = event.unicode
+                        Global_objects.raccourci_mainmenu_settings.active = False
+                        dict_list = list(Global_objects.raccourcis_mainmenu.items())
+                        dict_list[1] = (Global_objects.raccourci_mainmenu_settings.user_text, dict_list[1][1])
+                        Global_objects.raccourcis_mainmenu = dict(dict_list)
             # Si on a sélectionne la raccourci_mainmenu_shop
             if Global_objects.raccourci_mainmenu_shop.active:
                 if event.type == pygame.KEYDOWN:
@@ -542,44 +474,11 @@ class HUD_State:
                     # Si on clique sur n'importe quoi d'autre
                     elif event.unicode != "":
                         # On gère tout les cas de paramètres des objets de la classe TextInputBox (se référer au fichier TextInputBox_class.py pour plus d'informations sur ces paramètres)
-                        if Global_objects.raccourci_mainmenu_shop.num_only:
-                            if event.unicode in ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]:
-                                if Global_objects.raccourci_mainmenu_shop.max_caracteres > 0:
-                                    if len(Global_objects.raccourci_mainmenu_shop.user_text) < Global_objects.raccourci_mainmenu_shop.max_caracteres:
-                                        if not Global_objects.raccourci_mainmenu_shop.adaptative_size:
-                                            if Global_objects.raccourci_mainmenu_shop.text_size < Global_objects.raccourci_mainmenu_shop.base_size:
-                                                Global_objects.raccourci_mainmenu_shop.user_text = event.unicode
-                                                Global_objects.raccourci_mainmenu_shop.active = False
-                                                dict_list = list(Global_objects.raccourcis_mainmenu.items())
-                                                dict_list[2] = (Global_objects.raccourci_mainmenu_shop.user_text, dict_list[2][1])
-                                                Global_objects.raccourcis_mainmenu = dict(dict_list)
-                                        else:
-                                            Global_objects.raccourci_mainmenu_shop.user_text = event.unicode
-                                            Global_objects.raccourci_mainmenu_shop.active = False
-                                            dict_list = list(Global_objects.raccourcis_mainmenu.items())
-                                            dict_list[2] = (Global_objects.raccourci_mainmenu_shop.user_text, dict_list[2][1])
-                                            Global_objects.raccourcis_mainmenu = dict(dict_list)
-                        else:
-                            if len(Global_objects.raccourci_mainmenu_shop.user_text) < Global_objects.raccourci_mainmenu_shop.max_caracteres or Global_objects.raccourci_mainmenu_shop.max_caracteres == -1:
-                                if not Global_objects.raccourci_mainmenu_shop.adaptative_size:
-                                    if Global_objects.raccourci_mainmenu_shop.text_size < Global_objects.raccourci_mainmenu_shop.base_size:
-                                        Global_objects.raccourci_mainmenu_shop.user_text = event.unicode
-                                        Global_objects.raccourci_mainmenu_shop.active = False
-                                        dict_list = list(Global_objects.raccourcis_mainmenu.items())
-                                        dict_list[2] = (Global_objects.raccourci_mainmenu_shop.user_text, dict_list[2][1])
-                                        Global_objects.raccourcis_mainmenu = dict(dict_list)
-                                    else:
-                                        Global_objects.raccourci_mainmenu_shop.user_text = event.unicode
-                                        Global_objects.raccourci_mainmenu_shop.active = False
-                                        dict_list = list(Global_objects.raccourcis_mainmenu.items())
-                                        dict_list[2] = (Global_objects.raccourci_mainmenu_shop.user_text, dict_list[2][1])
-                                        Global_objects.raccourcis_mainmenu = dict(dict_list)
-                                else:
-                                    Global_objects.raccourci_mainmenu_shop.user_text = event.unicode
-                                    Global_objects.raccourci_mainmenu_shop.active = False
-                                    dict_list = list(Global_objects.raccourcis_mainmenu.items())
-                                    dict_list[2] = (Global_objects.raccourci_mainmenu_shop.user_text, dict_list[2][1])
-                                    Global_objects.raccourcis_mainmenu = dict(dict_list)
+                        Global_objects.raccourci_mainmenu_shop.user_text = event.unicode
+                        Global_objects.raccourci_mainmenu_shop.active = False
+                        dict_list = list(Global_objects.raccourcis_mainmenu.items())
+                        dict_list[2] = (Global_objects.raccourci_mainmenu_shop.user_text, dict_list[2][1])
+                        Global_objects.raccourcis_mainmenu = dict(dict_list)
             # Si on a sélectionne la raccourci_mainmenu_account
             if Global_objects.raccourci_mainmenu_account.active:
                 if event.type == pygame.KEYDOWN:
@@ -614,44 +513,11 @@ class HUD_State:
                     # Si on clique sur n'importe quoi d'autre
                     elif event.unicode != "":
                         # On gère tout les cas de paramètres des objets de la classe TextInputBox (se référer au fichier TextInputBox_class.py pour plus d'informations sur ces paramètres)
-                        if Global_objects.raccourci_mainmenu_account.num_only:
-                            if event.unicode in ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]:
-                                if Global_objects.raccourci_mainmenu_account.max_caracteres > 0:
-                                    if len(Global_objects.raccourci_mainmenu_account.user_text) < Global_objects.raccourci_mainmenu_account.max_caracteres:
-                                        if not Global_objects.raccourci_mainmenu_account.adaptative_size:
-                                            if Global_objects.raccourci_mainmenu_account.text_size < Global_objects.raccourci_mainmenu_account.base_size:
-                                                Global_objects.raccourci_mainmenu_account.user_text = event.unicode
-                                                Global_objects.raccourci_mainmenu_account.active = False
-                                                dict_list = list(Global_objects.raccourcis_mainmenu.items())
-                                                dict_list[3] = (Global_objects.raccourci_mainmenu_account.user_text, dict_list[3][1])
-                                                Global_objects.raccourcis_mainmenu = dict(dict_list)
-                                        else:
-                                            Global_objects.raccourci_mainmenu_account.user_text = event.unicode
-                                            Global_objects.raccourci_mainmenu_account.active = False
-                                            dict_list = list(Global_objects.raccourcis_mainmenu.items())
-                                            dict_list[3] = (Global_objects.raccourci_mainmenu_account.user_text, dict_list[3][1])
-                                            Global_objects.raccourcis_mainmenu = dict(dict_list)
-                        else:
-                            if len(Global_objects.raccourci_mainmenu_account.user_text) < Global_objects.raccourci_mainmenu_account.max_caracteres or Global_objects.raccourci_mainmenu_account.max_caracteres == -1:
-                                if not Global_objects.raccourci_mainmenu_account.adaptative_size:
-                                    if Global_objects.raccourci_mainmenu_account.text_size < Global_objects.raccourci_mainmenu_account.base_size:
-                                        Global_objects.raccourci_mainmenu_account.user_text = event.unicode
-                                        Global_objects.raccourci_mainmenu_account.active = False
-                                        dict_list = list(Global_objects.raccourcis_mainmenu.items())
-                                        dict_list[3] = (Global_objects.raccourci_mainmenu_account.user_text, dict_list[3][1])
-                                        Global_objects.raccourcis_mainmenu = dict(dict_list)
-                                    else:
-                                        Global_objects.raccourci_mainmenu_account.user_text = event.unicode
-                                        Global_objects.raccourci_mainmenu_account.active = False
-                                        dict_list = list(Global_objects.raccourcis_mainmenu.items())
-                                        dict_list[3] = (Global_objects.raccourci_mainmenu_account.user_text, dict_list[3][1])
-                                        Global_objects.raccourcis_mainmenu = dict(dict_list)
-                                else:
-                                    Global_objects.raccourci_mainmenu_account.user_text = event.unicode
-                                    Global_objects.raccourci_mainmenu_account.active = False
-                                    dict_list = list(Global_objects.raccourcis_mainmenu.items())
-                                    dict_list[3] = (Global_objects.raccourci_mainmenu_account.user_text, dict_list[3][1])
-                                    Global_objects.raccourcis_mainmenu = dict(dict_list)
+                        Global_objects.raccourci_mainmenu_account.user_text = event.unicode
+                        Global_objects.raccourci_mainmenu_account.active = False
+                        dict_list = list(Global_objects.raccourcis_mainmenu.items())
+                        dict_list[3] = (Global_objects.raccourci_mainmenu_account.user_text, dict_list[3][1])
+                        Global_objects.raccourcis_mainmenu = dict(dict_list)
             # Si on a sélectionne la raccourci_mainmenu_back
             if Global_objects.raccourci_mainmenu_back.active:
                 if event.type == pygame.KEYDOWN:
@@ -686,44 +552,11 @@ class HUD_State:
                     # Si on clique sur n'importe quoi d'autre
                     elif event.unicode != "":
                         # On gère tout les cas de paramètres des objets de la classe TextInputBox (se référer au fichier TextInputBox_class.py pour plus d'informations sur ces paramètres)
-                        if Global_objects.raccourci_mainmenu_back.num_only:
-                            if event.unicode in ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]:
-                                if Global_objects.raccourci_mainmenu_back.max_caracteres > 0:
-                                    if len(Global_objects.raccourci_mainmenu_back.user_text) < Global_objects.raccourci_mainmenu_back.max_caracteres:
-                                        if not Global_objects.raccourci_mainmenu_back.adaptative_size:
-                                            if Global_objects.raccourci_mainmenu_back.text_size < Global_objects.raccourci_mainmenu_back.base_size:
-                                                Global_objects.raccourci_mainmenu_back.user_text = event.unicode
-                                                Global_objects.raccourci_mainmenu_back.active = False
-                                                dict_list = list(Global_objects.raccourcis_mainmenu.items())
-                                                dict_list[4] = (Global_objects.raccourci_mainmenu_back.user_text, dict_list[4][1])
-                                                Global_objects.raccourcis_mainmenu = dict(dict_list)
-                                        else:
-                                            Global_objects.raccourci_mainmenu_back.user_text = event.unicode
-                                            Global_objects.raccourci_mainmenu_back.active = False
-                                            dict_list = list(Global_objects.raccourcis_mainmenu.items())
-                                            dict_list[4] = (Global_objects.raccourci_mainmenu_back.user_text, dict_list[4][1])
-                                            Global_objects.raccourcis_mainmenu = dict(dict_list)
-                        else:
-                            if len(Global_objects.raccourci_mainmenu_back.user_text) < Global_objects.raccourci_mainmenu_back.max_caracteres or Global_objects.raccourci_mainmenu_back.max_caracteres == -1:
-                                if not Global_objects.raccourci_mainmenu_back.adaptative_size:
-                                    if Global_objects.raccourci_mainmenu_back.text_size < Global_objects.raccourci_mainmenu_back.base_size:
-                                        Global_objects.raccourci_mainmenu_back.user_text = event.unicode
-                                        Global_objects.raccourci_mainmenu_back.active = False
-                                        dict_list = list(Global_objects.raccourcis_mainmenu.items())
-                                        dict_list[4] = (Global_objects.raccourci_mainmenu_back.user_text, dict_list[4][1])
-                                        Global_objects.raccourcis_mainmenu = dict(dict_list)
-                                    else:
-                                        Global_objects.raccourci_mainmenu_back.user_text = event.unicode
-                                        Global_objects.raccourci_mainmenu_back.active = False
-                                        dict_list = list(Global_objects.raccourcis_mainmenu.items())
-                                        dict_list[4] = (Global_objects.raccourci_mainmenu_back.user_text, dict_list[4][1])
-                                        Global_objects.raccourcis_mainmenu = dict(dict_list)
-                                else:
-                                    Global_objects.raccourci_mainmenu_back.user_text = event.unicode
-                                    Global_objects.raccourci_mainmenu_back.active = False
-                                    dict_list = list(Global_objects.raccourcis_mainmenu.items())
-                                    dict_list[4] = (Global_objects.raccourci_mainmenu_back.user_text, dict_list[4][1])
-                                    Global_objects.raccourcis_mainmenu = dict(dict_list)
+                        Global_objects.raccourci_mainmenu_back.user_text = event.unicode
+                        Global_objects.raccourci_mainmenu_back.active = False
+                        dict_list = list(Global_objects.raccourcis_mainmenu.items())
+                        dict_list[4] = (Global_objects.raccourci_mainmenu_back.user_text, dict_list[4][1])
+                        Global_objects.raccourcis_mainmenu = dict(dict_list)
             # On gére les raccourcis clavier
             elif event.type == pygame.KEYDOWN:
                 if event.unicode in Global_objects.raccourcis_settingmenu.keys():
@@ -993,70 +826,10 @@ class HUD_State:
                 sys.exit()
             # Si on a sélectionne la accountpseudoinput
             if Global_objects.accountpseudoinput.active:
-                if event.type == pygame.KEYDOWN:
-                    # Si on clique sur supprimer
-                    if event.key == pygame.K_BACKSPACE:
-                        Global_objects.accountpseudoinput.backspace = True
-                    # Si on clique sur entrer
-                    elif event.key == pygame.K_RETURN:
-                        Global_objects.accountpseudoinput.active = False
-                    # Si on clique sur n'importe quoi d'autre
-                    else:
-                        # On gère tout les cas de paramètres des objets de la classe TextInputBox (se référer au fichier TextInputBox_class.py pour plus d'informations sur ces paramètres)
-                        if Global_objects.accountpseudoinput.num_only:
-                            if event.unicode in ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]:
-                                if Global_objects.accountpseudoinput.max_caracteres > 0:
-                                    if len(Global_objects.accountpseudoinput.user_text) < Global_objects.accountpseudoinput.max_caracteres:
-                                        if not Global_objects.accountpseudoinput.adaptative_size:
-                                            if Global_objects.accountpseudoinput.text_size < Global_objects.accountpseudoinput.base_size:
-                                                Global_objects.accountpseudoinput.user_text += event.unicode
-                                        else:
-                                            Global_objects.accountpseudoinput.user_text += event.unicode
-                        else:
-                            if len(Global_objects.accountpseudoinput.user_text) < Global_objects.accountpseudoinput.max_caracteres or Global_objects.accountpseudoinput.max_caracteres == -1:
-                                if not Global_objects.accountpseudoinput.adaptative_size:
-                                    if Global_objects.accountpseudoinput.text_size < Global_objects.accountpseudoinput.base_size:
-                                        Global_objects.accountpseudoinput.user_text += event.unicode
-                                    else:
-                                        Global_objects.accountpseudoinput.user_text += event.unicode
-                                else:
-                                    Global_objects.accountpseudoinput.user_text += event.unicode
-                elif event.type == pygame.KEYUP:
-                    if event.key == pygame.K_BACKSPACE:
-                        Global_objects.accountpseudoinput.backspace = False
+                text_input_write(event, Global_objects.accountpseudoinput)
             # Si on a sélectionne la accountinformationinput
             elif Global_objects.accountinformationinput.active:
-                if event.type == pygame.KEYDOWN:
-                    # Si on clique sur delete
-                    if event.key == pygame.K_BACKSPACE:
-                        Global_objects.accountinformationinput.backspace = True
-                    # Si on clique sur entrer
-                    elif event.key == pygame.K_RETURN:
-                        Global_objects.accountinformationinput.active = False
-                    # Si on clique sur n'importe quoi d'autre
-                    else:
-                        # On gère tout les cas de paramètres des objets de la classe TextInputBox (se référer au fichier TextInputBox_class.py pour plus d'informations sur ces paramètres)
-                        if Global_objects.accountinformationinput.num_only:
-                            if event.unicode in ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]:
-                                if Global_objects.accountinformationinput.max_caracteres > 0:
-                                    if len(Global_objects.accountinformationinput.user_text) < Global_objects.accountinformationinput.max_caracteres:
-                                        if not Global_objects.accountinformationinput.adaptative_size:
-                                            if Global_objects.accountinformationinput.text_size < Global_objects.accountinformationinput.base_size:
-                                                Global_objects.accountinformationinput.user_text += event.unicode
-                                        else:
-                                            Global_objects.accountinformationinput.user_text += event.unicode
-                        else:
-                            if len(Global_objects.accountinformationinput.user_text) < Global_objects.accountinformationinput.max_caracteres or Global_objects.accountinformationinput.max_caracteres == -1:
-                                if not Global_objects.accountinformationinput.adaptative_size:
-                                    if Global_objects.accountinformationinput.text_size < Global_objects.accountinformationinput.base_size:
-                                        Global_objects.accountinformationinput.user_text += event.unicode
-                                    else:
-                                        Global_objects.accountinformationinput.user_text += event.unicode
-                                else:
-                                    Global_objects.accountinformationinput.user_text += event.unicode
-                elif event.type == pygame.KEYUP:
-                    if event.key == pygame.K_BACKSPACE:
-                        Global_objects.accountinformationinput.backspace = False
+                text_input_write(event, Global_objects.accountinformationinput)
             # On gére les raccourcis clavier
             elif event.type == pygame.KEYDOWN:
                 if event.unicode in Global_objects.raccourcis_accountmenu.keys():
@@ -1090,20 +863,14 @@ class HUD_State:
         Global_objects.accountpseudoinput.draw()
         # On gére le cas où l'utilisateur garde appuyé la touche backspace
         try:
-            if Global_objects.accountpseudoinput.backspace:
-                if time.time() >= Global_objects.backspace_timer:
-                    Global_objects.accountpseudoinput.user_text = Global_objects.accountpseudoinput.user_text[:-1]
-                    Global_objects.backspace_timer = time.time() + 0.1
+            timer_backspace(Global_objects.accountpseudoinput)
         except:
             pass
         # Affichage des infos de l'utilisateur
         Global_objects.accountinformationinput.draw()
         # On gére le cas où l'utilisateur garde appuyé la touche backspace
         try:
-            if Global_objects.accountinformationinput.backspace:
-                if time.time() >= Global_objects.backspace_timer:
-                    Global_objects.accountinformationinput.user_text = Global_objects.accountinformationinput.user_text[:-1]
-                    Global_objects.backspace_timer = time.time() + 0.1
+            timer_backspace(Global_objects.accountinformationinput)
         except:
             pass
 
@@ -1204,40 +971,7 @@ class HUD_State:
                 sys.exit()
             # Si on a sélectionne la raiseamountinput
             if Global_objects.raiseamountinput.active:
-                if event.type == pygame.KEYDOWN:
-                    # Si on clique sur supprimer
-                    if event.key == pygame.K_BACKSPACE:
-                        Global_objects.raiseamountinput.backspace = True
-                    # Si on clique sur entrer
-                    elif event.key == pygame.K_RETURN:
-                        nouvelle_valeur = int(Global_objects.raiseamountinput.user_text) if int(Global_objects.raiseamountinput.user_text) <= Global_objects.connected_account[2] and int(Global_objects.raiseamountinput.user_text) >= 0 else (((Global_objects.connected_account[2]/100)*Global_objects.game_state.raised_amount)*100)
-                        Global_objects.raise_bar.cursor_width = width_scale(400, self.largeur_actuelle) + (nouvelle_valeur / Global_objects.connected_account[2]) * (width_scale(1530, self.largeur_actuelle) - width_scale(400, self.largeur_actuelle))
-                        Global_objects.raiseamountinput.user_text = ""
-                        Global_objects.raiseamountinput.active = False
-                    # Si on clique sur n'importe quoi d'autre
-                    else:
-                        # On gère tout les cas de paramètres des objets de la classe TextInputBox (se référer au fichier TextInputBox_class.py pour plus d'informations sur ces paramètres)
-                        if Global_objects.raiseamountinput.num_only:
-                            if event.unicode in ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]:
-                                if Global_objects.raiseamountinput.max_caracteres > 0:
-                                    if len(Global_objects.raiseamountinput.user_text) < Global_objects.raiseamountinput.max_caracteres:
-                                        if not Global_objects.raiseamountinput.adaptative_size:
-                                            if Global_objects.raiseamountinput.text_size < Global_objects.raiseamountinput.base_size:
-                                                Global_objects.raiseamountinput.user_text += event.unicode
-                                        else:
-                                            Global_objects.raiseamountinput.user_text += event.unicode
-                        else:
-                            if len(Global_objects.raiseamountinput.user_text) < Global_objects.raiseamountinput.max_caracteres or Global_objects.raiseamountinput.max_caracteres == -1:
-                                if not Global_objects.raiseamountinput.adaptative_size:
-                                    if Global_objects.raiseamountinput.text_size < Global_objects.raiseamountinput.base_size:
-                                        Global_objects.raiseamountinput.user_text += event.unicode
-                                    else:
-                                        Global_objects.raiseamountinput.user_text += event.unicode
-                                else:
-                                    Global_objects.raiseamountinput.user_text += event.unicode
-                elif event.type == pygame.KEYUP:
-                    if event.key == pygame.K_BACKSPACE:
-                        Global_objects.raiseamountinput.backspace = False
+                text_input_write(event, Global_objects.raiseamountinput)
             # On gére les raccourcis clavier
             elif event.type == pygame.KEYDOWN:
                 if event.unicode in Global_objects.raccourcis_gamemenu.keys():
@@ -1570,10 +1304,7 @@ class HUD_State:
             Global_objects.raiseamountinput.draw()
             # On gére le cas où l'utilisateur garde appuyé la touche backspace
             try:
-                if Global_objects.raiseamountinput.backspace:
-                    if time.time() >= Global_objects.backspace_timer:
-                        Global_objects.raiseamountinput.user_text = Global_objects.raiseamountinput.user_text[:-1]
-                        Global_objects.backspace_timer = time.time() + 0.1
+                timer_backspace(Global_objects.raiseamountinput)
             except:
                 pass
             # On récupére la position de la souris
@@ -1584,9 +1315,6 @@ class HUD_State:
                 if pygame.mouse.get_pressed()[0]:
                     self.is_raising = False
                     self.timer = [0.5, time.time(), True]
-        """elif not self.is_raising and self.round_started and self.timer[0] > 0:
-            self.timer[0] = 0.5 - (time.time() - self.timer[1])
-            Global_objects.buttons_interactibles = True"""
 
         # Affichage d'une fenêtre de vérification si l'utilisateur clique sur le bouton leavegamebutton
         if self.confirmation:
