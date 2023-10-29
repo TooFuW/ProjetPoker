@@ -471,6 +471,8 @@ class HUD_State:
         Global_objects.backbutton.draw()
         # Cliquer sur le bouton ACCOUNT ouvre l'interface présentant les informations du compte actif
         Global_objects.accountbutton.draw()
+        # Cliquer sur le bouton SAVE sauvegardera les paramètre dans un fichier texte en local
+        Global_objects.savesettingsbutton.draw()
         # Affichage des chips de l'utilisateur à droite du bouton ACCOUNT
         gui_font = pygame.font.SysFont("Roboto", width_scale(40, self.largeur_actuelle))
         text_surf = gui_font.render("Chips : ", True, "#FFFFFF")

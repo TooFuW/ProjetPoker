@@ -309,6 +309,20 @@ def check_click(Button):
                 Global_objects.game_state.is_raising = True
                 Global_objects.buttons_interactibles = False
                 print("my_play=raise")
+            # Lorsque l'on clique sur le bouton SAVE
+            case "save settings":
+                with open(f"{__file__[:-14]}\\settings_save.txt", "w", encoding="utf-8") as file:
+                    for raccourci in Global_objects.raccourcis_mainmenu.keys():
+                        file.write(f"{raccourci}\n") if raccourci != "\r" else file.write(r"\r"+"\n")
+                    for raccourci in Global_objects.raccourcis_settingmenu.keys():
+                        file.write(f"{raccourci}\n") if raccourci != "\r" else file.write(r"\r"+"\n")
+                    for raccourci in Global_objects.raccourcis_accountmenu.keys():
+                        file.write(f"{raccourci}\n") if raccourci != "\r" else file.write(r"\r"+"\n")
+                    for raccourci in Global_objects.raccourcis_gamemenu.keys():
+                        file.write(f"{raccourci}\n") if raccourci != "\r" else file.write(r"\r"+"\n")
+                    for raccourci in Global_objects.raccourcis_lobbymenu.keys():
+                        file.write(f"{raccourci}\n") if raccourci != "\r" else file.write(r"\r"+"\n")
+                    file.write(str(Global_objects.volume_music))
     # Cas des boutons non affectés par Global_objects.buttons_interactibles
     match Button.fonction:
         # Lorsque le joueur confirme qu'il veut quitter
