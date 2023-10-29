@@ -29,8 +29,6 @@ class TextInputBox:
             num_only (bool) = False: True si on ne peut entrer que des chiffres, False sinon
             interactible (bool) = True: True si on peut interagir avec, False sinon
             starting_text (str) = "": Chaîne de caractère vide par défaut, sinon le texte de départ
-
-            /!\ Possibles bug avec des paramètres différents que ceux utilisés pour les objets tablecodeinput, accountpseudoinput et accountinformationinput car la classe a été modifié beaucoup et en profondeur depuis sa création
         """
         self.largeur_actuelle = largeur_actuelle
         self.hauteur_actuelle = hauteur_actuelle
@@ -100,7 +98,6 @@ class TextInputBox:
             # Taille de la box qui est de base 200 et qui augmente si le texte dépasse
             self.input_rect.w = width_scale(max(self.base_size, text_surface.get_width() + 10), self.largeur_actuelle)
         else:
-            """self.input_rect.w = width_scale(self.base_size, self.largeur_actuelle)"""
             # Si le texte dépasse mais que la box n'est pas adaptative on retourne à la ligne
             try:
                 if self.draw_text[-1] == "\n":

@@ -224,7 +224,7 @@ class HUD_State:
                                 Global_objects.sit_10.player = Global_objects.previewlobbys.players[9]
                             for lobby in Global_objects.displayed_lobbys_list:
                                 if lobby[-1] == Global_objects.tablecodeinput.user_text:
-                                    self.server_test = f"{lobby[0]}{' '*width_scale(35, Button.largeur_actuelle)}{lobby[1]}{' '*width_scale(35, Button.largeur_actuelle)}{lobby[2]}{' '*width_scale(35, Button.largeur_actuelle)}{lobby[3]}{' '*width_scale(35, Button.largeur_actuelle)}{lobby[4]}"
+                                    self.server_test = f"{lobby[0]}{' '*width_scale(35, self.largeur_actuelle)}{lobby[1]}{' '*width_scale(35, self.largeur_actuelle)}{lobby[2]}{' '*width_scale(35, self.largeur_actuelle)}{lobby[3]}{' '*width_scale(35, self.largeur_actuelle)}{lobby[4]}"
                                     Global_objects.pot = lobby[3]
                                     break
                             Global_objects.game_state.table_selected = None
@@ -273,9 +273,9 @@ class HUD_State:
             # On gére les raccourcis clavier
             elif event.type == pygame.KEYDOWN:
                 if event.unicode in Global_objects.raccourcis_lobbymenu.keys():
-                    if event.unicode == list(Global_objects.raccourcis_lobbymenu.keys())[0]:
+                    if event.unicode == list(Global_objects.raccourcis_lobbymenu.keys())[2]:
                         Global_objects.tablecodeinput.active = True
-                    elif event.unicode == list(Global_objects.raccourcis_lobbymenu.keys())[1]:
+                    elif event.unicode == list(Global_objects.raccourcis_lobbymenu.keys())[0]:
                         if not self.table_selected is None:
                             check_click(Global_objects.raccourcis_lobbymenu[event.unicode])
                     else:
@@ -362,27 +362,108 @@ class HUD_State:
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
-            # Si on a sélectionne la raccourci_mainmenu_play
+            # Si on a sélectionne raccourci_mainmenu_play
             if Global_objects.raccourci_mainmenu_play.active:
                 changer_raccourci(event, Global_objects.raccourci_mainmenu_play, Global_objects.raccourcis_mainmenu, 0)
-            # Si on a sélectionne la raccourci_mainmenu_settings
+            # Si on a sélectionne raccourci_mainmenu_settings
             if Global_objects.raccourci_mainmenu_settings.active:
                 changer_raccourci(event, Global_objects.raccourci_mainmenu_settings, Global_objects.raccourcis_mainmenu, 1)
-            # Si on a sélectionne la raccourci_mainmenu_shop
+            # Si on a sélectionne raccourci_mainmenu_shop
             if Global_objects.raccourci_mainmenu_shop.active:
                 changer_raccourci(event, Global_objects.raccourci_mainmenu_shop, Global_objects.raccourcis_mainmenu, 2)
-            # Si on a sélectionne la raccourci_mainmenu_account
+            # Si on a sélectionne raccourci_mainmenu_account
             if Global_objects.raccourci_mainmenu_account.active:
                 changer_raccourci(event, Global_objects.raccourci_mainmenu_account, Global_objects.raccourcis_mainmenu, 3)
-            # Si on a sélectionne la raccourci_mainmenu_exit
+            # Si on a sélectionne raccourci_mainmenu_exit
             if Global_objects.raccourci_mainmenu_exit.active:
                 changer_raccourci(event, Global_objects.raccourci_mainmenu_exit, Global_objects.raccourcis_mainmenu, 4)
+            # Si on a sélectionne raccourci_settingmenu_page1
+            if Global_objects.raccourci_settingmenu_page1.active:
+                changer_raccourci(event, Global_objects.raccourci_settingmenu_page1, Global_objects.raccourcis_settingmenu, 0)
+            # Si on a sélectionne raccourci_settingmenu_page2
+            if Global_objects.raccourci_settingmenu_page2.active:
+                changer_raccourci(event, Global_objects.raccourci_settingmenu_page2, Global_objects.raccourcis_settingmenu, 1)
+            # Si on a sélectionne raccourci_settingmenu_page3
+            if Global_objects.raccourci_settingmenu_page3.active:
+                changer_raccourci(event, Global_objects.raccourci_settingmenu_page3, Global_objects.raccourcis_settingmenu, 2)
+            # Si on a sélectionne raccourci_settingmenu_account
+            if Global_objects.raccourci_settingmenu_account.active:
+                changer_raccourci(event, Global_objects.raccourci_settingmenu_account, Global_objects.raccourcis_settingmenu, 3)
+            # Si on a sélectionne raccourci_settingmenu_back
+            if Global_objects.raccourci_settingmenu_back.active:
+                changer_raccourci(event, Global_objects.raccourci_settingmenu_back, Global_objects.raccourcis_settingmenu, 4)
+            # Si on a sélectionne raccourci_accountmenu_settings
+            if Global_objects.raccourci_accountmenu_settings.active:
+                changer_raccourci(event, Global_objects.raccourci_accountmenu_settings, Global_objects.raccourcis_accountmenu, 0)
+            # Si on a sélectionne raccourci_accountmenu_pseudoinput
+            if Global_objects.raccourci_accountmenu_pseudoinput.active:
+                changer_raccourci(event, Global_objects.raccourci_accountmenu_pseudoinput, Global_objects.raccourcis_accountmenu, 1)
+            # Si on a sélectionne raccourci_accountmenu_informationinput
+            if Global_objects.raccourci_accountmenu_informationinput.active:
+                changer_raccourci(event, Global_objects.raccourci_accountmenu_informationinput, Global_objects.raccourcis_accountmenu, 2)
+            # Si on a sélectionne raccourci_accountmenu_deconnexion
+            if Global_objects.raccourci_accountmenu_deconnexion.active:
+                changer_raccourci(event, Global_objects.raccourci_accountmenu_deconnexion, Global_objects.raccourcis_accountmenu, 3)
+            # Si on a sélectionne raccourci_accountmenu_back
+            if Global_objects.raccourci_accountmenu_back.active:
+                changer_raccourci(event, Global_objects.raccourci_accountmenu_back, Global_objects.raccourcis_accountmenu, 4)
+            # Si on a sélectionne raccourci_gamemenu_check
+            if Global_objects.raccourci_gamemenu_check.active:
+                changer_raccourci(event, Global_objects.raccourci_gamemenu_check, Global_objects.raccourcis_gamemenu, 0)
+            # Si on a sélectionne raccourci_gamemenu_call
+            if Global_objects.raccourci_gamemenu_call.active:
+                changer_raccourci(event, Global_objects.raccourci_gamemenu_call, Global_objects.raccourcis_gamemenu, 1)
+            # Si on a sélectionne raccourci_gamemenu_fold
+            if Global_objects.raccourci_gamemenu_fold.active:
+                changer_raccourci(event, Global_objects.raccourci_gamemenu_fold, Global_objects.raccourcis_gamemenu, 2)
+            # Si on a sélectionne raccourci_gamemenu_fold
+            if Global_objects.raccourci_gamemenu_fold.active:
+                changer_raccourci(event, Global_objects.raccourci_gamemenu_fold, Global_objects.raccourcis_gamemenu, 3)
+            # Si on a sélectionne raccourci_gamemenu_raise
+            if Global_objects.raccourci_gamemenu_raise.active:
+                changer_raccourci(event, Global_objects.raccourci_gamemenu_raise, Global_objects.raccourcis_gamemenu, 4)
+            # Si on a sélectionne raccourci_gamemenu_yes
+            if Global_objects.raccourci_gamemenu_yes.active:
+                changer_raccourci(event, Global_objects.raccourci_gamemenu_yes, Global_objects.raccourcis_gamemenu, 5)
+            # Si on a sélectionne raccourci_gamemenu_no
+            if Global_objects.raccourci_gamemenu_no.active:
+                changer_raccourci(event, Global_objects.raccourci_gamemenu_no, Global_objects.raccourcis_gamemenu, 6)
+            # Si on a sélectionne raccourci_gamemenu_minus100
+            if Global_objects.raccourci_gamemenu_minus100.active:
+                changer_raccourci(event, Global_objects.raccourci_gamemenu_minus100, Global_objects.raccourcis_gamemenu, 7)
+            # Si on a sélectionne raccourci_gamemenu_add100
+            if Global_objects.raccourci_gamemenu_add100.active:
+                changer_raccourci(event, Global_objects.raccourci_gamemenu_add100, Global_objects.raccourcis_gamemenu, 8)
+            # Si on a sélectionne raccourci_gamemenu_situp
+            if Global_objects.raccourci_gamemenu_situp.active:
+                changer_raccourci(event, Global_objects.raccourci_gamemenu_situp, Global_objects.raccourcis_gamemenu, 9)
+            # Si on a sélectionne raccourci_gamemenu_leavegame
+            if Global_objects.raccourci_gamemenu_leavegame.active:
+                changer_raccourci(event, Global_objects.raccourci_gamemenu_leavegame, Global_objects.raccourcis_gamemenu, 10)
+            # Si on a sélectionne raccourci_gamemenu_settings
+            if Global_objects.raccourci_gamemenu_settings.active:
+                changer_raccourci(event, Global_objects.raccourci_gamemenu_settings, Global_objects.raccourcis_gamemenu, 11)
+            # Si on a sélectionne raccourci_lobbymenu_join
+            if Global_objects.raccourci_lobbymenu_join.active:
+                changer_raccourci(event, Global_objects.raccourci_lobbymenu_join, Global_objects.raccourcis_lobbymenu, 0)
+            # Si on a sélectionne raccourci_lobbymenu_createtable
+            if Global_objects.raccourci_lobbymenu_createtable.active:
+                changer_raccourci(event, Global_objects.raccourci_lobbymenu_createtable, Global_objects.raccourcis_lobbymenu, 1)
+            # Si on a sélectionne raccourci_lobbymenu_tablecodeinput
+            if Global_objects.raccourci_lobbymenu_tablecodeinput.active:
+                changer_raccourci(event, Global_objects.raccourci_lobbymenu_tablecodeinput, Global_objects.raccourcis_lobbymenu, 2)
+            # Si on a sélectionne raccourci_lobbymenu_account
+            if Global_objects.raccourci_lobbymenu_account.active:
+                changer_raccourci(event, Global_objects.raccourci_lobbymenu_account, Global_objects.raccourcis_lobbymenu, 3)
+            # Si on a sélectionne raccourci_lobbymenu_back
+            if Global_objects.raccourci_lobbymenu_back.active:
+                changer_raccourci(event, Global_objects.raccourci_lobbymenu_back, Global_objects.raccourcis_lobbymenu, 4)
             # On gére les raccourcis clavier
             elif event.type == pygame.KEYDOWN:
                 if event.unicode in Global_objects.raccourcis_settingmenu.keys():
                     check_click(Global_objects.raccourcis_settingmenu[event.unicode])
 
-        # Dessine l'image de fond sur la self.screen de l'écran (IMPORANT CAR SE SUPERPOSE A L'INTERFACE PRECEDENT ET PERMET DE "L'EFFACER")
+        # Dessine l'image de fond sur self.screen de l'écran (IMPORANT CAR SE SUPERPOSE A L'INTERFACE PRECEDENT ET PERMET DE "L'EFFACER")
         self.screen.blit(self.fond, (0, 0))
 
         # Affichage des bouttons
@@ -471,7 +552,6 @@ class HUD_State:
             text_surf = gui_font.render("Main Menu Shortcuts", True, "#FFFFFF")
             self.screen.blit(text_surf, (width_scale(290, self.largeur_actuelle), height_scale(187, self.hauteur_actuelle)))
             pygame.draw.rect(self.screen, "#0000E0", pygame.Rect((width_scale(280, self.largeur_actuelle), height_scale(235, self.hauteur_actuelle)), (width_scale(700, self.largeur_actuelle), height_scale(205, self.hauteur_actuelle))), border_radius = 3)
-            gui_font = pygame.font.SysFont("Roboto", width_scale(35, self.largeur_actuelle))
             # Zone d'input pour changer le caractère
             text_surf = gui_font.render("Play button :", True, "#FFFFFF")
             self.screen.blit(text_surf, (width_scale(290, self.largeur_actuelle), height_scale(245, self.hauteur_actuelle)))
@@ -502,18 +582,23 @@ class HUD_State:
             # Zone d'input pour changer le caractère
             text_surf = gui_font.render("Page 1 :", True, "#FFFFFF")
             self.screen.blit(text_surf, (width_scale(290, self.largeur_actuelle), height_scale(520, self.hauteur_actuelle)))
+            Global_objects.raccourci_settingmenu_page1.draw()
             # Zone d'input pour changer le caractère
             text_surf = gui_font.render("Page 2 :", True, "#FFFFFF")
             self.screen.blit(text_surf, (width_scale(290, self.largeur_actuelle), height_scale(560, self.hauteur_actuelle)))
+            Global_objects.raccourci_settingmenu_page2.draw()
             # Zone d'input pour changer le caractère
             text_surf = gui_font.render("Page 3 :", True, "#FFFFFF")
             self.screen.blit(text_surf, (width_scale(290, self.largeur_actuelle), height_scale(600, self.hauteur_actuelle)))
+            Global_objects.raccourci_settingmenu_page3.draw()
             # Zone d'input pour changer le caractère
             text_surf = gui_font.render("Account button :", True, "#FFFFFF")
             self.screen.blit(text_surf, (width_scale(290, self.largeur_actuelle), height_scale(640, self.hauteur_actuelle)))
+            Global_objects.raccourci_settingmenu_account.draw()
             # Zone d'input pour changer le caractère
             text_surf = gui_font.render("Back button :", True, "#FFFFFF")
             self.screen.blit(text_surf, (width_scale(290, self.largeur_actuelle), height_scale(680, self.hauteur_actuelle)))
+            Global_objects.raccourci_settingmenu_back.draw()
 
             # ZONE 3
             pygame.draw.rect(self.screen, "#0000E0", pygame.Rect((width_scale(280, self.largeur_actuelle), height_scale(730, self.hauteur_actuelle)), (width_scale(360, self.largeur_actuelle), height_scale(40, self.hauteur_actuelle))), border_radius = 3)
@@ -524,18 +609,23 @@ class HUD_State:
             # Zone d'input pour changer le caractère
             text_surf = gui_font.render("Settings button :", True, "#FFFFFF")
             self.screen.blit(text_surf, (width_scale(290, self.largeur_actuelle), height_scale(795, self.hauteur_actuelle)))
+            Global_objects.raccourci_accountmenu_settings.draw()
             # Zone d'input pour changer le caractère
             text_surf = gui_font.render("Pseudo input zone :", True, "#FFFFFF")
             self.screen.blit(text_surf, (width_scale(290, self.largeur_actuelle), height_scale(835, self.hauteur_actuelle)))
+            Global_objects.raccourci_accountmenu_pseudoinput.draw()
             # Zone d'input pour changer le caractère
             text_surf = gui_font.render("Bio input zone :", True, "#FFFFFF")
             self.screen.blit(text_surf, (width_scale(290, self.largeur_actuelle), height_scale(875, self.hauteur_actuelle)))
+            Global_objects.raccourci_accountmenu_informationinput.draw()
             # Zone d'input pour changer le caractère
             text_surf = gui_font.render("Deconnexion button :", True, "#FFFFFF")
             self.screen.blit(text_surf, (width_scale(290, self.largeur_actuelle), height_scale(915, self.hauteur_actuelle)))
+            Global_objects.raccourci_accountmenu_deconnexion.draw()
             # Zone d'input pour changer le caractère
             text_surf = gui_font.render("Back button :", True, "#FFFFFF")
             self.screen.blit(text_surf, (width_scale(290, self.largeur_actuelle), height_scale(955, self.hauteur_actuelle)))
+            Global_objects.raccourci_accountmenu_back.draw()
 
             # ZONE 4
             pygame.draw.rect(self.screen, "#0000E0", pygame.Rect((width_scale(1030, self.largeur_actuelle), height_scale(180, self.hauteur_actuelle)), (width_scale(310, self.largeur_actuelle), height_scale(40, self.hauteur_actuelle))), border_radius = 3)
@@ -546,39 +636,51 @@ class HUD_State:
             # Zone d'input pour changer le caractère
             text_surf = gui_font.render("Check button :", True, "#FFFFFF")
             self.screen.blit(text_surf, (width_scale(1040, self.largeur_actuelle), height_scale(245, self.hauteur_actuelle)))
+            Global_objects.raccourci_gamemenu_check.draw()
             # Zone d'input pour changer le caractère
             text_surf = gui_font.render("Call button :", True, "#FFFFFF")
             self.screen.blit(text_surf, (width_scale(1040, self.largeur_actuelle), height_scale(285, self.hauteur_actuelle)))
+            Global_objects.raccourci_gamemenu_call.draw()
             # Zone d'input pour changer le caractère
             text_surf = gui_font.render("Fold button :", True, "#FFFFFF")
             self.screen.blit(text_surf, (width_scale(1040, self.largeur_actuelle), height_scale(325, self.hauteur_actuelle)))
+            Global_objects.raccourci_gamemenu_fold.draw()
             # Zone d'input pour changer le caractère
             text_surf = gui_font.render("Raise button :", True, "#FFFFFF")
             self.screen.blit(text_surf, (width_scale(1040, self.largeur_actuelle), height_scale(365, self.hauteur_actuelle)))
+            Global_objects.raccourci_gamemenu_raise.draw()
             # Zone d'input pour changer le caractère
             text_surf = gui_font.render("Yes/Confirm button :", True, "#FFFFFF")
             self.screen.blit(text_surf, (width_scale(1040, self.largeur_actuelle), height_scale(405, self.hauteur_actuelle)))
+            Global_objects.raccourci_gamemenu_yes.draw()
             # Zone d'input pour changer le caractère
             text_surf = gui_font.render("No/Cancel button :", True, "#FFFFFF")
             self.screen.blit(text_surf, (width_scale(1040, self.largeur_actuelle), height_scale(445, self.hauteur_actuelle)))
+            Global_objects.raccourci_gamemenu_no.draw()
             # Zone d'input pour changer le caractère
             text_surf = gui_font.render("-100 button :", True, "#FFFFFF")
             self.screen.blit(text_surf, (width_scale(1040, self.largeur_actuelle), height_scale(485, self.hauteur_actuelle)))
+            Global_objects.raccourci_gamemenu_minus100.draw()
             # Zone d'input pour changer le caractère
             text_surf = gui_font.render("+100 button :", True, "#FFFFFF")
             self.screen.blit(text_surf, (width_scale(1040, self.largeur_actuelle), height_scale(525, self.hauteur_actuelle)))
+            Global_objects.raccourci_gamemenu_add100.draw()
             # Zone d'input pour changer le caractère
             text_surf = gui_font.render("All in button :", True, "#FFFFFF")
             self.screen.blit(text_surf, (width_scale(1040, self.largeur_actuelle), height_scale(565, self.hauteur_actuelle)))
+            Global_objects.raccourci_gamemenu_allin.draw()
             # Zone d'input pour changer le caractère
             text_surf = gui_font.render("Sit up button :", True, "#FFFFFF")
             self.screen.blit(text_surf, (width_scale(1040, self.largeur_actuelle), height_scale(605, self.hauteur_actuelle)))
+            Global_objects.raccourci_gamemenu_situp.draw()
             # Zone d'input pour changer le caractère
             text_surf = gui_font.render("Leave game button :", True, "#FFFFFF")
             self.screen.blit(text_surf, (width_scale(1040, self.largeur_actuelle), height_scale(645, self.hauteur_actuelle)))
+            Global_objects.raccourci_gamemenu_leavegame.draw()
             # Zone d'input pour changer le caractère
             text_surf = gui_font.render("Settings button :", True, "#FFFFFF")
             self.screen.blit(text_surf, (width_scale(1040, self.largeur_actuelle), height_scale(685, self.hauteur_actuelle)))
+            Global_objects.raccourci_gamemenu_settings.draw()
 
             # ZONE 5
             pygame.draw.rect(self.screen, "#0000E0", pygame.Rect((width_scale(1030, self.largeur_actuelle), height_scale(730, self.hauteur_actuelle)), (width_scale(360, self.largeur_actuelle), height_scale(40, self.hauteur_actuelle))), border_radius = 3)
@@ -589,18 +691,23 @@ class HUD_State:
             # Zone d'input pour changer le caractère
             text_surf = gui_font.render("Join table button :", True, "#FFFFFF")
             self.screen.blit(text_surf, (width_scale(1040, self.largeur_actuelle), height_scale(795, self.hauteur_actuelle)))
+            Global_objects.raccourci_lobbymenu_join.draw()
             # Zone d'input pour changer le caractère
             text_surf = gui_font.render("Create table button :", True, "#FFFFFF")
             self.screen.blit(text_surf, (width_scale(1040, self.largeur_actuelle), height_scale(835, self.hauteur_actuelle)))
+            Global_objects.raccourci_lobbymenu_createtable.draw()
             # Zone d'input pour changer le caractère
             text_surf = gui_font.render("Table code input zone :", True, "#FFFFFF")
             self.screen.blit(text_surf, (width_scale(1040, self.largeur_actuelle), height_scale(875, self.hauteur_actuelle)))
+            Global_objects.raccourci_lobbymenu_tablecodeinput.draw()
             # Zone d'input pour changer le caractère
             text_surf = gui_font.render("Account button :", True, "#FFFFFF")
             self.screen.blit(text_surf, (width_scale(1040, self.largeur_actuelle), height_scale(915, self.hauteur_actuelle)))
+            Global_objects.raccourci_lobbymenu_account.draw()
             # Zone d'input pour changer le caractère
             text_surf = gui_font.render("Back button :", True, "#FFFFFF")
             self.screen.blit(text_surf, (width_scale(1040, self.largeur_actuelle), height_scale(955, self.hauteur_actuelle)))
+            Global_objects.raccourci_lobbymenu_back.draw()
 
         # Met à jour l'affichage de l'interface
         pygame.display.update()

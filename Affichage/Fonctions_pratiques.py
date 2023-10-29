@@ -2,7 +2,6 @@
 
 
 import pygame
-from Screen_adaptation import *
 import Global_objects
 from TextInputBox_class import *
 import time
