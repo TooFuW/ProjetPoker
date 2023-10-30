@@ -16,6 +16,7 @@ def check_click(Button):
     Args:
         Button (Button class object): Boutton sur lequel l'utilisateur a cliqué et qui va faire l'action correspondante
     """
+    Global_objects.button_sound.play()
     if Global_objects.buttons_interactibles:
         match Button.fonction:
             # Lorsque le bouton PLAY est cliqué
@@ -322,7 +323,8 @@ def check_click(Button):
                         file.write(f"{raccourci}\n") if raccourci != "\r" else file.write(r"\r"+"\n")
                     for raccourci in Global_objects.raccourcis_lobbymenu.keys():
                         file.write(f"{raccourci}\n") if raccourci != "\r" else file.write(r"\r"+"\n")
-                    file.write(str(Global_objects.volume_music))
+                    file.write(f"{Global_objects.volume_music}\n")
+                    file.write(f"{Global_objects.button_sound_volume}\n")
     # Cas des boutons non affectés par Global_objects.buttons_interactibles
     match Button.fonction:
         # Lorsque le joueur confirme qu'il veut quitter
