@@ -42,8 +42,10 @@ class Cursor_Bar:
             variable (variable): Valeur à afficher
             text_size (int): Taille du texte
             info_box_width (int): Largeur de la bulle d'info
-            height_reductor (float): Multiplicateur de réduction de la hauteir de la bulle d'info
+            height_reductor (float): Multiplicateur de réduction de la hauteur de la bulle d'info
         """
+        # On scale height_reductor ici sinon la valeur peut poser probléme
+        height_reductor = height_reductor * self.hauteur_actuelle / 1080
         mouse_pos = pygame.mouse.get_pos()
         # Création du curseur et de la barre derrière
         bar = pygame.draw.rect(self.screen, self.bar_color, pygame.Rect((self.x, self.y), (self.width, self.height)), border_radius = 10)

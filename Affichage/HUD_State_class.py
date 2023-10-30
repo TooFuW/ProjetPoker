@@ -102,8 +102,8 @@ class HUD_State:
             # On affiche le texte d'information à côté de la souris lorsqu'elle est sur le logo MWTE
             gui_font = pygame.font.SysFont("Roboto", width_scale(20, self.largeur_actuelle), False, True)
             text_surf = gui_font.render("Go to the official MWTE website", True, "#000000")
-            pygame.draw.rect(self.screen, "#FFFFFF", pygame.Rect((width_scale(mouse_pos[0], self.largeur_actuelle), height_scale(mouse_pos[1] + 15, self.hauteur_actuelle)), (width_scale(210, self.largeur_actuelle), height_scale(20, self.hauteur_actuelle))), border_radius = 3)
-            self.screen.blit(text_surf, (width_scale(mouse_pos[0], self.largeur_actuelle), height_scale(mouse_pos[1] + 20, self.hauteur_actuelle)))
+            pygame.draw.rect(self.screen, "#FFFFFF", pygame.Rect((mouse_pos[0], mouse_pos[1] + 15), (width_scale(210, self.largeur_actuelle), height_scale(20, self.hauteur_actuelle))), border_radius = 3)
+            self.screen.blit(text_surf, (mouse_pos[0], mouse_pos[1] + 20))
             # On gére le cas où on clique sur le logo pour ouvrir UNE SEULE FOIS notre site web
             if pygame.mouse.get_pressed()[0]:
                 self.is_pressing = True
@@ -503,7 +503,7 @@ class HUD_State:
                 text_size = 20
             else:
                 text_size = 25
-            Global_objects.sound_bar.draw(round(Global_objects.volume_music * 100), width_scale(text_size, self.largeur_actuelle), width_scale(12, self.largeur_actuelle), height_scale(1, self.hauteur_actuelle))
+            Global_objects.sound_bar.draw(round(Global_objects.volume_music * 100), width_scale(text_size, self.largeur_actuelle), width_scale(12, self.largeur_actuelle), 1) # Exceptionelement 1 sera scaled à part
             # On gére l'affichage avec les icônes de son
             if Global_objects.sound_bar.cursor_width <= Global_objects.sound_bar.x: # Barre à 0
                 volume_icon = self.screen.blit(self.sounds_icons[0], (width_scale(415, self.largeur_actuelle), height_scale(172, self.hauteur_actuelle)))

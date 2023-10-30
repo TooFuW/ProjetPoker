@@ -46,7 +46,7 @@ class TextInputBox:
         self.color = self.color_passive
         # Vérifie si on peut input du texte
         self.active = False
-        self.base_size = base_size
+        self.base_size = width_scale(base_size, self.largeur_actuelle)
         self.adaptative_size = adaptative
         self.text_size = 0
         self.num_only = num_only
@@ -96,7 +96,7 @@ class TextInputBox:
         # On crée une taille de box adaptative
         if self.adaptative_size:
             # Taille de la box qui est de base 200 et qui augmente si le texte dépasse
-            self.input_rect.w = width_scale(max(self.base_size, text_surface.get_width() + 10), self.largeur_actuelle)
+            self.input_rect.w = max(self.base_size, text_surface.get_width() + width_scale(10, self.largeur_actuelle))
         else:
             # Si le texte dépasse mais que la box n'est pas adaptative on retourne à la ligne
             try:
