@@ -499,6 +499,7 @@ class HUD_State:
                         self.is_setting_volume = True
                     else:
                         if self.is_setting_volume:
+                            Global_objects.button_sound.play()
                             if self.volume_on:
                                 self.last_music = Global_objects.music_bar.cursor_width
                                 Global_objects.music_bar.cursor_width = Global_objects.music_bar.x
@@ -545,6 +546,7 @@ class HUD_State:
                         self.is_setting_sound = True
                     else:
                         if self.is_setting_sound:
+                            Global_objects.button_sound.play()
                             if self.sound_on:
                                 self.last_sound = Global_objects.sound_bar.cursor_width
                                 Global_objects.sound_bar.cursor_width = Global_objects.sound_bar.x

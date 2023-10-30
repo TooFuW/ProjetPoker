@@ -32,6 +32,7 @@ def text_input_write(event : pygame.event.Event, text_input : TextInputBox):
         # Si on clique sur entrer
         elif event.key == pygame.K_RETURN:
             text_input.active = False
+            Global_objects.button_sound.play()
         # Si on clique sur n'importe quoi d'autre
         else:
             # On gère tout les cas de paramètres des objets de la classe TextInputBox (se référer au fichier TextInputBox_class.py pour plus d'informations sur ces paramètres)

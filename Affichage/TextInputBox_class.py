@@ -3,7 +3,7 @@
 
 import pygame
 from Screen_adaptation import *
-from icecream import ic
+import Global_objects
 
 
 class TextInputBox:
