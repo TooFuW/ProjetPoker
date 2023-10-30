@@ -150,6 +150,7 @@ class HUD_State:
                 if event.type == pygame.KEYDOWN:
                     # Si on clique sur entrer
                     if event.key == pygame.K_RETURN:
+                        Global_objects.button_sound.play()
                         # On essaie de rejoindre la partie avec le code entré
                         Global_objects.previewlobbys.players = None
                         try:
@@ -899,6 +900,7 @@ class HUD_State:
                 if event.type == pygame.KEYDOWN:
                     # Si on clique sur entrer
                     if event.key == pygame.K_RETURN:
+                        Global_objects.button_sound.play()
                         nouvelle_valeur = int(Global_objects.raiseamountinput.user_text) if int(Global_objects.raiseamountinput.user_text) <= Global_objects.connected_account[2] and int(Global_objects.raiseamountinput.user_text) >= 0 else (((Global_objects.connected_account[2]/100)*Global_objects.game_state.raised_amount)*100)
                         Global_objects.raise_bar.cursor_width = width_scale(400, self.largeur_actuelle) + (nouvelle_valeur / Global_objects.connected_account[2]) * (width_scale(1530, self.largeur_actuelle) - width_scale(400, self.largeur_actuelle))
                         Global_objects.raiseamountinput.user_text = ""

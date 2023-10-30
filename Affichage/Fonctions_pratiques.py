@@ -68,6 +68,7 @@ def changer_raccourci(event : pygame.event.Event, text_input : TextInputBox, rac
         indice (int): emplacement du raccourci à modifier dans le dictionnaire donné
     """
     if event.type == pygame.KEYDOWN:
+        Global_objects.button_sound.play()
         # Si on clique sur supprimer
         if event.key == pygame.K_BACKSPACE:
             text_input.user_text = "Backspace"
