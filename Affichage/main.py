@@ -21,13 +21,9 @@ if __name__ == "__main__":
     pygame.init()
     start_client()
     screen_info = pygame.display.Info()
-    screen_width = screen_info.current_w
-    screen_height = screen_info.current_h
-    screen = pygame.display.set_mode((screen_width, screen_height), pygame.FULLSCREEN)
-    largeur_actuelle = screen.get_width()
-    hauteur_actuelle = screen.get_height()
-    saved_largeur = largeur_actuelle
-    saved_hauteur = hauteur_actuelle
+    largeur_actuelle = screen_info.current_w
+    hauteur_actuelle = screen_info.current_h
+    screen = pygame.display.set_mode((largeur_actuelle, hauteur_actuelle), pygame.FULLSCREEN)
     # Nom de la fenêtre
     pygame.display.set_caption("MWTE Poker")
     clock = pygame.time.Clock()
