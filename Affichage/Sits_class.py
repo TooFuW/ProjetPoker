@@ -94,7 +94,7 @@ class Sits:
         else:
             text = f"{self.player[1]}\n{self.player[2]}"
             text = text.replace("'", "")
-        gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
+        gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle, True))
         height = height_scale(10, self.hauteur_actuelle)
         if not Global_objects.is_selecting_sit[0] or self.player[1] is not None:
             for elem in text.split("\n"):

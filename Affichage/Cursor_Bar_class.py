@@ -44,8 +44,6 @@ class Cursor_Bar:
             info_box_width (int): Largeur de la bulle d'info
             height_reductor (float): Multiplicateur de réduction de la hauteur de la bulle d'info
         """
-        # On scale height_reductor ici sinon la valeur peut poser probléme
-        height_reductor = height_reductor * self.hauteur_actuelle / 1080
         mouse_pos = pygame.mouse.get_pos()
         # Création du curseur et de la barre derrière
         bar = pygame.draw.rect(self.screen, self.bar_color, pygame.Rect((self.x, self.y), (self.width, self.height)), border_radius = 10)
@@ -57,7 +55,7 @@ class Cursor_Bar:
             info_surf = pygame.Rect((info.centerx - info.width//2, info.centery), (info.width, info.height//height_reductor))
             pygame.draw.rect(self.screen, self.cursor_color, info_surf, border_radius = 1)
             text = f"{variable}"
-            font = pygame.font.SysFont("Roboto", width_scale(text_size, self.largeur_actuelle))
+            font = pygame.font.SysFont("Roboto", width_scale(text_size, self.largeur_actuelle, True))
             text_info = font.render(text, True, self.text_color)
             text_rect = text_info.get_rect(center = info_surf.center)
             self.screen.blit(text_info, text_rect)
@@ -76,7 +74,7 @@ class Cursor_Bar:
                 info_surf = pygame.Rect((info.centerx - info.width//2, info.centery), (info.width, info.height//height_reductor))
                 pygame.draw.rect(self.screen, self.cursor_color, info_surf, border_radius = 1)
                 text = f"{variable}"
-                font = pygame.font.SysFont("Roboto", width_scale(text_size, self.largeur_actuelle))
+                font = pygame.font.SysFont("Roboto", width_scale(text_size, self.largeur_actuelle, True))
                 text_info = font.render(text, True, self.text_color)
                 text_rect = text_info.get_rect(center = info_surf.center)
                 self.screen.blit(text_info, text_rect)

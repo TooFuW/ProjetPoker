@@ -70,7 +70,7 @@ class Button:
 
         # Button text
         self.text = text
-        gui_font = pygame.font.SysFont(police, width_scale(textsize, self.largeur_actuelle), False, False)
+        gui_font = pygame.font.SysFont(police, width_scale(textsize, self.largeur_actuelle, True), False, False)
         self.text_surf = gui_font.render(self.text, True, "#FFFFFF")
         self.text_rect = self.text_surf.get_rect(center = self.top_rect.center)
 

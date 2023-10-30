@@ -100,7 +100,7 @@ class HUD_State:
         # On vérifie si la position de la souris est sur le bouton
         if self.logomwte_rect.collidepoint(mouse_pos):
             # On affiche le texte d'information à côté de la souris lorsqu'elle est sur le logo MWTE
-            gui_font = pygame.font.SysFont("Roboto", width_scale(20, self.largeur_actuelle), False, True)
+            gui_font = pygame.font.SysFont("Roboto", width_scale(20, self.largeur_actuelle, True), False, True)
             text_surf = gui_font.render("Go to the official MWTE website", True, "#000000")
             pygame.draw.rect(self.screen, "#FFFFFF", pygame.Rect((mouse_pos[0], mouse_pos[1] + 15), (width_scale(210, self.largeur_actuelle), height_scale(20, self.hauteur_actuelle))), border_radius = 3)
             self.screen.blit(text_surf, (mouse_pos[0], mouse_pos[1] + 20))
@@ -122,7 +122,7 @@ class HUD_State:
         # Cliquer sur le bouton ACCOUNT ouvre l'interface présentant les informations du compte actif
         Global_objects.accountbutton.draw()
         # Affichage des chips de l'utilisateur à droite du bouton ACCOUNT
-        gui_font = pygame.font.SysFont("Roboto", width_scale(40, self.largeur_actuelle))
+        gui_font = pygame.font.SysFont("Roboto", width_scale(40, self.largeur_actuelle, True))
         text_surf = gui_font.render("Chips : ", True, "#FFFFFF")
         pygame.draw.rect(self.screen, "#475F77", pygame.Rect((width_scale(1540, self.largeur_actuelle), height_scale(30, self.hauteur_actuelle)), (width_scale(200, self.largeur_actuelle), height_scale(50, self.hauteur_actuelle))), border_radius = 3)
         self.screen.blit(text_surf, (width_scale(1550, self.largeur_actuelle), height_scale(40, self.hauteur_actuelle)))
@@ -145,11 +145,8 @@ class HUD_State:
             # Si on a sélectionne la TextInputBox
             elif Global_objects.tablecodeinput.active:
                 if event.type == pygame.KEYDOWN:
-                    # Si on clique sur delete
-                    if event.key == pygame.K_BACKSPACE:
-                        Global_objects.tablecodeinput.backspace = True
                     # Si on clique sur entrer
-                    elif event.key == pygame.K_RETURN:
+                    if event.key == pygame.K_RETURN:
                         # On essaie de rejoindre la partie avec le code entré
                         Global_objects.previewlobbys.players = None
                         try:
@@ -224,7 +221,7 @@ class HUD_State:
                                 Global_objects.sit_10.player = Global_objects.previewlobbys.players[9]
                             for lobby in Global_objects.displayed_lobbys_list:
                                 if lobby[-1] == Global_objects.tablecodeinput.user_text:
-                                    self.server_test = f"{lobby[0]}{' '*width_scale(35, self.largeur_actuelle)}{lobby[1]}{' '*width_scale(35, self.largeur_actuelle)}{lobby[2]}{' '*width_scale(35, self.largeur_actuelle)}{lobby[3]}{' '*width_scale(35, self.largeur_actuelle)}{lobby[4]}"
+                                    self.server_test = f"{lobby[0]}{' '*width_scale(35, self.largeur_actuelle, True)}{lobby[1]}{' '*width_scale(35, self.largeur_actuelle, True)}{lobby[2]}{' '*width_scale(35, self.largeur_actuelle, True)}{lobby[3]}{' '*width_scale(35, self.largeur_actuelle, True)}{lobby[4]}"
                                     Global_objects.pot = lobby[3]
                                     break
                             Global_objects.game_state.table_selected = None
@@ -246,30 +243,8 @@ class HUD_State:
                             self.error[0] = True
                             self.error[1] = time.time()
                         Global_objects.tablecodeinput.user_text = ""
-                    # Si on clique sur n'importe quoi d'autre
                     else:
-                        # On gère tout les cas de paramètres des objets de la classe TextInputBox (se référer au fichier TextInputBox_class.py pour plus d'informations sur ces paramètres)
-                        if Global_objects.tablecodeinput.num_only:
-                            if event.unicode in ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]:
-                                if Global_objects.tablecodeinput.max_caracteres > 0:
-                                    if len(Global_objects.tablecodeinput.user_text) < Global_objects.tablecodeinput.max_caracteres:
-                                        if not Global_objects.tablecodeinput.adaptative_size:
-                                            if Global_objects.tablecodeinput.text_size < Global_objects.tablecodeinput.base_size:
-                                                Global_objects.tablecodeinput.user_text += event.unicode
-                                        else:
-                                            Global_objects.tablecodeinput.user_text += event.unicode
-                        else:
-                            if len(Global_objects.tablecodeinput.user_text) < Global_objects.tablecodeinput.max_caracteres or Global_objects.tablecodeinput.max_caracteres == -1:
-                                if not Global_objects.tablecodeinput.adaptative_size:
-                                    if Global_objects.tablecodeinput.text_size < Global_objects.tablecodeinput.base_size:
-                                        Global_objects.tablecodeinput.user_text += event.unicode
-                                    else:
-                                        Global_objects.tablecodeinput.user_text += event.unicode
-                                else:
-                                    Global_objects.tablecodeinput.user_text += event.unicode
-                elif event.type == pygame.KEYUP:
-                    if event.key == pygame.K_BACKSPACE:
-                        Global_objects.tablecodeinput.backspace = False
+                        text_input_write(event, Global_objects.tablecodeinput)
             # On gére les raccourcis clavier
             elif event.type == pygame.KEYDOWN:
                 if event.unicode in Global_objects.raccourcis_lobbymenu.keys():
@@ -292,7 +267,7 @@ class HUD_State:
         self.screen.blit(self.fond, (0, 0))
 
         # Dessin de la scrollbox et des infos des colonnes de la scrollbox
-        gui_font = pygame.font.SysFont("Roboto", width_scale(27, self.largeur_actuelle))
+        gui_font = pygame.font.SysFont("Roboto", width_scale(27, self.largeur_actuelle, True))
         text_surf = gui_font.render("Lobby name", True, "#FFFFFF")
         self.screen.blit(text_surf, (width_scale(225, self.largeur_actuelle), height_scale(210, self.hauteur_actuelle)))
         text_surf = gui_font.render("Number of players", True, "#FFFFFF")
@@ -317,7 +292,7 @@ class HUD_State:
         # Cliquer sur le bouton ACCOUNT ouvre l'interface présentant les informations du compte actif
         Global_objects.accountbutton.draw()
         # Affichage des chips de l'utilisateur à droite du bouton ACCOUNT
-        gui_font = pygame.font.SysFont("Roboto", width_scale(40, self.largeur_actuelle))
+        gui_font = pygame.font.SysFont("Roboto", width_scale(40, self.largeur_actuelle, True))
         text_surf = gui_font.render("Chips : ", True, "#FFFFFF")
         pygame.draw.rect(self.screen, "#475F77", pygame.Rect((width_scale(1540, self.largeur_actuelle), height_scale(30, self.hauteur_actuelle)), (width_scale(200, self.largeur_actuelle), height_scale(50, self.hauteur_actuelle))), border_radius = 3)
         self.screen.blit(text_surf, (width_scale(1550, self.largeur_actuelle), height_scale(40, self.hauteur_actuelle)))
@@ -330,7 +305,7 @@ class HUD_State:
         except:
             pass
         # On affiche un texte au-dessus de la box qui indique ce que cette dernière fait
-        gui_font = pygame.font.SysFont("Roboto", 50)
+        gui_font = pygame.font.SysFont("Roboto", width_scale(50, self.largeur_actuelle, True))
         text_surf = gui_font.render("Private Table Code", True, "#000000")
         self.screen.blit(text_surf, (width_scale(1370, self.largeur_actuelle), height_scale(850, self.hauteur_actuelle)))
 
@@ -343,7 +318,7 @@ class HUD_State:
         
         if self.error[0]:
             # Affichage d'un message d'erreur dans le cas où le code de lobby n'existe pas
-            gui_font = pygame.font.SysFont("Roboto", width_scale(70, self.largeur_actuelle))
+            gui_font = pygame.font.SysFont("Roboto", width_scale(70, self.largeur_actuelle, True))
             text_surf = gui_font.render("ERROR : NO GAME FOUND", True, "#FFFFFF")
             pygame.draw.rect(self.screen, "#FF0000", pygame.Rect((width_scale(650, self.largeur_actuelle), height_scale(400, self.hauteur_actuelle)), (width_scale(650, self.largeur_actuelle), height_scale(100, self.hauteur_actuelle))), border_radius = 2)
             self.screen.blit(text_surf, (width_scale(655, self.largeur_actuelle), height_scale(430, self.hauteur_actuelle)))
@@ -474,7 +449,7 @@ class HUD_State:
         # Cliquer sur le bouton SAVE sauvegardera les paramètre dans un fichier texte en local
         Global_objects.savesettingsbutton.draw()
         # Affichage des chips de l'utilisateur à droite du bouton ACCOUNT
-        gui_font = pygame.font.SysFont("Roboto", width_scale(40, self.largeur_actuelle))
+        gui_font = pygame.font.SysFont("Roboto", width_scale(40, self.largeur_actuelle, True))
         text_surf = gui_font.render("Chips : ", True, "#FFFFFF")
         pygame.draw.rect(self.screen, "#475F77", pygame.Rect((width_scale(1540, self.largeur_actuelle), height_scale(30, self.hauteur_actuelle)), (width_scale(200, self.largeur_actuelle), height_scale(50, self.hauteur_actuelle))), border_radius = 3)
         self.screen.blit(text_surf, (width_scale(1550, self.largeur_actuelle), height_scale(40, self.hauteur_actuelle)))
@@ -495,7 +470,7 @@ class HUD_State:
             # Paramètre d'activation/désactivation de la musique
             # Affichage du nom du paramètre VOLUME dans une box
             pygame.draw.rect(self.screen, "#0000E0", pygame.Rect((width_scale(280, self.largeur_actuelle), height_scale(180, self.hauteur_actuelle)), (width_scale(450, self.largeur_actuelle), height_scale(50, self.hauteur_actuelle))), border_radius = 3)
-            gui_font = pygame.font.SysFont("Roboto", width_scale(50, self.largeur_actuelle))
+            gui_font = pygame.font.SysFont("Roboto", width_scale(50, self.largeur_actuelle, True))
             text_surf = gui_font.render("Volume", True, "#FFFFFF")
             self.screen.blit(text_surf, (width_scale(290, self.largeur_actuelle), height_scale(190, self.hauteur_actuelle)))
             # On affiche la barre de son
@@ -503,7 +478,7 @@ class HUD_State:
                 text_size = 20
             else:
                 text_size = 25
-            Global_objects.sound_bar.draw(round(Global_objects.volume_music * 100), width_scale(text_size, self.largeur_actuelle), width_scale(12, self.largeur_actuelle), 1) # Exceptionelement 1 sera scaled à part
+            Global_objects.sound_bar.draw(round(Global_objects.volume_music * 100), width_scale(text_size, self.largeur_actuelle), width_scale(12, self.largeur_actuelle), height_scale(1, self.hauteur_actuelle))
             # On gére l'affichage avec les icônes de son
             if Global_objects.sound_bar.cursor_width <= Global_objects.sound_bar.x: # Barre à 0
                 volume_icon = self.screen.blit(self.sounds_icons[0], (width_scale(415, self.largeur_actuelle), height_scale(172, self.hauteur_actuelle)))
@@ -539,18 +514,18 @@ class HUD_State:
         # Page 2
         elif self.setting_page == 2:
             # Temporaire
-            gui_font = pygame.font.SysFont("Roboto", 40)
+            gui_font = pygame.font.SysFont("Roboto", width_scale(40, self.largeur_actuelle, True))
             settingtext_surf = gui_font.render("2nd setting's page", True, "#FFFFFF")
             self.screen.blit(settingtext_surf, (width_scale(270, self.largeur_actuelle), height_scale(170, self.hauteur_actuelle)))
         # Page 3
         elif self.setting_page == 3:
-            gui_font = pygame.font.SysFont("Roboto", 30)
+            gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle, True))
             settingtext_surf = gui_font.render("Les touches prises en compte sont les touches à caractères ainsi que tab, esc, entrer et backspace. Les touches comme maj, ctrl ou alt par exemple ne sont pas prises en charge.", True, "#0000E0")
             self.screen.blit(settingtext_surf, (width_scale(10, self.largeur_actuelle), height_scale(1030, self.hauteur_actuelle)))
             # Raccourcis clavier
             # ZONE 1
             pygame.draw.rect(self.screen, "#0000E0", pygame.Rect((width_scale(280, self.largeur_actuelle), height_scale(180, self.hauteur_actuelle)), (width_scale(310, self.largeur_actuelle), height_scale(40, self.hauteur_actuelle))), border_radius = 3)
-            gui_font = pygame.font.SysFont("Roboto", width_scale(40, self.largeur_actuelle))
+            gui_font = pygame.font.SysFont("Roboto", width_scale(40, self.largeur_actuelle, True))
             text_surf = gui_font.render("Main Menu Shortcuts", True, "#FFFFFF")
             self.screen.blit(text_surf, (width_scale(290, self.largeur_actuelle), height_scale(187, self.hauteur_actuelle)))
             pygame.draw.rect(self.screen, "#0000E0", pygame.Rect((width_scale(280, self.largeur_actuelle), height_scale(235, self.hauteur_actuelle)), (width_scale(700, self.largeur_actuelle), height_scale(205, self.hauteur_actuelle))), border_radius = 3)
@@ -577,7 +552,7 @@ class HUD_State:
 
             # ZONE 2
             pygame.draw.rect(self.screen, "#0000E0", pygame.Rect((width_scale(280, self.largeur_actuelle), height_scale(455, self.hauteur_actuelle)), (width_scale(360, self.largeur_actuelle), height_scale(40, self.hauteur_actuelle))), border_radius = 3)
-            gui_font = pygame.font.SysFont("Roboto", width_scale(40, self.largeur_actuelle))
+            gui_font = pygame.font.SysFont("Roboto", width_scale(40, self.largeur_actuelle, True))
             text_surf = gui_font.render("Settings Menu Shortcuts", True, "#FFFFFF")
             self.screen.blit(text_surf, (width_scale(290, self.largeur_actuelle), height_scale(462, self.hauteur_actuelle)))
             pygame.draw.rect(self.screen, "#0000E0", pygame.Rect((width_scale(280, self.largeur_actuelle), height_scale(510, self.hauteur_actuelle)), (width_scale(700, self.largeur_actuelle), height_scale(205, self.hauteur_actuelle))), border_radius = 3)
@@ -604,7 +579,7 @@ class HUD_State:
 
             # ZONE 3
             pygame.draw.rect(self.screen, "#0000E0", pygame.Rect((width_scale(280, self.largeur_actuelle), height_scale(730, self.hauteur_actuelle)), (width_scale(360, self.largeur_actuelle), height_scale(40, self.hauteur_actuelle))), border_radius = 3)
-            gui_font = pygame.font.SysFont("Roboto", width_scale(40, self.largeur_actuelle))
+            gui_font = pygame.font.SysFont("Roboto", width_scale(40, self.largeur_actuelle, True))
             text_surf = gui_font.render("Account Menu Shortcuts", True, "#FFFFFF")
             self.screen.blit(text_surf, (width_scale(290, self.largeur_actuelle), height_scale(737, self.hauteur_actuelle)))
             pygame.draw.rect(self.screen, "#0000E0", pygame.Rect((width_scale(280, self.largeur_actuelle), height_scale(785, self.hauteur_actuelle)), (width_scale(700, self.largeur_actuelle), height_scale(205, self.hauteur_actuelle))), border_radius = 3)
@@ -631,7 +606,7 @@ class HUD_State:
 
             # ZONE 4
             pygame.draw.rect(self.screen, "#0000E0", pygame.Rect((width_scale(1030, self.largeur_actuelle), height_scale(180, self.hauteur_actuelle)), (width_scale(310, self.largeur_actuelle), height_scale(40, self.hauteur_actuelle))), border_radius = 3)
-            gui_font = pygame.font.SysFont("Roboto", width_scale(40, self.largeur_actuelle))
+            gui_font = pygame.font.SysFont("Roboto", width_scale(40, self.largeur_actuelle, True))
             text_surf = gui_font.render("Ingame Shortcuts", True, "#FFFFFF")
             self.screen.blit(text_surf, (width_scale(1040, self.largeur_actuelle), height_scale(187, self.hauteur_actuelle)))
             pygame.draw.rect(self.screen, "#0000E0", pygame.Rect((width_scale(1030, self.largeur_actuelle), height_scale(235, self.hauteur_actuelle)), (width_scale(700, self.largeur_actuelle), height_scale(480, self.hauteur_actuelle))), border_radius = 3)
@@ -686,7 +661,7 @@ class HUD_State:
 
             # ZONE 5
             pygame.draw.rect(self.screen, "#0000E0", pygame.Rect((width_scale(1030, self.largeur_actuelle), height_scale(730, self.hauteur_actuelle)), (width_scale(360, self.largeur_actuelle), height_scale(40, self.hauteur_actuelle))), border_radius = 3)
-            gui_font = pygame.font.SysFont("Roboto", width_scale(40, self.largeur_actuelle))
+            gui_font = pygame.font.SysFont("Roboto", width_scale(40, self.largeur_actuelle, True))
             text_surf = gui_font.render("Lobby Menu Shortcuts", True, "#FFFFFF")
             self.screen.blit(text_surf, (width_scale(1040, self.largeur_actuelle), height_scale(737, self.hauteur_actuelle)))
             pygame.draw.rect(self.screen, "#0000E0", pygame.Rect((width_scale(1030, self.largeur_actuelle), height_scale(785, self.hauteur_actuelle)), (width_scale(700, self.largeur_actuelle), height_scale(205, self.hauteur_actuelle))), border_radius = 3)
@@ -749,7 +724,7 @@ class HUD_State:
         # Affichage de la pdp de l'utilisateur
         self.screen.blit(self.pdpplayer, (width_scale(360, self.largeur_actuelle), height_scale(190, self.hauteur_actuelle)))
         # Affichage des chips de l'utilisateur
-        gui_font = pygame.font.SysFont("Roboto", width_scale(40, self.largeur_actuelle))
+        gui_font = pygame.font.SysFont("Roboto", width_scale(40, self.largeur_actuelle, True))
         text_surf = gui_font.render("Chips : ", True, "#FFFFFF")
         pygame.draw.rect(self.screen, "#475F77", pygame.Rect((width_scale(400, self.largeur_actuelle), height_scale(465, self.hauteur_actuelle)), (width_scale(225, self.largeur_actuelle), height_scale(50, self.hauteur_actuelle))), border_radius = 3)
         self.screen.blit(text_surf, (width_scale(410, self.largeur_actuelle), height_scale(475, self.hauteur_actuelle)))
@@ -788,7 +763,7 @@ class HUD_State:
         self.screen.blit(self.fond, (0, 0))
 
         # Affichage des infos de la table sélectionnée en placeholder
-        gui_font = pygame.font.SysFont("Roboto", width_scale(40, self.largeur_actuelle))
+        gui_font = pygame.font.SysFont("Roboto", width_scale(40, self.largeur_actuelle, True))
         text_surf = gui_font.render("PAGE EN CONSTRUCTION : CETTE PAGE ACCUEILLERA UN SHOP PERMETTANT AUX JOUEURS D'ACHETER DES COSMETIQUES", True, "#FFFFFF")
         self.screen.blit(text_surf, (width_scale(100, self.largeur_actuelle), height_scale(510, self.hauteur_actuelle)))
 
@@ -798,7 +773,7 @@ class HUD_State:
         # Cliquer sur le bouton ACCOUNT ouvre l'interface présentant les informations du compte actif
         Global_objects.accountbutton.draw()
         # Affichage des chips de l'utilisateur à droite du bouton ACCOUNT
-        gui_font = pygame.font.SysFont("Roboto", width_scale(40, self.largeur_actuelle))
+        gui_font = pygame.font.SysFont("Roboto", width_scale(40, self.largeur_actuelle, True))
         text_surf = gui_font.render("Chips : ", True, "#FFFFFF")
         pygame.draw.rect(self.screen, "#475F77", pygame.Rect((width_scale(1540, self.largeur_actuelle), height_scale(30, self.hauteur_actuelle)), (width_scale(200, self.largeur_actuelle), height_scale(50, self.hauteur_actuelle))), border_radius = 3)
         self.screen.blit(text_surf, (width_scale(1550, self.largeur_actuelle), height_scale(40, self.hauteur_actuelle)))
@@ -824,7 +799,7 @@ class HUD_State:
         # Cliquer sur le bouton ACCOUNT ouvre l'interface présentant les informations du compte actif
         Global_objects.accountbutton.draw()
         # Affichage des chips de l'utilisateur à droite du bouton ACCOUNT
-        gui_font = pygame.font.SysFont("Roboto", width_scale(40, self.largeur_actuelle))
+        gui_font = pygame.font.SysFont("Roboto", width_scale(40, self.largeur_actuelle, True))
         text_surf = gui_font.render("Chips : ", True, "#FFFFFF")
         pygame.draw.rect(self.screen, "#475F77", pygame.Rect((width_scale(1540, self.largeur_actuelle), height_scale(30, self.hauteur_actuelle)), (width_scale(200, self.largeur_actuelle), height_scale(50, self.hauteur_actuelle))), border_radius = 3)
         self.screen.blit(text_surf, (width_scale(1550, self.largeur_actuelle), height_scale(40, self.hauteur_actuelle)))
@@ -852,7 +827,7 @@ class HUD_State:
         self.screen.blit(transparent_surface, (width_scale(1300, self.largeur_actuelle), height_scale(860, self.hauteur_actuelle)))
         
         # Affichage des infos de la table sélectionnée en placeholder
-        gui_font = pygame.font.SysFont("Roboto", width_scale(40, self.largeur_actuelle))
+        gui_font = pygame.font.SysFont("Roboto", width_scale(40, self.largeur_actuelle, True))
         text_surf = gui_font.render("PAGE EN CONSTRUCTION : CETTE PAGE ACCUEILLERA DES OPTIONS A SELECTIONNER AVANT DE CREER UNE PARTIE", True, "#FFFFFF")
         self.screen.blit(text_surf, (width_scale(100, self.largeur_actuelle), height_scale(510, self.hauteur_actuelle)))
 
@@ -869,7 +844,15 @@ class HUD_State:
                 sys.exit()
             # Si on a sélectionne la raiseamountinput
             if Global_objects.raiseamountinput.active:
-                text_input_write(event, Global_objects.raiseamountinput)
+                if event.type == pygame.KEYDOWN:
+                    # Si on clique sur entrer
+                    if event.key == pygame.K_RETURN:
+                        nouvelle_valeur = int(Global_objects.raiseamountinput.user_text) if int(Global_objects.raiseamountinput.user_text) <= Global_objects.connected_account[2] and int(Global_objects.raiseamountinput.user_text) >= 0 else (((Global_objects.connected_account[2]/100)*Global_objects.game_state.raised_amount)*100)
+                        Global_objects.raise_bar.cursor_width = width_scale(400, self.largeur_actuelle) + (nouvelle_valeur / Global_objects.connected_account[2]) * (width_scale(1530, self.largeur_actuelle) - width_scale(400, self.largeur_actuelle))
+                        Global_objects.raiseamountinput.user_text = ""
+                        Global_objects.raiseamountinput.active = False
+                    else:
+                        text_input_write(event, Global_objects.raiseamountinput)
             # On gére les raccourcis clavier
             elif event.type == pygame.KEYDOWN:
                 if event.unicode in Global_objects.raccourcis_gamemenu.keys():
@@ -877,15 +860,17 @@ class HUD_State:
                         if Global_objects.parole == Global_objects.client_actuel:
                             check_click(Global_objects.raccourcis_gamemenu[event.unicode])
                     elif event.unicode in list(Global_objects.raccourcis_gamemenu.keys())[4]:
-                        if self.is_raising:
-                            check_click(Global_objects.raccourcis_gamemenu[event.unicode][1])
-                        elif self.confirmation:
-                            check_click(Global_objects.raccourcis_gamemenu[event.unicode][0])
+                        if not Global_objects.raiseamountinput.active:
+                            if self.is_raising:
+                                check_click(Global_objects.raccourcis_gamemenu[event.unicode][1])
+                            elif self.confirmation:
+                                check_click(Global_objects.raccourcis_gamemenu[event.unicode][0])
                     elif event.unicode in list(Global_objects.raccourcis_gamemenu.keys())[5]:
-                        if self.is_raising:
-                            check_click(Global_objects.raccourcis_gamemenu[event.unicode][1])
-                        elif self.confirmation:
-                            check_click(Global_objects.raccourcis_gamemenu[event.unicode][0])
+                        if not Global_objects.raiseamountinput.active:
+                            if self.is_raising:
+                                check_click(Global_objects.raccourcis_gamemenu[event.unicode][1])
+                            elif self.confirmation:
+                                check_click(Global_objects.raccourcis_gamemenu[event.unicode][0])
                     elif event.unicode in list(Global_objects.raccourcis_gamemenu.keys())[6:9]:
                         if self.is_raising:
                             check_click(Global_objects.raccourcis_gamemenu[event.unicode])
@@ -902,7 +887,7 @@ class HUD_State:
         self.screen.blit(table_fond, (0, 0))
 
         # Affichage des infos de la table sélectionnée en placeholder
-        gui_font = pygame.font.SysFont("Roboto", width_scale(40, self.largeur_actuelle))
+        gui_font = pygame.font.SysFont("Roboto", width_scale(40, self.largeur_actuelle, True))
         text_surf = gui_font.render(self.server_test, True, "#FFFFFF")
         self.screen.blit(text_surf, (width_scale(250, self.largeur_actuelle), height_scale(100, self.hauteur_actuelle)))
 
@@ -910,7 +895,7 @@ class HUD_State:
         # Affichage du timer avant que la partie commence
             if self.timer[0] > 0:
                 # On ne peut se lever que si la partie n'est pas encore commencée
-                gui_font = pygame.font.SysFont("Roboto", width_scale(60, self.largeur_actuelle))
+                gui_font = pygame.font.SysFont("Roboto", width_scale(60, self.largeur_actuelle, True))
                 if self.timer[0] > 5:
                     text_surf = gui_font.render(f"{round(self.timer[0])}", True, "#FFFFFF")
                 else:
@@ -925,7 +910,7 @@ class HUD_State:
         if not self.round_started:
             Global_objects.sit_upbutton.draw()
             try:
-                gui_font = pygame.font.SysFont("Roboto", width_scale(60, self.largeur_actuelle))
+                gui_font = pygame.font.SysFont("Roboto", width_scale(60, self.largeur_actuelle, True))
                 players = 0
                 if Global_objects.auto_arrived_sits is None:
                     text_surf = gui_font.render(f"0/{len(Global_objects.previewlobbys.players)}", True, "#FFFFFF")
@@ -940,7 +925,7 @@ class HUD_State:
                 pass
         
         # Affichage du texte POT au dessus de la zone du pot
-        gui_font = pygame.font.SysFont("Roboto", width_scale(45, self.largeur_actuelle))
+        gui_font = pygame.font.SysFont("Roboto", width_scale(45, self.largeur_actuelle, True))
         text_surf = gui_font.render(f"POT", True, "#FFFFFF")
         self.screen.blit(text_surf, (width_scale(935, self.largeur_actuelle), height_scale(445, self.hauteur_actuelle)))
         # Affichage de la zone du pot de la partie
@@ -948,7 +933,7 @@ class HUD_State:
         pygame.draw.circle(self.screen, (0, 0, 0, 128), (width_scale(965, self.largeur_actuelle), height_scale(515, self.hauteur_actuelle)), width_scale(35, self.largeur_actuelle))
         pot_surface = self.screen.blit(pot_surface, (width_scale(940, self.largeur_actuelle), height_scale(490, self.hauteur_actuelle)))
         # On place la valeur du pot au milieu de la zone
-        gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
+        gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle, True))
         pot_texte = ""
         for caract in Global_objects.pot:
             if caract.lower() == "k":
@@ -1188,7 +1173,7 @@ class HUD_State:
 
         # Dessin de la raise_bar pour choisir le montant
         if self.is_raising:
-            gui_font = pygame.font.SysFont("Roboto", width_scale(60, self.largeur_actuelle))
+            gui_font = pygame.font.SysFont("Roboto", width_scale(60, self.largeur_actuelle, True))
             text_surf = gui_font.render("Choose the bet", True, "#FFFFFF")
             raise_background = pygame.draw.rect(self.screen, "#000000", pygame.Rect((width_scale(340, self.largeur_actuelle), height_scale(300, self.hauteur_actuelle)), (width_scale(1250, self.largeur_actuelle), height_scale(300, self.hauteur_actuelle))), border_radius = 3)
             self.screen.blit(text_surf, (width_scale(820, self.largeur_actuelle), height_scale(320, self.hauteur_actuelle)))
@@ -1211,12 +1196,11 @@ class HUD_State:
             if not raise_background.collidepoint(mouse_pos) and not Global_objects.raise_bar.is_selected and not Global_objects.confirmraisebutton.is_pressing and not Global_objects.cancelraisebutton.is_pressing and not Global_objects.all_inbutton.is_pressing and not Global_objects.minus100button.is_pressing and not Global_objects.add100button.is_pressing:
                 # On vérifie si l'utilisateur clique sur le clic gauche ([0] = gauche, [1] = molette, [2] = droit)
                 if pygame.mouse.get_pressed()[0]:
-                    self.is_raising = False
-                    self.timer = [0.5, time.time(), True]
+                    check_click(Global_objects.cancelraisebutton)
 
         # Affichage d'une fenêtre de vérification si l'utilisateur clique sur le bouton leavegamebutton
         if self.confirmation:
-            gui_font = pygame.font.SysFont("Roboto", width_scale(60, self.largeur_actuelle))
+            gui_font = pygame.font.SysFont("Roboto", width_scale(60, self.largeur_actuelle, True))
             text_surf = gui_font.render("IF YOU QUIT YOU WILL LOSE EVERYTHING YOU PUT ON THE LINE.", True, "#FFFFFF")
             pygame.draw.rect(self.screen, "#000000", pygame.Rect((width_scale(280, self.largeur_actuelle), height_scale(400, self.hauteur_actuelle)), (width_scale(1360, self.largeur_actuelle), height_scale(170, self.hauteur_actuelle))), border_radius = 3)
             self.screen.blit(text_surf, (width_scale(290, self.largeur_actuelle), height_scale(410, self.hauteur_actuelle)))

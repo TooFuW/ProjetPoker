@@ -34,7 +34,7 @@ class TextInputBox:
         self.hauteur_actuelle = hauteur_actuelle
         self.screen = screen
         # Paramères du texte
-        self.base_font = pygame.font.SysFont("Roboto", width_scale(text_size, largeur_actuelle))
+        self.base_font = pygame.font.SysFont("Roboto", width_scale(text_size, largeur_actuelle, True))
         # Texte "pur"
         self.user_text = starting_text
         self.max_caracteres = max_caracteres

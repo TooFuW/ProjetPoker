@@ -60,7 +60,7 @@ class Preview_Table:
                 else:
                     text = f"{self.players[0][1]}\n{self.players[0][2]}"
                     text = text.replace("'", "")
-                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
+                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle, True))
                 height = 170
                 for elem in text.split("\n"):
                     text_surf = gui_font.render(elem, True, "#FFFFFF")
@@ -72,7 +72,7 @@ class Preview_Table:
                 else:
                     text = f"{self.players[1][1]}\n{self.players[1][2]}"
                     text = text.replace("'", "")
-                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
+                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle, True))
                 height = 270
                 for elem in text.split("\n"):
                     text_surf = gui_font.render(elem, True, "#FFFFFF")
@@ -91,7 +91,7 @@ class Preview_Table:
                 else:
                     text = f"{self.players[0][1]}\n{self.players[0][2]}"
                     text = text.replace("'", "")
-                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
+                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle, True))
                 height = 120
                 for elem in text.split("\n"):
                     text_surf = gui_font.render(elem, True, "#FFFFFF")
@@ -103,7 +103,7 @@ class Preview_Table:
                 else:
                     text = f"{self.players[1][1]}\n{self.players[1][2]}"
                     text = text.replace("'", "")
-                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
+                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle, True))
                 height = 220
                 for elem in text.split("\n"):
                     text_surf = gui_font.render(elem, True, "#FFFFFF")
@@ -115,7 +115,7 @@ class Preview_Table:
                 else:
                     text = f"{self.players[2][1]}\n{self.players[2][2]}"
                     text = text.replace("'", "")
-                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
+                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle, True))
                 height = 320
                 for elem in text.split("\n"):
                     text_surf = gui_font.render(elem, True, "#FFFFFF")
@@ -135,7 +135,7 @@ class Preview_Table:
                 else:
                     text = f"{self.players[0][1]}\n{self.players[0][2]}"
                     text = text.replace("'", "")
-                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
+                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle, True))
                 height = 75
                 for elem in text.split("\n"):
                     text_surf = gui_font.render(elem, True, "#FFFFFF")
@@ -147,7 +147,7 @@ class Preview_Table:
                 else:
                     text = f"{self.players[1][1]}\n{self.players[1][2]}"
                     text = text.replace("'", "")
-                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
+                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle, True))
                 height = 175
                 for elem in text.split("\n"):
                     text_surf = gui_font.render(elem, True, "#FFFFFF")
@@ -159,7 +159,7 @@ class Preview_Table:
                 else:
                     text = f"{self.players[2][1]}\n{self.players[2][2]}"
                     text = text.replace("'", "")
-                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
+                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle, True))
                 height = 275
                 for elem in text.split("\n"):
                     text_surf = gui_font.render(elem, True, "#FFFFFF")
@@ -171,7 +171,7 @@ class Preview_Table:
                 else:
                     text = f"{self.players[3][1]}\n{self.players[3][2]}"
                     text = text.replace("'", "")
-                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
+                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle, True))
                 height = 375
                 for elem in text.split("\n"):
                     text_surf = gui_font.render(elem, True, "#FFFFFF")
@@ -192,7 +192,7 @@ class Preview_Table:
                 else:
                     text = f"{self.players[0][1]}\n{self.players[0][2]}"
                     text = text.replace("'", "")
-                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
+                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle, True))
                 height = 70
                 for elem in text.split("\n"):
                     text_surf = gui_font.render(elem, True, "#FFFFFF")
@@ -204,7 +204,7 @@ class Preview_Table:
                 else:
                     text = f"{self.players[1][1]}\n{self.players[1][2]}"
                     text = text.replace("'", "")
-                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
+                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle, True))
                 height = 170
                 for elem in text.split("\n"):
                     text_surf = gui_font.render(elem, True, "#FFFFFF")
@@ -216,7 +216,7 @@ class Preview_Table:
                 else:
                     text = f"{self.players[2][1]}\n{self.players[2][2]}"
                     text = text.replace("'", "")
-                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
+                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle, True))
                 height = 170
                 for elem in text.split("\n"):
                     text_surf = gui_font.render(elem, True, "#FFFFFF")
@@ -228,7 +228,7 @@ class Preview_Table:
                 else:
                     text = f"{self.players[3][1]}\n{self.players[3][2]}"
                     text = text.replace("'", "")
-                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
+                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle, True))
                 height = 270
                 for elem in text.split("\n"):
                     text_surf = gui_font.render(elem, True, "#FFFFFF")
@@ -240,7 +240,7 @@ class Preview_Table:
                 else:
                     text = f"{self.players[4][1]}\n{self.players[4][2]}"
                     text = text.replace("'", "")
-                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
+                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle, True))
                 height = 270
                 for elem in text.split("\n"):
                     text_surf = gui_font.render(elem, True, "#FFFFFF")
@@ -262,7 +262,7 @@ class Preview_Table:
                 else:
                     text = f"{self.players[0][1]}\n{self.players[0][2]}"
                     text = text.replace("'", "")
-                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
+                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle, True))
                 height = 70
                 for elem in text.split("\n"):
                     text_surf = gui_font.render(elem, True, "#FFFFFF")
@@ -274,7 +274,7 @@ class Preview_Table:
                 else:
                     text = f"{self.players[1][1]}\n{self.players[1][2]}"
                     text = text.replace("'", "")
-                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
+                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle, True))
                 height = 170
                 for elem in text.split("\n"):
                     text_surf = gui_font.render(elem, True, "#FFFFFF")
@@ -286,7 +286,7 @@ class Preview_Table:
                 else:
                     text = f"{self.players[2][1]}\n{self.players[2][2]}"
                     text = text.replace("'", "")
-                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
+                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle, True))
                 height = 170
                 for elem in text.split("\n"):
                     text_surf = gui_font.render(elem, True, "#FFFFFF")
@@ -298,7 +298,7 @@ class Preview_Table:
                 else:
                     text = f"{self.players[3][1]}\n{self.players[3][2]}"
                     text = text.replace("'", "")
-                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
+                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle, True))
                 height = 270
                 for elem in text.split("\n"):
                     text_surf = gui_font.render(elem, True, "#FFFFFF")
@@ -310,7 +310,7 @@ class Preview_Table:
                 else:
                     text = f"{self.players[4][1]}\n{self.players[4][2]}"
                     text = text.replace("'", "")
-                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
+                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle, True))
                 height = 270
                 for elem in text.split("\n"):
                     text_surf = gui_font.render(elem, True, "#FFFFFF")
@@ -322,7 +322,7 @@ class Preview_Table:
                 else:
                     text = f"{self.players[5][1]}\n{self.players[5][2]}"
                     text = text.replace("'", "")
-                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
+                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle, True))
                 height = 370
                 for elem in text.split("\n"):
                     text_surf = gui_font.render(elem, True, "#FFFFFF")
@@ -345,7 +345,7 @@ class Preview_Table:
                 else:
                     text = f"{self.players[0][1]}\n{self.players[0][2]}"
                     text = text.replace("'", "")
-                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
+                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle, True))
                 height = 70
                 for elem in text.split("\n"):
                     text_surf = gui_font.render(elem, True, "#FFFFFF")
@@ -357,7 +357,7 @@ class Preview_Table:
                 else:
                     text = f"{self.players[1][1]}\n{self.players[1][2]}"
                     text = text.replace("'", "")
-                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
+                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle, True))
                 height = 70
                 for elem in text.split("\n"):
                     text_surf = gui_font.render(elem, True, "#FFFFFF")
@@ -369,7 +369,7 @@ class Preview_Table:
                 else:
                     text = f"{self.players[2][1]}\n{self.players[2][2]}"
                     text = text.replace("'", "")
-                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
+                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle, True))
                 height = 170
                 for elem in text.split("\n"):
                     text_surf = gui_font.render(elem, True, "#FFFFFF")
@@ -381,7 +381,7 @@ class Preview_Table:
                 else:
                     text = f"{self.players[3][1]}\n{self.players[3][2]}"
                     text = text.replace("'", "")
-                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
+                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle, True))
                 height = 170
                 for elem in text.split("\n"):
                     text_surf = gui_font.render(elem, True, "#FFFFFF")
@@ -393,7 +393,7 @@ class Preview_Table:
                 else:
                     text = f"{self.players[4][1]}\n{self.players[4][2]}"
                     text = text.replace("'", "")
-                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
+                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle, True))
                 height = 270
                 for elem in text.split("\n"):
                     text_surf = gui_font.render(elem, True, "#FFFFFF")
@@ -405,7 +405,7 @@ class Preview_Table:
                 else:
                     text = f"{self.players[5][1]}\n{self.players[5][2]}"
                     text = text.replace("'", "")
-                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
+                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle, True))
                 height = 270
                 for elem in text.split("\n"):
                     text_surf = gui_font.render(elem, True, "#FFFFFF")
@@ -417,7 +417,7 @@ class Preview_Table:
                 else:
                     text = f"{self.players[6][1]}\n{self.players[6][2]}"
                     text = text.replace("'", "")
-                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
+                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle, True))
                 height = 370
                 for elem in text.split("\n"):
                     text_surf = gui_font.render(elem, True, "#FFFFFF")
@@ -441,7 +441,7 @@ class Preview_Table:
                 else:
                     text = f"{self.players[0][1]}\n{self.players[0][2]}"
                     text = text.replace("'", "")
-                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
+                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle, True))
                 height = 70
                 for elem in text.split("\n"):
                     text_surf = gui_font.render(elem, True, "#FFFFFF")
@@ -453,7 +453,7 @@ class Preview_Table:
                 else:
                     text = f"{self.players[1][1]}\n{self.players[1][2]}"
                     text = text.replace("'", "")
-                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
+                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle, True))
                 height = 70
                 for elem in text.split("\n"):
                     text_surf = gui_font.render(elem, True, "#FFFFFF")
@@ -465,7 +465,7 @@ class Preview_Table:
                 else:
                     text = f"{self.players[2][1]}\n{self.players[2][2]}"
                     text = text.replace("'", "")
-                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
+                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle, True))
                 height = 170
                 for elem in text.split("\n"):
                     text_surf = gui_font.render(elem, True, "#FFFFFF")
@@ -477,7 +477,7 @@ class Preview_Table:
                 else:
                     text = f"{self.players[3][1]}\n{self.players[3][2]}"
                     text = text.replace("'", "")
-                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
+                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle, True))
                 height = 170
                 for elem in text.split("\n"):
                     text_surf = gui_font.render(elem, True, "#FFFFFF")
@@ -489,7 +489,7 @@ class Preview_Table:
                 else:
                     text = f"{self.players[4][1]}\n{self.players[4][2]}"
                     text = text.replace("'", "")
-                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
+                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle, True))
                 height = 270
                 for elem in text.split("\n"):
                     text_surf = gui_font.render(elem, True, "#FFFFFF")
@@ -501,7 +501,7 @@ class Preview_Table:
                 else:
                     text = f"{self.players[5][1]}\n{self.players[5][2]}"
                     text = text.replace("'", "")
-                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
+                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle, True))
                 height = 270
                 for elem in text.split("\n"):
                     text_surf = gui_font.render(elem, True, "#FFFFFF")
@@ -513,7 +513,7 @@ class Preview_Table:
                 else:
                     text = f"{self.players[6][1]}\n{self.players[6][2]}"
                     text = text.replace("'", "")
-                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
+                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle, True))
                 height = 370
                 for elem in text.split("\n"):
                     text_surf = gui_font.render(elem, True, "#FFFFFF")
@@ -525,7 +525,7 @@ class Preview_Table:
                 else:
                     text = f"{self.players[7][1]}\n{self.players[7][2]}"
                     text = text.replace("'", "")
-                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
+                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle, True))
                 height = 370
                 for elem in text.split("\n"):
                     text_surf = gui_font.render(elem, True, "#FFFFFF")
@@ -550,7 +550,7 @@ class Preview_Table:
                 else:
                     text = f"{self.players[0][1]}\n{self.players[0][2]}"
                     text = text.replace("'", "")
-                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
+                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle, True))
                 height = 70
                 for elem in text.split("\n"):
                     text_surf = gui_font.render(elem, True, "#FFFFFF")
@@ -562,7 +562,7 @@ class Preview_Table:
                 else:
                     text = f"{self.players[1][1]}\n{self.players[1][2]}"
                     text = text.replace("'", "")
-                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
+                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle, True))
                 height = 70
                 for elem in text.split("\n"):
                     text_surf = gui_font.render(elem, True, "#FFFFFF")
@@ -574,7 +574,7 @@ class Preview_Table:
                 else:
                     text = f"{self.players[2][1]}\n{self.players[2][2]}"
                     text = text.replace("'", "")
-                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
+                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle, True))
                 height = 70
                 for elem in text.split("\n"):
                     text_surf = gui_font.render(elem, True, "#FFFFFF")
@@ -586,7 +586,7 @@ class Preview_Table:
                 else:
                     text = f"{self.players[3][1]}\n{self.players[3][2]}"
                     text = text.replace("'", "")
-                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
+                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle, True))
                 height = 170
                 for elem in text.split("\n"):
                     text_surf = gui_font.render(elem, True, "#FFFFFF")
@@ -598,7 +598,7 @@ class Preview_Table:
                 else:
                     text = f"{self.players[4][1]}\n{self.players[4][2]}"
                     text = text.replace("'", "")
-                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
+                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle, True))
                 height = 170
                 for elem in text.split("\n"):
                     text_surf = gui_font.render(elem, True, "#FFFFFF")
@@ -610,7 +610,7 @@ class Preview_Table:
                 else:
                     text = f"{self.players[5][1]}\n{self.players[5][2]}"
                     text = text.replace("'", "")
-                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
+                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle, True))
                 height = 270
                 for elem in text.split("\n"):
                     text_surf = gui_font.render(elem, True, "#FFFFFF")
@@ -622,7 +622,7 @@ class Preview_Table:
                 else:
                     text = f"{self.players[6][1]}\n{self.players[6][2]}"
                     text = text.replace("'", "")
-                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
+                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle, True))
                 height = 270
                 for elem in text.split("\n"):
                     text_surf = gui_font.render(elem, True, "#FFFFFF")
@@ -634,7 +634,7 @@ class Preview_Table:
                 else:
                     text = f"{self.players[7][1]}\n{self.players[7][2]}"
                     text = text.replace("'", "")
-                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
+                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle, True))
                 height = 370
                 for elem in text.split("\n"):
                     text_surf = gui_font.render(elem, True, "#FFFFFF")
@@ -646,7 +646,7 @@ class Preview_Table:
                 else:
                     text = f"{self.players[8][1]}\n{self.players[8][2]}"
                     text = text.replace("'", "")
-                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
+                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle, True))
                 height = 370
                 for elem in text.split("\n"):
                     text_surf = gui_font.render(elem, True, "#FFFFFF")
@@ -672,7 +672,7 @@ class Preview_Table:
                 else:
                     text = f"{self.players[0][1]}\n{self.players[0][2]}"
                     text = text.replace("'", "")
-                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
+                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle, True))
                 height = 70
                 for elem in text.split("\n"):
                     text_surf = gui_font.render(elem, True, "#FFFFFF")
@@ -684,7 +684,7 @@ class Preview_Table:
                 else:
                     text = f"{self.players[1][1]}\n{self.players[1][2]}"
                     text = text.replace("'", "")
-                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
+                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle, True))
                 height = 70
                 for elem in text.split("\n"):
                     text_surf = gui_font.render(elem, True, "#FFFFFF")
@@ -696,7 +696,7 @@ class Preview_Table:
                 else:
                     text = f"{self.players[2][1]}\n{self.players[2][2]}"
                     text = text.replace("'", "")
-                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
+                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle, True))
                 height = 70
                 for elem in text.split("\n"):
                     text_surf = gui_font.render(elem, True, "#FFFFFF")
@@ -708,7 +708,7 @@ class Preview_Table:
                 else:
                     text = f"{self.players[3][1]}\n{self.players[3][2]}"
                     text = text.replace("'", "")
-                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
+                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle, True))
                 height = 170
                 for elem in text.split("\n"):
                     text_surf = gui_font.render(elem, True, "#FFFFFF")
@@ -720,7 +720,7 @@ class Preview_Table:
                 else:
                     text = f"{self.players[4][1]}\n{self.players[4][2]}"
                     text = text.replace("'", "")
-                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
+                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle, True))
                 height = 170
                 for elem in text.split("\n"):
                     text_surf = gui_font.render(elem, True, "#FFFFFF")
@@ -732,7 +732,7 @@ class Preview_Table:
                 else:
                     text = f"{self.players[5][1]}\n{self.players[5][2]}"
                     text = text.replace("'", "")
-                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
+                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle, True))
                 height = 270
                 for elem in text.split("\n"):
                     text_surf = gui_font.render(elem, True, "#FFFFFF")
@@ -744,7 +744,7 @@ class Preview_Table:
                 else:
                     text = f"{self.players[6][1]}\n{self.players[6][2]}"
                     text = text.replace("'", "")
-                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
+                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle, True))
                 height = 270
                 for elem in text.split("\n"):
                     text_surf = gui_font.render(elem, True, "#FFFFFF")
@@ -756,7 +756,7 @@ class Preview_Table:
                 else:
                     text = f"{self.players[7][1]}\n{self.players[7][2]}"
                     text = text.replace("'", "")
-                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
+                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle, True))
                 height = 370
                 for elem in text.split("\n"):
                     text_surf = gui_font.render(elem, True, "#FFFFFF")
@@ -768,7 +768,7 @@ class Preview_Table:
                 else:
                     text = f"{self.players[8][1]}\n{self.players[8][2]}"
                     text = text.replace("'", "")
-                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
+                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle, True))
                 height = 370
                 for elem in text.split("\n"):
                     text_surf = gui_font.render(elem, True, "#FFFFFF")
@@ -780,7 +780,7 @@ class Preview_Table:
                 else:
                     text = f"{self.players[9][1]}\n{self.players[9][2]}"
                     text = text.replace("'", "")
-                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle))
+                gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle, True))
                 height = 370
                 for elem in text.split("\n"):
                     text_surf = gui_font.render(elem, True, "#FFFFFF")
