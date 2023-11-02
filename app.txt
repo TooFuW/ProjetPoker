@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="{{ url_for('static', filename='category.css') }}">
+
+        <title>Produits</title>
+    </head>
+    <body>
+        <header>
+            <h1 style="font-size: 40px; font-weight: bold;">Produits de la categorie {{categorie}}</h1>
+        </header>
+        <main>
+            <h1>Produits</h1>
+            <nav>
+                <ul>
+                    {% for produit in produits %}
+                    <li>{{ produit.nom }} - {{ produit.prix }} xpf</li>
+                    <form method="POST" action="/ajouter">
+                        <input type="hidden" name="produit_id" value="{{ produit.id }}">
+                        <input type="submit" value="Ajouter au panier">
+                    </form>
+                    {% endfor %}
+
+                </ul>
+            </nav>
+        </main>
+    </body>
+</html>

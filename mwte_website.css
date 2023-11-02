@@ -1,9 +1,9 @@
 header{
-    background-color: black;
+    background-color: rgba(235, 175, 175, 0.651);
 }
 button{
     border:0px;
-    background-color: black;
+    background-color: rgb(255, 255, 255);
     color: red;
 }
 .accueil {
