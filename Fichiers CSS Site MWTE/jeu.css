@@ -1,0 +1,14 @@
+div{
+    display:block;
+}
+
+.Jeux{
+    opacity: 1;
+    cursor: pointer;
+    background-color: blueviolet;
+}
+
+.container{
+    display: flex;
+    flex-direction:row ;
+}
