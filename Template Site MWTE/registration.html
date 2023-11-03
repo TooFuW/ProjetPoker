@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Inscription</title>
+</head>
+<body>
+    <h1>Inscription</h1>
+    
+    <!-- Formulaire d'inscription -->
+    <form method="POST" action="/registration">
+        <br>
+        <label for="username"></label>
+        <input placeholder="Nom d'utilisateur" id="username" name="username" type="text" required>
+		<br>
+		<label for="nom"></label>
+        <input placeholder="Nom" type="text" id="nom" name="nom" required>
+        <br>
+        <label for="prenom"></label>
+        <input <input placeholder="Prenom"type="text" id="prenom" name="prenom" required>
+        <br>
+        <label>Genre :</label>
+        <input type="radio" id="genre_homme" name="genre" value="Homme" required>
+        <label for="genre_homme">Homme</label>
+        <input type="radio" id="genre_femme" name="genre" value="Femme" required>
+        <label for="genre_femme">Femme</label>
+        <input type="radio" id="genre_autre" name="genre" value="Autre" required>
+        <label for="genre_autre">Autre</label>
+        <br>
+		
+        <label for="email"></label>
+        <input placeholder="Adresse e-mail"type="email" id="email" name="email" required><br>
+        
+        <label for="password"></label>
+        <input placeholder="Mot de passe" type="password" id="password" name="password" required><br>
+        
+        <button type="submit">S'inscrire</button>
+    </form>
+    
+    
+</body>
+</html>
+
+
+
+
+
