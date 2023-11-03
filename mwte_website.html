@@ -4,17 +4,23 @@
         <title>
             MWTE Official Website
         </title>
-        <link rel="stylesheet" href="mwte_website.css">
-        <script src="mwte_website.js"></script>
+        <link rel="stylesheet" href="Fichiers CSS Site MWTE\mwte_website.css">
+        <script src="Fichiers Javascript Site MWTE\mwte_website.js"></script>
     </head>
 
     <body>
         <header>
             <div>
                 <!--Mettre Logo MWTE-->
-                <img src="Mwte.png" alt="Logo MWTE" width="20%" height="20%">
-                <a href="/registration"><button>S'inscrire</button></a>
-                <a href="/connexion"><button>Se connecter</button></a>
+                <img src="Images\Mwte.png" alt="Logo MWTE" width="20%" height="20%">
+                <nav>
+                    <ul>
+                        <button class="registration-btn">
+                            <span class="registration" onclick="window.location.href = 'registration.html';">S'inscrire</span>
+                        <button class="connexion-btn">
+                            <span class="connexion" onclick="window.location.href = 'connexion.html';">Se connecter</span>
+                    </ul>
+                </nav>
                 <nav>
                     <ul>
                         <button class="accueil-btn">
@@ -33,9 +39,9 @@
                         <button class="contacts">
                             <span class="jeux" onclick="window.location.href = 'Contact.html';">Contacts</span>
                         </button>
-                        
-                        <button onclick="window.location.href = 'Merch.html';">Merch</button>
-
+                        <button class="merch">
+                            <span class="merch" onclick="window.location.href = 'Merch.html';">Merch</span>
+                        </button>
                     </ul>
                 </nav>
             </div>

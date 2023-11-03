@@ -11,14 +11,13 @@ user_db_path = os.path.join(base_dir, 'users.db')
 
 app = Flask(__name__)
 
-
+dossier_actuel = __file__[:-43]
 
 app.secret_key = 'your_secret_key'
 app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{user_db_path}'  # Utilisation d'une Base de donnees SQLite
 
 
 db.init_app(app)
-
 
 
 
@@ -50,7 +49,7 @@ def registration():
             db.session.commit()
             flash('Inscription réussie! Vous pouvez maintenant vous connecter.', 'success')
             return redirect('/')
-    return render_template('registration.html')
+    return render_template(dossier_actuel + '\\registration.html')
 
 
 
@@ -71,7 +70,7 @@ def connexion():
             flash("Nom d'utilisateur ou mot de passe incorrect. Veuillez réessayer.", 'danger' )
 
 
-    return render_template('connexion.html')
+    return render_template(dossier_actuel + '\\connexion.html')
 
 
 
@@ -80,7 +79,7 @@ def accueil():
     title = "Site de Vente de Produits"
     current_year = 2023
 
-    return render_template('Template Site MWTE\mwte_website.html', title=title, current_year=current_year)
+    return render_template(dossier_actuel + '\\mwte_website.html', title=title, current_year=current_year)
 
 
 if __name__ == '__main__':
