@@ -234,7 +234,6 @@ class HUD_State:
                             Global_objects.game_state.state = "Game Menu"
                             Global_objects.is_selecting_sit[0] = True
                             self.round_started = False
-                            Global_objects.parole = 1
                             # Temporaire pour afficher les cartes le temps que je recoive réellement des cartes
                             body = ["kh","1d"]
                             Global_objects.nombre_cartes = len(body)
@@ -959,7 +958,7 @@ class HUD_State:
                 self.timer[0] = self.depart_timer - (time.time() - self.timer[1])
             elif self.timer[0] <= 0:
                 self.round_started = True
-                self.timer = [15, time.time(), False]
+                self.timer[2] = False
         # Affichage du nombre de joueurs présents sur le nombre de joueurs max
         if not self.round_started:
             Global_objects.sit_upbutton.draw()
@@ -1001,12 +1000,7 @@ class HUD_State:
         # Boucle pour calculer le timer de chaque joueur pour prendre une décision 
         if self.round_started:
             if self.timer[0] > 0:
-                self.timer[0] = 15 - (time.time() - self.timer[1])
-            """elif self.timer[0] <= 0:
-                Global_objects.parole += 1
-                if Global_objects.parole > len(Global_objects.previewlobbys.players):
-                    Global_objects.parole = 1
-                self.timer = [15, time.time(), False]"""
+                self.timer[0] = self.depart_timer - (time.time() - self.timer[1])
 
         # Affichage de la zone qui comportera les actions du joueur
         # Boutons d'actions

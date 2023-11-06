@@ -181,7 +181,6 @@ def check_click(Button):
                     Global_objects.game_state.state = "Game Menu"
                     Global_objects.is_selecting_sit[0] = True
                     Global_objects.game_state.round_started = False
-                    Global_objects.parole = 1
                     Global_objects.pot = Global_objects.game_state.table_selected[3]
                     # Temporaire pour afficher les cartes le temps que je recoive réellement des cartes
                     body = ["kh","1d"]
