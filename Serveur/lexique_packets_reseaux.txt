@@ -37,6 +37,7 @@ turn="['1h']" envoie au client les cartes qui constituent le turn et indiquent q
 river="['2c']" envoie au client les cartes qui constituent le turn et indiquent qu'un turn est en train d'avoir lieu
 your_turn= indique à un client que c'est à son tour de jouer
 game_start="" : previent le client que la game commence avec tous les joueurs qui sont assis
+sit_to_play_time_to_play=7,10 : il reste 10 secondes au siège index 7 pour jouer son coup.7
 
 à faire ...
 
@@ -45,7 +46,6 @@ game_start="" : previent le client que la game commence avec tous les joueurs qu
 pots="[[],[],...]" : liste des pots triés dans l'ordre de priorité 
 sit_to_play=7 : indique à tous les joueurs la personne (et donc le numéro de siège à aui c'est de jouer)
 action=7,raise,700 indique à tous les joueurs que le siège n°7 à qui c'etait de jouer à relancé à un montant de 700 (est toujours suivi de bet et pots pour mettre à jour ces infos)
-sit_to_play_time_to_play=7,10 : il reste 10 secondes au siège index 7 pour jouer son coup.
 sit_index_deconnected=2 : indique : le joueur du siège d'index 2 est deconnecté.
 sit_up_next_round= un client indique au serveur qu'il veut se lever à la fin du sit_up_next_round
 cancel_sit_up_next_round= le client indique qu'il ne veut plus se lever au tour suivant

@@ -72,6 +72,7 @@ class HUD_State:
         self.confirmation = False
         # Timer de début de la partie
         self.timer = [None, 0, False]
+        self.depart_timer = None
         self.round_started = False
         self.is_raising = False
         # Montant par défaut lorsque le joueur veut faire l'action "raise"
@@ -956,10 +957,10 @@ class HUD_State:
                     text_surf = gui_font.render(f"{round(self.timer[0], 1)}", True, "#FFFFFF")
                 text_rect = text_surf.get_rect(center = (self.largeur_actuelle//2 - width_scale(100, self.largeur_actuelle), height_scale(30, self.hauteur_actuelle)))
                 self.screen.blit(text_surf, text_rect)
-                self.timer[0] = 20 - (time.time() - self.timer[1])
+                self.timer[0] = self.depart_timer - (time.time() - self.timer[1])
             elif self.timer[0] <= 0:
                 self.round_started = True
-                self.timer = [20, time.time(), False]
+                self.timer = [15, time.time(), False]
         # Affichage du nombre de joueurs présents sur le nombre de joueurs max
         if not self.round_started:
             Global_objects.sit_upbutton.draw()

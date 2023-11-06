@@ -31,6 +31,7 @@ class Lobby :
         self.game : Game = None
         self.is_continue_timer = False
         self.timer_running = False
+        self.timer = 20
 
         self.sits_number = capacity
         self.sits = new_sits(self.sits_number)
@@ -144,6 +145,13 @@ class Lobby :
                 print("suii")
                 new_player = self.get_player_by_address(address)
                 new_player.set_conn(conn)
+
+
+            # on envoie le paquet timer s'il est lancé
+            if self.timer_running:
+                thread_send_timer = Thread(target=self.send_packet, args=["start_timer="+str(self.timer),conn])
+                print(self.timer)
+                thread_send_timer.start()
 
             write_lobby_connexion(address, self.id,True)
 
@@ -405,7 +413,7 @@ class Lobby :
         
     def start_timer (self):
         
-        timer = 20
+        self.timer = 20
         if not self.timer_running:
 
             self.timer_running = True
@@ -413,13 +421,13 @@ class Lobby :
             thread_start_timer = Thread(target=self.broadcast_packet,args=['start_timer=20'])
             thread_start_timer.start()
 
-            while timer > 0 and self.is_continue_timer:
+            while self.timer > 0 and self.is_continue_timer:
                 
                 if len([pl.get_player() for pl in self.sits if pl.get_player() != None]) >= 2:
 
                     time.sleep(1)
-                    timer -= 1
-                    print(timer)
+                    self.timer -= 1
+                    print(self.timer)
 
                 else:
 

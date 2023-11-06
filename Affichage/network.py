@@ -312,7 +312,7 @@ def manage_data(conn : socket, packet : str):
             case "start_timer":
 
                 ''' ICI ON RECOIT LE PAQUET START_TIMER'''
-
+                Global_objects.game_state.depart_timer = int(body)
                 Global_objects.game_state.timer = [int(body), time.time(), True]
 
             case "stop_timer":
@@ -320,6 +320,12 @@ def manage_data(conn : socket, packet : str):
                 '''ICI ON RECOIT LE PAQUET D'ARRET DU TIMER (nb de joueurs inssuffisant pour continuer)'''
                 Global_objects.game_state.timer[2] = False
                 Global_objects.game_state.timer[0] = 20
+
+            case 'sit_to_play_time_to_play':
+                '''ICI ON RECOIT L'INDEX DU SIEGE DEVANT JOUER ET SON TEMPS RESTANT'''
+                body = eval(body)
+                sit_to_play_id = int(body[0])
+                time_to_play = int(body[1])
 
 
             case "your_cards":

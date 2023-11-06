@@ -81,16 +81,14 @@ class Round:
         match step_type:
 
             case "pre_flop":
-                self.step = Step("pre_flop", self.sits, self.board, self.deck, self.players, )
+                self.step = Step("pre_flop", self.sits, self.board, self.deck, self.players,self.pots)
 
             case "flop":
-                pass
-
+                self.step = Step("flop", self.sits, self.board, self.deck, self.players,self.pots)
             case "turn":
-                pass
-
+                self.step = Step("turn", self.sits, self.board, self.deck, self.players,self.pots)
             case "river":
-                pass
+                self.step = Step("river", self.sits, self.board, self.deck, self.players,self.pots)
 
 
 
@@ -187,8 +185,6 @@ class Round:
                 pl = self.sits[big_blind_sit_index].get_player()
                 if isinstance(pl,Player):
                     break
-
-
 
 
     def get_sit_by_player(self, player) -> Sit:

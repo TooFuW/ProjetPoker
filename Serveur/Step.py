@@ -6,6 +6,7 @@ from Player import Player
 from socket import *
 from threading import *
 from Card import Card
+from Pot import Pot
 
 class Step:
     """
@@ -13,7 +14,7 @@ class Step:
         Represent a step of the game (pre-flop, flop, turn, river) and call the methods for each player
 
     """
-    def __init__(self,type : str ,sits : List[Sit], board : Board, deck : Deck, players : List[Player],sit_to_play_index : int) -> None: # Les sièges doivent être edit par le lobby à chaque changement
+    def __init__(self,type : str ,sits : List[Sit], board : Board, deck : Deck, players : List[Player],sit_to_play_index : int, pots : List[Pot]) -> None: # Les sièges doivent être edit par le lobby à chaque changement
         
         self.started = False # passe à  True au démmarage du step
         
@@ -22,10 +23,13 @@ class Step:
         self.board = board # les cartes du centre aka le board
         self.deck = deck # la pioche
         self.players = players # liste de tous les joueurs dont les spectateurs
+        self.pots = pots
 
         self.sit_to_play_index = sit_to_play_index # l'index du siège ayant la parole
+        self.time_to_play = 15
 
         self.bet = 0 # mise courante toujours initiée à 0
+        self.bets = [None for sit in self.sits] # les mises posées par chaque joueur, s'ajouteront au pot. chaque elem correspond à un siège, si cest none le siege est vide ou le player est deconnecté si le montant est 0 ou plus: il y a un joueur actif
         
 
     def start(self):
@@ -119,6 +123,49 @@ class Step:
         thread_send_bet = Thread(target=self.send_packet, args=[packet,conn])
         thread_send_bet.start()
             
+    def send_sit_to_play(self,conn):
+        packet = f"sit_to_play_time_to_play=({str(self.sit_to_play_index)},{str(self.time_to_play)})"
+        thread_send = Thread(target=self.send_packet,args=[conn,packet])
+        thread_send.start()
+
+    def broadcast_sit_to_play(self):
+        for pl in self.players:
+            conn = pl.get_conn()
+            thread_send_sit = Thread(target=self.send_sit_to_play,args=(conn))
+            thread_send_sit.start()
+
+    def broadcast_packet(self,packet):
+        for pl in self.players:
+            conn = pl.get_conn()
+            thread_send_sit = Thread(target=self.send_packet,args=(packet,conn))
+            thread_send_sit.start()
+
+
+    def send_table_infos(self):
+        """TRES IMPORTANT 
+        cette fonction va broadcast à tous les joueurs le montant de la mise courante, les mises de chacun, les pots, les chips
+        aka les infos de bases à avoir après chaque action 
+        """
+
+        # send bets
+        tmp_bets = []
+        for el in self.bets:
+            if el == None:
+                tmp_bets.append('None')
+            else:
+                tmp_bets.append(str(el))
+
+        bets_packet = "bets="+str(tmp_bets)
+        self.broadcast_packet(bets_packet)
+        
+
+        # send pots
+
+        # send bet
+        self.broadcast_packet("bet="+str(self.bet))
+
+
+        # send chips des joueurs
 
 
 
