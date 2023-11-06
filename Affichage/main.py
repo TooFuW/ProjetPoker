@@ -263,8 +263,6 @@ if __name__ == "__main__":
     Global_objects.backspace_timer = time.time() + 0.1
     # Infos du client/joueur connecté sous la forme [idplayer, pseudo, chips, link]
     Global_objects.connected_account = [None, "dummy", 1500, "link"]
-    # Objet Sit actif
-    Global_objects.active_sit = None
     
     # On charge les paramètres du client (les raccourcis clavier et le volume de la musique pour l'instant)
     try:

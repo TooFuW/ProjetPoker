@@ -8,6 +8,7 @@ from random import *
 import Global_objects
 import time
 from datetime import datetime
+from icecream import ic
 
 print(datetime.utcnow())
 host, port = ('localhost', 5566)
@@ -322,10 +323,12 @@ def manage_data(conn : socket, packet : str):
                 Global_objects.game_state.timer[0] = 20
 
             case 'sit_to_play_time_to_play':
-                '''ICI ON RECOIT L'INDEX DU SIEGE DEVANT JOUER ET SON TEMPS RESTANT'''
+                '''ICI ON RECOIT L'INDEX DU SIEGE DEVANT JOUER ET SON TEMPS RESTANT (format [0] = siège qui doit jouer / [1] = temps pour jouer)'''
                 body = eval(body)
-                sit_to_play_id = int(body[0])
-                time_to_play = int(body[1])
+                ic(body)
+                Global_objects.parole = int(body[0])
+                Global_objects.game_state.depart_timer = int(body[1])
+                Global_objects.game_state.timer = [int(body[1]), time.time(), False]
 
 
             case "your_cards":
