@@ -348,6 +348,18 @@ class Lobby :
                     print(len(self.threads), self.threads)
 
 
+                case "my_play":
+                    '''Paquet envoyé par un joueur qui fait état de son action de jeu. ICI on doit s'assurer que le paquet provient de la personne voulue et qu'on est bien dans une phase de jeu active.
+                    ensuite on doit trouver un moyen d'editer les infos et passer au suivant
+
+                    Vérifier Step existe et actif
+                    Vérifier Step.waiting_for_action
+                    Vérifier que conn correspond à Step.sit_to_play.get_player().get_conn()
+                    Modifier Step.func_id_dict[60] et y mettre l'action de jeu.
+                    '''
+
+
+
 
         except Exception as e :
             print("Erreur dans Lobby.manage_data : ",e)

@@ -330,6 +330,28 @@ def manage_data(conn : socket, packet : str):
                 Global_objects.game_state.depart_timer = int(body[1])
                 Global_objects.game_state.timer = [int(body[1]), time.time(), False]
 
+            case 'pots':
+                '''ICI ON RECOIT LA LISTE DES POTS ACTUELS chaque pot est sous forme d'un tuple contenant le montant du pot associé à la liste des index de sièges jouat le pot.'''
+                body = eval(body)
+
+            case "bet":
+                print(body) # montant de la mise courante
+
+            case 'bets':
+                '''RECEPTION DES MISES COURANTES liste correspondant à chaque siège où chaque None est un siège vide ou qui ne joue pas et les valeurs numériques correspondent à la valeur misée par le joueur pas encore dans le pot'''
+                body = eval(body)
+
+            case 'chips':
+                '''RECEPTION DES CHIPS POUR CHAQUE JOUEUR, une liste correspondant aux sieges de la game, None = siege vide ou deconnecté, Valeur = chips possedés par un joueur au moment de l'envoi'''
+
+            case 'game_start':
+                '''Annonce le début de la game'''
+
+            case 'round_start':
+                '''Debut de round'''
+
+            case 'your_turn':
+                '''indique au client que c'est à lui de jouer toujours precédé de bet bets pots chips pour que le client sache sur quoi se baser. '''
 
             case "your_cards":
                 '''ICI ON RECOIT LE PAQUET AVEC LES CARTES DE NOTRE MAIN SELON LA SYNTAXE INDIQUEE SUR DISCORD (ex : ["kh","1d"])
@@ -351,9 +373,7 @@ def manage_data(conn : socket, packet : str):
                 # SI LE LOBBY N'EXISTE PAS ON GERE CA DANS 404_LOBBY_NOT_EXIST
                 print(body)
 
-            case "bet":
-                print(body) # montant de la mise courante
-
+            
     except Exception as e:
         print("Erreur sur network.manage_data : ",e)
 
