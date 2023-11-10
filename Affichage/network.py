@@ -325,14 +325,14 @@ def manage_data(conn : socket, packet : str):
             case 'sit_to_play_time_to_play':
                 '''ICI ON RECOIT L'INDEX DU SIEGE DEVANT JOUER ET SON TEMPS RESTANT (format [0] = siège qui doit jouer / [1] = temps pour jouer)'''
                 body = eval(body)
-                ic(body)
-                Global_objects.parole = int(body[0])
+                Global_objects.parole = int(body[0]) + 1
                 Global_objects.game_state.depart_timer = int(body[1])
                 Global_objects.game_state.timer = [int(body[1]), time.time(), False]
 
             case 'pots':
                 '''ICI ON RECOIT LA LISTE DES POTS ACTUELS chaque pot est sous forme d'un tuple contenant le montant du pot associé à la liste des index de sièges jouat le pot.'''
                 body = eval(body)
+                Global_objects.pot = int(body[0])
 
             case "bet":
                 print(body) # montant de la mise courante
@@ -346,6 +346,7 @@ def manage_data(conn : socket, packet : str):
 
             case 'game_start':
                 '''Annonce le début de la game'''
+                Global_objects.game_state.round_started = True
 
             case 'round_start':
                 '''Debut de round'''

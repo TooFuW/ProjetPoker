@@ -49,13 +49,13 @@ class Cursor_Bar:
         bar = pygame.draw.rect(self.screen, self.bar_color, pygame.Rect((self.x, self.y), (self.width, self.height)), border_radius = 10)
         cursor = pygame.draw.circle(self.screen, self.cursor_color, (self.cursor_width, self.y + self.height//2), self.height)
         # On change la pos x du curseur lorsque l'on clique dessus, sans dépasser les bordures
+        font = pygame.font.SysFont("Roboto", width_scale(text_size, self.largeur_actuelle, True))
         if cursor.collidepoint(mouse_pos) or bar.collidepoint(mouse_pos):
             # On affiche les infos du curseur si la souris est dessus
             info = pygame.draw.circle(self.screen, self.cursor_color, (cursor.centerx, cursor.centery + cursor.height), info_box_width)
             info_surf = pygame.Rect((info.centerx - info.width//2, info.centery), (info.width, info.height//height_reductor))
             pygame.draw.rect(self.screen, self.cursor_color, info_surf, border_radius = 1)
             text = f"{variable}"
-            font = pygame.font.SysFont("Roboto", width_scale(text_size, self.largeur_actuelle, True))
             text_info = font.render(text, True, self.text_color)
             text_rect = text_info.get_rect(center = info_surf.center)
             self.screen.blit(text_info, text_rect)
@@ -74,7 +74,6 @@ class Cursor_Bar:
                 info_surf = pygame.Rect((info.centerx - info.width//2, info.centery), (info.width, info.height//height_reductor))
                 pygame.draw.rect(self.screen, self.cursor_color, info_surf, border_radius = 1)
                 text = f"{variable}"
-                font = pygame.font.SysFont("Roboto", width_scale(text_size, self.largeur_actuelle, True))
                 text_info = font.render(text, True, self.text_color)
                 text_rect = text_info.get_rect(center = info_surf.center)
                 self.screen.blit(text_info, text_rect)

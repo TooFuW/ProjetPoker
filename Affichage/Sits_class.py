@@ -41,6 +41,7 @@ class Sits:
     def draw(self):
         """Génération/affichage du siège
         """
+        gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle, True))
         # Affichage du fond du widget de siège
         # On affiche le bouton pour s'asseoir si le joueur n'est pas encore assis
         if Global_objects.is_selecting_sit[0] and self.player[1] is None and not Global_objects.game_state.round_started:
@@ -80,6 +81,11 @@ class Sits:
             self.screen.blit(transparent_surface, (self.x, self.y))
             # On affiche la pdp du joueur
             self.screen.blit(self.profile_picture, (self.x - width_scale(65, self.largeur_actuelle), self.y - height_scale(22, self.hauteur_actuelle)))
+            # On affiche un petit rond pour la zone où l'on va afficher la mise
+            pygame.draw.circle(self.screen, "#475F77", (self.x + self.width, self.y + (self.height/2)), width_scale(25, self.largeur_actuelle))
+            text_surf = gui_font.render(f"bet", True, "#FFFFFF")
+            text_rect = text_surf.get_rect(center = (self.x + self.width, self.y + (self.height/2)))
+            self.screen.blit(text_surf, text_rect)
             # On affiche les barre qui représentent le temps restant au joueur pour parler
             # Barre blanche du fond
             pygame.draw.rect(self.screen, "#FFFFFF", pygame.Rect((self.x + width_scale(35, self.largeur_actuelle), self.y + self.height - height_scale(20, self.hauteur_actuelle)), (self.width - width_scale(70, self.largeur_actuelle), height_scale(10, self.hauteur_actuelle))), border_radius = 10)
@@ -93,7 +99,6 @@ class Sits:
         else:
             text = f"{self.player[1]}\n{self.player[2]}"
             text = text.replace("'", "")
-        gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle, True))
         height = height_scale(10, self.hauteur_actuelle)
         if not Global_objects.is_selecting_sit[0] or self.player[1] is not None:
             for elem in text.split("\n"):

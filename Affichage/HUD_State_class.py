@@ -571,13 +571,10 @@ class HUD_State:
             self.screen.blit(settingtext_surf, (width_scale(270, self.largeur_actuelle), height_scale(170, self.hauteur_actuelle)))
         # Page 3
         elif self.setting_page == 3:
-            gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle, True))
-            settingtext_surf = gui_font.render("Les touches prises en compte sont les touches à caractères ainsi que tab, esc, entrer et backspace. Les touches comme maj, ctrl ou alt par exemple ne sont pas prises en charge.", True, "#0000E0")
-            self.screen.blit(settingtext_surf, (width_scale(10, self.largeur_actuelle), height_scale(1030, self.hauteur_actuelle)))
+            gui_font = pygame.font.SysFont("Roboto", width_scale(40, self.largeur_actuelle, True))
             # Raccourcis clavier
             # ZONE 1
             pygame.draw.rect(self.screen, "#0000E0", pygame.Rect((width_scale(280, self.largeur_actuelle), height_scale(180, self.hauteur_actuelle)), (width_scale(310, self.largeur_actuelle), height_scale(40, self.hauteur_actuelle))), border_radius = 3)
-            gui_font = pygame.font.SysFont("Roboto", width_scale(40, self.largeur_actuelle, True))
             text_surf = gui_font.render("Main Menu Shortcuts", True, "#FFFFFF")
             self.screen.blit(text_surf, (width_scale(290, self.largeur_actuelle), height_scale(187, self.hauteur_actuelle)))
             pygame.draw.rect(self.screen, "#0000E0", pygame.Rect((width_scale(280, self.largeur_actuelle), height_scale(235, self.hauteur_actuelle)), (width_scale(700, self.largeur_actuelle), height_scale(205, self.hauteur_actuelle))), border_radius = 3)
@@ -604,7 +601,6 @@ class HUD_State:
 
             # ZONE 2
             pygame.draw.rect(self.screen, "#0000E0", pygame.Rect((width_scale(280, self.largeur_actuelle), height_scale(455, self.hauteur_actuelle)), (width_scale(360, self.largeur_actuelle), height_scale(40, self.hauteur_actuelle))), border_radius = 3)
-            gui_font = pygame.font.SysFont("Roboto", width_scale(40, self.largeur_actuelle, True))
             text_surf = gui_font.render("Settings Menu Shortcuts", True, "#FFFFFF")
             self.screen.blit(text_surf, (width_scale(290, self.largeur_actuelle), height_scale(462, self.hauteur_actuelle)))
             pygame.draw.rect(self.screen, "#0000E0", pygame.Rect((width_scale(280, self.largeur_actuelle), height_scale(510, self.hauteur_actuelle)), (width_scale(700, self.largeur_actuelle), height_scale(205, self.hauteur_actuelle))), border_radius = 3)
@@ -631,7 +627,6 @@ class HUD_State:
 
             # ZONE 3
             pygame.draw.rect(self.screen, "#0000E0", pygame.Rect((width_scale(280, self.largeur_actuelle), height_scale(730, self.hauteur_actuelle)), (width_scale(360, self.largeur_actuelle), height_scale(40, self.hauteur_actuelle))), border_radius = 3)
-            gui_font = pygame.font.SysFont("Roboto", width_scale(40, self.largeur_actuelle, True))
             text_surf = gui_font.render("Account Menu Shortcuts", True, "#FFFFFF")
             self.screen.blit(text_surf, (width_scale(290, self.largeur_actuelle), height_scale(737, self.hauteur_actuelle)))
             pygame.draw.rect(self.screen, "#0000E0", pygame.Rect((width_scale(280, self.largeur_actuelle), height_scale(785, self.hauteur_actuelle)), (width_scale(700, self.largeur_actuelle), height_scale(205, self.hauteur_actuelle))), border_radius = 3)
@@ -658,7 +653,6 @@ class HUD_State:
 
             # ZONE 4
             pygame.draw.rect(self.screen, "#0000E0", pygame.Rect((width_scale(1030, self.largeur_actuelle), height_scale(180, self.hauteur_actuelle)), (width_scale(310, self.largeur_actuelle), height_scale(40, self.hauteur_actuelle))), border_radius = 3)
-            gui_font = pygame.font.SysFont("Roboto", width_scale(40, self.largeur_actuelle, True))
             text_surf = gui_font.render("Ingame Shortcuts", True, "#FFFFFF")
             self.screen.blit(text_surf, (width_scale(1040, self.largeur_actuelle), height_scale(187, self.hauteur_actuelle)))
             pygame.draw.rect(self.screen, "#0000E0", pygame.Rect((width_scale(1030, self.largeur_actuelle), height_scale(235, self.hauteur_actuelle)), (width_scale(700, self.largeur_actuelle), height_scale(480, self.hauteur_actuelle))), border_radius = 3)
@@ -713,7 +707,6 @@ class HUD_State:
 
             # ZONE 5
             pygame.draw.rect(self.screen, "#0000E0", pygame.Rect((width_scale(1030, self.largeur_actuelle), height_scale(730, self.hauteur_actuelle)), (width_scale(360, self.largeur_actuelle), height_scale(40, self.hauteur_actuelle))), border_radius = 3)
-            gui_font = pygame.font.SysFont("Roboto", width_scale(40, self.largeur_actuelle, True))
             text_surf = gui_font.render("Lobby Menu Shortcuts", True, "#FFFFFF")
             self.screen.blit(text_surf, (width_scale(1040, self.largeur_actuelle), height_scale(737, self.hauteur_actuelle)))
             pygame.draw.rect(self.screen, "#0000E0", pygame.Rect((width_scale(1030, self.largeur_actuelle), height_scale(785, self.hauteur_actuelle)), (width_scale(700, self.largeur_actuelle), height_scale(205, self.hauteur_actuelle))), border_radius = 3)
@@ -959,6 +952,8 @@ class HUD_State:
             elif self.timer[0] <= 0:
                 self.round_started = True
                 self.timer[2] = False
+                self.timer = [15, time.time(), True]
+                self.depart_timer = 15
         # Affichage du nombre de joueurs présents sur le nombre de joueurs max
         if not self.round_started:
             Global_objects.sit_upbutton.draw()
@@ -999,8 +994,12 @@ class HUD_State:
 
         # Boucle pour calculer le timer de chaque joueur pour prendre une décision 
         if self.round_started:
+            print('round_started')
             if self.timer[0] > 0:
                 self.timer[0] = self.depart_timer - (time.time() - self.timer[1])
+            else:
+                Global_objects.parole += 1 if Global_objects.parole + 1 <= len(Global_objects.auto_arrived_sits) else 1
+                self.timer = [15, time.time(), True]
 
         # Affichage de la zone qui comportera les actions du joueur
         # Boutons d'actions
@@ -1051,10 +1050,10 @@ class HUD_State:
                 Global_objects.sit_1.x = width_scale(840, self.largeur_actuelle)
                 Global_objects.sit_1.y = height_scale(200, self.hauteur_actuelle)
                 Global_objects.sit_1.draw()
-                Global_objects.sit_2.x = width_scale(500, self.largeur_actuelle)
+                Global_objects.sit_2.x = width_scale(1180, self.largeur_actuelle)
                 Global_objects.sit_2.y = height_scale(700, self.hauteur_actuelle)
                 Global_objects.sit_2.draw()
-                Global_objects.sit_3.x = width_scale(1180, self.largeur_actuelle)
+                Global_objects.sit_3.x = width_scale(500, self.largeur_actuelle)
                 Global_objects.sit_3.y = height_scale(700, self.hauteur_actuelle)
                 Global_objects.sit_3.draw()
 
