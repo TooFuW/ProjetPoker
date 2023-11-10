@@ -8,6 +8,7 @@ from threading import *
 from Card import Card
 from Pot import Pot
 from random import randint
+from time import sleep
 
 class Step:
     """
@@ -176,10 +177,33 @@ class Step:
         """
         
         conn = self.sits[self.sit_to_play_index].get_player().get_conn()
+        
+        self.waiting_for_action_packet = True # set l'attente de paquet d'action à vrai
 
-        self.add_func_id_dict(60,None)
-        thread_packet = Thread(target=self.send_packet, args=["your_turn=",conn])
+        self.add_func_id_dict(60,None) # l'action de jeu courante est None
+        thread_packet = Thread(target=self.send_packet, args=["your_turn=",conn]) # on previent le joueur qui doit jouer
         thread_packet.start()
+        
+        brcst_packet = f"sit_to_play_time_to_play=({str(self.sit_to_play_index)},{str(self.time_to_play)})" #on annonce à tous les autres à qui c'est de jouer
+        thread_brcst_packet = Thread(target=self.broadcast_packet, args=[brcst_packet])
+        thread_brcst_packet.start()
+
+        # protocole timer
+
+        while self.func_id_dict[60] is None and self.time_to_play > 0: #tant que le joueur n'a pas joué ou que le timer n'est pad 0
+            # on attends que le joueur joue
+            sleep(1)
+
+        self.waiting_for_action_packet = False
+        tmp = self.func_id_dict[60]
+        
+        if tmp is None:
+            pass
+            #on fait en sorte de warn car il n'a pas répondu dans les delais
+
+        self.func_id_dict[60] = None
+        return tmp
+
 
 
 
@@ -192,11 +216,11 @@ class Step:
         On send_table_infos()
 
         Tant que la Step n'est pas finie :
-        On ask_player_to_play()
-        l'action de jeu une fois obtenue on édite tout ce qu'il y a à éditer
-        On passe Sit_to_play au suivant et Time_to_play à 15
-        On send_table_infos()
-        
+            On ask_player_to_play()
+            l'action de jeu une fois obtenue on édite tout ce qu'il y a à éditer
+            On passe Sit_to_play au suivant et Time_to_play à 15
+            On send_table_infos()
+            
 
         
         """
