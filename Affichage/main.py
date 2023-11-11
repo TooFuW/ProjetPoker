@@ -254,6 +254,9 @@ if __name__ == "__main__":
     Global_objects.parole = 1
     # Pot de la partie
     Global_objects.pot = 0
+    # Variables de mises
+    Global_objects.bet = 0
+    Global_objects.game_bets = [None,None,None,None,None,None,None,None,None,None]
     # Cartes du client
     Global_objects.card_1 = None
     Global_objects.card_2 = None
@@ -263,6 +266,7 @@ if __name__ == "__main__":
     Global_objects.backspace_timer = time.time() + 0.1
     # Infos du client/joueur connecté sous la forme [idplayer, pseudo, chips, link]
     Global_objects.connected_account = [None, "dummy", 1500, "link"]
+    Global_objects.my_turn = False
     
     # On charge les paramètres du client (les raccourcis clavier et le volume de la musique pour l'instant)
     try:

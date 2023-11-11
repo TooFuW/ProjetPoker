@@ -335,14 +335,18 @@ def manage_data(conn : socket, packet : str):
                 Global_objects.pot = int(body[0])
 
             case "bet":
-                print(body) # montant de la mise courante
+                Global_objects.bet = int(body)
 
             case 'bets':
                 '''RECEPTION DES MISES COURANTES liste correspondant à chaque siège où chaque None est un siège vide ou qui ne joue pas et les valeurs numériques correspondent à la valeur misée par le joueur pas encore dans le pot'''
                 body = eval(body)
+                Global_objects.game_bets = body
 
             case 'chips':
                 '''RECEPTION DES CHIPS POUR CHAQUE JOUEUR, une liste correspondant aux sieges de la game, None = siege vide ou deconnecté, Valeur = chips possedés par un joueur au moment de l'envoi'''
+                body = eval(body)
+                for i in range(len(Global_objects.auto_arrived_sits)):
+                    Global_objects.auto_arrived_sits[i][3] = body[i]
 
             case 'game_start':
                 '''Annonce le début de la game'''
@@ -353,6 +357,7 @@ def manage_data(conn : socket, packet : str):
 
             case 'your_turn':
                 '''indique au client que c'est à lui de jouer toujours precédé de bet bets pots chips pour que le client sache sur quoi se baser. '''
+                Global_objects.my_turn = True
 
             case "your_cards":
                 '''ICI ON RECOIT LE PAQUET AVEC LES CARTES DE NOTRE MAIN SELON LA SYNTAXE INDIQUEE SUR DISCORD (ex : ["kh","1d"])
@@ -413,6 +418,7 @@ def recieve_sits_infos(liste : list,func_id : int = 0): # On gère la récéptio
     try :
 
         if func_id == 0:
+            # Une liste contenant toutes les infos du joueur assi sur ce siège [sit_id, idplayer, pseudo, chips, link]
             Global_objects.auto_arrived_sits = liste
 
         else:

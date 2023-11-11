@@ -288,13 +288,13 @@ def check_click(Button):
             case "check":
                 # On renvoit une information sous la forme "my_play=action,montant"
                 print("my_play=check")
-                send_action(Global_objects.client_socket,("check",0))
+                send_action(Global_objects.client_socket,("bet",0))
                 Global_objects.game_state.timer[0] = 0
             # Lorsque l'on clique sur le bouton call
             case "call":
                 # On renvoit une information sous la forme "my_play=action,montant"
                 print("my_play=call")
-                send_action(Global_objects.client_socket,("call",0))
+                send_action(Global_objects.client_socket,("bet",Global_objects.bet))
                 Global_objects.game_state.timer[0] = 0
             # Lorsque l'on clique sur le bouton fold
             case "fold":
@@ -352,9 +352,9 @@ def check_click(Button):
         # Lorsque l'on clique sur le bouton yes_raise
         case "yes_raise":
             if round(((Global_objects.connected_account[2]/100)*Global_objects.game_state.raised_amount)*100) > 0:
-                send_action(Global_objects.client_socket,("raise",round(((Global_objects.connected_account[2]/100)*Global_objects.game_state.raised_amount)*100))) # INSERER MONTANT DU RAISE AVANT LAPPEL
+                send_action(Global_objects.client_socket,("bet",round(((Global_objects.connected_account[2]/100)*Global_objects.game_state.raised_amount)*100))) # INSERER MONTANT DU RAISE AVANT LAPPEL
             else:
-                send_action(Global_objects.client_socket,("check",0))
+                send_action(Global_objects.client_socket,("bet",0))
             Global_objects.game_state.is_raising = False
             Global_objects.buttons_interactibles = True
             Global_objects.game_state.timer[0] = 0

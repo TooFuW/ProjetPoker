@@ -1005,6 +1005,7 @@ class HUD_State:
         # Boutons d'actions
         # On rend les boutons interagissables en fonction de si le siège sur lequel le joueur est assis et le siège qui posséde la parole ou non
         if Global_objects.parole == Global_objects.client_actuel and self.round_started:
+        # A remplacer par if Global_objects.my_turn:
             Global_objects.checkbutton.button_interactible = True
             Global_objects.callbutton.button_interactible = True
             Global_objects.foldbutton.button_interactible = True
