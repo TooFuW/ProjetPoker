@@ -83,7 +83,10 @@ class Sits:
             self.screen.blit(self.profile_picture, (self.x - width_scale(65, self.largeur_actuelle), self.y - height_scale(22, self.hauteur_actuelle)))
             # On affiche un petit rond pour la zone où l'on va afficher la mise
             pygame.draw.circle(self.screen, "#475F77", (self.x + self.width, self.y + (self.height/2)), width_scale(25, self.largeur_actuelle))
-            text_surf = gui_font.render(f"bet", True, "#FFFFFF")
+            if Global_objects.game_bets[self.player[0]] is None:
+                text_surf = gui_font.render(f"0", True, "#FFFFFF")
+            else:
+                text_surf = gui_font.render(f"{Global_objects.game_bets[self.player[0]]}", True, "#FFFFFF")
             text_rect = text_surf.get_rect(center = (self.x + self.width, self.y + (self.height/2)))
             self.screen.blit(text_surf, text_rect)
             # On affiche les barre qui représentent le temps restant au joueur pour parler

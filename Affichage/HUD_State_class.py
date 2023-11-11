@@ -998,13 +998,14 @@ class HUD_State:
             if self.timer[0] > 0:
                 self.timer[0] = self.depart_timer - (time.time() - self.timer[1])
             else:
-                Global_objects.parole += 1 if Global_objects.parole + 1 <= len(Global_objects.auto_arrived_sits) else 1
+                Global_objects.parole = Global_objects.parole + 1 if Global_objects.parole + 1 <= len(Global_objects.auto_arrived_sits) else 1
                 self.timer = [15, time.time(), True]
 
         # Affichage de la zone qui comportera les actions du joueur
         # Boutons d'actions
         # On rend les boutons interagissables en fonction de si le siège sur lequel le joueur est assis et le siège qui posséde la parole ou non
         if Global_objects.parole == Global_objects.client_actuel and self.round_started:
+        # A remplacer par if Global_objects.my_turn:
             Global_objects.checkbutton.button_interactible = True
             Global_objects.callbutton.button_interactible = True
             Global_objects.foldbutton.button_interactible = True
