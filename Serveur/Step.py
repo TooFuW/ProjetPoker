@@ -34,7 +34,7 @@ class Step:
         self.time_to_play = 15 # time to play par défaut, c'est bien cette valeur qui est changée à chaque decrease du timer.
 
         self.bet = 0 # mise courante toujours initiée à 0
-        self.bets = [None for sit in self.sits] # les mises posées par chaque joueur, s'ajouteront au pot. chaque elem correspond à un siège, si cest none le siege est vide ou le player est deconnecté si le montant est 0 ou plus: il y a un joueur actif
+        
         
 
     def start(self):
@@ -224,6 +224,34 @@ class Step:
 
         
         """
+        
+        self.broadcast_packet("step_start=")
+
+        self.send_table_infos()
+
+        while not self.is_step_done():
+
+            self.ask_player_to_play()
+
+
+            action = self.func_id_dict[60]
+            if not action in None:
+                self.manage_player_action(action)
+            else:
+                self.manage_player_action("fold") # attention ce joueur n'a pas joué dans les delais il doit etre averti
+
+
+            pl = self.sits[self.sit_to_play_index].get_player()
+
+            if not pl is None:
+            
+                if pl.state == "peut_parler":
+                    pl.state = "a_parle"
+
+            self.set_next_sit_to_play()
+            self.time_to_play = 15
+            self.send_table_infos()
+
 
 
     def manage_player_action(self,player : Player, action : str):
@@ -252,6 +280,8 @@ class Step:
         if action_type == 'fold': # action valide de type fold
             '''Protocole fold'''
 
+            self.fold_player()
+
         else:
             if action_type == 'bet':
 
@@ -261,29 +291,98 @@ class Step:
                     try:
                         amount = int(amount) # action valide de type bet
 
-                        if amount >= player.get_chips():
-                            pass #action valide de type all-in
+                        if amount < 0 :
+                            # attention un ptit malin a réussi à envoyer un paquet avec des valeurs négatives
+
+                            self.fold_player()
+                            print('action invalide')
+
+                        else:
+
+                            if amount >= player.get_chips():
+                                
+                                if player.get_chips() > 0:
+
+                                    self.all_in_player(player)
+
+                                pass #action valide de type all-in
+
+                            else:
+
+                                self.bet_player(amount)
+
+
+
 
 
                     except:
                         print("action invalide.")
+                        self.fold_player()
 
 
 
 
+    def fold_player(self,player : Player):
+        player.state = 'fold'
+
+    def all_in_player(self,player : Player):
+
+        player.state = 'all-in'
+        player.bet += player.chips
+        player.chips = 0
+
+        if player.bet > self.bet:
+                # si la mise augmente
+                self.bet = player.bet
+                self.bet_been_raised()
 
 
+    def bet_player(self,player : Player, amount):
 
- 
-    def player_bet(self,player : Player, amount):
-        pass
+        if amount >= player.chips:
+            self.all_in_player(player)
 
-    def player_fold(self,player : Player):
-        pass
+        else:
+            if amount > 0:
+                player.bet += amount
+                player.chips -= amount
 
 
+            if player.bet > self.bet:
+                # si la mise augmente
+                self.bet = player.bet
+                self.bet_been_raised()
+
+    def bet_been_raised(self):
+        # ici le protocole lorsque la mise à suivre a été augmentée = on passe tous les players a_parlé en peut_parler SAUF le player qui a produit ce changement.
+        for sit in self.sits:
+            pl = sit.get_player()
+            if not pl is None:
+                if pl.state == "a_parle":
+                    pl.state = "peut_parler"
 
 
+    def is_step_done(self):
+        # la step est terminée quand tout les joueurs sont d'accord sur un prix donc quand toute la table est soit fold soit en all-in soit en a_parle
+
+        for sit in self.sits:
+            pl = sit.get_player()
+            if not pl is None:
+                if not pl.state in ("fold","all-in","a_parle"):
+                    return False
+                
+        return True
+    
+    def set_next_sit_to_play(self):
+
+        lenght = len(self.sits)
+
+        for i in range(lenght):
+            next_sit = (self.sit_to_play_index + i + 1) % lenght # permet de revenir au debut des index apres un tour complet evidemment
+            pl = self.sits[next_sit].get_player()
+            if not pl is None:
+                if pl.state == "peut_parler":
+                    self.sit_to_play_index = next_sit
 
 
 
@@ -334,11 +433,12 @@ class Step:
 
         # send bets
         tmp_bets = []
-        for el in self.bets:
-            if el == None:
+        for sit in self.sits:
+            pl = sit.get_player()
+            if pl == None:
                 tmp_bets.append('None')
             else:
-                tmp_bets.append(str(el))
+                tmp_bets.append(str(pl.bet))
 
         bets_packet = "bets="+str(tmp_bets)
         self.broadcast_packet(bets_packet)

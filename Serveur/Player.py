@@ -53,6 +53,7 @@ class Player:
         self.chips = 1500
         #print("le joueur a bien été créé")
         self.is_all_in = False
+        self.bet = 0 # correspond aux jetons placés devant le joueur.
         
 
     def __str__(self) -> str:
