@@ -218,12 +218,71 @@ class Step:
         Tant que la Step n'est pas finie :
             On ask_player_to_play()
             l'action de jeu une fois obtenue on édite tout ce qu'il y a à éditer
-            On passe Sit_to_play au suivant et Time_to_play à 15
+            On passe Sit_to_play au suivant et Time_to_play à 15 (en passant au suivant on s'assure que le mecs a des chips (ce serait pratique))
             On send_table_infos()
             
 
         
         """
+
+
+    def manage_player_action(self,player : Player, action : str):
+        """_summary_
+
+        Args:
+            player (Player): Le joueur effectuant l'action
+            action (str): l'action, un str contenant 2 mots séparés par une virgule
+
+        Une action de type fold couchera le joueur
+        Une action de type bet fait miser le joueur avec ses chips
+        si l'action Bet a un montant de 0 c'est un check, on vérifie alors si c'est possible
+        si l'action Bet est un montant superieur ou égal aux chips du joueur c'est un All-In on fait tt le protocole
+        
+        un paquet au format invalide ou demandant une action invalide couchera le joueur.
+        """
+
+        # on commence par transformer le paquet en tuple si c'est possible
+        # NE SURTOUT PAS UTILISER EVAL COTE SERVEUR c'est dangereux et ouvre la porte à des failles d'injection python
+
+
+        action = action.split(",")
+
+        action_type = action[0]
+
+        if action_type == 'fold': # action valide de type fold
+            '''Protocole fold'''
+
+        else:
+            if action_type == 'bet':
+
+                if len(action) == 2:
+                    amount = action[1]
+
+                    try:
+                        amount = int(amount) # action valide de type bet
+
+                        if amount >= player.get_chips():
+                            pass #action valide de type all-in
+
+
+                    except:
+                        print("action invalide.")
+
+
+
+
+
+
+
+ 
+    def player_bet(self,player : Player, amount):
+        pass
+
+    def player_fold(self,player : Player):
+        pass
+
+
+
 
 
 

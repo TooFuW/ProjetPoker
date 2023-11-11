@@ -52,6 +52,7 @@ class Player:
         
         self.chips = 1500
         #print("le joueur a bien été créé")
+        self.is_all_in = False
         
 
     def __str__(self) -> str:

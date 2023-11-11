@@ -387,7 +387,12 @@ def check_lobby_exist(conn,lobby_id):
 
 def send_action(conn : socket, action : tuple):
 
-    packet=f"my_play={action[0]},{str(action[1])}"
+    if action[0] == 'fold':
+        packet = "my_play=fold"
+
+    else:
+        packet=f"my_play={action[0]},{str(action[1])}"
+        
     thread_send_action = Thread(target=send_packet, args=[conn,packet])
     thread_send_action.start()
     

@@ -8,6 +8,7 @@ class Pot :
 
         self.mise = mise
         self.sit_ids = sit_ids
+        self.pot_closed = False
 
     def set_mise(self,mise):
         self.mise = mise
