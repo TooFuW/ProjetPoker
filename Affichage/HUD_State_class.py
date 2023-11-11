@@ -998,7 +998,7 @@ class HUD_State:
             if self.timer[0] > 0:
                 self.timer[0] = self.depart_timer - (time.time() - self.timer[1])
             else:
-                Global_objects.parole += 1 if Global_objects.parole + 1 <= len(Global_objects.auto_arrived_sits) else 1
+                Global_objects.parole = Global_objects.parole + 1 if Global_objects.parole + 1 <= len(Global_objects.auto_arrived_sits) else 1
                 self.timer = [15, time.time(), True]
 
         # Affichage de la zone qui comportera les actions du joueur
