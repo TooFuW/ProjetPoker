@@ -3,7 +3,6 @@
 
 import pygame
 from Screen_adaptation import *
-import Global_objects
 
 
 class TextInputBox:

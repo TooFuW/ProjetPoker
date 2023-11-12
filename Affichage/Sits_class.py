@@ -44,7 +44,7 @@ class Sits:
         gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle, True))
         # Affichage du fond du widget de siège
         # On affiche le bouton pour s'asseoir si le joueur n'est pas encore assis
-        if Global_objects.is_selecting_sit[0] and self.player[1] is None and not Global_objects.game_state.round_started:
+        if Global_objects.is_selecting_sit[0] and self.player[1] is None and not Global_objects.round_started:
             sitbutton = Button(self.largeur_actuelle, self.hauteur_actuelle, self.screen, f"sit {self.player[0] + 1}", f"Sit down [{self.player[0] + 1}]", "Roboto", 30, "#475F77", "#354B5E", "#D74B4B", "#354B5E", (self.width * 1920) // self.largeur_actuelle, (self.height * 1080) // self.hauteur_actuelle, ((self.x * 1920) // self.largeur_actuelle, (self.y * 1080) // self.hauteur_actuelle), 6, 50)
             sitbutton.check_click()
             sitbutton.draw()
@@ -77,7 +77,7 @@ class Sits:
                 self.screen.blit(card2, (self.x + width_scale(140, self.largeur_actuelle), self.y - height_scale(100, self.hauteur_actuelle), width_scale(80, self.largeur_actuelle), height_scale(150, self.hauteur_actuelle)))
             # On affiche le fond transparent du widget du siège
             transparent_surface = pygame.Surface((self.width, self.height), pygame.SRCALPHA)
-            pygame.draw.rect(transparent_surface, (0, 0, 0, 128), (0, 0, self.width, self.height), border_radius = 50)
+            pygame.draw.rect(transparent_surface, (0, 0, 0, 160), (0, 0, self.width, self.height), border_radius = 50)
             self.screen.blit(transparent_surface, (self.x, self.y))
             # On affiche la pdp du joueur
             self.screen.blit(self.profile_picture, (self.x - width_scale(65, self.largeur_actuelle), self.y - height_scale(22, self.hauteur_actuelle)))
@@ -94,7 +94,7 @@ class Sits:
             pygame.draw.rect(self.screen, "#FFFFFF", pygame.Rect((self.x + width_scale(35, self.largeur_actuelle), self.y + self.height - height_scale(20, self.hauteur_actuelle)), (self.width - width_scale(70, self.largeur_actuelle), height_scale(10, self.hauteur_actuelle))), border_radius = 10)
             # Barre de remplissage
             pygame.draw.rect(self.screen, "#FF0000", pygame.Rect((self.x + width_scale(35, self.largeur_actuelle), self.y + self.height - height_scale(20, self.hauteur_actuelle)), (width_scale(self.temps_pourcent, self.largeur_actuelle), height_scale(10, self.hauteur_actuelle))), border_radius = 10)
-            if Global_objects.game_state.round_started and Global_objects.parole == self.player[0] + 1:
+            if Global_objects.round_started and Global_objects.parole == self.player[0] + 1:
                 self.temps_pourcent = int((self.width - width_scale(70, self.largeur_actuelle)) * Global_objects.game_state.timer[0] / 15)
         # Affichage des infos du joueur du siège actuel par dessus la surface transparente
         if self.player[1] is None:

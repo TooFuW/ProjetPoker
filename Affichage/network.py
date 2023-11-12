@@ -350,7 +350,7 @@ def manage_data(conn : socket, packet : str):
 
             case 'game_start':
                 '''Annonce le début de la game'''
-                Global_objects.game_state.round_started = True
+                Global_objects.round_started = True
 
             case 'round_start':
                 '''Debut de round'''

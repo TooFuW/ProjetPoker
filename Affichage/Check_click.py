@@ -100,8 +100,8 @@ def check_click(Button):
             # Lorsqu'un bouton de serveur est cliqué
             case "server":
                 Global_objects.game_state.server_test = Button.text
-                Global_objects.game_state.table_selected = Button.text.split(" "*width_scale(35, Button.largeur_actuelle, True))
-                lobby_id = int(Global_objects.game_state.table_selected[-1])
+                Global_objects.table_selected = Button.text.split(" "*width_scale(35, Button.largeur_actuelle, True))
+                lobby_id = int(Global_objects.table_selected[-1])
                 try:
                     Global_objects.previewlobbys.players = ask_sits_infos(Global_objects.client_socket,lobby_id)
                 except:
@@ -110,7 +110,7 @@ def check_click(Button):
             # Lorsque le bouton JOIN est cliqué pour rejoindre la table sélectionnée et transmettre les infos nécessaires
             case "join table":
                 try:
-                    lobby_id = int(Global_objects.game_state.table_selected[-1])
+                    lobby_id = int(Global_objects.table_selected[-1])
                     join_lobby(Global_objects.client_socket,lobby_id)
                     if len(Global_objects.previewlobbys.players) == 1:
                         Global_objects.sit_1.player = Global_objects.previewlobbys.players[0]
@@ -180,8 +180,8 @@ def check_click(Button):
                     Global_objects.game_state.back_pile = []
                     Global_objects.game_state.state = "Game Menu"
                     Global_objects.is_selecting_sit[0] = True
-                    Global_objects.game_state.round_started = False
-                    Global_objects.pot = Global_objects.game_state.table_selected[3]
+                    Global_objects.round_started = False
+                    Global_objects.pot = Global_objects.table_selected[3]
                     # Temporaire pour afficher les cartes le temps que je recoive réellement des cartes
                     body = ["kh","1d"]
                     Global_objects.nombre_cartes = len(body)
@@ -204,7 +204,7 @@ def check_click(Button):
                 except:
                     pass
                 Global_objects.serverscrollbox.scroll_pos = 0
-                Global_objects.game_state.table_selected = None
+                Global_objects.table_selected = None
             # Lorsque le bouton BACK (fléche retour) est cliqué
             case "back":
                 Global_objects.game_state.setting_page = 1
@@ -213,7 +213,7 @@ def check_click(Button):
                 Global_objects.settingpage2button.initial_bottom_color = "#354B5E"
                 Global_objects.settingpage3button.initial_bottom_color = "#354B5E"
                 Global_objects.game_state.state = Global_objects.game_state.back_pile.pop()
-                Global_objects.game_state.table_selected = None
+                Global_objects.table_selected = None
             # Lorsque le bouton des paramètres en jeu est cliqué
             case "game settings":
                 Global_objects.game_state.back_pile.append(Global_objects.game_state.state)
@@ -305,7 +305,7 @@ def check_click(Button):
             # Lorsque l'on clique sur le bouton raise
             case "raise":
                 # On renvoit une information sous la forme "my_play=action,montant"
-                Global_objects.game_state.is_raising = True
+                Global_objects.is_raising = True
                 Global_objects.buttons_interactibles = False
                 print("my_play=raise")
             # Lorsque l'on clique sur le bouton SAVE
@@ -333,7 +333,7 @@ def check_click(Button):
             Global_objects.game_state.confirmation = False
             Global_objects.is_selecting_sit = [False, -1]
             Global_objects.buttons_interactibles = True
-            Global_objects.game_state.table_selected = None
+            Global_objects.table_selected = None
         # Lorsque le joueur ne confirme pas qu'il veut quitter
         case "no_leave":
             Global_objects.game_state.confirmation = False
@@ -343,22 +343,22 @@ def check_click(Button):
             Global_objects.raise_bar.cursor_width = 1530
         # Lorsque l'on clique sur le bouton add_100
         case "add_100":
-            nouvelle_valeur = (((Global_objects.connected_account[2]/100)*Global_objects.game_state.raised_amount)*100) + 100 if (((Global_objects.connected_account[2]/100)*Global_objects.game_state.raised_amount)*100) + 100 <= Global_objects.connected_account[2] else Global_objects.connected_account[2]
+            nouvelle_valeur = (((Global_objects.connected_account[2]/100)*Global_objects.raised_amount)*100) + 100 if (((Global_objects.connected_account[2]/100)*Global_objects.raised_amount)*100) + 100 <= Global_objects.connected_account[2] else Global_objects.connected_account[2]
             Global_objects.raise_bar.cursor_width = width_scale(400, Button.largeur_actuelle) + (nouvelle_valeur / Global_objects.connected_account[2]) * (width_scale(1530, Button.largeur_actuelle) - width_scale(400, Button.largeur_actuelle))
         # Lorsque l'on clique sur le bouton minus_100
         case "minus_100":
-            nouvelle_valeur = (((Global_objects.connected_account[2]/100)*Global_objects.game_state.raised_amount)*100) - 100 if (((Global_objects.connected_account[2]/100)*Global_objects.game_state.raised_amount)*100) - 100 >= 0 else 0
+            nouvelle_valeur = (((Global_objects.connected_account[2]/100)*Global_objects.raised_amount)*100) - 100 if (((Global_objects.connected_account[2]/100)*Global_objects.raised_amount)*100) - 100 >= 0 else 0
             Global_objects.raise_bar.cursor_width = width_scale(400, Button.largeur_actuelle) + (nouvelle_valeur / Global_objects.connected_account[2]) * (width_scale(1530, Button.largeur_actuelle) - width_scale(400, Button.largeur_actuelle))
         # Lorsque l'on clique sur le bouton yes_raise
         case "yes_raise":
-            if round(((Global_objects.connected_account[2]/100)*Global_objects.game_state.raised_amount)*100) > 0:
-                send_action(Global_objects.client_socket,("bet",round(((Global_objects.connected_account[2]/100)*Global_objects.game_state.raised_amount)*100))) # INSERER MONTANT DU RAISE AVANT LAPPEL
+            if round(((Global_objects.connected_account[2]/100)*Global_objects.raised_amount)*100) > 0:
+                send_action(Global_objects.client_socket,("bet",round(((Global_objects.connected_account[2]/100)*Global_objects.raised_amount)*100))) # INSERER MONTANT DU RAISE AVANT LAPPEL
             else:
                 send_action(Global_objects.client_socket,("bet",0))
-            Global_objects.game_state.is_raising = False
+            Global_objects.is_raising = False
             Global_objects.buttons_interactibles = True
             Global_objects.game_state.timer[0] = 0
         # Lorsque l'on clique sur le bouton no_raise
         case "no_raise":
-            Global_objects.game_state.is_raising = False
+            Global_objects.is_raising = False
             Global_objects.buttons_interactibles = True

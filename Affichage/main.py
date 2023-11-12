@@ -250,6 +250,14 @@ if __name__ == "__main__":
     Global_objects.auto_arrived_sits = []
     # Initialisation de la référence du client actuel
     Global_objects.client_actuel = 0
+    # Round commencé ou non
+    Global_objects.round_started = False
+    # Savoir si une table a été sélectionnée ou non (self.table_selected contient les infos de la table si oui, None si non)
+    Global_objects.table_selected = None
+    # Si le joueur est entrain de raise
+    Global_objects.is_raising = False
+    # Montant par défaut lorsque le joueur veut faire l'action "raise"
+    Global_objects.raised_amount = 0
     # Pour savoir qui a la parole (= entier qui est le numéro du siège qui a la parole) (sur 1 pour l'instant pour faire les tests)
     Global_objects.parole = 1
     # Pot de la partie

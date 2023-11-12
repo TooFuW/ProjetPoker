@@ -64,8 +64,6 @@ class HUD_State:
         # Savoir si l'utilisateur paramètre le son
         self.is_setting_volume = False
         self.is_setting_sound = False
-        # Savoir si une table a été sélectionnée ou non (self.table_selected contient les infos de la table si oui, None si non)
-        self.table_selected = None
         # Savoir si le code entré dans lobby est valide, et laisser afficher 2 secondes l'erreur
         self.error = [False, 0]
         # Savoir si on affiche un message de confirmation
@@ -73,10 +71,6 @@ class HUD_State:
         # Timer de début de la partie
         self.timer = [None, 0, False]
         self.depart_timer = None
-        self.round_started = False
-        self.is_raising = False
-        # Montant par défaut lorsque le joueur veut faire l'action "raise"
-        self.raised_amount = 0
     
     def mainmenu(self):
         """mainmenu est la fonction qui fait tourner/afficher le menu principal
@@ -94,6 +88,9 @@ class HUD_State:
         # Dessine l'image de fond sur le self.screen de l'écran
         self.screen.blit(self.fond, (0, 0))
         # Dessine le logo du jeu
+        """transparent_surface = pygame.Surface((width_scale(675, self.largeur_actuelle), height_scale(150, self.hauteur_actuelle)), pygame.SRCALPHA)
+        pygame.draw.rect(transparent_surface, (0, 0, 0, 180), (0, 0, width_scale(675, self.largeur_actuelle), height_scale(150, self.hauteur_actuelle)), border_radius = 25)
+        self.screen.blit(transparent_surface, (width_scale(620, self.largeur_actuelle), height_scale(117, self.hauteur_actuelle)))"""
         self.screen.blit(self.logojeu, (width_scale(580, self.largeur_actuelle), height_scale(-50, self.hauteur_actuelle)))
         # Dessine le logo MWTE
         self.screen.blit(self.logomwte, self.logomwte_rect)
@@ -229,11 +226,11 @@ class HUD_State:
                                     self.server_test = f"{lobby[0]}{' '*width_scale(35, self.largeur_actuelle, True)}{lobby[1]}{' '*width_scale(35, self.largeur_actuelle, True)}{lobby[2]}{' '*width_scale(35, self.largeur_actuelle, True)}{lobby[3]}{' '*width_scale(35, self.largeur_actuelle, True)}{lobby[4]}"
                                     Global_objects.pot = lobby[3]
                                     break
-                            Global_objects.game_state.table_selected = None
+                            Global_objects.table_selected = None
                             Global_objects.game_state.back_pile = []
                             Global_objects.game_state.state = "Game Menu"
                             Global_objects.is_selecting_sit[0] = True
-                            self.round_started = False
+                            Global_objects.round_started = False
                             # Temporaire pour afficher les cartes le temps que je recoive réellement des cartes
                             body = ["kh","1d"]
                             Global_objects.nombre_cartes = len(body)
@@ -254,7 +251,7 @@ class HUD_State:
                     if event.unicode == list(Global_objects.raccourcis_lobbymenu.keys())[2]:
                         Global_objects.tablecodeinput.active = True
                     elif event.unicode == list(Global_objects.raccourcis_lobbymenu.keys())[0]:
-                        if not self.table_selected is None:
+                        if not Global_objects.table_selected is None:
                             check_click(Global_objects.raccourcis_lobbymenu[event.unicode])
                     else:
                         check_click(Global_objects.raccourcis_lobbymenu[event.unicode])
@@ -312,7 +309,7 @@ class HUD_State:
         text_surf = gui_font.render("Private Table Code", True, "#000000")
         self.screen.blit(text_surf, (width_scale(1370, self.largeur_actuelle), height_scale(850, self.hauteur_actuelle)))
 
-        if not self.table_selected is None:
+        if not Global_objects.table_selected is None:
             # On crée la preview des tables
             try:
                 Global_objects.previewlobbys.draw()
@@ -891,7 +888,7 @@ class HUD_State:
                     # Si on clique sur entrer
                     if event.key == pygame.K_RETURN:
                         Global_objects.button_sound.play()
-                        nouvelle_valeur = int(Global_objects.raiseamountinput.user_text) if int(Global_objects.raiseamountinput.user_text) <= Global_objects.connected_account[2] and int(Global_objects.raiseamountinput.user_text) >= 0 else (((Global_objects.connected_account[2]/100)*Global_objects.game_state.raised_amount)*100)
+                        nouvelle_valeur = int(Global_objects.raiseamountinput.user_text) if int(Global_objects.raiseamountinput.user_text) <= Global_objects.connected_account[2] and int(Global_objects.raiseamountinput.user_text) >= 0 else (((Global_objects.connected_account[2]/100)*Global_objects.raised_amount)*100)
                         Global_objects.raise_bar.cursor_width = width_scale(400, self.largeur_actuelle) + (nouvelle_valeur / Global_objects.connected_account[2]) * (width_scale(1530, self.largeur_actuelle) - width_scale(400, self.largeur_actuelle))
                         Global_objects.raiseamountinput.user_text = ""
                         Global_objects.raiseamountinput.active = False
@@ -905,21 +902,21 @@ class HUD_State:
                             check_click(Global_objects.raccourcis_gamemenu[event.unicode])
                     elif event.unicode in list(Global_objects.raccourcis_gamemenu.keys())[4]:
                         if not Global_objects.raiseamountinput.active:
-                            if self.is_raising:
+                            if Global_objects.is_raising:
                                 check_click(Global_objects.raccourcis_gamemenu[event.unicode][1])
                             elif self.confirmation:
                                 check_click(Global_objects.raccourcis_gamemenu[event.unicode][0])
                     elif event.unicode in list(Global_objects.raccourcis_gamemenu.keys())[5]:
                         if not Global_objects.raiseamountinput.active:
-                            if self.is_raising:
+                            if Global_objects.is_raising:
                                 check_click(Global_objects.raccourcis_gamemenu[event.unicode][1])
                             elif self.confirmation:
                                 check_click(Global_objects.raccourcis_gamemenu[event.unicode][0])
                     elif event.unicode in list(Global_objects.raccourcis_gamemenu.keys())[6:9]:
-                        if self.is_raising:
+                        if Global_objects.is_raising:
                             check_click(Global_objects.raccourcis_gamemenu[event.unicode])
                     elif event.unicode in list(Global_objects.raccourcis_gamemenu.keys())[9]:
-                        if not self.round_started:
+                        if not Global_objects.round_started:
                             check_click(Global_objects.raccourcis_gamemenu[event.unicode])
                     else:
                         check_click(Global_objects.raccourcis_gamemenu[event.unicode])
@@ -935,7 +932,7 @@ class HUD_State:
         text_surf = gui_font.render(self.server_test, True, "#FFFFFF")
         self.screen.blit(text_surf, (width_scale(250, self.largeur_actuelle), height_scale(100, self.hauteur_actuelle)))
 
-        if not self.round_started and self.timer[2]:
+        if not Global_objects.round_started and self.timer[2]:
         # Affichage du timer avant que la partie commence
             if self.timer[0] > 0:
                 # On ne peut se lever que si la partie n'est pas encore commencée
@@ -948,12 +945,12 @@ class HUD_State:
                 self.screen.blit(text_surf, text_rect)
                 self.timer[0] = self.depart_timer - (time.time() - self.timer[1])
             elif self.timer[0] <= 0:
-                self.round_started = True
+                Global_objects.round_started = True
                 self.timer[2] = False
                 self.timer = [15, time.time(), True]
                 self.depart_timer = 15
         # Affichage du nombre de joueurs présents sur le nombre de joueurs max
-        if not self.round_started:
+        if not Global_objects.round_started:
             Global_objects.sit_upbutton.draw()
             try:
                 gui_font = pygame.font.SysFont("Roboto", width_scale(60, self.largeur_actuelle, True))
@@ -991,7 +988,7 @@ class HUD_State:
         self.screen.blit(text_surf, text_rect)
 
         # Boucle pour calculer le timer de chaque joueur pour prendre une décision 
-        if self.round_started:
+        if Global_objects.round_started:
             print('round_started')
             if self.timer[0] > 0:
                 self.timer[0] = self.depart_timer - (time.time() - self.timer[1])
@@ -1002,7 +999,7 @@ class HUD_State:
         # Affichage de la zone qui comportera les actions du joueur
         # Boutons d'actions
         # On rend les boutons interagissables en fonction de si le siège sur lequel le joueur est assis et le siège qui posséde la parole ou non
-        if Global_objects.parole == Global_objects.client_actuel and self.round_started:
+        if Global_objects.parole == Global_objects.client_actuel and Global_objects.round_started:
         # A remplacer par if Global_objects.my_turn:
             Global_objects.checkbutton.button_interactible = True
             Global_objects.callbutton.button_interactible = True
@@ -1218,13 +1215,13 @@ class HUD_State:
                 Global_objects.sit_10.draw()
 
         # Dessin de la raise_bar pour choisir le montant
-        if self.is_raising:
+        if Global_objects.is_raising:
             gui_font = pygame.font.SysFont("Roboto", width_scale(60, self.largeur_actuelle, True))
             text_surf = gui_font.render("Choose the bet", True, "#FFFFFF")
             raise_background = pygame.draw.rect(self.screen, "#000000", pygame.Rect((width_scale(340, self.largeur_actuelle), height_scale(300, self.hauteur_actuelle)), (width_scale(1250, self.largeur_actuelle), height_scale(300, self.hauteur_actuelle))), border_radius = 3)
             self.screen.blit(text_surf, (width_scale(820, self.largeur_actuelle), height_scale(320, self.hauteur_actuelle)))
-            Global_objects.raise_bar.draw(round(((Global_objects.connected_account[2]/100)*self.raised_amount)*100), width_scale(25, self.largeur_actuelle), width_scale(25, self.largeur_actuelle), height_scale(2.8, self.hauteur_actuelle))
-            self.raised_amount = (Global_objects.raise_bar.cursor_width - width_scale(400, self.largeur_actuelle)) / (width_scale(1530, self.largeur_actuelle) - width_scale(400, self.largeur_actuelle))
+            Global_objects.raise_bar.draw(round(((Global_objects.connected_account[2]/100)*Global_objects.raised_amount)*100), width_scale(25, self.largeur_actuelle), width_scale(25, self.largeur_actuelle), height_scale(2.8, self.hauteur_actuelle))
+            Global_objects.raised_amount = (Global_objects.raise_bar.cursor_width - width_scale(400, self.largeur_actuelle)) / (width_scale(1530, self.largeur_actuelle) - width_scale(400, self.largeur_actuelle))
             Global_objects.confirmraisebutton.draw()
             Global_objects.cancelraisebutton.draw()
             Global_objects.all_inbutton.draw()
