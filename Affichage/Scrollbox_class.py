@@ -52,7 +52,7 @@ class ScrollBox:
         transparent_surface = pygame.Surface((self.width, self.height + height_scale(15, self.hauteur_actuelle)), pygame.SRCALPHA)
 
         # Dessinez le rectangle transparent sur la surface
-        pygame.draw.rect(transparent_surface, (0, 0, 0, 128), (0, 0, self.width, self.height + height_scale(15, self.hauteur_actuelle)))
+        pygame.draw.rect(transparent_surface, (0, 0, 0, 200), (0, 0, self.width, self.height + height_scale(15, self.hauteur_actuelle)))
         
         # Afficher la surface transparente sur l'écran
         self.screen.blit(transparent_surface, (self.x, self.y - height_scale(3, self.hauteur_actuelle)))
