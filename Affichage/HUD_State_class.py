@@ -1011,10 +1011,6 @@ class HUD_State:
             Global_objects.foldbutton.button_interactible = False
             Global_objects.raisebutton.button_interactible = False
         # On dessine les boutons
-        Global_objects.checkbutton.button_interactible = True
-        Global_objects.callbutton.button_interactible = True
-        Global_objects.foldbutton.button_interactible = True
-        Global_objects.raisebutton.button_interactible = True
         Global_objects.checkbutton.draw()
         Global_objects.callbutton.draw()
         Global_objects.foldbutton.draw()
