@@ -33,10 +33,6 @@ def check_click(Button):
                 Global_objects.game_state.back_pile.append(Global_objects.game_state.state)
                 Global_objects.game_state.state = "Setting Menu"
                 Global_objects.game_state.setting_page = 1
-                Global_objects.settingpage1button.initial_bottom_color = "#475F77"
-                Global_objects.settingpage1button.hovering_bottom_color = "#D74B4B"
-                Global_objects.settingpage2button.initial_bottom_color = "#354B5E"
-                Global_objects.settingpage3button.initial_bottom_color = "#354B5E"
             # Lorsque le bouton ACCOUNT est cliqué
             case "account":
                 Global_objects.game_state.back_pile.append(Global_objects.game_state.state)
@@ -46,9 +42,9 @@ def check_click(Button):
                     Global_objects.accountinformationinput.interactible = False
                     Global_objects.accountpseudoinput.color_passive = "#475F77"
                     Global_objects.accountinformationinput.color_passive = "#475F77"
-                    Global_objects.accountsettingsbutton.initial_top_color = "#D74B4B"
-                    Global_objects.accountsettingsbutton.bottom_color = "#D74B4B"
-                    Global_objects.accountsettingsbutton.hovering_color = "#D74B4B"
+                    Global_objects.accountsettingsbutton.initial_color = (0, 255, 0, 180)
+                    Global_objects.accountsettingsbutton.hovering_color = (0, 255, 0, 200)
+                    Global_objects.accountsettingsbutton.clicking_color = (0, 255, 0, 220)
                     Global_objects.accountsettingsbutton.account_modifiable = False
             # Lorsque le bouton EXIT est cliqué
             case "exit":
@@ -61,24 +57,12 @@ def check_click(Button):
             # Lorsque le bouton PAGE 1 dans SETTINGS est cliqué
             case "setting page 1":
                 Global_objects.game_state.setting_page = 1
-                Global_objects.settingpage1button.initial_bottom_color = "#475F77"
-                Global_objects.settingpage1button.hovering_bottom_color = "#D74B4B"
-                Global_objects.settingpage2button.initial_bottom_color = "#354B5E"
-                Global_objects.settingpage3button.initial_bottom_color = "#354B5E"
             # Lorsque le bouton PAGE 2 dans SETTINGS est cliqué
             case "setting page 2":
                 Global_objects.game_state.setting_page = 2
-                Global_objects.settingpage1button.initial_bottom_color = "#354B5E"
-                Global_objects.settingpage2button.initial_bottom_color = "#475F77"
-                Global_objects.settingpage2button.hovering_bottom_color = "#D74B4B"
-                Global_objects.settingpage3button.initial_bottom_color = "#354B5E"
             # Lorsque le bouton PAGE 3 dans SETTINGS est cliqué
             case "setting page 3":
                 Global_objects.game_state.setting_page = 3
-                Global_objects.settingpage1button.initial_bottom_color = "#354B5E"
-                Global_objects.settingpage2button.initial_bottom_color = "#354B5E"
-                Global_objects.settingpage3button.initial_bottom_color = "#475F77"
-                Global_objects.settingpage3button.hovering_bottom_color = "#D74B4B"
             # Lorsque le bouton des paramètres dans ACCOUNT est cliqué
             case "account settings":
                 if Global_objects.accountsettingsbutton.account_modifiable:
@@ -86,16 +70,18 @@ def check_click(Button):
                     Global_objects.accountinformationinput.interactible = False
                     Global_objects.accountpseudoinput.color_passive = "#475F77"
                     Global_objects.accountinformationinput.color_passive = "#475F77"
-                    Global_objects.accountsettingsbutton.initial_top_color = "#D74B4B"
-                    Global_objects.accountsettingsbutton.hovering_color = "#D74B4B"
+                    Global_objects.accountsettingsbutton.initial_color = (255, 0, 0, 180)
+                    Global_objects.accountsettingsbutton.hovering_color = (255, 0, 0, 200)
+                    Global_objects.accountsettingsbutton.clicking_color = (255, 0, 0, 220)
                     Global_objects.accountsettingsbutton.account_modifiable = False
                 else:
                     Global_objects.accountpseudoinput.interactible = True
                     Global_objects.accountinformationinput.interactible = True
                     Global_objects.accountpseudoinput.color_passive = "#475F90"
                     Global_objects.accountinformationinput.color_passive = "#475F90"
-                    Global_objects.accountsettingsbutton.initial_top_color = "#00FF00"
-                    Global_objects.accountsettingsbutton.hovering_color = "#00FF00"
+                    Global_objects.accountsettingsbutton.initial_color = (0, 255, 0, 180)
+                    Global_objects.accountsettingsbutton.hovering_color = (0, 255, 0, 200)
+                    Global_objects.accountsettingsbutton.clicking_color = (0, 255, 0, 220)
                     Global_objects.accountsettingsbutton.account_modifiable = True
             # Lorsqu'un bouton de serveur est cliqué
             case "server":
@@ -208,10 +194,6 @@ def check_click(Button):
             # Lorsque le bouton BACK (fléche retour) est cliqué
             case "back":
                 Global_objects.game_state.setting_page = 1
-                Global_objects.settingpage1button.initial_bottom_color = "#475F77"
-                Global_objects.settingpage1button.hovering_bottom_color = "#D74B4B"
-                Global_objects.settingpage2button.initial_bottom_color = "#354B5E"
-                Global_objects.settingpage3button.initial_bottom_color = "#354B5E"
                 Global_objects.game_state.state = Global_objects.game_state.back_pile.pop()
                 Global_objects.table_selected = None
             # Lorsque le bouton des paramètres en jeu est cliqué
@@ -219,10 +201,6 @@ def check_click(Button):
                 Global_objects.game_state.back_pile.append(Global_objects.game_state.state)
                 Global_objects.game_state.state = "Setting Menu"
                 Global_objects.game_state.setting_page = 1
-                Global_objects.settingpage1button.initial_bottom_color = "#475F77"
-                Global_objects.settingpage1button.hovering_bottom_color = "#D74B4B"
-                Global_objects.settingpage2button.initial_bottom_color = "#354B5E"
-                Global_objects.settingpage3button.initial_bottom_color = "#354B5E"
             # Lorsque le bouton pour quitter la partie cliqué
             case "leave game":
                 Global_objects.game_state.confirmation = True

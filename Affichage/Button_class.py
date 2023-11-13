@@ -74,14 +74,13 @@ class Button:
     def draw(self):
         """Génération/affichage du bouton
         """
+        # Affichage du bouton à cliquer
+        transparent_surface = pygame.Surface((self.width, self.height), pygame.SRCALPHA)
+        pygame.draw.rect(transparent_surface, self.color, (0, 0, self.width, self.height), border_radius = self.courbure)
+        self.screen.blit(transparent_surface, (self.pos_x, self.pos_y))
+        pygame.draw.rect(self.screen, (0,0,0), (self.pos_x, self.pos_y, self.width, self.height), width_scale(3, self.largeur_actuelle, True), self.courbure)
         if self.image != None:
             self.screen.blit(self.image, self.button_rect)
-        else:
-            # Affichage du bouton à cliquer
-            transparent_surface = pygame.Surface((self.width, self.height), pygame.SRCALPHA)
-            pygame.draw.rect(transparent_surface, self.color, (0, 0, self.width, self.height), border_radius = self.courbure)
-            self.screen.blit(transparent_surface, (self.pos_x, self.pos_y))
-            pygame.draw.rect(self.screen, (0,0,0), (self.pos_x, self.pos_y, self.width, self.height), width_scale(3, self.largeur_actuelle, True), self.courbure)
         self.screen.blit(self.text_surf, self.text_rect)
         # On appelle constamment check_click pour vérifier si l'utilisateur interagit avec le bouton seulement si l'utilisateur peut interagir avec
         self.check_click()
