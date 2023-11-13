@@ -1011,6 +1011,10 @@ class HUD_State:
             Global_objects.foldbutton.button_interactible = False
             Global_objects.raisebutton.button_interactible = False
         # On dessine les boutons
+        Global_objects.checkbutton.button_interactible = True
+        Global_objects.callbutton.button_interactible = True
+        Global_objects.foldbutton.button_interactible = True
+        Global_objects.raisebutton.button_interactible = True
         Global_objects.checkbutton.draw()
         Global_objects.callbutton.draw()
         Global_objects.foldbutton.draw()
@@ -1220,7 +1224,7 @@ class HUD_State:
             text_surf = gui_font.render("Choose the bet", True, "#FFFFFF")
             raise_background = pygame.draw.rect(self.screen, "#000000", pygame.Rect((width_scale(340, self.largeur_actuelle), height_scale(300, self.hauteur_actuelle)), (width_scale(1250, self.largeur_actuelle), height_scale(300, self.hauteur_actuelle))), border_radius = 3)
             self.screen.blit(text_surf, (width_scale(820, self.largeur_actuelle), height_scale(320, self.hauteur_actuelle)))
-            Global_objects.raise_bar.draw(round(((Global_objects.connected_account[2]/100)*Global_objects.raised_amount)*100), width_scale(25, self.largeur_actuelle), width_scale(25, self.largeur_actuelle), height_scale(2.8, self.hauteur_actuelle))
+            Global_objects.raise_bar.draw(round(((Global_objects.connected_account[2]/100)*Global_objects.raised_amount)*100), width_scale(25, self.largeur_actuelle), width_scale(25, self.largeur_actuelle), height_scale(2, self.hauteur_actuelle))
             Global_objects.raised_amount = (Global_objects.raise_bar.cursor_width - width_scale(400, self.largeur_actuelle)) / (width_scale(1530, self.largeur_actuelle) - width_scale(400, self.largeur_actuelle))
             Global_objects.confirmraisebutton.draw()
             Global_objects.cancelraisebutton.draw()
@@ -1239,7 +1243,8 @@ class HUD_State:
             if not raise_background.collidepoint(mouse_pos) and not Global_objects.raise_bar.is_selected and not Global_objects.confirmraisebutton.is_pressing and not Global_objects.cancelraisebutton.is_pressing and not Global_objects.all_inbutton.is_pressing and not Global_objects.minus100button.is_pressing and not Global_objects.add100button.is_pressing:
                 # On vérifie si l'utilisateur clique sur le clic gauche ([0] = gauche, [1] = molette, [2] = droit)
                 if pygame.mouse.get_pressed()[0]:
-                    check_click(Global_objects.cancelraisebutton)
+                    Global_objects.is_raising = False
+                    Global_objects.buttons_interactibles = True
 
         # Affichage d'une fenêtre de vérification si l'utilisateur clique sur le bouton leavegamebutton
         if self.confirmation:

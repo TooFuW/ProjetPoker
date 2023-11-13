@@ -6,11 +6,11 @@ from Screen_adaptation import *
 import Check_click
 
 
-class Button:
+class Button_elevation:
     """Classe Button pour créer des boutons dynamiques (https://www.youtube.com/watch?v=8SzTzvrWaAA)
     """
 
-    def __init__(self, largeur_actuelle : int, hauteur_actuelle : int, screen : pygame.Surface, fonction : str, text : str, police : str, textsize : int, top_color : str or int, bottom_color : str or int, hovering_color : str or int, hovering_bottom_color : str or int, width : int, height : int, pos : tuple, elevation : int, round_border : int, image : str = None):
+    def __init__(self, largeur_actuelle : int, hauteur_actuelle : int, screen : pygame.Surface, fonction : str, text : str, police : str, textsize : int, text_color : str, top_color : str, bottom_color : str, hovering_color : str, hovering_bottom_color : str, width : int, height : int, pos : tuple, elevation : int, round_border : int, image : str = None):
         """Initialisation de la classe Button
 
         Args:
@@ -21,10 +21,11 @@ class Button:
             text (str): Texte d'affichage du bouton
             police (str): Police d'affichage du texte (seulement parmis les polices système disponibles)
             textsize (int): Taille du texte
-            top_color (str or int): Couleur de la partie haute du bouton
-            bottom_color (str or int): Couleur de la partie basse du bouton
-            hovering_color (str or int): Couleur du bouton lorsque la souris est dessus
-            hovering_bottom_color (str or int): Couleur de la partie inférieure du bouton lorsque la souris est dessus
+            text_color (str): Couleur du texte
+            top_color (str): Couleur de la partie haute du bouton
+            bottom_color (str): Couleur de la partie basse du bouton
+            hovering_color (str): Couleur du bouton lorsque la souris est dessus
+            hovering_bottom_color (str): Couleur de la partie inférieure du bouton lorsque la souris est dessus
             width (int): Largeur du bouton
             height (int): Hauteur du bouton
             pos (tuple): Position contenant deux valeurs x et y (x : largeur, y : hauteur)
@@ -34,6 +35,8 @@ class Button:
         """
         # Attributs généraux
         self.pressed = False
+        # self.pressed diéfférent de self.is_pressing, ce dernier sert à savoir si le bouton est simplement cliqué quand le premier sert pour gérer les interactions dans la classe
+        self.is_pressing = False
         self.fonction = fonction
         self.courbure = round_border
         self.largeur_actuelle = largeur_actuelle
@@ -68,8 +71,8 @@ class Button:
 
         # Button text
         self.text = text
-        gui_font = pygame.font.SysFont(police, width_scale(textsize, self.largeur_actuelle), False, False)
-        self.text_surf = gui_font.render(self.text, True, "#FFFFFF")
+        gui_font = pygame.font.SysFont(police, width_scale(textsize, self.largeur_actuelle, True), False, False)
+        self.text_surf = gui_font.render(self.text, True, text_color)
         self.text_rect = self.text_surf.get_rect(center = self.top_rect.center)
 
         # Button image
@@ -103,25 +106,29 @@ class Button:
         mouse_pos = pygame.mouse.get_pos()
         # On vérifie si la position de la souris est sur le bouton
         if self.top_rect.collidepoint(mouse_pos):
-            # On change la couleur du bouton lorsque la souris est dessus
-            self.top_color = self.hovering_color
-            self.bottom_color = self.hovering_bottom_color
-            # On vérifie si l'utilisateur clique sur le clic gauche ([0] = gauche, [1] = molette, [2] = droit)
-            if pygame.mouse.get_pressed()[0]:
-                # On anime le bouton et change son état
-                self.dynamic_elevation = 0
-                self.pressed = True
-            # On fait les actions souhaitées lorsque le clic est relaché
-            else:
-                # CODE POUR QUAND LE BOUTON EST CLIQUE
-                self.dynamic_elevation = self.elevation
-                if self.pressed:
-                    self.pressed = False
-                    if self.button_interactible is True:
+            if self.button_interactible:
+                # On change la couleur du bouton lorsque la souris est dessus
+                self.top_color = self.hovering_color
+                self.bottom_color = self.hovering_bottom_color
+                # On vérifie si l'utilisateur clique sur le clic gauche ([0] = gauche, [1] = molette, [2] = droit)
+                if pygame.mouse.get_pressed()[0]:
+                    # On anime le bouton et change son état
+                    self.dynamic_elevation = 0
+                    self.pressed = True
+                    self.is_pressing = True
+                # On fait les actions souhaitées lorsque le clic est relaché
+                else:
+                    # CODE POUR QUAND LE BOUTON EST CLIQUE
+                    self.dynamic_elevation = self.elevation
+                    if self.pressed:
+                        self.pressed = False
                         Check_click.check_click(self)
+                    self.is_pressing = False
         # Le else est là pour reset l'état du bouton lorsqu'il n'y a plus aucune interaction
         else:
             self.dynamic_elevation = self.elevation
             self.top_color = self.initial_top_color
             self.bottom_color = self.initial_bottom_color
             self.pressed = False
+        if not pygame.mouse.get_pressed()[0]:
+            self.is_pressing = False

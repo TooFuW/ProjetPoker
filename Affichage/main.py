@@ -4,6 +4,7 @@
 import pygame
 from Screen_adaptation import *
 from Button_class import *
+from Button_elevation_class import *
 from Scrollbox_class import *
 from TextInputBox_class import *
 from Preview_Table_class import *
@@ -129,61 +130,61 @@ if __name__ == "__main__":
 
     # Création de tout les boutons utilisés
     # Création de l'objet accountbutton
-    Global_objects.accountbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "account", "ACCOUNT", "Roboto", 30, (0, 0, 0, 180), (50, 50, 50, 200), (90, 90, 90, 180), 150, 75, (1750, 20), 10)
+    Global_objects.accountbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "account", "ACCOUNT", "Roboto", 30, "#FFFFFF", (0, 0, 0, 180), (50, 50, 50, 200), (90, 90, 90, 180), (0, 0, 0), 3, 150, 75, (1750, 20), 10)
     # Création de l'objet playbutton
-    Global_objects.playbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "play", "", "Roboto", 0, (0, 0, 0, 180), (50, 50, 50, 200), (90, 90, 90, 180), 500, 500, (710, 365), 400, f"{current_folder}logo play.jpg")
+    Global_objects.playbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "play", "", "Roboto", 0, "#FFFFFF", (0, 0, 0, 180), (50, 50, 50, 200), (90, 90, 90, 180), (0, 0, 0), 3, 500, 500, (710, 365), 400, f"{current_folder}logo play.jpg")
     # Création de l'objet settingsbutton
-    Global_objects.settingsbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "settings", "SETTINGS", "Roboto", 70, (0, 0, 0, 180), (50, 50, 50, 200), (90, 90, 90, 180), 300, 500, (310, 365), 10)
+    Global_objects.settingsbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "settings", "SETTINGS", "Roboto", 70, "#FFFFFF", (0, 0, 0, 180), (50, 50, 50, 200), (90, 90, 90, 180), (0, 0, 0), 3, 300, 500, (310, 365), 10)
     # Création de l'objet quitbutton
-    Global_objects.exitbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "exit", "", "Roboto", 0, (0, 0, 0, 180), (50, 50, 50, 200), (90, 90, 90, 180), 400, 100, (760, 960), 10, f"{current_folder}logo exit.jpg")
+    Global_objects.exitbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "exit", "", "Roboto", 0, "#FFFFFF", (0, 0, 0, 180), (50, 50, 50, 200), (90, 90, 90, 180), (0, 0, 0), 3, 400, 100, (760, 960), 10, f"{current_folder}logo exit.jpg")
     # Création de l'objet backbutton
-    Global_objects.backbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "back", "", "Roboto", 0, (0, 0, 0, 180), (50, 50, 50, 200), (90, 90, 90, 180), 125, 125, (25, 25), 10, f"{current_folder}backarrow.png")
+    Global_objects.backbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "back", "", "Roboto", 0, "#FFFFFF", (0, 0, 0, 180), (50, 50, 50, 200), (90, 90, 90, 180), (0, 0, 0), 3, 125, 125, (25, 25), 10, f"{current_folder}backarrow.png")
     # Création de l'objet createtablebutton
-    Global_objects.createtablebutton = Button(largeur_actuelle, hauteur_actuelle, screen, "create table", "CREATE TABLE", "Roboto", 60, (0, 0, 0, 180), (50, 50, 50, 200), (90, 90, 90, 180), 400, 100, (175, 50), 10)
+    Global_objects.createtablebutton = Button(largeur_actuelle, hauteur_actuelle, screen, "create table", "CREATE TABLE", "Roboto", 60, "#FFFFFF", (0, 0, 0, 180), (50, 50, 50, 200), (90, 90, 90, 180), (0, 0, 0), 3, 400, 100, (175, 50), 10)
     # Création de l'objet shopbutton
-    Global_objects.shopbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "shop", "SHOP", "Roboto", 70, (0, 0, 0, 180), (50, 50, 50, 200), (90, 90, 90, 180), 300, 500, (1310, 365), 10)
+    Global_objects.shopbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "shop", "SHOP", "Roboto", 70, "#FFFFFF", (0, 0, 0, 180), (50, 50, 50, 200), (90, 90, 90, 180), (0, 0, 0), 3, 300, 500, (1310, 365), 10)
     # Création de l'objet deconnexionbutton
-    Global_objects.deconnexionbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "deconnexion", "LOG OUT", "Roboto", 60, (0, 0, 0, 180), (50, 50, 50, 200), (90, 90, 90, 180), 300, 100, (1605, 970), 10)
+    Global_objects.deconnexionbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "deconnexion", "LOG OUT", "Roboto", 60, "#FFFFFF", (0, 0, 0, 180), (50, 50, 50, 200), (90, 90, 90, 180), (0, 0, 0), 3, 300, 100, (1605, 970), 10)
     # Création de l'objet accountsettingsbutton
-    Global_objects.accountsettingsbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "account settings", "", "Roboto", 0, (255, 0, 0, 180), (255, 0, 0, 200), (255, 0, 0, 220), 125, 125, (1770, 25), 10, f"{current_folder}settinglogo.png")
+    Global_objects.accountsettingsbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "account settings", "", "Roboto", 0, "#FFFFFF", (255, 0, 0, 180), (255, 0, 0, 200), (255, 0, 0, 220), (0, 0, 0), 3, 125, 125, (1770, 25), 10, f"{current_folder}settinglogo.png")
     # Création de l'objet settingpage1button
-    Global_objects.settingpage1button = Button(largeur_actuelle, hauteur_actuelle, screen, "setting page 1", "PAGE 1", "Roboto", 50, (0, 0, 0, 180), (50, 50, 50, 200), (90, 90, 90, 180), 200, 70, (260, 91), 8)
+    Global_objects.settingpage1button = Button(largeur_actuelle, hauteur_actuelle, screen, "setting page 1", "PAGE 1", "Roboto", 50, "#FFFFFF", (0, 0, 0, 180), (50, 50, 50, 200), (90, 90, 90, 180), (0, 0, 0), 3, 200, 70, (260, 91), 8)
     # Création de l'objet settingpage1button
-    Global_objects.settingpage2button = Button(largeur_actuelle, hauteur_actuelle, screen, "setting page 2", "PAGE 2", "Roboto", 50, (0, 0, 0, 180), (50, 50, 50, 200), (90, 90, 90, 180), 200, 70, (470, 91), 8)
+    Global_objects.settingpage2button = Button(largeur_actuelle, hauteur_actuelle, screen, "setting page 2", "PAGE 2", "Roboto", 50, "#FFFFFF", (0, 0, 0, 180), (50, 50, 50, 200), (90, 90, 90, 180), (0, 0, 0), 3, 200, 70, (470, 91), 8)
     # Création de l'objet settingpage1button
-    Global_objects.settingpage3button = Button(largeur_actuelle, hauteur_actuelle, screen, "setting page 3", "PAGE 3", "Roboto", 50, (0, 0, 0, 180), (50, 50, 50, 200), (90, 90, 90, 180), 200, 70, (680, 91), 8)
+    Global_objects.settingpage3button = Button(largeur_actuelle, hauteur_actuelle, screen, "setting page 3", "PAGE 3", "Roboto", 50, "#FFFFFF", (0, 0, 0, 180), (50, 50, 50, 200), (90, 90, 90, 180), (0, 0, 0), 3, 200, 70, (680, 91), 8)
     # Création de l'objet gamesettingsbutton
-    Global_objects.gamesettingsbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "game settings", "", "Roboto", 0, (0, 0, 0, 180), (50, 50, 50, 200), (90, 90, 90, 180), 80, 80, (1820, 995), 10, f"{current_folder}settinglogo.png")
+    Global_objects.gamesettingsbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "game settings", "", "Roboto", 0, "#FFFFFF", (0, 0, 0, 180), (50, 50, 50, 200), (90, 90, 90, 180), (0, 0, 0), 3, 80, 80, (1820, 995), 10, f"{current_folder}settinglogo.png")
     # Création de l'objet checkbutton
-    Global_objects.checkbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "check", "CHECK", "Roboto", 60, (255, 0, 0, 180), (255, 0, 0, 200), (255, 0, 0, 220), 300, 80, (30, 995), 10)
+    Global_objects.checkbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "check", "CHECK", "Roboto", 60, "#FFFFFF", (255, 0, 0, 180), (255, 0, 0, 200), (255, 0, 0, 220), (0, 0, 0), 3, 300, 80, (30, 995), 10)
     # Création de l'objet callbutton
-    Global_objects.callbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "call", "CALL", "Roboto", 60, (0, 255, 0, 180), (0, 255, 0, 200), (0, 255, 0, 220), 300, 80, (380, 995), 10)
+    Global_objects.callbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "call", "CALL", "Roboto", 60, "#FFFFFF", (0, 255, 0, 180), (0, 255, 0, 200), (0, 255, 0, 220), (0, 0, 0), 3, 300, 80, (380, 995), 10)
     # Création de l'objet foldbutton
-    Global_objects.foldbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "fold", "FOLD", "Roboto", 60, (0, 0, 255, 180), (0, 0, 255, 200), (0, 0, 255, 220), 300, 80, (730, 995), 10)
+    Global_objects.foldbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "fold", "FOLD", "Roboto", 60, "#FFFFFF", (0, 0, 255, 180), (0, 0, 255, 200), (0, 0, 255, 220), (0, 0, 0), 3, 300, 80, (730, 995), 10)
     # Création de l'objet raisebutton
-    Global_objects.raisebutton = Button(largeur_actuelle, hauteur_actuelle, screen, "raise", "RAISE", "Roboto", 60, (128, 128, 128, 180), (128, 128, 128, 200), (128, 128, 128, 220), 300, 80, (1080, 995), 10)
+    Global_objects.raisebutton = Button(largeur_actuelle, hauteur_actuelle, screen, "raise", "RAISE", "Roboto", 60, "#FFFFFF", (255, 255, 51, 180), (255, 255, 0, 200), (255, 255, 0, 220), (0, 0, 0), 3, 300, 80, (1080, 995), 10)
     # Création de l'objet refreshbutton
-    Global_objects.refreshbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "refresh", "REFRESH", "Roboto", 60, (0, 0, 0, 180), (50, 50, 50, 200), (90, 90, 90, 180), 220, 100, (600, 50), 10)
+    Global_objects.refreshbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "refresh", "REFRESH", "Roboto", 60, "#FFFFFF", (0, 0, 0, 180), (50, 50, 50, 200), (90, 90, 90, 180), (0, 0, 0), 3, 220, 100, (600, 50), 10)
     # Création de l'objet leavegamebutton
-    Global_objects.leavegamebutton = Button(largeur_actuelle, hauteur_actuelle, screen, "leave game", "", "Roboto", 0, (0, 0, 0, 180), (50, 50, 50, 200), (90, 90, 90, 180), 80, 80, (1720, 995), 10, f"{current_folder}backarrow.png")
+    Global_objects.leavegamebutton = Button(largeur_actuelle, hauteur_actuelle, screen, "leave game", "", "Roboto", 0, "#FFFFFF", (0, 0, 0, 180), (50, 50, 50, 200), (90, 90, 90, 180), (255, 255, 255), 2, 80, 80, (1710, 995), 10, f"{current_folder}backarrow.png")
     # Création de l'objet yesleavebutton
-    Global_objects.yesleavebutton = Button(largeur_actuelle, hauteur_actuelle, screen, "yes_leave", "YES", "Roboto", 60, (0, 255, 0, 180), (0, 255, 0, 200), (0, 255, 0, 220), 150, 70, (790, 480), 10)
+    Global_objects.yesleavebutton = Button_elevation(largeur_actuelle, hauteur_actuelle, screen, "yes_leave", "YES", "Roboto", 60, "#FFFFFF", "#00FF00", "#00CC00", "#55FF55", "#00CC00", 150, 70, (790, 480), 6, 10)
     # Création de l'objet noleavebutton
-    Global_objects.noleavebutton = Button(largeur_actuelle, hauteur_actuelle, screen, "no_leave", "NO", "Roboto", 60, (255, 0, 0, 180), (255, 0, 0, 200), (255, 0, 0, 220), 150, 70, (990, 480), 10)
+    Global_objects.noleavebutton = Button_elevation(largeur_actuelle, hauteur_actuelle, screen, "no_leave", "NO", "Roboto", 60, "#FFFFFF", "#FF0000", "#CC0000", "#FF5555", "#CC0000", 150, 70, (990, 480), 6, 10)
     # Création de l'objet sit_upbutton
-    Global_objects.sit_upbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "sit up", "SIT UP", "Roboto", 60, (0, 0, 0, 180), (50, 50, 50, 200), (90, 90, 90, 180), 250, 80, (1425, 995), 10)
+    Global_objects.sit_upbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "sit up", "SIT UP", "Roboto", 60, "#FFFFFF", (0, 0, 0, 180), (50, 50, 50, 200), (90, 90, 90, 180), (255, 255, 255), 2, 250, 80, (1425, 995), 10)
     # Création de l'objet minus100button
-    Global_objects.minus100button = Button(largeur_actuelle, hauteur_actuelle, screen, "minus_100", "- 100", "Roboto", 60, (0, 0, 0, 180), (50, 50, 50, 200), (90, 90, 90, 180), 150, 70, (355, 520), 10)
+    Global_objects.minus100button = Button(largeur_actuelle, hauteur_actuelle, screen, "minus_100", "- 100", "Roboto", 60, "#FFFFFF", (0, 0, 0, 180), (50, 50, 50, 200), (90, 90, 90, 180), (0, 0, 0), 3, 150, 70, (355, 520), 10)
     # Création de l'objet add100button
-    Global_objects.add100button = Button(largeur_actuelle, hauteur_actuelle, screen, "add_100", "+ 100", "Roboto", 60, (0, 0, 0, 180), (50, 50, 50, 200), (90, 90, 90, 180), 150, 70, (815, 520), 10)
+    Global_objects.add100button = Button(largeur_actuelle, hauteur_actuelle, screen, "add_100", "+ 100", "Roboto", 60, "#FFFFFF", (0, 0, 0, 180), (50, 50, 50, 200), (90, 90, 90, 180), (0, 0, 0), 3, 150, 70, (815, 520), 10)
     # Création de l'objet all_inbutton
-    Global_objects.all_inbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "all_in", "ALL IN", "Roboto", 60, (0, 0, 0, 180), (50, 50, 50, 200), (90, 90, 90, 180), 150, 70, (985, 520), 10)
+    Global_objects.all_inbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "all_in", "ALL IN", "Roboto", 60, "#FFFFFF", (0, 0, 0, 180), (50, 50, 50, 200), (90, 90, 90, 180), (0, 0, 0), 3, 150, 70, (985, 520), 10)
     # Création de l'objet confirmraisebutton
-    Global_objects.confirmraisebutton = Button(largeur_actuelle, hauteur_actuelle, screen, "yes_raise", "CONFIRM", "Roboto", 60, (0, 255, 0, 180), (0, 255, 0, 200), (0, 255, 0, 220), 200, 70, (1155, 520), 10)
+    Global_objects.confirmraisebutton = Button_elevation(largeur_actuelle, hauteur_actuelle, screen, "yes_raise", "CONFIRM", "Roboto", 60, "#FFFFFF", "#00FF00", "#00CC00", "#55FF55", "#00CC00", 200, 70, (1155, 520), 6, 10)
     # Création de l'objet cancelraisebutton
-    Global_objects.cancelraisebutton = Button(largeur_actuelle, hauteur_actuelle, screen, "no_raise", "CANCEL", "Roboto", 60, (255, 0, 0, 180), (255, 0, 0, 200), (255, 0, 0, 220), 200, 70, (1375, 520), 10)
+    Global_objects.cancelraisebutton = Button_elevation(largeur_actuelle, hauteur_actuelle, screen, "no_raise", "CANCEL", "Roboto", 60, "#FFFFFF", "#FF0000", "#CC0000", "#FF5555", "#CC0000", 200, 70, (1375, 520), 6, 10)
     # Création de l'objet savesettingsbutton
-    Global_objects.savesettingsbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "save settings", "SAVE", "Roboto", 50, (0, 0, 0, 180), (50, 50, 50, 200), (90, 90, 90, 180), 200, 50, (1560, 111), 8)
+    Global_objects.savesettingsbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "save settings", "SAVE", "Roboto", 50, "#FFFFFF", (0, 0, 0, 180), (50, 50, 50, 200), (90, 90, 90, 180), (0, 0, 0), 3, 200, 50, (1560, 111), 8)
 
     # Création des Scrollboxs
     # Création de l'objet serverscrollbox 

@@ -18,8 +18,8 @@ class Cursor_Bar:
            width (int): Largeur de la barre
             height (int): Hauteur de la barre
             pos (tuple): Position contenant deux valeurs x et y (x : largeur, y : hauteur)
-            bar_color (strorint): Couleur de la barre
-            cursor_color (strorint): Couleur du curseur
+            bar_color (str or int): Couleur de la barre
+            cursor_color (str or int): Couleur du curseur
             cursor_basic_pos (int): Position de départ du curseur en largeur
         """
         self.largeur_actuelle = largeur_actuelle

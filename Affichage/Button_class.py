@@ -10,7 +10,7 @@ class Button:
     """Classe Button pour créer des boutons dynamiques (https://www.youtube.com/watch?v=8SzTzvrWaAA)
     """
 
-    def __init__(self, largeur_actuelle : int, hauteur_actuelle : int, screen : pygame.Surface, fonction : str, text : str, police : str, textsize : int, color : tuple, hovering_color : tuple, clicking_color : tuple, width : int, height : int, pos : tuple, round_border : int, image : str = None):
+    def __init__(self, largeur_actuelle : int, hauteur_actuelle : int, screen : pygame.Surface, fonction : str, text : str, police : str, textsize : int, text_color : str, color : tuple, hovering_color : tuple, clicking_color : tuple, border_color : tuple, border_width : int, width : int, height : int, pos : tuple, round_border : int, image : str = None):
         """Initialisation de la classe Button
 
         Args:
@@ -21,9 +21,12 @@ class Button:
             text (str): Texte d'affichage du bouton
             police (str): Police d'affichage du texte (seulement parmis les polices système disponibles)
             textsize (int): Taille du texte
+            text_color (str): Couleur du texte
             color (tuple): Couleur de la partie haute du bouton
             hovering_color (tuple): Couleur du bouton lorsque la souris est dessus
             clicking_color (tuple): Couleur du bouton lorsque la souris clique dessus
+            border_color (tuple): Couleur de la bordure
+            border_width (int): Taille de la bordure
             width (int): Largeur du bouton
             height (int): Hauteur du bouton
             pos (tuple): Position contenant deux valeurs x et y (x : largeur, y : hauteur)
@@ -42,6 +45,7 @@ class Button:
         self.pos_x = width_scale(pos[0], largeur_actuelle)
         self.pos_y = height_scale(pos[1], hauteur_actuelle)
         self.pos = (self.pos_x, self.pos_y)
+        self.border_width = width_scale(border_width, self.largeur_actuelle, True)
         self.screen = screen
         # Pour savoir si on peut modifier ou non les paramètres du compte
         self.account_modifiable = False
@@ -58,11 +62,12 @@ class Button:
         self.initial_color = color
         self.hovering_color = hovering_color
         self.clicking_color = clicking_color
+        self.border_color = border_color
 
         # Button text
         self.text = text
         gui_font = pygame.font.SysFont(police, width_scale(textsize, self.largeur_actuelle, True), False, False)
-        self.text_surf = gui_font.render(self.text, True, "#FFFFFF")
+        self.text_surf = gui_font.render(self.text, True, text_color)
         self.text_rect = self.text_surf.get_rect(center = self.button_rect.center)
 
         # Button image
@@ -78,7 +83,8 @@ class Button:
         transparent_surface = pygame.Surface((self.width, self.height), pygame.SRCALPHA)
         pygame.draw.rect(transparent_surface, self.color, (0, 0, self.width, self.height), border_radius = self.courbure)
         self.screen.blit(transparent_surface, (self.pos_x, self.pos_y))
-        pygame.draw.rect(self.screen, (0,0,0), (self.pos_x, self.pos_y, self.width, self.height), width_scale(3, self.largeur_actuelle, True), self.courbure)
+        # Bordure du bouton
+        pygame.draw.rect(self.screen, self.border_color, (self.pos_x, self.pos_y, self.width, self.height), self.border_width, self.courbure)
         if self.image != None:
             self.screen.blit(self.image, self.button_rect)
         self.screen.blit(self.text_surf, self.text_rect)
@@ -107,9 +113,10 @@ class Button:
                     if self.pressed:
                         self.pressed = False
                         Check_click.check_click(self)
-                    if self.is_pressing:
-                        self.is_pressing = False
+                    self.is_pressing = False
         # Le else est là pour reset l'état du bouton lorsqu'il n'y a plus aucune interaction
         else:
             self.color = self.initial_color
             self.pressed = False
+        if not pygame.mouse.get_pressed()[0]:
+            self.is_pressing = False
