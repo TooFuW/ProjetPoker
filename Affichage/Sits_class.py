@@ -45,12 +45,12 @@ class Sits:
         # Affichage du fond du widget de siège
         # On affiche le bouton pour s'asseoir si le joueur n'est pas encore assis
         if Global_objects.is_selecting_sit[0] and self.player[1] is None and not Global_objects.round_started:
-            sitbutton = Button(self.largeur_actuelle, self.hauteur_actuelle, self.screen, f"sit {self.player[0] + 1}", f"Sit down [{self.player[0] + 1}]", "Roboto", 30, "#475F77", "#354B5E", "#D74B4B", "#354B5E", (self.width * 1920) // self.largeur_actuelle, (self.height * 1080) // self.hauteur_actuelle, ((self.x * 1920) // self.largeur_actuelle, (self.y * 1080) // self.hauteur_actuelle), 6, 50)
+            sitbutton = Button(self.largeur_actuelle, self.hauteur_actuelle, self.screen, f"sit {self.player[0] + 1}", f"Sit down [{self.player[0] + 1}]", "Roboto", 30, (0, 0, 0, 180), (50, 50, 50, 200), (90, 90, 90, 180), (self.width * 1920) // self.largeur_actuelle, (self.height * 1080) // self.hauteur_actuelle, ((self.x * 1920) // self.largeur_actuelle, (self.y * 1080) // self.hauteur_actuelle), 50)
             sitbutton.check_click()
             sitbutton.draw()
             mouse_pos = pygame.mouse.get_pos()
             # Quand le bouton de siège est cliqué
-            if sitbutton.top_rect.collidepoint(mouse_pos):
+            if sitbutton.button_rect.collidepoint(mouse_pos):
                 if pygame.mouse.get_pressed()[0]:
                     self.selected = True
                     self.sit_selected = sitbutton

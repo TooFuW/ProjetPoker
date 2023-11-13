@@ -52,7 +52,7 @@ class ScrollBox:
         transparent_surface = pygame.Surface((self.width, self.height + height_scale(15, self.hauteur_actuelle)), pygame.SRCALPHA)
 
         # Dessinez le rectangle transparent sur la surface
-        pygame.draw.rect(transparent_surface, (0, 0, 0, 200), (0, 0, self.width, self.height + height_scale(15, self.hauteur_actuelle)))
+        pygame.draw.rect(transparent_surface, (0, 0, 0, 128), (0, 0, self.width, self.height + height_scale(15, self.hauteur_actuelle)))
         
         # Afficher la surface transparente sur l'écran
         self.screen.blit(transparent_surface, (self.x, self.y - height_scale(3, self.hauteur_actuelle)))
@@ -66,11 +66,11 @@ class ScrollBox:
                 item_y = self.default_y + item_offset_y
                 # Délimitation de la zone de la scrollbox
                 text = (server[0] + self.indentation + str(server[1]) + self.indentation + server[2] + self.indentation + server[3] + self.indentation + server[4] + self.indentation + server[5])
-                item_rect = Button_class.Button(self.largeur_actuelle, self.hauteur_actuelle, self.screen, "server", text, "Roboto", 24, "#475F77", "#354B5E", "#D74B4B", "#354B5E", self.default_width, self.hauteurbox, (self.default_x, item_y), 3, 0)
+                item_rect = Button_class.Button(self.largeur_actuelle, self.hauteur_actuelle, self.screen, "server", text, "Roboto", 24, (0, 0, 0, 180), (50, 50, 50, 200), (90, 90, 90, 180), self.default_width, self.hauteurbox, (self.default_x, item_y), 0)
                 item_rect.check_click()
                 mouse_pos = pygame.mouse.get_pos()
                 # Quand un bouton de serveur est cliqué
-                if item_rect.top_rect.collidepoint(mouse_pos):
+                if item_rect.button_rect.collidepoint(mouse_pos):
                     if pygame.mouse.get_pressed()[0]:
                         self.selected = True
                         self.server_selected = item_rect
@@ -79,7 +79,7 @@ class ScrollBox:
                             self.selected = False
                             Check_click.check_click(self.server_selected)
                 # Affichage des serveurs disponibles
-                if item_rect.top_rect.colliderect(self.display_area):
+                if item_rect.button_rect.colliderect(self.display_area):
                     item_rect.draw()
                 # Ajouter un padding entre chaque serveur
                 item_offset_y += self.hauteurbox + 10  # Ajouter 10 pixels de padding

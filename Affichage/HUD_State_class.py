@@ -88,9 +88,9 @@ class HUD_State:
         # Dessine l'image de fond sur le self.screen de l'écran
         self.screen.blit(self.fond, (0, 0))
         # Dessine le logo du jeu
-        """transparent_surface = pygame.Surface((width_scale(675, self.largeur_actuelle), height_scale(150, self.hauteur_actuelle)), pygame.SRCALPHA)
+        transparent_surface = pygame.Surface((width_scale(675, self.largeur_actuelle), height_scale(150, self.hauteur_actuelle)), pygame.SRCALPHA)
         pygame.draw.rect(transparent_surface, (0, 0, 0, 180), (0, 0, width_scale(675, self.largeur_actuelle), height_scale(150, self.hauteur_actuelle)), border_radius = 25)
-        self.screen.blit(transparent_surface, (width_scale(620, self.largeur_actuelle), height_scale(117, self.hauteur_actuelle)))"""
+        self.screen.blit(transparent_surface, (width_scale(620, self.largeur_actuelle), height_scale(117, self.hauteur_actuelle)))
         self.screen.blit(self.logojeu, (width_scale(580, self.largeur_actuelle), height_scale(-50, self.hauteur_actuelle)))
         # Dessine le logo MWTE
         self.screen.blit(self.logomwte, self.logomwte_rect)
@@ -846,7 +846,7 @@ class HUD_State:
 
         # Affichage d'un arrière-plan noir transparent derrière chaque paramètre de la partie à selectionner
         transparent_surface = pygame.Surface((width_scale(450, self.largeur_actuelle), height_scale(100, self.hauteur_actuelle)), pygame.SRCALPHA)
-        pygame.draw.rect(transparent_surface, (0, 0, 0, 128), (0, 0, 450, 100), border_radius = 5)
+        pygame.draw.rect(transparent_surface, (0, 0, 0, 128), (0, 0, width_scale(450, self.largeur_actuelle), height_scale(100, self.hauteur_actuelle)), border_radius = 5)
         self.screen.blit(transparent_surface, (width_scale(180, self.largeur_actuelle), height_scale(110, self.hauteur_actuelle)))
         self.screen.blit(transparent_surface, (width_scale(180, self.largeur_actuelle), height_scale(260, self.hauteur_actuelle)))
         self.screen.blit(transparent_surface, (width_scale(180, self.largeur_actuelle), height_scale(410, self.hauteur_actuelle)))
