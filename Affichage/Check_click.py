@@ -40,8 +40,8 @@ def check_click(Button):
                 if Global_objects.accountsettingsbutton.account_modifiable:
                     Global_objects.accountpseudoinput.interactible = False
                     Global_objects.accountinformationinput.interactible = False
-                    Global_objects.accountpseudoinput.color_passive = "#475F77"
-                    Global_objects.accountinformationinput.color_passive = "#475F77"
+                    Global_objects.accountpseudoinput.color_passive = "#888888"
+                    Global_objects.accountinformationinput.color_passive = "#888888"
                     Global_objects.accountsettingsbutton.initial_color = (0, 255, 0, 180)
                     Global_objects.accountsettingsbutton.hovering_color = (0, 255, 0, 200)
                     Global_objects.accountsettingsbutton.clicking_color = (0, 255, 0, 220)
@@ -68,8 +68,8 @@ def check_click(Button):
                 if Global_objects.accountsettingsbutton.account_modifiable:
                     Global_objects.accountpseudoinput.interactible = False
                     Global_objects.accountinformationinput.interactible = False
-                    Global_objects.accountpseudoinput.color_passive = "#475F77"
-                    Global_objects.accountinformationinput.color_passive = "#475F77"
+                    Global_objects.accountpseudoinput.color_passive = "#888888"
+                    Global_objects.accountinformationinput.color_passive = "#888888"
                     Global_objects.accountsettingsbutton.initial_color = (255, 0, 0, 180)
                     Global_objects.accountsettingsbutton.hovering_color = (255, 0, 0, 200)
                     Global_objects.accountsettingsbutton.clicking_color = (255, 0, 0, 220)
@@ -77,8 +77,8 @@ def check_click(Button):
                 else:
                     Global_objects.accountpseudoinput.interactible = True
                     Global_objects.accountinformationinput.interactible = True
-                    Global_objects.accountpseudoinput.color_passive = "#475F90"
-                    Global_objects.accountinformationinput.color_passive = "#475F90"
+                    Global_objects.accountpseudoinput.color_passive = "#666666"
+                    Global_objects.accountinformationinput.color_passive = "#666666"
                     Global_objects.accountsettingsbutton.initial_color = (0, 255, 0, 180)
                     Global_objects.accountsettingsbutton.hovering_color = (0, 255, 0, 200)
                     Global_objects.accountsettingsbutton.clicking_color = (0, 255, 0, 220)

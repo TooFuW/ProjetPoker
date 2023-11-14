@@ -44,18 +44,21 @@ class ScrollBox:
         self.server_selected = None
         # Calcul de la zone d'affichage des éléments
         self.display_area = pygame.Rect(self.x, self.y- height_scale(3, self.hauteur_actuelle), self.width, self.height + height_scale(15, self.hauteur_actuelle))
+        self.last_button = None
 
     def draw(self):
         """Génération/affichage de la scrollbox
         """
-        # Créez une surface transparente
+        """# Créez une surface transparente
         transparent_surface = pygame.Surface((self.width, self.height + height_scale(15, self.hauteur_actuelle)), pygame.SRCALPHA)
 
         # Dessinez le rectangle transparent sur la surface
         pygame.draw.rect(transparent_surface, (0, 0, 0, 128), (0, 0, self.width, self.height + height_scale(15, self.hauteur_actuelle)))
         
         # Afficher la surface transparente sur l'écran
-        self.screen.blit(transparent_surface, (self.x, self.y - height_scale(3, self.hauteur_actuelle)))
+        self.screen.blit(transparent_surface, (self.x, self.y - height_scale(3, self.hauteur_actuelle)))"""
+        # On dessine un contour à la zone mais pas de fond
+        pygame.draw.rect(self.screen, "#000000", (self.x, self.y, self.width, self.height), width_scale(3, self.largeur_actuelle, True))
 
         # Décalage initial
         item_offset_y = 0
@@ -79,8 +82,11 @@ class ScrollBox:
                             self.selected = False
                             Check_click.check_click(self.server_selected)
                 # Affichage des serveurs disponibles
-                if item_rect.button_rect.colliderect(self.display_area):
+                if item_rect.button_rect.colliderect(self.display_area) and not item_rect.pos_y + item_rect.height > self.y + self.height:
                     item_rect.draw()
+                    self.last_button = True
+                else:
+                    self.last_button = False
                 # Ajouter un padding entre chaque serveur
                 item_offset_y += self.hauteurbox + 10  # Ajouter 10 pixels de padding
 
@@ -97,5 +103,5 @@ class ScrollBox:
         """
         mouse_pos = pygame.mouse.get_pos()
         if self.display_area.collidepoint(mouse_pos):
-            if self.scroll_pos < width_scale((len(self.servers) - 1) - (self.height // (self.hauteurbox + 10)), self.largeur_actuelle):
+            if self.scroll_pos < (len(self.servers) - 1) - (self.height / (self.hauteurbox + 10)) or not self.last_button:
                 self.scroll_pos += 1

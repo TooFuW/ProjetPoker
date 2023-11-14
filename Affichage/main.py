@@ -188,15 +188,15 @@ if __name__ == "__main__":
 
     # Création des Scrollboxs
     # Création de l'objet serverscrollbox 
-    Global_objects.serverscrollbox = ScrollBox(largeur_actuelle, hauteur_actuelle, screen, 210, 240, 1000, 760, Global_objects.displayed_lobbys_list)
+    Global_objects.serverscrollbox = ScrollBox(largeur_actuelle, hauteur_actuelle, screen, 210, 240, 1000, 710, Global_objects.displayed_lobbys_list)
     
     # Création des TextInputBox
     # Création de l'objet tablecodeinput
     Global_objects.tablecodeinput = TextInputBox(largeur_actuelle, hauteur_actuelle, screen, 150, (1360, 890), 400, 100, "#333333", "#888888", 400, False, 6, True)
     # Création de l'objet accountpseudoinput
-    Global_objects.accountpseudoinput = TextInputBox(largeur_actuelle, hauteur_actuelle, screen, 60, (685, 190), 600, 100, "#333333", "#475F77", 600, False, 15, False, False, "PSEUDO")
+    Global_objects.accountpseudoinput = TextInputBox(largeur_actuelle, hauteur_actuelle, screen, 60, (685, 190), 600, 100, "#333333", "#888888", 600, False, 15, False, False)
     # Création de l'objet accountinformationinput
-    Global_objects.accountinformationinput = TextInputBox(largeur_actuelle, hauteur_actuelle, screen, 60, (685, 315), 600, 650, "#333333", "#475F77", 600, False, 100, False, False, "INFORMATIONS")
+    Global_objects.accountinformationinput = TextInputBox(largeur_actuelle, hauteur_actuelle, screen, 60, (685, 315), 600, 650, "#333333", "#888888", 600, False, 100, False, False)
     # Création de l'objet raiseamountinput
     Global_objects.raiseamountinput = TextInputBox(largeur_actuelle, hauteur_actuelle, screen, 100, (525, 518), 270, 72, "#333333", "#888888", 270, False, 6, True)
 

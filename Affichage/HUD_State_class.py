@@ -89,9 +89,11 @@ class HUD_State:
         self.screen.blit(self.fond, (0, 0))
         # Dessine le logo du jeu
         transparent_surface = pygame.Surface((width_scale(675, self.largeur_actuelle), height_scale(150, self.hauteur_actuelle)), pygame.SRCALPHA)
-        pygame.draw.rect(transparent_surface, (0, 0, 0, 180), (0, 0, width_scale(675, self.largeur_actuelle), height_scale(150, self.hauteur_actuelle)), border_radius = 25)
+        pygame.draw.rect(transparent_surface, (0, 0, 0, 180), (0, 0, width_scale(675, self.largeur_actuelle), height_scale(150, self.hauteur_actuelle)), border_radius = width_scale(25, self.largeur_actuelle, True))
         self.screen.blit(transparent_surface, (width_scale(620, self.largeur_actuelle), height_scale(117, self.hauteur_actuelle)))
         self.screen.blit(self.logojeu, (width_scale(580, self.largeur_actuelle), height_scale(-50, self.hauteur_actuelle)))
+        # Bordure du cadre
+        pygame.draw.rect(self.screen, "#000000", (width_scale(620, self.largeur_actuelle), height_scale(117, self.hauteur_actuelle), width_scale(675, self.largeur_actuelle), height_scale(150, self.hauteur_actuelle)), width_scale(3, self.largeur_actuelle, True), width_scale(25, self.largeur_actuelle, True))
         # Dessine le logo MWTE
         self.screen.blit(self.logomwte, self.logomwte_rect)
 
@@ -103,7 +105,7 @@ class HUD_State:
             # On affiche le texte d'information à côté de la souris lorsqu'elle est sur le logo MWTE
             gui_font = pygame.font.SysFont("Roboto", width_scale(20, self.largeur_actuelle, True), False, True)
             text_surf = gui_font.render("Go to the official MWTE website", True, "#000000")
-            pygame.draw.rect(self.screen, "#FFFFFF", pygame.Rect((mouse_pos[0], mouse_pos[1] + 15), (width_scale(210, self.largeur_actuelle), height_scale(20, self.hauteur_actuelle))), border_radius = 3)
+            pygame.draw.rect(self.screen, "#FFFFFF", pygame.Rect((mouse_pos[0], mouse_pos[1] + 15), (width_scale(210, self.largeur_actuelle), height_scale(20, self.hauteur_actuelle))), border_radius = width_scale(3, self.largeur_actuelle, True))
             self.screen.blit(text_surf, (mouse_pos[0], mouse_pos[1] + 20))
             # On gére le cas où on clique sur le logo pour ouvrir UNE SEULE FOIS notre site web
             if pygame.mouse.get_pressed()[0]:
@@ -125,7 +127,11 @@ class HUD_State:
         # Affichage des chips de l'utilisateur à droite du bouton ACCOUNT
         gui_font = pygame.font.SysFont("Roboto", width_scale(40, self.largeur_actuelle, True))
         text_surf = gui_font.render("Chips : ", True, "#FFFFFF")
-        pygame.draw.rect(self.screen, "#475F77", pygame.Rect((width_scale(1540, self.largeur_actuelle), height_scale(30, self.hauteur_actuelle)), (width_scale(200, self.largeur_actuelle), height_scale(50, self.hauteur_actuelle))), border_radius = 3)
+        transparent_surface = pygame.Surface((width_scale(200, self.largeur_actuelle), height_scale(50, self.hauteur_actuelle)), pygame.SRCALPHA)
+        pygame.draw.rect(transparent_surface, (0, 0, 0, 180), (0, 0, width_scale(200, self.largeur_actuelle), height_scale(50, self.hauteur_actuelle)), border_radius = width_scale(10, self.largeur_actuelle, True))
+        self.screen.blit(transparent_surface, (width_scale(1540, self.largeur_actuelle), height_scale(30, self.hauteur_actuelle)))
+        # Bordure de la zone
+        pygame.draw.rect(self.screen, "#000000", (width_scale(1540, self.largeur_actuelle), height_scale(30, self.hauteur_actuelle), width_scale(200, self.largeur_actuelle), height_scale(50, self.hauteur_actuelle)), width_scale(3, self.largeur_actuelle, True), width_scale(10, self.largeur_actuelle, True))
         self.screen.blit(text_surf, (width_scale(1550, self.largeur_actuelle), height_scale(40, self.hauteur_actuelle)))
         # Cliquer sur le bouton EXIT ferme la fenêtre purement et simplement
         Global_objects.exitbutton.draw()
@@ -293,21 +299,28 @@ class HUD_State:
         Global_objects.accountbutton.draw()
         # Affichage des chips de l'utilisateur à droite du bouton ACCOUNT
         gui_font = pygame.font.SysFont("Roboto", width_scale(40, self.largeur_actuelle, True))
+        # Affichage des chips de l'utilisateur à droite du bouton ACCOUNT
+        gui_font = pygame.font.SysFont("Roboto", width_scale(40, self.largeur_actuelle, True))
         text_surf = gui_font.render("Chips : ", True, "#FFFFFF")
-        pygame.draw.rect(self.screen, "#475F77", pygame.Rect((width_scale(1540, self.largeur_actuelle), height_scale(30, self.hauteur_actuelle)), (width_scale(200, self.largeur_actuelle), height_scale(50, self.hauteur_actuelle))), border_radius = 3)
+        transparent_surface = pygame.Surface((width_scale(200, self.largeur_actuelle), height_scale(50, self.hauteur_actuelle)), pygame.SRCALPHA)
+        pygame.draw.rect(transparent_surface, (0, 0, 0, 180), (0, 0, width_scale(200, self.largeur_actuelle), height_scale(50, self.hauteur_actuelle)), border_radius = width_scale(10, self.largeur_actuelle, True))
+        self.screen.blit(transparent_surface, (width_scale(1540, self.largeur_actuelle), height_scale(30, self.hauteur_actuelle)))
+        # Bordure de la zone
+        pygame.draw.rect(self.screen, "#000000", (width_scale(1540, self.largeur_actuelle), height_scale(30, self.hauteur_actuelle), width_scale(200, self.largeur_actuelle), height_scale(50, self.hauteur_actuelle)), width_scale(3, self.largeur_actuelle, True), width_scale(10, self.largeur_actuelle, True))
         self.screen.blit(text_surf, (width_scale(1550, self.largeur_actuelle), height_scale(40, self.hauteur_actuelle)))
 
         # On crée la box dans laquelle on pourra écrire un code de partie pour rejoindre
         Global_objects.tablecodeinput.draw()
+        # On affiche un texte au-dessus de la box qui indique ce que cette dernière fait s'il n'y a pas de texte dedans
+        if Global_objects.tablecodeinput.user_text == "":
+            gui_font = pygame.font.SysFont("Roboto", width_scale(50, self.largeur_actuelle, True))
+            text_surf = gui_font.render("PRIVATE TABLE CODE", True, "#FFFFFF")
+            self.screen.blit(text_surf, (width_scale(1370, self.largeur_actuelle), height_scale(925, self.hauteur_actuelle)))
         # On gére le cas où l'utilisateur garde appuyé la touche backspace
         try:
             timer_backspace(Global_objects.tablecodeinput)
         except:
             pass
-        # On affiche un texte au-dessus de la box qui indique ce que cette dernière fait
-        gui_font = pygame.font.SysFont("Roboto", width_scale(50, self.largeur_actuelle, True))
-        text_surf = gui_font.render("Private Table Code", True, "#000000")
-        self.screen.blit(text_surf, (width_scale(1370, self.largeur_actuelle), height_scale(850, self.hauteur_actuelle)))
 
         if not Global_objects.table_selected is None:
             # On crée la preview des tables
@@ -320,7 +333,7 @@ class HUD_State:
             # Affichage d'un message d'erreur dans le cas où le code de lobby n'existe pas
             gui_font = pygame.font.SysFont("Roboto", width_scale(70, self.largeur_actuelle, True))
             text_surf = gui_font.render("ERROR : NO GAME FOUND", True, "#FFFFFF")
-            pygame.draw.rect(self.screen, "#FF0000", pygame.Rect((width_scale(650, self.largeur_actuelle), height_scale(400, self.hauteur_actuelle)), (width_scale(650, self.largeur_actuelle), height_scale(100, self.hauteur_actuelle))), border_radius = 2)
+            pygame.draw.rect(self.screen, "#FF0000", pygame.Rect((width_scale(650, self.largeur_actuelle), height_scale(400, self.hauteur_actuelle)), (width_scale(650, self.largeur_actuelle), height_scale(100, self.hauteur_actuelle))), border_radius = width_scale(2, self.largeur_actuelle, True))
             self.screen.blit(text_surf, (width_scale(655, self.largeur_actuelle), height_scale(430, self.hauteur_actuelle)))
             # On vérifie si le message est là depuis plus de 1 secondes et dans ce cas on l'efface
             if self.error[1] - time.time() <= -1:
@@ -450,8 +463,14 @@ class HUD_State:
         Global_objects.savesettingsbutton.draw()
         # Affichage des chips de l'utilisateur à droite du bouton ACCOUNT
         gui_font = pygame.font.SysFont("Roboto", width_scale(40, self.largeur_actuelle, True))
+        # Affichage des chips de l'utilisateur à droite du bouton ACCOUNT
+        gui_font = pygame.font.SysFont("Roboto", width_scale(40, self.largeur_actuelle, True))
         text_surf = gui_font.render("Chips : ", True, "#FFFFFF")
-        pygame.draw.rect(self.screen, "#475F77", pygame.Rect((width_scale(1540, self.largeur_actuelle), height_scale(30, self.hauteur_actuelle)), (width_scale(200, self.largeur_actuelle), height_scale(50, self.hauteur_actuelle))), border_radius = 3)
+        transparent_surface = pygame.Surface((width_scale(200, self.largeur_actuelle), height_scale(50, self.hauteur_actuelle)), pygame.SRCALPHA)
+        pygame.draw.rect(transparent_surface, (0, 0, 0, 180), (0, 0, width_scale(200, self.largeur_actuelle), height_scale(50, self.hauteur_actuelle)), border_radius = width_scale(10, self.largeur_actuelle, True))
+        self.screen.blit(transparent_surface, (width_scale(1540, self.largeur_actuelle), height_scale(30, self.hauteur_actuelle)))
+        # Bordure de la zone
+        pygame.draw.rect(self.screen, "#000000", (width_scale(1540, self.largeur_actuelle), height_scale(30, self.hauteur_actuelle), width_scale(200, self.largeur_actuelle), height_scale(50, self.hauteur_actuelle)), width_scale(3, self.largeur_actuelle, True), width_scale(10, self.largeur_actuelle, True))
         self.screen.blit(text_surf, (width_scale(1550, self.largeur_actuelle), height_scale(40, self.hauteur_actuelle)))
 
         # Affichage des boutons de pages de paramètres
@@ -460,14 +479,14 @@ class HUD_State:
         Global_objects.settingpage3button.draw()
         # Affichage des pages de paramètres avec un arrière-plan noir transparent
         transparent_surface = pygame.Surface((width_scale(1500, self.largeur_actuelle), height_scale(850, self.hauteur_actuelle)), pygame.SRCALPHA)
-        pygame.draw.rect(transparent_surface, (0, 0, 0, 230), (0, 0, 1500, 850), border_radius = 5)
+        pygame.draw.rect(transparent_surface, (0, 0, 0, 230), (0, 0, 1500, 850), border_radius = width_scale(5, self.largeur_actuelle, True))
         self.screen.blit(transparent_surface, (width_scale(260, self.largeur_actuelle), height_scale(160, self.hauteur_actuelle)))
         mouse_pos = pygame.mouse.get_pos()
         # Page 1
         if self.setting_page == 1:
             # Paramètre d'activation/désactivation de la musique
             # Affichage du nom du paramètre VOLUME dans une box
-            pygame.draw.rect(self.screen, "#0000E0", pygame.Rect((width_scale(280, self.largeur_actuelle), height_scale(180, self.hauteur_actuelle)), (width_scale(450, self.largeur_actuelle), height_scale(50, self.hauteur_actuelle))), border_radius = 3)
+            pygame.draw.rect(self.screen, "#0000E0", pygame.Rect((width_scale(280, self.largeur_actuelle), height_scale(180, self.hauteur_actuelle)), (width_scale(450, self.largeur_actuelle), height_scale(50, self.hauteur_actuelle))), border_radius = width_scale(3, self.largeur_actuelle, True))
             gui_font = pygame.font.SysFont("Roboto", width_scale(50, self.largeur_actuelle, True))
             text_surf = gui_font.render("Volume", True, "#FFFFFF")
             self.screen.blit(text_surf, (width_scale(290, self.largeur_actuelle), height_scale(190, self.hauteur_actuelle)))
@@ -514,7 +533,7 @@ class HUD_State:
             
             # Paramètre d'activation/désactivation des sons
             # Affichage du nom du paramètre VOLUME dans une box
-            pygame.draw.rect(self.screen, "#0000E0", pygame.Rect((width_scale(280, self.largeur_actuelle), height_scale(280, self.hauteur_actuelle)), (width_scale(450, self.largeur_actuelle), height_scale(50, self.hauteur_actuelle))), border_radius = 3)
+            pygame.draw.rect(self.screen, "#0000E0", pygame.Rect((width_scale(280, self.largeur_actuelle), height_scale(280, self.hauteur_actuelle)), (width_scale(450, self.largeur_actuelle), height_scale(50, self.hauteur_actuelle))), border_radius = width_scale(3, self.largeur_actuelle, True))
             gui_font = pygame.font.SysFont("Roboto", width_scale(50, self.largeur_actuelle, True))
             text_surf = gui_font.render("Sound", True, "#FFFFFF")
             self.screen.blit(text_surf, (width_scale(290, self.largeur_actuelle), height_scale(290, self.hauteur_actuelle)))
@@ -569,10 +588,10 @@ class HUD_State:
             gui_font = pygame.font.SysFont("Roboto", width_scale(40, self.largeur_actuelle, True))
             # Raccourcis clavier
             # ZONE 1
-            pygame.draw.rect(self.screen, "#0000E0", pygame.Rect((width_scale(280, self.largeur_actuelle), height_scale(180, self.hauteur_actuelle)), (width_scale(310, self.largeur_actuelle), height_scale(40, self.hauteur_actuelle))), border_radius = 3)
+            pygame.draw.rect(self.screen, "#0000E0", pygame.Rect((width_scale(280, self.largeur_actuelle), height_scale(180, self.hauteur_actuelle)), (width_scale(310, self.largeur_actuelle), height_scale(40, self.hauteur_actuelle))), border_radius = width_scale(3, self.largeur_actuelle, True))
             text_surf = gui_font.render("Main Menu Shortcuts", True, "#FFFFFF")
             self.screen.blit(text_surf, (width_scale(290, self.largeur_actuelle), height_scale(187, self.hauteur_actuelle)))
-            pygame.draw.rect(self.screen, "#0000E0", pygame.Rect((width_scale(280, self.largeur_actuelle), height_scale(235, self.hauteur_actuelle)), (width_scale(700, self.largeur_actuelle), height_scale(205, self.hauteur_actuelle))), border_radius = 3)
+            pygame.draw.rect(self.screen, "#0000E0", pygame.Rect((width_scale(280, self.largeur_actuelle), height_scale(235, self.hauteur_actuelle)), (width_scale(700, self.largeur_actuelle), height_scale(205, self.hauteur_actuelle))), border_radius = width_scale(3, self.largeur_actuelle, True))
             # Zone d'input pour changer le caractère
             text_surf = gui_font.render("Play button :", True, "#FFFFFF")
             self.screen.blit(text_surf, (width_scale(290, self.largeur_actuelle), height_scale(245, self.hauteur_actuelle)))
@@ -595,10 +614,10 @@ class HUD_State:
             Global_objects.raccourci_mainmenu_exit.draw()
 
             # ZONE 2
-            pygame.draw.rect(self.screen, "#0000E0", pygame.Rect((width_scale(280, self.largeur_actuelle), height_scale(455, self.hauteur_actuelle)), (width_scale(360, self.largeur_actuelle), height_scale(40, self.hauteur_actuelle))), border_radius = 3)
+            pygame.draw.rect(self.screen, "#0000E0", pygame.Rect((width_scale(280, self.largeur_actuelle), height_scale(455, self.hauteur_actuelle)), (width_scale(360, self.largeur_actuelle), height_scale(40, self.hauteur_actuelle))), border_radius = width_scale(3, self.largeur_actuelle, True))
             text_surf = gui_font.render("Settings Menu Shortcuts", True, "#FFFFFF")
             self.screen.blit(text_surf, (width_scale(290, self.largeur_actuelle), height_scale(462, self.hauteur_actuelle)))
-            pygame.draw.rect(self.screen, "#0000E0", pygame.Rect((width_scale(280, self.largeur_actuelle), height_scale(510, self.hauteur_actuelle)), (width_scale(700, self.largeur_actuelle), height_scale(205, self.hauteur_actuelle))), border_radius = 3)
+            pygame.draw.rect(self.screen, "#0000E0", pygame.Rect((width_scale(280, self.largeur_actuelle), height_scale(510, self.hauteur_actuelle)), (width_scale(700, self.largeur_actuelle), height_scale(205, self.hauteur_actuelle))), border_radius = width_scale(3, self.largeur_actuelle, True))
             # Zone d'input pour changer le caractère
             text_surf = gui_font.render("Page 1 :", True, "#FFFFFF")
             self.screen.blit(text_surf, (width_scale(290, self.largeur_actuelle), height_scale(520, self.hauteur_actuelle)))
@@ -621,10 +640,10 @@ class HUD_State:
             Global_objects.raccourci_settingmenu_back.draw()
 
             # ZONE 3
-            pygame.draw.rect(self.screen, "#0000E0", pygame.Rect((width_scale(280, self.largeur_actuelle), height_scale(730, self.hauteur_actuelle)), (width_scale(360, self.largeur_actuelle), height_scale(40, self.hauteur_actuelle))), border_radius = 3)
+            pygame.draw.rect(self.screen, "#0000E0", pygame.Rect((width_scale(280, self.largeur_actuelle), height_scale(730, self.hauteur_actuelle)), (width_scale(360, self.largeur_actuelle), height_scale(40, self.hauteur_actuelle))), border_radius = width_scale(3, self.largeur_actuelle, True))
             text_surf = gui_font.render("Account Menu Shortcuts", True, "#FFFFFF")
             self.screen.blit(text_surf, (width_scale(290, self.largeur_actuelle), height_scale(737, self.hauteur_actuelle)))
-            pygame.draw.rect(self.screen, "#0000E0", pygame.Rect((width_scale(280, self.largeur_actuelle), height_scale(785, self.hauteur_actuelle)), (width_scale(700, self.largeur_actuelle), height_scale(205, self.hauteur_actuelle))), border_radius = 3)
+            pygame.draw.rect(self.screen, "#0000E0", pygame.Rect((width_scale(280, self.largeur_actuelle), height_scale(785, self.hauteur_actuelle)), (width_scale(700, self.largeur_actuelle), height_scale(205, self.hauteur_actuelle))), border_radius = width_scale(3, self.largeur_actuelle, True))
             # Zone d'input pour changer le caractère
             text_surf = gui_font.render("Settings button :", True, "#FFFFFF")
             self.screen.blit(text_surf, (width_scale(290, self.largeur_actuelle), height_scale(795, self.hauteur_actuelle)))
@@ -647,10 +666,10 @@ class HUD_State:
             Global_objects.raccourci_accountmenu_back.draw()
 
             # ZONE 4
-            pygame.draw.rect(self.screen, "#0000E0", pygame.Rect((width_scale(1030, self.largeur_actuelle), height_scale(180, self.hauteur_actuelle)), (width_scale(310, self.largeur_actuelle), height_scale(40, self.hauteur_actuelle))), border_radius = 3)
+            pygame.draw.rect(self.screen, "#0000E0", pygame.Rect((width_scale(1030, self.largeur_actuelle), height_scale(180, self.hauteur_actuelle)), (width_scale(310, self.largeur_actuelle), height_scale(40, self.hauteur_actuelle))), border_radius = width_scale(3, self.largeur_actuelle, True))
             text_surf = gui_font.render("Ingame Shortcuts", True, "#FFFFFF")
             self.screen.blit(text_surf, (width_scale(1040, self.largeur_actuelle), height_scale(187, self.hauteur_actuelle)))
-            pygame.draw.rect(self.screen, "#0000E0", pygame.Rect((width_scale(1030, self.largeur_actuelle), height_scale(235, self.hauteur_actuelle)), (width_scale(700, self.largeur_actuelle), height_scale(480, self.hauteur_actuelle))), border_radius = 3)
+            pygame.draw.rect(self.screen, "#0000E0", pygame.Rect((width_scale(1030, self.largeur_actuelle), height_scale(235, self.hauteur_actuelle)), (width_scale(700, self.largeur_actuelle), height_scale(480, self.hauteur_actuelle))), border_radius = width_scale(3, self.largeur_actuelle, True))
             # Zone d'input pour changer le caractère
             text_surf = gui_font.render("Check button :", True, "#FFFFFF")
             self.screen.blit(text_surf, (width_scale(1040, self.largeur_actuelle), height_scale(245, self.hauteur_actuelle)))
@@ -701,10 +720,10 @@ class HUD_State:
             Global_objects.raccourci_gamemenu_settings.draw()
 
             # ZONE 5
-            pygame.draw.rect(self.screen, "#0000E0", pygame.Rect((width_scale(1030, self.largeur_actuelle), height_scale(730, self.hauteur_actuelle)), (width_scale(360, self.largeur_actuelle), height_scale(40, self.hauteur_actuelle))), border_radius = 3)
+            pygame.draw.rect(self.screen, "#0000E0", pygame.Rect((width_scale(1030, self.largeur_actuelle), height_scale(730, self.hauteur_actuelle)), (width_scale(360, self.largeur_actuelle), height_scale(40, self.hauteur_actuelle))), border_radius = width_scale(3, self.largeur_actuelle, True))
             text_surf = gui_font.render("Lobby Menu Shortcuts", True, "#FFFFFF")
             self.screen.blit(text_surf, (width_scale(1040, self.largeur_actuelle), height_scale(737, self.hauteur_actuelle)))
-            pygame.draw.rect(self.screen, "#0000E0", pygame.Rect((width_scale(1030, self.largeur_actuelle), height_scale(785, self.hauteur_actuelle)), (width_scale(700, self.largeur_actuelle), height_scale(205, self.hauteur_actuelle))), border_radius = 3)
+            pygame.draw.rect(self.screen, "#0000E0", pygame.Rect((width_scale(1030, self.largeur_actuelle), height_scale(785, self.hauteur_actuelle)), (width_scale(700, self.largeur_actuelle), height_scale(205, self.hauteur_actuelle))), border_radius = width_scale(3, self.largeur_actuelle, True))
             # Zone d'input pour changer le caractère
             text_surf = gui_font.render("Join table button :", True, "#FFFFFF")
             self.screen.blit(text_surf, (width_scale(1040, self.largeur_actuelle), height_scale(795, self.hauteur_actuelle)))
@@ -765,15 +784,26 @@ class HUD_State:
         self.screen.blit(self.pdpplayer, (width_scale(360, self.largeur_actuelle), height_scale(190, self.hauteur_actuelle)))
         # Affichage des chips de l'utilisateur
         gui_font = pygame.font.SysFont("Roboto", width_scale(40, self.largeur_actuelle, True))
+        # Affichage des chips de l'utilisateur à droite du bouton ACCOUNT
+        gui_font = pygame.font.SysFont("Roboto", width_scale(40, self.largeur_actuelle, True))
         text_surf = gui_font.render("Chips : ", True, "#FFFFFF")
-        pygame.draw.rect(self.screen, "#475F77", pygame.Rect((width_scale(400, self.largeur_actuelle), height_scale(465, self.hauteur_actuelle)), (width_scale(225, self.largeur_actuelle), height_scale(50, self.hauteur_actuelle))), border_radius = 3)
-        self.screen.blit(text_surf, (width_scale(410, self.largeur_actuelle), height_scale(475, self.hauteur_actuelle)))
+        transparent_surface = pygame.Surface((width_scale(200, self.largeur_actuelle), height_scale(50, self.hauteur_actuelle)), pygame.SRCALPHA)
+        pygame.draw.rect(transparent_surface, (0, 0, 0, 180), (0, 0, width_scale(200, self.largeur_actuelle), height_scale(50, self.hauteur_actuelle)), border_radius = width_scale(10, self.largeur_actuelle, True))
+        self.screen.blit(transparent_surface, (width_scale(1540, self.largeur_actuelle), height_scale(30, self.hauteur_actuelle)))
+        # Bordure de la zone
+        pygame.draw.rect(self.screen, "#000000", (width_scale(1540, self.largeur_actuelle), height_scale(30, self.hauteur_actuelle), width_scale(200, self.largeur_actuelle), height_scale(50, self.hauteur_actuelle)), width_scale(3, self.largeur_actuelle, True), width_scale(10, self.largeur_actuelle, True))
+        self.screen.blit(text_surf, (width_scale(1550, self.largeur_actuelle), height_scale(40, self.hauteur_actuelle)))
         # Affichage du bouton de déconnexion de l'utilisateur
         Global_objects.deconnexionbutton.draw()
         # Affichage du bouton de paramètres du compte de l'utilisateur
         Global_objects.accountsettingsbutton.draw()
         # Affichage du pseudo de l'utilisateur
         Global_objects.accountpseudoinput.draw()
+        # On affiche un texte au-dessus de la box qui indique ce que cette dernière fait s'il n'y a pas de texte dedans
+        if Global_objects.accountpseudoinput.user_text == "":
+            gui_font = pygame.font.SysFont("Roboto", width_scale(60, self.largeur_actuelle, True))
+            text_surf = gui_font.render("PSEUDO", True, "#FFFFFF")
+            self.screen.blit(text_surf, (width_scale(690, self.largeur_actuelle), height_scale(195, self.hauteur_actuelle)))
         # On gére le cas où l'utilisateur garde appuyé la touche backspace
         try:
             timer_backspace(Global_objects.accountpseudoinput)
@@ -781,6 +811,11 @@ class HUD_State:
             pass
         # Affichage des infos de l'utilisateur
         Global_objects.accountinformationinput.draw()
+        # On affiche un texte au-dessus de la box qui indique ce que cette dernière fait s'il n'y a pas de texte dedans
+        if Global_objects.accountinformationinput.user_text == "":
+            gui_font = pygame.font.SysFont("Roboto", width_scale(60, self.largeur_actuelle, True))
+            text_surf = gui_font.render("INFORMATIONS", True, "#FFFFFF")
+            self.screen.blit(text_surf, (width_scale(690, self.largeur_actuelle), height_scale(320, self.hauteur_actuelle)))
         # On gére le cas où l'utilisateur garde appuyé la touche backspace
         try:
             timer_backspace(Global_objects.accountinformationinput)
@@ -814,8 +849,14 @@ class HUD_State:
         Global_objects.accountbutton.draw()
         # Affichage des chips de l'utilisateur à droite du bouton ACCOUNT
         gui_font = pygame.font.SysFont("Roboto", width_scale(40, self.largeur_actuelle, True))
+        # Affichage des chips de l'utilisateur à droite du bouton ACCOUNT
+        gui_font = pygame.font.SysFont("Roboto", width_scale(40, self.largeur_actuelle, True))
         text_surf = gui_font.render("Chips : ", True, "#FFFFFF")
-        pygame.draw.rect(self.screen, "#475F77", pygame.Rect((width_scale(1540, self.largeur_actuelle), height_scale(30, self.hauteur_actuelle)), (width_scale(200, self.largeur_actuelle), height_scale(50, self.hauteur_actuelle))), border_radius = 3)
+        transparent_surface = pygame.Surface((width_scale(200, self.largeur_actuelle), height_scale(50, self.hauteur_actuelle)), pygame.SRCALPHA)
+        pygame.draw.rect(transparent_surface, (0, 0, 0, 180), (0, 0, width_scale(200, self.largeur_actuelle), height_scale(50, self.hauteur_actuelle)), border_radius = width_scale(10, self.largeur_actuelle, True))
+        self.screen.blit(transparent_surface, (width_scale(1540, self.largeur_actuelle), height_scale(30, self.hauteur_actuelle)))
+        # Bordure de la zone
+        pygame.draw.rect(self.screen, "#000000", (width_scale(1540, self.largeur_actuelle), height_scale(30, self.hauteur_actuelle), width_scale(200, self.largeur_actuelle), height_scale(50, self.hauteur_actuelle)), width_scale(3, self.largeur_actuelle, True), width_scale(10, self.largeur_actuelle, True))
         self.screen.blit(text_surf, (width_scale(1550, self.largeur_actuelle), height_scale(40, self.hauteur_actuelle)))
 
         # Met à jour l'affichage de l'interface
@@ -840,13 +881,19 @@ class HUD_State:
         Global_objects.accountbutton.draw()
         # Affichage des chips de l'utilisateur à droite du bouton ACCOUNT
         gui_font = pygame.font.SysFont("Roboto", width_scale(40, self.largeur_actuelle, True))
+        # Affichage des chips de l'utilisateur à droite du bouton ACCOUNT
+        gui_font = pygame.font.SysFont("Roboto", width_scale(40, self.largeur_actuelle, True))
         text_surf = gui_font.render("Chips : ", True, "#FFFFFF")
-        pygame.draw.rect(self.screen, "#475F77", pygame.Rect((width_scale(1540, self.largeur_actuelle), height_scale(30, self.hauteur_actuelle)), (width_scale(200, self.largeur_actuelle), height_scale(50, self.hauteur_actuelle))), border_radius = 3)
+        transparent_surface = pygame.Surface((width_scale(200, self.largeur_actuelle), height_scale(50, self.hauteur_actuelle)), pygame.SRCALPHA)
+        pygame.draw.rect(transparent_surface, (0, 0, 0, 180), (0, 0, width_scale(200, self.largeur_actuelle), height_scale(50, self.hauteur_actuelle)), border_radius = width_scale(10, self.largeur_actuelle, True))
+        self.screen.blit(transparent_surface, (width_scale(1540, self.largeur_actuelle), height_scale(30, self.hauteur_actuelle)))
+        # Bordure de la zone
+        pygame.draw.rect(self.screen, "#000000", (width_scale(1540, self.largeur_actuelle), height_scale(30, self.hauteur_actuelle), width_scale(200, self.largeur_actuelle), height_scale(50, self.hauteur_actuelle)), width_scale(3, self.largeur_actuelle, True), width_scale(10, self.largeur_actuelle, True))
         self.screen.blit(text_surf, (width_scale(1550, self.largeur_actuelle), height_scale(40, self.hauteur_actuelle)))
 
         # Affichage d'un arrière-plan noir transparent derrière chaque paramètre de la partie à selectionner
         transparent_surface = pygame.Surface((width_scale(450, self.largeur_actuelle), height_scale(100, self.hauteur_actuelle)), pygame.SRCALPHA)
-        pygame.draw.rect(transparent_surface, (0, 0, 0, 128), (0, 0, width_scale(450, self.largeur_actuelle), height_scale(100, self.hauteur_actuelle)), border_radius = 5)
+        pygame.draw.rect(transparent_surface, (0, 0, 0, 128), (0, 0, width_scale(450, self.largeur_actuelle), height_scale(100, self.hauteur_actuelle)), border_radius = width_scale(5, self.largeur_actuelle, True))
         self.screen.blit(transparent_surface, (width_scale(180, self.largeur_actuelle), height_scale(110, self.hauteur_actuelle)))
         self.screen.blit(transparent_surface, (width_scale(180, self.largeur_actuelle), height_scale(260, self.hauteur_actuelle)))
         self.screen.blit(transparent_surface, (width_scale(180, self.largeur_actuelle), height_scale(410, self.hauteur_actuelle)))
@@ -1009,7 +1056,7 @@ class HUD_State:
             Global_objects.checkbutton.button_interactible = False
             Global_objects.callbutton.button_interactible = False
             Global_objects.foldbutton.button_interactible = False
-            Global_objects.raisebutton.button_interactible = False
+            Global_objects.raisebutton.button_interactible = True
         # On dessine les boutons
         Global_objects.checkbutton.draw()
         Global_objects.callbutton.draw()
@@ -1218,7 +1265,7 @@ class HUD_State:
         if Global_objects.is_raising:
             gui_font = pygame.font.SysFont("Roboto", width_scale(60, self.largeur_actuelle, True))
             text_surf = gui_font.render("Choose the bet", True, "#FFFFFF")
-            raise_background = pygame.draw.rect(self.screen, "#000000", pygame.Rect((width_scale(340, self.largeur_actuelle), height_scale(300, self.hauteur_actuelle)), (width_scale(1250, self.largeur_actuelle), height_scale(300, self.hauteur_actuelle))), border_radius = 3)
+            raise_background = pygame.draw.rect(self.screen, "#000000", pygame.Rect((width_scale(340, self.largeur_actuelle), height_scale(300, self.hauteur_actuelle)), (width_scale(1250, self.largeur_actuelle), height_scale(300, self.hauteur_actuelle))), border_radius = width_scale(3, self.largeur_actuelle, True))
             self.screen.blit(text_surf, (width_scale(820, self.largeur_actuelle), height_scale(320, self.hauteur_actuelle)))
             Global_objects.raise_bar.draw(round(((Global_objects.connected_account[2]/100)*Global_objects.raised_amount)*100), width_scale(25, self.largeur_actuelle), width_scale(25, self.largeur_actuelle), height_scale(2, self.hauteur_actuelle))
             Global_objects.raised_amount = (Global_objects.raise_bar.cursor_width - width_scale(400, self.largeur_actuelle)) / (width_scale(1530, self.largeur_actuelle) - width_scale(400, self.largeur_actuelle))
@@ -1228,6 +1275,11 @@ class HUD_State:
             Global_objects.minus100button.draw()
             Global_objects.add100button.draw()
             Global_objects.raiseamountinput.draw()
+            # On affiche un texte au-dessus de la box qui indique ce que cette dernière fait s'il n'y a pas de texte dedans
+            if Global_objects.raiseamountinput.user_text == "":
+                gui_font = pygame.font.SysFont("Roboto", width_scale(80, self.largeur_actuelle, True))
+                text_surf = gui_font.render("AMOUNT", True, "#FFFFFF")
+                self.screen.blit(text_surf, (width_scale(530, self.largeur_actuelle), height_scale(530, self.hauteur_actuelle)))
             # On gére le cas où l'utilisateur garde appuyé la touche backspace
             try:
                 timer_backspace(Global_objects.raiseamountinput)
@@ -1246,7 +1298,7 @@ class HUD_State:
         if self.confirmation:
             gui_font = pygame.font.SysFont("Roboto", width_scale(60, self.largeur_actuelle, True))
             text_surf = gui_font.render("IF YOU QUIT YOU WILL LOSE EVERYTHING YOU PUT ON THE LINE.", True, "#FFFFFF")
-            pygame.draw.rect(self.screen, "#000000", pygame.Rect((width_scale(280, self.largeur_actuelle), height_scale(400, self.hauteur_actuelle)), (width_scale(1360, self.largeur_actuelle), height_scale(170, self.hauteur_actuelle))), border_radius = 3)
+            pygame.draw.rect(self.screen, "#000000", pygame.Rect((width_scale(280, self.largeur_actuelle), height_scale(400, self.hauteur_actuelle)), (width_scale(1360, self.largeur_actuelle), height_scale(170, self.hauteur_actuelle))), border_radius = width_scale(3, self.largeur_actuelle, True))
             self.screen.blit(text_surf, (width_scale(290, self.largeur_actuelle), height_scale(410, self.hauteur_actuelle)))
             Global_objects.yesleavebutton.draw()
             Global_objects.noleavebutton.draw()

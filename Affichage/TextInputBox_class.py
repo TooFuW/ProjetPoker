@@ -38,7 +38,9 @@ class TextInputBox:
         self.user_text = starting_text
         self.max_caracteres = max_caracteres
         # Position du texte
-        self.input_rect = pygame.Rect(width_scale(pos[0], largeur_actuelle), height_scale(pos[1], hauteur_actuelle), width_scale(width, largeur_actuelle), height_scale(height, hauteur_actuelle))
+        self.pos = pos
+        self.width = width_scale(width, largeur_actuelle)
+        self.height = height_scale(height, hauteur_actuelle)
         # Couleur de la box en fonction si elle est sélecionnée ou non
         self.color_active = active_color
         self.color_passive = passive_color
@@ -62,7 +64,7 @@ class TextInputBox:
         # On vérifie si la box a été sélectionnée
         if pygame.mouse.get_pressed()[0]:
             if self.interactible:
-                if self.input_rect.collidepoint(mouse_pos):
+                if pygame.Rect(width_scale(self.pos[0], self.largeur_actuelle), height_scale(self.pos[1], self.hauteur_actuelle), width_scale(self.width, self.largeur_actuelle), height_scale(self.height, self.hauteur_actuelle)).collidepoint(mouse_pos):
                     self.active = True
                 else:
                     self.active = False
@@ -72,7 +74,11 @@ class TextInputBox:
         else:
             self.color = self.color_passive
         # On dessine le texte et la box
-        pygame.draw.rect(self.screen, self.color, self.input_rect, border_radius = 10)
+        transparent_surface = pygame.Surface((self.width, self.height), pygame.SRCALPHA)
+        pygame.draw.rect(transparent_surface, self.color, (0, 0, self.width, self.height), border_radius = width_scale(10, self.largeur_actuelle, True))
+        self.screen.blit(transparent_surface, (self.pos[0], self.pos[1]))
+        # Bordure de la box
+        pygame.draw.rect(self.screen, "#000000", (self.pos[0] - width_scale(2, self.largeur_actuelle), self.pos[1] - height_scale(2, self.hauteur_actuelle), self.width + width_scale(4, self.largeur_actuelle), self.height + height_scale(4, self.hauteur_actuelle)), width_scale(3, self.largeur_actuelle, True), width_scale(10, self.largeur_actuelle, True))
         # On fait des sauts à la ligne si nécessaire
         self.draw_text = ""
         for caract in self.user_text:
@@ -84,18 +90,18 @@ class TextInputBox:
                 self.draw_text += caract
         # Dessin du texte par lignes si la box n'est pas adaptative et que le texte dépasse, sinon le texte est dessiné normalement
         if not self.adaptative_size:
-            y = self.input_rect.y + 5
+            y = self.pos[1] + 5
             for line in self.draw_text.split("\n"):
                 text_surface = self.base_font.render(line, True, "#FFFFFF")
-                self.screen.blit(text_surface, (self.input_rect.x + 5, y))
+                self.screen.blit(text_surface, (self.pos[0] + 5, y))
                 y += text_surface.get_height()
         else:
             text_surface = self.base_font.render(self.draw_text, True, "#FFFFFF")
-            self.screen.blit(text_surface, (self.input_rect.x + 5, self.input_rect.y + 5))
+            self.screen.blit(text_surface, (self.pos[0] + 5, self.pos[1] + 5))
         # On crée une taille de box adaptative
         if self.adaptative_size:
             # Taille de la box qui est de base 200 et qui augmente si le texte dépasse
-            self.input_rect.w = max(self.base_size, text_surface.get_width() + width_scale(10, self.largeur_actuelle))
+            self.width = max(self.base_size, text_surface.get_width() + width_scale(10, self.largeur_actuelle))
         else:
             # Si le texte dépasse mais que la box n'est pas adaptative on retourne à la ligne
             try:
@@ -103,3 +109,6 @@ class TextInputBox:
                     self.draw_text = self.draw_text[:-1]
             except:
                 pass
+        # On régle un bug possible si on quitte la zone en gardant appuyé la touche supprimer
+        if not self.active:
+            self.backspace = False
