@@ -10,7 +10,7 @@ class Button:
     """Classe Button pour créer des boutons dynamiques (https://www.youtube.com/watch?v=8SzTzvrWaAA)
     """
 
-    def __init__(self, largeur_actuelle : int, hauteur_actuelle : int, screen : pygame.Surface, fonction : str, text : str, police : str, textsize : int, text_color : str, color : tuple, hovering_color : tuple, clicking_color : tuple, border_color : tuple, border_width : int, width : int, height : int, pos : tuple, round_border : int, image : str = None):
+    def __init__(self, largeur_actuelle : int, hauteur_actuelle : int, screen : pygame.Surface, fonction : str, text : str, police : str, textsize : int, text_color : tuple, color : tuple, hovering_color : tuple, clicking_color : tuple, border_color : tuple, border_width : int, width : int, height : int, pos : tuple, round_border : int, image : str = None):
         """Initialisation de la classe Button
 
         Args:
@@ -21,7 +21,7 @@ class Button:
             text (str): Texte d'affichage du bouton
             police (str): Police d'affichage du texte (seulement parmis les polices système disponibles)
             textsize (int): Taille du texte
-            text_color (str): Couleur du texte
+            text_color (tuple): Couleur du texte
             color (tuple): Couleur de la partie haute du bouton
             hovering_color (tuple): Couleur du bouton lorsque la souris est dessus
             clicking_color (tuple): Couleur du bouton lorsque la souris clique dessus
@@ -84,7 +84,8 @@ class Button:
         pygame.draw.rect(transparent_surface, self.color, (0, 0, self.width, self.height), border_radius = self.courbure)
         self.screen.blit(transparent_surface, (self.pos_x, self.pos_y))
         # Bordure du bouton
-        pygame.draw.rect(self.screen, self.border_color, (self.pos_x, self.pos_y, self.width, self.height), self.border_width, self.courbure)
+        if self.border_width > 0:
+            pygame.draw.rect(self.screen, self.border_color, (self.pos_x, self.pos_y, self.width, self.height), self.border_width, self.courbure)
         if self.image != None:
             self.screen.blit(self.image, self.button_rect)
         self.screen.blit(self.text_surf, self.text_rect)

@@ -10,7 +10,7 @@ class Button_elevation:
     """Classe Button pour créer des boutons dynamiques (https://www.youtube.com/watch?v=8SzTzvrWaAA)
     """
 
-    def __init__(self, largeur_actuelle : int, hauteur_actuelle : int, screen : pygame.Surface, fonction : str, text : str, police : str, textsize : int, text_color : str, top_color : str, bottom_color : str, hovering_color : str, hovering_bottom_color : str, width : int, height : int, pos : tuple, elevation : int, round_border : int, image : str = None):
+    def __init__(self, largeur_actuelle : int, hauteur_actuelle : int, screen : pygame.Surface, fonction : str, text : str, police : str, textsize : int, text_color : tuple, top_color : tuple, bottom_color : tuple, hovering_color : tuple, hovering_bottom_color : tuple, width : int, height : int, pos : tuple, elevation : int, round_border : int, image : str = None):
         """Initialisation de la classe Button
 
         Args:
@@ -21,11 +21,11 @@ class Button_elevation:
             text (str): Texte d'affichage du bouton
             police (str): Police d'affichage du texte (seulement parmis les polices système disponibles)
             textsize (int): Taille du texte
-            text_color (str): Couleur du texte
-            top_color (str): Couleur de la partie haute du bouton
-            bottom_color (str): Couleur de la partie basse du bouton
-            hovering_color (str): Couleur du bouton lorsque la souris est dessus
-            hovering_bottom_color (str): Couleur de la partie inférieure du bouton lorsque la souris est dessus
+            text_color (tuple): Couleur du texte
+            top_color (tuple): Couleur de la partie haute du bouton
+            bottom_color (tuple): Couleur de la partie basse du bouton
+            hovering_color (tuple): Couleur du bouton lorsque la souris est dessus
+            hovering_bottom_color (tuple): Couleur de la partie inférieure du bouton lorsque la souris est dessus
             width (int): Largeur du bouton
             height (int): Hauteur du bouton
             pos (tuple): Position contenant deux valeurs x et y (x : largeur, y : hauteur)

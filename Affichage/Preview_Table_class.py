@@ -33,7 +33,7 @@ class Preview_Table:
         # Une liste contenant tous les joueurs dans la table sélectionnée sous la forme [sit_id, idplayer, pseudo, chips, link] par joueur
         self.players = []
         # Création de l'objet jointablebutton
-        self.jointablebutton = Button(self.largeur_actuelle, self.hauteur_actuelle, self.screen, "join table", "JOIN", "Roboto", 50, "#FFFFFF", (0, 0, 0, 180), (50, 50, 50, 200), (90, 90, 90, 180), (0, 0, 0), 3, 600*scale - 440, 600*scale - 530, (pos[0] + 220, pos[1] + 520), 10)
+        self.jointablebutton = Button(self.largeur_actuelle, self.hauteur_actuelle, self.screen, "join table", "JOIN", "Roboto", 50, (255, 255, 255), (0, 0, 0, 180), (50, 50, 50, 200), (90, 90, 90, 180), (0, 0, 0), 3, 600*scale - 440, 600*scale - 530, (pos[0] + 220, pos[1] + 520), 10)
 
     def draw(self):
         """Génération/affichage de la preview
