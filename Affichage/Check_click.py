@@ -7,6 +7,7 @@ import Global_objects
 from network import *
 import time
 from Screen_adaptation import *
+from random import randint
 
 
 # La fonction check_click est appellée à chaque fois que l'utilisateur clique sur un bouton

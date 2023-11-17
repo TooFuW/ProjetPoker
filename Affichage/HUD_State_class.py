@@ -137,6 +137,7 @@ class HUD_State:
         Global_objects.exitbutton.draw()
         # Cliquer sur le bouton SHOP affiche l'historique des parties
         Global_objects.shopbutton.draw()
+        logs(self.largeur_actuelle, self.hauteur_actuelle, self.screen)
 
         # Met à jour l'affichage de l'interface
         pygame.display.update()
@@ -338,6 +339,7 @@ class HUD_State:
             # On vérifie si le message est là depuis plus de 1 secondes et dans ce cas on l'efface
             if self.error[1] - time.time() <= -1:
                 self.error[0] = False
+        logs(self.largeur_actuelle, self.hauteur_actuelle, self.screen)
 
         # Met à jour l'affichage de l'interface
         pygame.display.update()
@@ -744,6 +746,7 @@ class HUD_State:
             text_surf = gui_font.render("Back button :", True, "#FFFFFF")
             self.screen.blit(text_surf, (width_scale(1040, self.largeur_actuelle), height_scale(955, self.hauteur_actuelle)))
             Global_objects.raccourci_lobbymenu_back.draw()
+        logs(self.largeur_actuelle, self.hauteur_actuelle, self.screen)
 
         # Met à jour l'affichage de l'interface
         pygame.display.update()
@@ -821,6 +824,7 @@ class HUD_State:
             timer_backspace(Global_objects.accountinformationinput)
         except:
             pass
+        logs(self.largeur_actuelle, self.hauteur_actuelle, self.screen)
 
         # Met à jour l'affichage de l'interface
         pygame.display.update()
@@ -858,6 +862,7 @@ class HUD_State:
         # Bordure de la zone
         pygame.draw.rect(self.screen, "#000000", (width_scale(1540, self.largeur_actuelle), height_scale(30, self.hauteur_actuelle), width_scale(200, self.largeur_actuelle), height_scale(50, self.hauteur_actuelle)), width_scale(3, self.largeur_actuelle, True), width_scale(10, self.largeur_actuelle, True))
         self.screen.blit(text_surf, (width_scale(1550, self.largeur_actuelle), height_scale(40, self.hauteur_actuelle)))
+        logs(self.largeur_actuelle, self.hauteur_actuelle, self.screen)
 
         # Met à jour l'affichage de l'interface
         pygame.display.update()
@@ -872,7 +877,7 @@ class HUD_State:
                 sys.exit()
 
         # Dessine l'image de fond sur la self.screen de l'écran (IMPORANT CAR SE SUPERPOSE A L'INTERFACE PRECEDENT ET PERMET DE "L'EFFACER")
-        self.screen.blit(self.table_fond, (0, 0))
+        self.screen.blit(self.fond, (0, 0))
 
         # Affichage des bouttons
         # Cliquer sur le bouton BACK retourne une page en arrière
@@ -917,6 +922,7 @@ class HUD_State:
         gui_font = pygame.font.SysFont("Roboto", width_scale(40, self.largeur_actuelle, True))
         text_surf = gui_font.render("PAGE EN CONSTRUCTION : CETTE PAGE ACCUEILLERA DES OPTIONS A SELECTIONNER AVANT DE CREER UNE PARTIE", True, "#FFFFFF")
         self.screen.blit(text_surf, (width_scale(100, self.largeur_actuelle), height_scale(510, self.hauteur_actuelle)))
+        logs(self.largeur_actuelle, self.hauteur_actuelle, self.screen)
 
         # Met à jour l'affichage de l'interface
         pygame.display.update()
@@ -1308,6 +1314,7 @@ class HUD_State:
         Global_objects.gamesettingsbutton.draw()
         # Cliquer sur le bouton leavegamebutton retourne au menu principal
         Global_objects.leavegamebutton.draw()
+        logs(self.largeur_actuelle, self.hauteur_actuelle, self.screen)
 
         # Met à jour l'affichage de l'interface
         pygame.display.update()

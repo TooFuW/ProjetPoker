@@ -5,6 +5,7 @@ import pygame
 import Global_objects
 from TextInputBox_class import *
 import time
+from network import *
 
 
 def timer_backspace(text_input : TextInputBox):
@@ -105,3 +106,15 @@ def changer_raccourci(event : pygame.event.Event, text_input : TextInputBox, rac
             dict_list = list(raccourcis_dict.items())
             dict_list[indice] = (text_input.user_text, dict_list[indice][1])
             raccourcis_dict = dict(dict_list)
+
+def chargement():
+    pass
+
+def logs(largeur_actuelle : int or float, hauteur_actuelle : int or float, screen : pygame.Surface):
+    pos_x = width_scale(5, largeur_actuelle)
+    pos_y = height_scale(5, hauteur_actuelle)
+    gui_font = pygame.font.SysFont("Roboto", width_scale(25, largeur_actuelle, True))
+    for log in Global_objects.logs[::-1]:
+        text_surf = gui_font.render(str(log), True, "#FFFFFF")
+        screen.blit(text_surf, (pos_x, pos_y))
+        pos_y += height_scale(20, hauteur_actuelle)

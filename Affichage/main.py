@@ -276,6 +276,9 @@ if __name__ == "__main__":
     # Infos du client/joueur connecté sous la forme [idplayer, pseudo, chips, link]
     Global_objects.connected_account = [None, "dummy", 1500, "link"]
     Global_objects.my_turn = False
+    # Liste contenant les messages de log à afficher
+    Global_objects.logs = ["coucou", "je ne m'appelle pas", 5, ("Popa", True)]
+    Global_objects.logs_temps = time.time()
     
     # On charge les paramètres du client (les raccourcis clavier et le volume de la musique pour l'instant)
     try:
@@ -455,5 +458,8 @@ if __name__ == "__main__":
             pygame.mixer.music.play()
         # Cet appel permet de gérer l'interface active
         Global_objects.game_state.state_manager()
+        if Global_objects.logs_temps - time.time() <= -3:
+            Global_objects.logs.pop(0)
+            Global_objects.logs_temps = time.time()
         # Définit les FPS à 120 pour plus de fluidité (60 par défaut)
         clock.tick(120)
