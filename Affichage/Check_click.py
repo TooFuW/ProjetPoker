@@ -165,7 +165,19 @@ def check_click(Button):
                         Global_objects.sit_9.player = Global_objects.previewlobbys.players[8]
                         Global_objects.sit_10.player = Global_objects.previewlobbys.players[9]
                     Global_objects.game_state.back_pile = []
-                    Global_objects.game_state.state = "Game Menu"
+                    # On remet l'écran de chargement à zéro
+                    Global_objects.game_state.loading_text = "LOADING"
+                    Global_objects.game_state.loading_text_timer = time.time()
+                    p1 = randint(1, 35)
+                    p2 = randint(p1+1, 70)
+                    p3 = randint(p2+1, 99)
+                    Global_objects.game_state.chargement_pourcent = [0, p1, p2, p3, 100]
+                    Global_objects.game_state.chargement_indice = 0
+                    Global_objects.game_state.chargement_valeur = 0
+                    Global_objects.game_state.chargement_pause = time.time()
+                    Global_objects.game_state.chargement_temps_pause = -1
+                    Global_objects.game_state.state = "Chargement"
+                    Global_objects.game_state.chargement_next_state = "Game Menu"
                     Global_objects.is_selecting_sit[0] = True
                     Global_objects.round_started = False
                     Global_objects.pot = Global_objects.table_selected[3]

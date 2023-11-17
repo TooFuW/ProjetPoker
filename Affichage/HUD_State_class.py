@@ -15,6 +15,7 @@ from Check_click import *
 import time
 from Fonctions_pratiques import *
 from icecream import ic
+from random import *
 
 
 class HUD_State:
@@ -52,7 +53,7 @@ class HUD_State:
         self.last_music = 690
         self.last_sound = 690
         # self.state définit l'état actuel de l'interface (qui est par défaut Main Menu)
-        self.state = "Main Menu"
+        self.state = "Chargement"
         # pile pour le bouton BACK
         self.back_pile = []
         # Savoir si on clique sur quelque chose (utilisable une fois par page sinon ça va se mélanger)
@@ -71,6 +72,18 @@ class HUD_State:
         # Timer de début de la partie
         self.timer = [None, 0, False]
         self.depart_timer = None
+        # Paramètres pour l'écran de chargement
+        self.loading_text = "LOADING"
+        self.loading_text_timer = time.time()
+        p1 = randint(1, 35)
+        p2 = randint(p1+1, 70)
+        p3 = randint(p2+1, 99)
+        self.chargement_pourcent = [0, p1, p2, p3, 100]
+        self.chargement_indice = 0
+        self.chargement_valeur = 0
+        self.chargement_pause = time.time()
+        self.chargement_temps_pause = -1
+        self.chargement_next_state = "Main Menu"
     
     def mainmenu(self):
         """mainmenu est la fonction qui fait tourner/afficher le menu principal
@@ -91,9 +104,9 @@ class HUD_State:
         transparent_surface = pygame.Surface((width_scale(675, self.largeur_actuelle), height_scale(150, self.hauteur_actuelle)), pygame.SRCALPHA)
         pygame.draw.rect(transparent_surface, (0, 0, 0, 180), (0, 0, width_scale(675, self.largeur_actuelle), height_scale(150, self.hauteur_actuelle)), border_radius = width_scale(25, self.largeur_actuelle, True))
         self.screen.blit(transparent_surface, (width_scale(620, self.largeur_actuelle), height_scale(117, self.hauteur_actuelle)))
-        self.screen.blit(self.logojeu, (width_scale(580, self.largeur_actuelle), height_scale(-50, self.hauteur_actuelle)))
         # Bordure du cadre
         pygame.draw.rect(self.screen, "#000000", (width_scale(620, self.largeur_actuelle), height_scale(117, self.hauteur_actuelle), width_scale(675, self.largeur_actuelle), height_scale(150, self.hauteur_actuelle)), width_scale(3, self.largeur_actuelle, True), width_scale(25, self.largeur_actuelle, True))
+        self.screen.blit(self.logojeu, (width_scale(580, self.largeur_actuelle), height_scale(-50, self.hauteur_actuelle)))
         # Dessine le logo MWTE
         self.screen.blit(self.logomwte, self.logomwte_rect)
 
@@ -137,6 +150,8 @@ class HUD_State:
         Global_objects.exitbutton.draw()
         # Cliquer sur le bouton SHOP affiche l'historique des parties
         Global_objects.shopbutton.draw()
+        
+        # Affichage des logs de débugage
         logs(self.largeur_actuelle, self.hauteur_actuelle, self.screen)
 
         # Met à jour l'affichage de l'interface
@@ -234,8 +249,20 @@ class HUD_State:
                                     Global_objects.pot = lobby[3]
                                     break
                             Global_objects.table_selected = None
-                            Global_objects.game_state.back_pile = []
-                            Global_objects.game_state.state = "Game Menu"
+                            self.back_pile = []
+                            # On remet l'écran de chargement à zéro
+                            self.loading_text = "LOADING"
+                            self.loading_text_timer = time.time()
+                            p1 = randint(1, 35)
+                            p2 = randint(p1+1, 70)
+                            p3 = randint(p2+1, 99)
+                            self.chargement_pourcent = [0, p1, p2, p3, 100]
+                            self.chargement_indice = 0
+                            self.chargement_valeur = 0
+                            self.chargement_pause = time.time()
+                            self.chargement_temps_pause = -1
+                            self.state = "Chargement"
+                            self.chargement_next_state = "Game Menu"
                             Global_objects.is_selecting_sit[0] = True
                             Global_objects.round_started = False
                             # Temporaire pour afficher les cartes le temps que je recoive réellement des cartes
@@ -339,6 +366,8 @@ class HUD_State:
             # On vérifie si le message est là depuis plus de 1 secondes et dans ce cas on l'efface
             if self.error[1] - time.time() <= -1:
                 self.error[0] = False
+        
+        # Affichage des logs de débugage
         logs(self.largeur_actuelle, self.hauteur_actuelle, self.screen)
 
         # Met à jour l'affichage de l'interface
@@ -746,6 +775,8 @@ class HUD_State:
             text_surf = gui_font.render("Back button :", True, "#FFFFFF")
             self.screen.blit(text_surf, (width_scale(1040, self.largeur_actuelle), height_scale(955, self.hauteur_actuelle)))
             Global_objects.raccourci_lobbymenu_back.draw()
+        
+        # Affichage des logs de débugage
         logs(self.largeur_actuelle, self.hauteur_actuelle, self.screen)
 
         # Met à jour l'affichage de l'interface
@@ -824,6 +855,8 @@ class HUD_State:
             timer_backspace(Global_objects.accountinformationinput)
         except:
             pass
+        
+        # Affichage des logs de débugage
         logs(self.largeur_actuelle, self.hauteur_actuelle, self.screen)
 
         # Met à jour l'affichage de l'interface
@@ -862,6 +895,8 @@ class HUD_State:
         # Bordure de la zone
         pygame.draw.rect(self.screen, "#000000", (width_scale(1540, self.largeur_actuelle), height_scale(30, self.hauteur_actuelle), width_scale(200, self.largeur_actuelle), height_scale(50, self.hauteur_actuelle)), width_scale(3, self.largeur_actuelle, True), width_scale(10, self.largeur_actuelle, True))
         self.screen.blit(text_surf, (width_scale(1550, self.largeur_actuelle), height_scale(40, self.hauteur_actuelle)))
+        
+        # Affichage des logs de débugage
         logs(self.largeur_actuelle, self.hauteur_actuelle, self.screen)
 
         # Met à jour l'affichage de l'interface
@@ -922,6 +957,8 @@ class HUD_State:
         gui_font = pygame.font.SysFont("Roboto", width_scale(40, self.largeur_actuelle, True))
         text_surf = gui_font.render("PAGE EN CONSTRUCTION : CETTE PAGE ACCUEILLERA DES OPTIONS A SELECTIONNER AVANT DE CREER UNE PARTIE", True, "#FFFFFF")
         self.screen.blit(text_surf, (width_scale(100, self.largeur_actuelle), height_scale(510, self.hauteur_actuelle)))
+        
+        # Affichage des logs de débugage
         logs(self.largeur_actuelle, self.hauteur_actuelle, self.screen)
 
         # Met à jour l'affichage de l'interface
@@ -1314,11 +1351,72 @@ class HUD_State:
         Global_objects.gamesettingsbutton.draw()
         # Cliquer sur le bouton leavegamebutton retourne au menu principal
         Global_objects.leavegamebutton.draw()
+        
+        # Affichage des logs de débugage
         logs(self.largeur_actuelle, self.hauteur_actuelle, self.screen)
 
         # Met à jour l'affichage de l'interface
         pygame.display.update()
     
+    def ecran_chargement(self):
+        """screen_charging est la fonction qui fait tourner/afficher un écran de chargement
+        """
+        # Rassemblement de tout les événements
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+
+        # Dessine l'image de fond sur la self.screen de l'écran (IMPORANT CAR SE SUPERPOSE A L'INTERFACE PRECEDENT ET PERMET DE "L'EFFACER")
+        self.screen.blit(self.fond, (0, 0))
+
+        transparent_surface = pygame.Surface((width_scale(675, self.largeur_actuelle), height_scale(150, self.hauteur_actuelle)), pygame.SRCALPHA)
+        pygame.draw.rect(transparent_surface, (0, 0, 0, 180), (0, 0, width_scale(675, self.largeur_actuelle), height_scale(150, self.hauteur_actuelle)), border_radius = width_scale(25, self.largeur_actuelle, True))
+        self.screen.blit(transparent_surface, (width_scale(620, self.largeur_actuelle), height_scale(117, self.hauteur_actuelle)))
+        # Bordure du cadre
+        pygame.draw.rect(self.screen, "#000000", (width_scale(620, self.largeur_actuelle), height_scale(117, self.hauteur_actuelle), width_scale(675, self.largeur_actuelle), height_scale(150, self.hauteur_actuelle)), width_scale(3, self.largeur_actuelle, True), width_scale(25, self.largeur_actuelle, True))
+        # Affichage du texte
+        gui_font = pygame.font.SysFont("Roboto", width_scale(170, self.largeur_actuelle, True))
+        text_surf = gui_font.render(self.loading_text, True, "#FFFFFF")
+        self.screen.blit(text_surf, (width_scale(635, self.largeur_actuelle), height_scale(140, self.hauteur_actuelle)))
+        # Changement du texte de chargement
+        if self.loading_text_timer - time.time() <= -0.3:
+            if self.loading_text == "LOADING":
+                self.loading_text = "LOADING."
+            elif self.loading_text == "LOADING.":
+                self.loading_text = "LOADING.."
+            elif self.loading_text == "LOADING..":
+                self.loading_text = "LOADING..."
+            elif self.loading_text == "LOADING...":
+                self.loading_text = "LOADING"
+            self.loading_text_timer = time.time()
+        
+        # Barre de chargement (fond)
+        pygame.draw.rect(self.screen, "#FFFFFF", pygame.Rect(width_scale(550, self.largeur_actuelle), height_scale(600, self.hauteur_actuelle), width_scale(800, self.largeur_actuelle), height_scale(100, self.hauteur_actuelle)), border_radius = 10)
+        # Barre de remplissage
+        pygame.draw.rect(self.screen, "#FF0000", pygame.Rect(width_scale(550, self.largeur_actuelle), height_scale(600, self.hauteur_actuelle), width_scale(int(width_scale(800, self.largeur_actuelle) * self.chargement_valeur / 100) + 1, self.largeur_actuelle), height_scale(100, self.hauteur_actuelle)), border_radius = 10)
+        # Texte du pourcentage de la barre de chargement
+        gui_font = pygame.font.SysFont("Roboto", width_scale(100, self.largeur_actuelle, True))
+        text_surf = gui_font.render(f"{round(self.chargement_valeur)}%", True, "#000000")
+        self.screen.blit(text_surf, (width_scale(890, self.largeur_actuelle), height_scale(615, self.hauteur_actuelle)))
+        # Calcul du pourcentage actuel et des temps de pause
+        if self.chargement_valeur < self.chargement_pourcent[self.chargement_indice]:
+            self.chargement_valeur += 0.5
+            if self.chargement_valeur == self.chargement_pourcent[self.chargement_indice]:
+                self.chargement_pause = time.time()
+                self.chargement_temps_pause = -uniform(0.5, 1)
+        else:
+            if self.chargement_indice + 1 <= 4:
+                if self.chargement_pause - time.time() < self.chargement_temps_pause:
+                    self.chargement_indice += 1
+            else:
+                self.state = self.chargement_next_state
+        # Affichage des logs de débugage
+        logs(self.largeur_actuelle, self.hauteur_actuelle, self.screen)
+
+        # Met à jour l'affichage de l'interface
+        pygame.display.update()
+
     def state_manager(self):
         """state_manager se charge d'afficher la bonne interface en fonction de l'état de self.state
         """
@@ -1337,3 +1435,5 @@ class HUD_State:
                 self.createtable()
             case "Game Menu":
                 self.gamemenu()
+            case "Chargement":
+                self.ecran_chargement()

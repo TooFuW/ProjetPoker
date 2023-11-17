@@ -107,14 +107,25 @@ def changer_raccourci(event : pygame.event.Event, text_input : TextInputBox, rac
             dict_list[indice] = (text_input.user_text, dict_list[indice][1])
             raccourcis_dict = dict(dict_list)
 
-def chargement():
-    pass
+def logs(largeur_actuelle : int, hauteur_actuelle : int, screen : pygame.Surface):
+    """Gére l'affichage de logs de débugage ingame
 
-def logs(largeur_actuelle : int or float, hauteur_actuelle : int or float, screen : pygame.Surface):
+    Args:
+        largeur_actuelle (int): Largeur de l'écran (pour width_scale())
+        hauteur_actuelle (int): Hauteur de l'écran (pour height_scale())
+        screen (pygame.Surface): Ecran sur lequel afficher la fenêtre (écran de l'utilisateur)
+    """
+    # On gére les positions
     pos_x = width_scale(5, largeur_actuelle)
     pos_y = height_scale(5, hauteur_actuelle)
+    # On crée hors de la boucle le style d'écriture
     gui_font = pygame.font.SysFont("Roboto", width_scale(25, largeur_actuelle, True))
+    # Pour chaque item dans la liste de logs à partir de la fin on l'affiche
     for log in Global_objects.logs[::-1]:
         text_surf = gui_font.render(str(log), True, "#FFFFFF")
         screen.blit(text_surf, (pos_x, pos_y))
+        # A la fin on augmente la position y pour afficher le prochain en dessous
         pos_y += height_scale(20, hauteur_actuelle)
+
+def charger_barre_ecran_chargement():
+    Global_objects.game_state.chargement_pourcent

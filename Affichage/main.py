@@ -15,6 +15,7 @@ from socket import *
 from threading import *
 from packet_separator import *
 from network import *
+from random import randint
 
 
 if __name__ == "__main__":
@@ -138,7 +139,7 @@ if __name__ == "__main__":
     # Création de l'objet quitbutton
     Global_objects.exitbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "exit", "", "Roboto", 0, (255, 255, 255), (0, 0, 0, 180), (50, 50, 50, 180), (90, 90, 90, 180), (0, 0, 0), 3, 400, 100, (760, 960), 10, f"{current_folder}logo exit.jpg")
     # Création de l'objet backbutton
-    Global_objects.backbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "back", "", "Roboto", 0, (255, 255, 255), (0, 0, 0, 0), (0, 0, 0, 0), (0, 0, 0, 0), (0, 0, 0), 0, 125, 125, (25, 25), 10, f"{current_folder}backarrow2.png")
+    Global_objects.backbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "back", "", "Roboto", 0, (255, 255, 255), (0, 0, 0, 0), (0, 0, 0, 0), (0, 0, 0, 0), (0, 0, 0), 0, 125, 125, (25, 25), 10, f"{current_folder}backarrow.png")
     # Création de l'objet createtablebutton
     Global_objects.createtablebutton = Button(largeur_actuelle, hauteur_actuelle, screen, "create table", "CREATE TABLE", "Roboto", 60, (255, 255, 255), (0, 0, 0, 180), (50, 50, 50, 180), (90, 90, 90, 180), (0, 0, 0), 3, 400, 100, (175, 50), 10)
     # Création de l'objet shopbutton
@@ -166,7 +167,7 @@ if __name__ == "__main__":
     # Création de l'objet refreshbutton
     Global_objects.refreshbutton = Button(largeur_actuelle, hauteur_actuelle, screen, "refresh", "REFRESH", "Roboto", 60, (255, 255, 255), (0, 0, 0, 180), (50, 50, 50, 180), (90, 90, 90, 180), (0, 0, 0), 3, 220, 100, (600, 50), 10)
     # Création de l'objet leavegamebutton
-    Global_objects.leavegamebutton = Button(largeur_actuelle, hauteur_actuelle, screen, "leave game", "", "Roboto", 0, (255, 255, 255), (0, 0, 0, 0), (0, 0, 0, 0), (0, 0, 0, 0), (0, 0, 0), 2, 80, 80, (1710, 995), 10, f"{current_folder}backarrow2.png")
+    Global_objects.leavegamebutton = Button(largeur_actuelle, hauteur_actuelle, screen, "leave game", "", "Roboto", 0, (255, 255, 255), (0, 0, 0, 0), (0, 0, 0, 0), (0, 0, 0, 0), (0, 0, 0), 2, 80, 80, (1710, 995), 10, f"{current_folder}backarrow.png")
     # Création de l'objet yesleavebutton
     Global_objects.yesleavebutton = Button_elevation(largeur_actuelle, hauteur_actuelle, screen, "yes_leave", "YES", "Roboto", 60, (255, 255, 255), (0, 255, 0), (0, 204, 0), (85, 255, 85), (0, 204, 0), 150, 70, (790, 480), 6, 10)
     # Création de l'objet noleavebutton
@@ -459,7 +460,10 @@ if __name__ == "__main__":
         # Cet appel permet de gérer l'interface active
         Global_objects.game_state.state_manager()
         if Global_objects.logs_temps - time.time() <= -3:
-            Global_objects.logs.pop(0)
+            try:
+                Global_objects.logs.pop(0)
+            except:
+                pass
             Global_objects.logs_temps = time.time()
         # Définit les FPS à 120 pour plus de fluidité (60 par défaut)
         clock.tick(120)
