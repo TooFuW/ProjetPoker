@@ -279,6 +279,7 @@ if __name__ == "__main__":
     Global_objects.my_turn = False
     # Liste contenant les messages de log à afficher
     Global_objects.logs = []
+    Global_objects.previous_logs = []
     Global_objects.logs_temps = time.time()
     
     # On charge les paramètres du client (les raccourcis clavier et le volume de la musique pour l'instant)
@@ -457,13 +458,14 @@ if __name__ == "__main__":
             pygame.mixer.music.load(f"{current_folder}mainmenu_soundtrack.mp3")
             pygame.mixer.music.rewind()
             pygame.mixer.music.play()
+        # On gére la génération des logs
+        if len(Global_objects.logs) > len(Global_objects.previous_logs):
+            for i in range(len(Global_objects.logs) - len(Global_objects.previous_logs)):
+                Global_objects.logs[-(i+1)] = Logs(str(Global_objects.logs[-(i+1)]))
+        for log in Global_objects.logs:
+            log.timer()
+        Global_objects.previous_logs = Global_objects.logs
         # Cet appel permet de gérer l'interface active
         Global_objects.game_state.state_manager()
-        if Global_objects.logs_temps - time.time() <= -3:
-            try:
-                Global_objects.logs.pop(0)
-            except:
-                pass
-            Global_objects.logs_temps = time.time()
         # Définit les FPS à 120 pour plus de fluidité (60 par défaut)
         clock.tick(120)

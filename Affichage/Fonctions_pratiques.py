@@ -122,10 +122,27 @@ def logs(largeur_actuelle : int, hauteur_actuelle : int, screen : pygame.Surface
     gui_font = pygame.font.SysFont("Roboto", width_scale(25, largeur_actuelle, True))
     # Pour chaque item dans la liste de logs à partir de la fin on l'affiche
     for log in Global_objects.logs[::-1]:
-        text_surf = gui_font.render(str(log), True, "#FFFFFF")
+        text_surf = gui_font.render(log.texte, True, "#FFFFFF")
         screen.blit(text_surf, (pos_x, pos_y))
         # A la fin on augmente la position y pour afficher le prochain en dessous
         pos_y += height_scale(20, hauteur_actuelle)
 
-def charger_barre_ecran_chargement():
-    Global_objects.game_state.chargement_pourcent
+class Logs:
+    """Classe Logs pour gérer les logs
+    """
+
+    def __init__(self, text : str):
+        """Initialisation de la classe Logs
+
+        Args:
+            text (str): Texte à afficher
+        """
+        self.texte = text
+        self.time_start = time.time()
+
+    def timer(self):
+        """Timer pour calculer individuellement le temps de vie des logs
+        """
+        if self.time_start - time.time() <= -3:
+            Global_objects.logs.pop(0)
+            del self
