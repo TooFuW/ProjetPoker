@@ -278,9 +278,7 @@ if __name__ == "__main__":
     Global_objects.connected_account = [None, "dummy", 1500, "link"]
     Global_objects.my_turn = False
     # Liste contenant les messages de log à afficher
-    Global_objects.logs = ["coucou"]
-    Global_objects.previous_logs = []
-    Global_objects.logs_temps = time.time()
+    Global_objects.logs = []
     
     # On charge les paramètres du client (les raccourcis clavier et le volume de la musique pour l'instant)
     try:

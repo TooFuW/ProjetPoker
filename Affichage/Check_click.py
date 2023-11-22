@@ -18,7 +18,6 @@ def check_click(Button):
         Button (Button class object): Boutton sur lequel l'utilisateur a cliqué et qui va faire l'action correspondante
     """
     Global_objects.button_sound.play()
-    #Global_objects.logs.append(randint(1, 100))
     if Global_objects.buttons_interactibles:
         match Button.fonction:
             # Lorsque le bouton PLAY est cliqué
