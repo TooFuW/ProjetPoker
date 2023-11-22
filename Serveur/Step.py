@@ -38,7 +38,7 @@ class Step:
         
 
     def start(self):
-        pass
+        self.complete_round_table()
 
     def stop(self):
         pass

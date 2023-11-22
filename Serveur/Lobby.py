@@ -357,6 +357,14 @@ class Lobby :
                     Vérifier que conn correspond à Step.sit_to_play.get_player().get_conn()
                     Modifier Step.func_id_dict[60] et y mettre l'action de jeu.
                     '''
+                    try:
+                        if self.is_step_initied():
+                            if self.is_step_started():
+                                if self.game.round.step.waiting_for_action_packet:
+                                    if self.sits[self.game.round.step.sit_to_play_index].get_player().get_conn() == socket:
+                                        self.game.round.step.func_id_dict[60] = body
+                    except:
+                        print("objets Game et round et step non initiés")
 
 
 
@@ -448,7 +456,10 @@ class Lobby :
             self.timer_running = False
 
             if self.is_continue_timer:
-                print("GAME COMMENCE")  # PROTOCOLE LANCEMENT DE GAME 
+                print("GAME COMMENCE")  # PROTOCOLE LANCEMENT DE GAME
+                print("step commence")
+                self.init_game()
+                self.start_game()
             else:
                 print("timer arreté")
                 thread_start_timer = Thread(target=self.broadcast_packet,args=['stop_timer='])
@@ -507,6 +518,7 @@ class Lobby :
         # envoie packet game entrain de commencer
         # compteur 5 secondes
         self.game.start()
+        self.is_game_starting = False
 
     # les fonctions qui permettent de savoir si une game, un round, un step est demmaré.
 
@@ -718,7 +730,8 @@ class Lobby :
         
         if not self.timer_running:
             print("protocole timer") # on applique le protocole du timer
-            self.timer_protocol()
+            if not self.is_game_started():
+                self.timer_protocol()
         else:
             print("timer already running")
 
