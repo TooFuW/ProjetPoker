@@ -115,6 +115,15 @@ def logs(largeur_actuelle : int, hauteur_actuelle : int, screen : pygame.Surface
         hauteur_actuelle (int): Hauteur de l'écran (pour height_scale())
         screen (pygame.Surface): Ecran sur lequel afficher la fenêtre (écran de l'utilisateur)
     """
+    # On gére la transformations des logs
+    if len(Global_objects.logs) > len(Global_objects.previous_logs):
+        for i in range(len(Global_objects.logs) - len(Global_objects.previous_logs)):
+            Global_objects.logs[-(i+1)] = Logs(str(Global_objects.logs[-(i+1)]))
+    # On check leur timer
+    for log in Global_objects.logs:
+        log.timer()
+    # On redéfinit la variable de comparaison
+    Global_objects.previous_logs = Global_objects.logs
     # On gére les positions
     pos_x = width_scale(5, largeur_actuelle)
     pos_y = height_scale(5, hauteur_actuelle)
@@ -126,6 +135,11 @@ def logs(largeur_actuelle : int, hauteur_actuelle : int, screen : pygame.Surface
         screen.blit(text_surf, (pos_x, pos_y))
         # A la fin on augmente la position y pour afficher le prochain en dessous
         pos_y += height_scale(20, hauteur_actuelle)
+
+def check_logs():
+    """Gére la transformation des logs en logs AFFICHABLES
+    """
+    pass
 
 class Logs:
     """Classe Logs pour gérer les logs

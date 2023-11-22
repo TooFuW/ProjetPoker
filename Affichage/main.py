@@ -249,7 +249,7 @@ if __name__ == "__main__":
     # Initialisation du dictionnaire global qui permettra aux paquets de correspondre avec la fonction qui l'appelle
     Global_objects.func_id_dict = {}
     # Initialisation des sièges arrivés automatiquement
-    Global_objects.auto_arrived_sits = []
+    Global_objects.auto_arrived_sits = None
     # Initialisation de la référence du client actuel
     Global_objects.client_actuel = 0
     # Round commencé ou non
@@ -458,13 +458,6 @@ if __name__ == "__main__":
             pygame.mixer.music.load(f"{current_folder}mainmenu_soundtrack.mp3")
             pygame.mixer.music.rewind()
             pygame.mixer.music.play()
-        # On gére la génération des logs
-        if len(Global_objects.logs) > len(Global_objects.previous_logs):
-            for i in range(len(Global_objects.logs) - len(Global_objects.previous_logs)):
-                Global_objects.logs[-(i+1)] = Logs(str(Global_objects.logs[-(i+1)]))
-        for log in Global_objects.logs:
-            log.timer()
-        Global_objects.previous_logs = Global_objects.logs
         # Cet appel permet de gérer l'interface active
         Global_objects.game_state.state_manager()
         # Définit les FPS à 120 pour plus de fluidité (60 par défaut)

@@ -18,6 +18,7 @@ def check_click(Button):
         Button (Button class object): Boutton sur lequel l'utilisateur a cliqué et qui va faire l'action correspondante
     """
     Global_objects.button_sound.play()
+    #Global_objects.logs.append(randint(1, 100))
     if Global_objects.buttons_interactibles:
         match Button.fonction:
             # Lorsque le bouton PLAY est cliqué
@@ -325,6 +326,7 @@ def check_click(Button):
             Global_objects.is_selecting_sit = [False, -1]
             Global_objects.buttons_interactibles = True
             Global_objects.table_selected = None
+            Global_objects.auto_arrived_sits = None
         # Lorsque le joueur ne confirme pas qu'il veut quitter
         case "no_leave":
             Global_objects.game_state.confirmation = False

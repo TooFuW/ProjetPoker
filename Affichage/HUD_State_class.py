@@ -53,7 +53,7 @@ class HUD_State:
         self.last_music = 690
         self.last_sound = 690
         # self.state définit l'état actuel de l'interface (qui est par défaut Main Menu)
-        self.state = "Chargement"
+        self.state = "Main Menu"
         # pile pour le bouton BACK
         self.back_pile = []
         # Savoir si on clique sur quelque chose (utilisable une fois par page sinon ça va se mélanger)
@@ -77,13 +77,14 @@ class HUD_State:
         self.loading_text_timer = time.time()
         p1 = randint(1, 35)
         p2 = randint(p1+1, 70)
-        p3 = randint(p2+1, 99)
-        self.chargement_pourcent = [0, p1, p2, p3, 100]
+        p3 = randint(p2+1, 98)
+        self.chargement_pourcent = [0, p1, p2, p3, 99]
         self.chargement_indice = 0
         self.chargement_valeur = 0
         self.chargement_pause = time.time()
         self.chargement_temps_pause = -1
-        self.chargement_next_state = "Main Menu"
+        self.chargement_fini = False
+        self.chargement_next_state = None
     
     def mainmenu(self):
         """mainmenu est la fonction qui fait tourner/afficher le menu principal
