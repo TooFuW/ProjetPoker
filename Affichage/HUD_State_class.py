@@ -262,7 +262,7 @@ class HUD_State:
                             self.chargement_valeur = 0
                             self.chargement_pause = time.time()
                             self.chargement_temps_pause = -1
-                            self.state = "Chargement"
+                            self.state = "Game Menu"
                             self.chargement_next_state = "Game Menu"
                             Global_objects.is_selecting_sit[0] = True
                             Global_objects.round_started = False
@@ -1401,15 +1401,25 @@ class HUD_State:
         text_surf = gui_font.render(f"{round(self.chargement_valeur)}%", True, "#000000")
         self.screen.blit(text_surf, (width_scale(890, self.largeur_actuelle), height_scale(615, self.hauteur_actuelle)))
         # Calcul du pourcentage actuel et des temps de pause
-        if self.chargement_valeur < self.chargement_pourcent[self.chargement_indice]:
-            self.chargement_valeur += 0.5
-            if self.chargement_valeur == self.chargement_pourcent[self.chargement_indice]:
-                self.chargement_pause = time.time()
-                self.chargement_temps_pause = -uniform(0.5, 1)
+        # Si la valeur à suivre n'est pas bonne on continue d'augmenter pour s'arrêter à 99%
+        if not self.chargement_fini:
+            # Si on a pas encore atteint la valeur souhaitée on continue d'augmenter la barre
+            if self.chargement_valeur < self.chargement_pourcent[self.chargement_indice]:
+                self.chargement_valeur += 0.5
+                # On fait un temps de pause lorsqu'on atteint la valeur souhaitée
+                if self.chargement_valeur == self.chargement_pourcent[self.chargement_indice]:
+                    self.chargement_pause = time.time()
+                    self.chargement_temps_pause = -uniform(0.5, 1)
+            # Ensuite on passe à la prochaine valeur à atteindre
+            else:
+                # Si il reste des éléments dans la liste on augmente
+                if self.chargement_indice + 1 <= 4:
+                    if self.chargement_pause - time.time() < self.chargement_temps_pause:
+                        self.chargement_indice += 1
+        # Sinon on augmente à 100 directement et on arrête le chargement
         else:
-            if self.chargement_indice + 1 <= 4:
-                if self.chargement_pause - time.time() < self.chargement_temps_pause:
-                    self.chargement_indice += 1
+            if self.chargement_valeur < 100:
+                self.chargement_valeur += 0.5
             else:
                 self.state = self.chargement_next_state
         # Affichage des logs de débugage
