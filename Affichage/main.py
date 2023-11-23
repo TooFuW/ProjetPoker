@@ -448,7 +448,7 @@ if __name__ == "__main__":
 
     # Gameloop
     while True:
-        Global_objects.logs.append([Global_objects.game_state.chargement_fini, Global_objects.auto_arrived_sits])
+        Global_objects.logs.append(Global_objects.auto_arrived_sits)
         if Global_objects.auto_arrived_sits is None:
             Global_objects.game_state.chargement_fini = False
         else:

@@ -93,7 +93,7 @@ def check_click(Button):
                     Global_objects.previewlobbys.players = ask_sits_infos(Global_objects.client_socket,lobby_id)
                 except:
                     pass
-                time.sleep(0.1)
+                #time.sleep(0.1)
             # Lorsque le bouton JOIN est cliqué pour rejoindre la table sélectionnée et transmettre les infos nécessaires
             case "join table":
                 try:
@@ -164,6 +164,7 @@ def check_click(Button):
                         Global_objects.sit_8.player = Global_objects.previewlobbys.players[7]
                         Global_objects.sit_9.player = Global_objects.previewlobbys.players[8]
                         Global_objects.sit_10.player = Global_objects.previewlobbys.players[9]
+                    Global_objects.auto_arrived_sits = ask_sits_infos(Global_objects.client_socket,lobby_id)
                     Global_objects.game_state.back_pile = []
                     # On remet l'écran de chargement à zéro
                     Global_objects.game_state.loading_text = "LOADING"
@@ -176,7 +177,7 @@ def check_click(Button):
                     Global_objects.game_state.chargement_valeur = 0
                     Global_objects.game_state.chargement_pause = time.time()
                     Global_objects.game_state.chargement_temps_pause = -1
-                    Global_objects.game_state.state = "Game Menu"
+                    Global_objects.game_state.state = "Chargement"
                     Global_objects.game_state.chargement_next_state = "Game Menu"
                     Global_objects.is_selecting_sit[0] = True
                     Global_objects.round_started = False

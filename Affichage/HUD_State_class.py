@@ -177,7 +177,6 @@ class HUD_State:
                         try:
                             lobby_id = int(Global_objects.tablecodeinput.user_text)
                             Global_objects.previewlobbys.players = ask_sits_infos(Global_objects.client_socket,lobby_id)
-                            time.sleep(0.1)
                             join_lobby(Global_objects.client_socket,lobby_id)
                             if len(Global_objects.previewlobbys.players) == 1:
                                 Global_objects.sit_1.player = Global_objects.previewlobbys.players[0]
@@ -244,6 +243,7 @@ class HUD_State:
                                 Global_objects.sit_8.player = Global_objects.previewlobbys.players[7]
                                 Global_objects.sit_9.player = Global_objects.previewlobbys.players[8]
                                 Global_objects.sit_10.player = Global_objects.previewlobbys.players[9]
+                            Global_objects.auto_arrived_sits = ask_sits_infos(Global_objects.client_socket,lobby_id)
                             for lobby in Global_objects.displayed_lobbys_list:
                                 if lobby[-1] == Global_objects.tablecodeinput.user_text:
                                     self.server_test = f"{lobby[0]}{' '*width_scale(35, self.largeur_actuelle, True)}{lobby[1]}{' '*width_scale(35, self.largeur_actuelle, True)}{lobby[2]}{' '*width_scale(35, self.largeur_actuelle, True)}{lobby[3]}{' '*width_scale(35, self.largeur_actuelle, True)}{lobby[4]}"
@@ -262,7 +262,7 @@ class HUD_State:
                             self.chargement_valeur = 0
                             self.chargement_pause = time.time()
                             self.chargement_temps_pause = -1
-                            self.state = "Game Menu"
+                            self.state = "Chargement"
                             self.chargement_next_state = "Game Menu"
                             Global_objects.is_selecting_sit[0] = True
                             Global_objects.round_started = False
@@ -1419,7 +1419,7 @@ class HUD_State:
         # Sinon on augmente à 100 directement et on arrête le chargement
         else:
             if self.chargement_valeur < 100:
-                self.chargement_valeur += 0.5
+                self.chargement_valeur += 1
             else:
                 self.state = self.chargement_next_state
         # Affichage des logs de débugage
