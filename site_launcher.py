@@ -32,7 +32,7 @@ def connexion():
         return render_template('connexion.html')
 
 
-@app.route('/accueil', methods=['GET', 'POST'])
+@app.route('/', methods=['GET', 'POST'])
 def accueil():
     title = "MWTE Official Website"
     current_year = 2023
@@ -41,6 +41,7 @@ def accueil():
 
 @app.route('/apropos')
 def apropos():
+    
     return render_template('Apropos.html')
 
 

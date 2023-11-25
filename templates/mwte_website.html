@@ -2,30 +2,29 @@
 <html>
 <head>
     <title>{{ title }}</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='Fichiers CSS Site MWTE/mwte_website.css') }}">
-    <script src="{{ url_for('static', filename='Fichiers Javascript Site MWTE/mwte_website.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='mwte_website.css') }}">
+    <script src="{{ url_for('static', filename='mwte_website.js') }}"></script>
 </head>
 
 <body>
     <header>
         <div id="log">
-            <button class="registration" onclick="window.location.href = '/registration'">Inscription</button>  
-            <button class="connexion" onclick="window.location.href = '/connexion'">Connexion</button>
+            <a href="/registration"><button>Inscription</button></a>  
+            <a href="/connexion"><button>Connexion</button></a>
         </div>
         <div id="menu">
             <!-- Mettre Logo MWTE -->
-            <img src="{{ url_for('static', filename='Images/Mwte.png') }}" alt="Logo MWTE" width="20%" height="20%">
-            <nav>
-                <ul>
-                    <button onclick="window.location.href = '/accueil'">Accueil</button>
-                    <button onclick="window.location.href = '/apropos'">A propos</button>
-                    <button onclick="window.location.href = '/jeux'">Jeux</button>
-                    <button onclick="window.location.href = '/updates'">Updates</button>
-                    <button onclick="window.location.href = '/contact'">Contacts</button>
-                    <button onclick="window.location.href = '/merch'">Merch</button>
-                    <input class="input" name="text" placeholder="Search..." type="search">
-                </ul>  
-            </nav>
+            <img src="{{ url_for('static', filename='Mwte.png') }}" alt="Logo MWTE" width="20%" height="20%">
+    <nav>
+        <a href="/"><button>Accueil</button></a>
+        <a href="/apropos"><button>A propos</button></a>
+        <a href="/jeux"><button>Jeux</button></a>
+        <a href="/updates"><button>Updates</button></a>
+        <a href="/contact"><button>Contacts</button></a>
+        <a href="/merch"><button>Merch</button></a>
+        <a><input class="input" name="text" placeholder="Search..." type="search"></a>
+    </nav>
+
         </div>
     </header>
         <main>

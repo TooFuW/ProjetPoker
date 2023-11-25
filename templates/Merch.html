@@ -1,40 +1,32 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>
-            MWTE Official Website
-        </title>
-        <link rel="stylesheet" href="Fichiers CSS Site MWTE\merch.css">
-        <script src="Fichiers Javascript Site MWTE\mwte_website.js"></script>
-    </head>
-    <body>
-        <header>
-            <div id="log">
-                <button class="registration" onclick="window.location.href = 'registration.html';">Inscription</button>  
-                <button class="connexion" onclick="window.location.href = 'connexion.html';">Connexion</button>
-            </div>
-            <!--Mettre Logo MWTE-->
-            <img src="Images\Mwte.png" alt="Logo MWTE" width="20%" height="20%">
-            <div id="nav_menu">
-            <div id="menu">
-                <nav>
-                    <ul>
-                        
-                        <button onclick="window.location.href = 'mwte_website.html';">Accueil</button>
-                        <button onclick="window.location.href = 'Apropos.html';">A propos</button>
-                        <button onclick="window.location.href = 'Jeux.html';">Jeux</button>
-                        <button onclick="window.location.href = 'Update.html';">Updates</button>
-                        <button onclick="window.location.href = 'Contact.html';">Contacts</button>
-                        <button onclick="window.location.href = 'Merch.html';">Merch</button>
+<head>
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='merch.css') }}">
+    <script src="{{ url_for('static', filename='mwte_website.js') }}"></script>
+</head>
 
-                    </ul> 
-                </nav>
-            </div>
-            <div id="search">
-                <input class="input" name="text" placeholder="Search..." type="search">
-            </div>
-            </div>
-        </header>
+<body>
+    <header>
+        <div id="log">
+            <a href="/registration"><button>Inscription</button></a>  
+            <a href="/connexion"><button>Connexion</button></a>
+        </div>
+        <div id="menu">
+            <!-- Mettre Logo MWTE -->
+            <img src="{{ url_for('static', filename='Mwte.png') }}" alt="Logo MWTE" width="20%" height="20%">
+    <nav>
+        <a href="/"><button>Accueil</button></a>
+        <a href="/apropos"><button>A propos</button></a>
+        <a href="/jeux"><button>Jeux</button></a>
+        <a href="/updates"><button>Updates</button></a>
+        <a href="/contact"><button>Contacts</button></a>
+        <a href="/merch"><button>Merch</button></a>
+        <a><input class="input" name="text" placeholder="Search..." type="search"></a>
+    </nav>
+
+        </div>
+    </header>
         <main>
             <H1>Bientot Disponible</H1>
         </main>
