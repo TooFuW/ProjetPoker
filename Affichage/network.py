@@ -96,7 +96,7 @@ def ask_sits_infos(client_socket : socket, lobby_id : int):
         while sits is None and cpt < 10:
             sits = func_id_dict_object_by_key(func_id)
             cpt += 1
-            time.sleep(0.1)
+            time.sleep(0.01)
 
         delete_func_id_dict_key(func_id)
         return sits

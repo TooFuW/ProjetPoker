@@ -1366,6 +1366,8 @@ class HUD_State:
         # On demande Global_objects.auto_arrived_sits tant qu'il est égal à None
         if Global_objects.auto_arrived_sits is None:
             Global_objects.auto_arrived_sits = ask_sits_infos(Global_objects.client_socket, int(Global_objects.table_selected[-1]))
+        if Global_objects.auto_arrived_sits is not None:
+            Global_objects.game_state.chargement_fini = True
 
         # Dessine l'image de fond sur la self.screen de l'écran (IMPORANT CAR SE SUPERPOSE A L'INTERFACE PRECEDENT ET PERMET DE "L'EFFACER")
         self.screen.blit(self.fond, (0, 0))

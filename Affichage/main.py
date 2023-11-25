@@ -448,10 +448,6 @@ if __name__ == "__main__":
 
     # Gameloop
     while True:
-        if Global_objects.auto_arrived_sits is None:
-            Global_objects.game_state.chargement_fini = False
-        else:
-            Global_objects.game_state.chargement_fini = True
         # Volume des sons
         Global_objects.button_sound.set_volume(Global_objects.button_sound_volume)
         # Chargement de la musique de fond et mise en boucle
