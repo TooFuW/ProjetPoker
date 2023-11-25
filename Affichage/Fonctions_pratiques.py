@@ -135,6 +135,8 @@ def logs(largeur_actuelle : int, hauteur_actuelle : int, screen : pygame.Surface
     for log in Global_objects.logs[::-1]:
         text_surf = gui_font.render(log.texte, True, "#FFFFFF")
         screen.blit(text_surf, (pos_x, pos_y))
+        """# On affiche également dans la console ce que l'on affiche
+        ic(log.texte)"""
         # A la fin on augmente la position y pour afficher le prochain en dessous
         pos_y += height_scale(20, hauteur_actuelle)
 

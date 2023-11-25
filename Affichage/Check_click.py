@@ -171,8 +171,8 @@ def check_click(Button):
                     Global_objects.game_state.loading_text_timer = time.time()
                     p1 = randint(1, 35)
                     p2 = randint(p1+1, 70)
-                    p3 = randint(p2+1, 99)
-                    Global_objects.game_state.chargement_pourcent = [0, p1, p2, p3, 100]
+                    p3 = randint(p2+1, 98)
+                    Global_objects.game_state.chargement_pourcent = [0, p1, p2, p3, 99]
                     Global_objects.game_state.chargement_indice = 0
                     Global_objects.game_state.chargement_valeur = 0
                     Global_objects.game_state.chargement_pause = time.time()

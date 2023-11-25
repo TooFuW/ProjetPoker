@@ -282,7 +282,7 @@ if __name__ == "__main__":
     
     # On charge les paramètres du client (les raccourcis clavier et le volume de la musique pour l'instant)
     try:
-        with open(f"{current_folder}\\settings_save.txt", "r", encoding="utf-8") as file:
+        with open(f"{current_folder}\\settings_save.txt", encoding="utf-8") as file:
             settings = file.readlines()
             if len(settings) != 34:
                 print(len(settings))
@@ -448,7 +448,6 @@ if __name__ == "__main__":
 
     # Gameloop
     while True:
-        Global_objects.logs.append(Global_objects.auto_arrived_sits)
         if Global_objects.auto_arrived_sits is None:
             Global_objects.game_state.chargement_fini = False
         else:

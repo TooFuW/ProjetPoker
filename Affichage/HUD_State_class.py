@@ -173,91 +173,89 @@ class HUD_State:
                     if event.key == pygame.K_RETURN:
                         Global_objects.button_sound.play()
                         # On essaie de rejoindre la partie avec le code entré
-                        Global_objects.previewlobbys.players = None
                         try:
                             lobby_id = int(Global_objects.tablecodeinput.user_text)
-                            Global_objects.previewlobbys.players = ask_sits_infos(Global_objects.client_socket,lobby_id)
-                            join_lobby(Global_objects.client_socket,lobby_id)
-                            if len(Global_objects.previewlobbys.players) == 1:
-                                Global_objects.sit_1.player = Global_objects.previewlobbys.players[0]
-                            if len(Global_objects.previewlobbys.players) == 2:
-                                Global_objects.sit_1.player = Global_objects.previewlobbys.players[0]
-                                Global_objects.sit_2.player = Global_objects.previewlobbys.players[1]
-                            if len(Global_objects.previewlobbys.players) == 3:
-                                Global_objects.sit_1.player = Global_objects.previewlobbys.players[0]
-                                Global_objects.sit_2.player = Global_objects.previewlobbys.players[1]
-                                Global_objects.sit_3.player = Global_objects.previewlobbys.players[2]
-                            if len(Global_objects.previewlobbys.players) == 4:
-                                Global_objects.sit_1.player = Global_objects.previewlobbys.players[0]
-                                Global_objects.sit_2.player = Global_objects.previewlobbys.players[1]
-                                Global_objects.sit_3.player = Global_objects.previewlobbys.players[2]
-                                Global_objects.sit_4.player = Global_objects.previewlobbys.players[3]
-                            if len(Global_objects.previewlobbys.players) == 5:
-                                Global_objects.sit_1.player = Global_objects.previewlobbys.players[0]
-                                Global_objects.sit_2.player = Global_objects.previewlobbys.players[1]
-                                Global_objects.sit_3.player = Global_objects.previewlobbys.players[2]
-                                Global_objects.sit_4.player = Global_objects.previewlobbys.players[3]
-                                Global_objects.sit_5.player = Global_objects.previewlobbys.players[4]
-                            if len(Global_objects.previewlobbys.players) == 6:
-                                Global_objects.sit_1.player = Global_objects.previewlobbys.players[0]
-                                Global_objects.sit_2.player = Global_objects.previewlobbys.players[1]
-                                Global_objects.sit_3.player = Global_objects.previewlobbys.players[2]
-                                Global_objects.sit_4.player = Global_objects.previewlobbys.players[3]
-                                Global_objects.sit_5.player = Global_objects.previewlobbys.players[4]
-                                Global_objects.sit_6.player = Global_objects.previewlobbys.players[5]
-                            if len(Global_objects.previewlobbys.players) == 7:
-                                Global_objects.sit_1.player = Global_objects.previewlobbys.players[0]
-                                Global_objects.sit_2.player = Global_objects.previewlobbys.players[1]
-                                Global_objects.sit_3.player = Global_objects.previewlobbys.players[2]
-                                Global_objects.sit_4.player = Global_objects.previewlobbys.players[3]
-                                Global_objects.sit_5.player = Global_objects.previewlobbys.players[4]
-                                Global_objects.sit_6.player = Global_objects.previewlobbys.players[5]
-                                Global_objects.sit_7.player = Global_objects.previewlobbys.players[6]
-                            if len(Global_objects.previewlobbys.players) == 8:
-                                Global_objects.sit_1.player = Global_objects.previewlobbys.players[0]
-                                Global_objects.sit_2.player = Global_objects.previewlobbys.players[1]
-                                Global_objects.sit_3.player = Global_objects.previewlobbys.players[2]
-                                Global_objects.sit_4.player = Global_objects.previewlobbys.players[3]
-                                Global_objects.sit_5.player = Global_objects.previewlobbys.players[4]
-                                Global_objects.sit_6.player = Global_objects.previewlobbys.players[5]
-                                Global_objects.sit_7.player = Global_objects.previewlobbys.players[6]
-                                Global_objects.sit_8.player = Global_objects.previewlobbys.players[7]
-                            if len(Global_objects.previewlobbys.players) == 9:
-                                Global_objects.sit_1.player = Global_objects.previewlobbys.players[0]
-                                Global_objects.sit_2.player = Global_objects.previewlobbys.players[1]
-                                Global_objects.sit_3.player = Global_objects.previewlobbys.players[2]
-                                Global_objects.sit_4.player = Global_objects.previewlobbys.players[3]
-                                Global_objects.sit_5.player = Global_objects.previewlobbys.players[4]
-                                Global_objects.sit_6.player = Global_objects.previewlobbys.players[5]
-                                Global_objects.sit_7.player = Global_objects.previewlobbys.players[6]
-                                Global_objects.sit_8.player = Global_objects.previewlobbys.players[7]
-                                Global_objects.sit_9.player = Global_objects.previewlobbys.players[8]
-                            if len(Global_objects.previewlobbys.players) == 10:
-                                Global_objects.sit_1.player = Global_objects.previewlobbys.players[0]
-                                Global_objects.sit_2.player = Global_objects.previewlobbys.players[1]
-                                Global_objects.sit_3.player = Global_objects.previewlobbys.players[2]
-                                Global_objects.sit_4.player = Global_objects.previewlobbys.players[3]
-                                Global_objects.sit_5.player = Global_objects.previewlobbys.players[4]
-                                Global_objects.sit_6.player = Global_objects.previewlobbys.players[5]
-                                Global_objects.sit_7.player = Global_objects.previewlobbys.players[6]
-                                Global_objects.sit_8.player = Global_objects.previewlobbys.players[7]
-                                Global_objects.sit_9.player = Global_objects.previewlobbys.players[8]
-                                Global_objects.sit_10.player = Global_objects.previewlobbys.players[9]
                             Global_objects.auto_arrived_sits = ask_sits_infos(Global_objects.client_socket,lobby_id)
+                            join_lobby(Global_objects.client_socket,lobby_id)
+                            if len(Global_objects.auto_arrived_sits) == 1:
+                                Global_objects.sit_1.player = Global_objects.auto_arrived_sits[0]
+                            if len(Global_objects.auto_arrived_sits) == 2:
+                                Global_objects.sit_1.player = Global_objects.auto_arrived_sits[0]
+                                Global_objects.sit_2.player = Global_objects.auto_arrived_sits[1]
+                            if len(Global_objects.auto_arrived_sits) == 3:
+                                Global_objects.sit_1.player = Global_objects.auto_arrived_sits[0]
+                                Global_objects.sit_2.player = Global_objects.auto_arrived_sits[1]
+                                Global_objects.sit_3.player = Global_objects.auto_arrived_sits[2]
+                            if len(Global_objects.auto_arrived_sits) == 4:
+                                Global_objects.sit_1.player = Global_objects.auto_arrived_sits[0]
+                                Global_objects.sit_2.player = Global_objects.auto_arrived_sits[1]
+                                Global_objects.sit_3.player = Global_objects.auto_arrived_sits[2]
+                                Global_objects.sit_4.player = Global_objects.auto_arrived_sits[3]
+                            if len(Global_objects.auto_arrived_sits) == 5:
+                                Global_objects.sit_1.player = Global_objects.auto_arrived_sits[0]
+                                Global_objects.sit_2.player = Global_objects.auto_arrived_sits[1]
+                                Global_objects.sit_3.player = Global_objects.auto_arrived_sits[2]
+                                Global_objects.sit_4.player = Global_objects.auto_arrived_sits[3]
+                                Global_objects.sit_5.player = Global_objects.auto_arrived_sits[4]
+                            if len(Global_objects.auto_arrived_sits) == 6:
+                                Global_objects.sit_1.player = Global_objects.auto_arrived_sits[0]
+                                Global_objects.sit_2.player = Global_objects.auto_arrived_sits[1]
+                                Global_objects.sit_3.player = Global_objects.auto_arrived_sits[2]
+                                Global_objects.sit_4.player = Global_objects.auto_arrived_sits[3]
+                                Global_objects.sit_5.player = Global_objects.auto_arrived_sits[4]
+                                Global_objects.sit_6.player = Global_objects.auto_arrived_sits[5]
+                            if len(Global_objects.auto_arrived_sits) == 7:
+                                Global_objects.sit_1.player = Global_objects.auto_arrived_sits[0]
+                                Global_objects.sit_2.player = Global_objects.auto_arrived_sits[1]
+                                Global_objects.sit_3.player = Global_objects.auto_arrived_sits[2]
+                                Global_objects.sit_4.player = Global_objects.auto_arrived_sits[3]
+                                Global_objects.sit_5.player = Global_objects.auto_arrived_sits[4]
+                                Global_objects.sit_6.player = Global_objects.auto_arrived_sits[5]
+                                Global_objects.sit_7.player = Global_objects.auto_arrived_sits[6]
+                            if len(Global_objects.auto_arrived_sits) == 8:
+                                Global_objects.sit_1.player = Global_objects.auto_arrived_sits[0]
+                                Global_objects.sit_2.player = Global_objects.auto_arrived_sits[1]
+                                Global_objects.sit_3.player = Global_objects.auto_arrived_sits[2]
+                                Global_objects.sit_4.player = Global_objects.auto_arrived_sits[3]
+                                Global_objects.sit_5.player = Global_objects.auto_arrived_sits[4]
+                                Global_objects.sit_6.player = Global_objects.auto_arrived_sits[5]
+                                Global_objects.sit_7.player = Global_objects.auto_arrived_sits[6]
+                                Global_objects.sit_8.player = Global_objects.auto_arrived_sits[7]
+                            if len(Global_objects.auto_arrived_sits) == 9:
+                                Global_objects.sit_1.player = Global_objects.auto_arrived_sits[0]
+                                Global_objects.sit_2.player = Global_objects.auto_arrived_sits[1]
+                                Global_objects.sit_3.player = Global_objects.auto_arrived_sits[2]
+                                Global_objects.sit_4.player = Global_objects.auto_arrived_sits[3]
+                                Global_objects.sit_5.player = Global_objects.auto_arrived_sits[4]
+                                Global_objects.sit_6.player = Global_objects.auto_arrived_sits[5]
+                                Global_objects.sit_7.player = Global_objects.auto_arrived_sits[6]
+                                Global_objects.sit_8.player = Global_objects.auto_arrived_sits[7]
+                                Global_objects.sit_9.player = Global_objects.auto_arrived_sits[8]
+                            if len(Global_objects.auto_arrived_sits) == 10:
+                                Global_objects.sit_1.player = Global_objects.auto_arrived_sits[0]
+                                Global_objects.sit_2.player = Global_objects.auto_arrived_sits[1]
+                                Global_objects.sit_3.player = Global_objects.auto_arrived_sits[2]
+                                Global_objects.sit_4.player = Global_objects.auto_arrived_sits[3]
+                                Global_objects.sit_5.player = Global_objects.auto_arrived_sits[4]
+                                Global_objects.sit_6.player = Global_objects.auto_arrived_sits[5]
+                                Global_objects.sit_7.player = Global_objects.auto_arrived_sits[6]
+                                Global_objects.sit_8.player = Global_objects.auto_arrived_sits[7]
+                                Global_objects.sit_9.player = Global_objects.auto_arrived_sits[8]
+                                Global_objects.sit_10.player = Global_objects.auto_arrived_sits[9]
                             for lobby in Global_objects.displayed_lobbys_list:
                                 if lobby[-1] == Global_objects.tablecodeinput.user_text:
                                     self.server_test = f"{lobby[0]}{' '*width_scale(35, self.largeur_actuelle, True)}{lobby[1]}{' '*width_scale(35, self.largeur_actuelle, True)}{lobby[2]}{' '*width_scale(35, self.largeur_actuelle, True)}{lobby[3]}{' '*width_scale(35, self.largeur_actuelle, True)}{lobby[4]}"
                                     Global_objects.pot = lobby[3]
+                                    Global_objects.table_selected = lobby
                                     break
-                            Global_objects.table_selected = None
                             self.back_pile = []
                             # On remet l'écran de chargement à zéro
                             self.loading_text = "LOADING"
                             self.loading_text_timer = time.time()
                             p1 = randint(1, 35)
                             p2 = randint(p1+1, 70)
-                            p3 = randint(p2+1, 99)
-                            self.chargement_pourcent = [0, p1, p2, p3, 100]
+                            p3 = randint(p2+1, 98)
+                            self.chargement_pourcent = [0, p1, p2, p3, 99]
                             self.chargement_indice = 0
                             self.chargement_valeur = 0
                             self.chargement_pause = time.time()
@@ -1046,13 +1044,10 @@ class HUD_State:
             try:
                 gui_font = pygame.font.SysFont("Roboto", width_scale(60, self.largeur_actuelle, True))
                 players = 0
-                if Global_objects.auto_arrived_sits is None:
-                    text_surf = gui_font.render(f"0/{len(Global_objects.previewlobbys.players)}", True, "#FFFFFF")
-                else:
-                    for player in Global_objects.auto_arrived_sits:
-                        if player[1] is not None:
-                            players += 1
-                    text_surf = gui_font.render(f"{players}/{len(Global_objects.auto_arrived_sits)}", True, "#FFFFFF")
+                for player in Global_objects.auto_arrived_sits:
+                    if player[1] is not None:
+                        players += 1
+                text_surf = gui_font.render(f"{players}/{len(Global_objects.auto_arrived_sits)}", True, "#FFFFFF")
                 text_rect = text_surf.get_rect(center = (self.largeur_actuelle//2 + width_scale(100, self.largeur_actuelle), height_scale(30, self.hauteur_actuelle)))
                 self.screen.blit(text_surf, text_rect)
             except:
@@ -1123,7 +1118,7 @@ class HUD_State:
             pass
 
         # Affichage des sièges en fonction du pattern suivant
-        match len(Global_objects.previewlobbys.players):
+        match len(Global_objects.auto_arrived_sits):
 
             case 2:
                 Global_objects.sit_1.x = width_scale(450, self.largeur_actuelle)
@@ -1367,6 +1362,10 @@ class HUD_State:
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
+        
+        # On demande Global_objects.auto_arrived_sits tant qu'il est égal à None
+        if Global_objects.auto_arrived_sits is None:
+            Global_objects.auto_arrived_sits = ask_sits_infos(Global_objects.client_socket, int(Global_objects.table_selected[-1]))
 
         # Dessine l'image de fond sur la self.screen de l'écran (IMPORANT CAR SE SUPERPOSE A L'INTERFACE PRECEDENT ET PERMET DE "L'EFFACER")
         self.screen.blit(self.fond, (0, 0))
