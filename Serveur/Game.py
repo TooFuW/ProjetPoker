@@ -40,15 +40,15 @@ class Game:
     def start(self):
         #paie la cave pour tous les joueurs, lance les rounds jusqu'à ce qu'un joueur reste en vie.
         try:
-            self.buy_in_all_players(self.cave)
+            self.buy_in_all_players(self.sits, self.cave)
 
             while self.check_if_we_make_new_round():
                 print("round started")
                 self.init_round()
                 self.round.start()
 
-        except:
-            print("protocole crash")
+        except Exception as e:
+            print("protocole crash", e)
 
     
     def check_if_we_make_new_round(self):
