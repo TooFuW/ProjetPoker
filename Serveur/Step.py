@@ -38,6 +38,7 @@ class Step:
         
 
     def start(self):
+        print("step started")
         self.complete_round_table()
 
     def stop(self):
