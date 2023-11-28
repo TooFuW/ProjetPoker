@@ -50,8 +50,14 @@ class Round:
 
     def start(self):
         self.started = True
-        # on start le round 
+        # on start le round
+        print("round started")
+        while self.check_if_new_step():
+            self.init_step()
+            self.step.start()
         
+    def check_if_new_step(self):
+        return True
 
     def start_step(self):
         pass
