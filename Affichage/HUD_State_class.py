@@ -263,7 +263,7 @@ class HUD_State:
                             self.state = "Chargement"
                             self.chargement_next_state = "Game Menu"
                             Global_objects.is_selecting_sit[0] = True
-                            Global_objects.round_started = False
+                            Global_objects.game_started = False
                             # Temporaire pour afficher les cartes le temps que je recoive réellement des cartes
                             body = ["kh","1d"]
                             Global_objects.nombre_cartes = len(body)
@@ -1005,7 +1005,7 @@ class HUD_State:
                         if Global_objects.is_raising:
                             check_click(Global_objects.raccourcis_gamemenu[event.unicode])
                     elif event.unicode in list(Global_objects.raccourcis_gamemenu.keys())[9]:
-                        if not Global_objects.round_started:
+                        if not Global_objects.game_started:
                             check_click(Global_objects.raccourcis_gamemenu[event.unicode])
                     else:
                         check_click(Global_objects.raccourcis_gamemenu[event.unicode])
@@ -1021,7 +1021,7 @@ class HUD_State:
         text_surf = gui_font.render(self.server_test, True, "#FFFFFF")
         self.screen.blit(text_surf, (width_scale(250, self.largeur_actuelle), height_scale(100, self.hauteur_actuelle)))
 
-        if not Global_objects.round_started and self.timer[2]:
+        if not Global_objects.game_started and self.timer[2]:
         # Affichage du timer avant que la partie commence
             if self.timer[0] > 0:
                 # On ne peut se lever que si la partie n'est pas encore commencée
@@ -1034,12 +1034,12 @@ class HUD_State:
                 self.screen.blit(text_surf, text_rect)
                 self.timer[0] = self.depart_timer - (time.time() - self.timer[1])
             elif self.timer[0] <= 0:
-                Global_objects.round_started = True
+                Global_objects.game_started = True
                 self.timer[2] = False
                 self.timer = [15, time.time(), True]
                 self.depart_timer = 15
         # Affichage du nombre de joueurs présents sur le nombre de joueurs max
-        if not Global_objects.round_started:
+        if not Global_objects.game_started:
             Global_objects.sit_upbutton.draw()
             try:
                 gui_font = pygame.font.SysFont("Roboto", width_scale(60, self.largeur_actuelle, True))
@@ -1074,18 +1074,17 @@ class HUD_State:
         self.screen.blit(text_surf, text_rect)
 
         # Boucle pour calculer le timer de chaque joueur pour prendre une décision 
-        if Global_objects.round_started:
+        """if Global_objects.game_started:
             print('round_started')
             if self.timer[0] > 0:
                 self.timer[0] = self.depart_timer - (time.time() - self.timer[1])
             else:
                 Global_objects.parole = Global_objects.parole + 1 if Global_objects.parole + 1 <= len(Global_objects.auto_arrived_sits) else 1
-                self.timer = [15, time.time(), True]
+                self.timer = [15, time.time(), True]"""
 
-        # Affichage de la zone qui comportera les actions du joueur
         # Boutons d'actions
         # On rend les boutons interagissables en fonction de si le siège sur lequel le joueur est assis et le siège qui posséde la parole ou non
-        if Global_objects.parole == Global_objects.client_actuel and Global_objects.round_started:
+        if Global_objects.parole == Global_objects.client_actuel and Global_objects.game_started:
         # A remplacer par if Global_objects.my_turn:
             Global_objects.checkbutton.button_interactible = True
             Global_objects.callbutton.button_interactible = True
@@ -1095,7 +1094,7 @@ class HUD_State:
             Global_objects.checkbutton.button_interactible = False
             Global_objects.callbutton.button_interactible = False
             Global_objects.foldbutton.button_interactible = False
-            Global_objects.raisebutton.button_interactible = True
+            Global_objects.raisebutton.button_interactible = False
         # On dessine les boutons
         Global_objects.checkbutton.draw()
         Global_objects.callbutton.draw()
@@ -1372,6 +1371,7 @@ class HUD_State:
         # Dessine l'image de fond sur la self.screen de l'écran (IMPORANT CAR SE SUPERPOSE A L'INTERFACE PRECEDENT ET PERMET DE "L'EFFACER")
         self.screen.blit(self.fond, (0, 0))
 
+        # On dessine la zone du "Loading..."
         transparent_surface = pygame.Surface((width_scale(675, self.largeur_actuelle), height_scale(150, self.hauteur_actuelle)), pygame.SRCALPHA)
         pygame.draw.rect(transparent_surface, (0, 0, 0, 180), (0, 0, width_scale(675, self.largeur_actuelle), height_scale(150, self.hauteur_actuelle)), border_radius = width_scale(25, self.largeur_actuelle, True))
         self.screen.blit(transparent_surface, (width_scale(620, self.largeur_actuelle), height_scale(117, self.hauteur_actuelle)))
@@ -1394,13 +1394,13 @@ class HUD_State:
             self.loading_text_timer = time.time()
         
         # Barre de chargement (fond)
-        pygame.draw.rect(self.screen, "#FFFFFF", pygame.Rect(width_scale(550, self.largeur_actuelle), height_scale(600, self.hauteur_actuelle), width_scale(800, self.largeur_actuelle), height_scale(100, self.hauteur_actuelle)), border_radius = 10)
+        pygame.draw.rect(self.screen, "#FFFFFF", pygame.Rect(width_scale(550, self.largeur_actuelle), height_scale(800, self.hauteur_actuelle), width_scale(800, self.largeur_actuelle), height_scale(100, self.hauteur_actuelle)), border_radius = 10)
         # Barre de remplissage
-        pygame.draw.rect(self.screen, "#FF0000", pygame.Rect(width_scale(550, self.largeur_actuelle), height_scale(600, self.hauteur_actuelle), width_scale(int(width_scale(800, self.largeur_actuelle) * self.chargement_valeur / 100) + 1, self.largeur_actuelle), height_scale(100, self.hauteur_actuelle)), border_radius = 10)
+        pygame.draw.rect(self.screen, "#FF0000", pygame.Rect(width_scale(550, self.largeur_actuelle), height_scale(800, self.hauteur_actuelle), width_scale(int(width_scale(800, self.largeur_actuelle) * self.chargement_valeur / 100) + 1, self.largeur_actuelle), height_scale(100, self.hauteur_actuelle)), border_radius = 10)
         # Texte du pourcentage de la barre de chargement
         gui_font = pygame.font.SysFont("Roboto", width_scale(100, self.largeur_actuelle, True))
         text_surf = gui_font.render(f"{round(self.chargement_valeur)}%", True, "#000000")
-        self.screen.blit(text_surf, (width_scale(890, self.largeur_actuelle), height_scale(615, self.hauteur_actuelle)))
+        self.screen.blit(text_surf, (width_scale(890, self.largeur_actuelle), height_scale(815, self.hauteur_actuelle)))
         # Calcul du pourcentage actuel et des temps de pause
         # Si la valeur à suivre n'est pas bonne on continue d'augmenter pour s'arrêter à 99%
         if not self.chargement_fini:

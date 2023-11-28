@@ -252,8 +252,8 @@ if __name__ == "__main__":
     Global_objects.auto_arrived_sits = None
     # Initialisation de la référence du client actuel
     Global_objects.client_actuel = 0
-    # Round commencé ou non
-    Global_objects.round_started = False
+    # Game commencé ou non
+    Global_objects.game_started = False
     # Savoir si une table a été sélectionnée ou non (self.table_selected contient les infos de la table si oui, None si non)
     Global_objects.table_selected = None
     # Si le joueur est entrain de raise

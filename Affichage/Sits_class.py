@@ -44,7 +44,7 @@ class Sits:
         gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle, True))
         # Affichage du fond du widget de siège
         # On affiche le bouton pour s'asseoir si le joueur n'est pas encore assis
-        if Global_objects.is_selecting_sit[0] and self.player[1] is None and not Global_objects.round_started:
+        if Global_objects.is_selecting_sit[0] and self.player[1] is None and not Global_objects.game_started:
             sitbutton = Button(self.largeur_actuelle, self.hauteur_actuelle, self.screen, f"sit {self.player[0] + 1}", f"Sit down [{self.player[0] + 1}]", "Roboto", 30, (255, 255, 255), (0, 0, 0, 180), (50, 50, 50, 200), (90, 90, 90, 180), (0, 0, 0), 3, (self.width * 1920) // self.largeur_actuelle, (self.height * 1080) // self.hauteur_actuelle, ((self.x * 1920) // self.largeur_actuelle, (self.y * 1080) // self.hauteur_actuelle), 50)
             sitbutton.check_click()
             sitbutton.draw()
@@ -94,7 +94,7 @@ class Sits:
             pygame.draw.rect(self.screen, "#FFFFFF", pygame.Rect((self.x + width_scale(35, self.largeur_actuelle), self.y + self.height - height_scale(20, self.hauteur_actuelle)), (self.width - width_scale(70, self.largeur_actuelle), height_scale(10, self.hauteur_actuelle))), border_radius = 10)
             # Barre de remplissage
             pygame.draw.rect(self.screen, "#FF0000", pygame.Rect((self.x + width_scale(35, self.largeur_actuelle), self.y + self.height - height_scale(20, self.hauteur_actuelle)), (width_scale(self.temps_pourcent, self.largeur_actuelle), height_scale(10, self.hauteur_actuelle))), border_radius = 10)
-            if Global_objects.round_started and Global_objects.parole == self.player[0] + 1:
+            if Global_objects.game_started and Global_objects.parole == self.player[0] + 1:
                 self.temps_pourcent = int((self.width - width_scale(70, self.largeur_actuelle)) * Global_objects.game_state.timer[0] / 15)
         # Affichage des infos du joueur du siège actuel par dessus la surface transparente
         if self.player[1] is None:
