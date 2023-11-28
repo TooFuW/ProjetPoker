@@ -1056,11 +1056,11 @@ class HUD_State:
         # Affichage du texte POT au dessus de la zone du pot
         gui_font = pygame.font.SysFont("Roboto", width_scale(45, self.largeur_actuelle, True))
         text_surf = gui_font.render(f"POT", True, "#FFFFFF")
-        self.screen.blit(text_surf, (width_scale(935, self.largeur_actuelle), height_scale(445, self.hauteur_actuelle)))
+        self.screen.blit(text_surf, (width_scale(935, self.largeur_actuelle), height_scale(345, self.hauteur_actuelle)))
         # Affichage de la zone du pot de la partie
-        pygame.draw.circle(self.screen, (0, 0, 0), (width_scale(965, self.largeur_actuelle), height_scale(515, self.hauteur_actuelle)), width_scale(35, self.largeur_actuelle))
+        pygame.draw.circle(self.screen, (0, 0, 0), (width_scale(965, self.largeur_actuelle), height_scale(415, self.hauteur_actuelle)), width_scale(35, self.largeur_actuelle))
         pot_surface = pygame.Surface((width_scale(50, self.largeur_actuelle), height_scale(50, self.hauteur_actuelle)))
-        pot_surface = self.screen.blit(pot_surface, (width_scale(940, self.largeur_actuelle), height_scale(490, self.hauteur_actuelle)))
+        pot_surface = self.screen.blit(pot_surface, (width_scale(940, self.largeur_actuelle), height_scale(390, self.hauteur_actuelle)))
         # On place la valeur du pot au milieu de la zone
         gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle, True))
         pot_texte = ""
@@ -1073,7 +1073,11 @@ class HUD_State:
         text_rect = text_surf.get_rect(center = (pot_surface.centerx, pot_surface.centery))
         self.screen.blit(text_surf, text_rect)
 
-        # Boucle pour calculer le timer de chaque joueur pour prendre une décision 
+        # On dessine le paquet
+        paquet = pygame.transform.scale(Global_objects.cards["dos"], (width_scale(100, self.largeur_actuelle), height_scale(150, self.hauteur_actuelle)))
+        self.screen.blit(paquet, (width_scale(915, self.largeur_actuelle), height_scale(490, self.hauteur_actuelle), width_scale(0, self.largeur_actuelle), height_scale(0, self.hauteur_actuelle)))
+
+        # Boucle pour calculer le timer de chaque joueur pour prendre une décision (fait par le serveur désormais)
         """if Global_objects.game_started:
             print('round_started')
             if self.timer[0] > 0:
