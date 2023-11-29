@@ -26,7 +26,7 @@ class Game:
 
 
         self.round_nb = 0  # le nombre de round effectués dans la game
-        self.dealer_index = self.first_dealer_index() #index du dealer vis à vis de la liste self.sits
+        self.first_dealer_index() #index du dealer vis à vis de la liste self.sits
         self.dealer = None  # identité du dealer
 
         
@@ -35,20 +35,17 @@ class Game:
 
         self.round = None
         print("game initiée.", cave)
+        print(id(self.sits))
 
 
     def start(self):
         #paie la cave pour tous les joueurs, lance les rounds jusqu'à ce qu'un joueur reste en vie.
-        try:
             self.buy_in_all_players(self.sits, self.cave)
 
             while self.check_if_we_make_new_round():
                 print("round started")
                 self.init_round()
                 self.round.start()
-
-        except Exception as e:
-            print("protocole crash", e)
 
     
     def check_if_we_make_new_round(self):
@@ -66,7 +63,8 @@ class Game:
         pass
 
     def init_round(self):
-        self.round = Round(self.sits,self.sits[self.new_dealer_index()])
+        self.round = Round(self.sits,self.sits[self.new_dealer_index()],self.players)
+        
 
     def stop_round(self):
         # Arrête le round en cours.
@@ -128,6 +126,7 @@ class Game:
         for _ in range(len(self.sits)):
 
             self.dealer_index += 1
+            self.dealer_index = self.dealer_index % len(self.sits)
             pl = self.sits[self.dealer_index].get_player()
             if isinstance(pl,Player):  # On parcours les sièges jusqu'a ce qu'on ait un Player et il devient self.dealer
                 self.dealer = pl
