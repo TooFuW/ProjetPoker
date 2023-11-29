@@ -276,6 +276,19 @@ def check_click(Button):
                 sit_up(Global_objects.client_socket)
                 Global_objects.is_selecting_sit[0] = True
                 Global_objects.client_actuel = 0
+                for sit in Global_objects.all_sits:
+                    sit.pos_card1_x_arrive = sit.x + width_scale(40, sit.largeur_actuelle)
+                    sit.pos_card1_y_arrive = sit.y - height_scale(100, sit.hauteur_actuelle)
+                    sit.pos_card2_x_arrive = sit.x + width_scale(140, sit.largeur_actuelle)
+                    sit.pos_card2_y_arrive = sit.y - height_scale(100, sit.hauteur_actuelle)
+                    sit.pos_card1_x_actuel = width_scale(930, sit.largeur_actuelle)
+                    sit.pos_card1_y_actuel = height_scale(490, sit.hauteur_actuelle)
+                    sit.pos_card2_x_actuel = width_scale(930, sit.largeur_actuelle)
+                    sit.pos_card2_y_actuel = height_scale(490, sit.hauteur_actuelle)
+                    sit.pas_card1_x = (sit.pos_card1_x_arrive - width_scale(930, sit.largeur_actuelle))/20
+                    sit.pas_card1_y = (sit.pos_card1_y_arrive - height_scale(490, sit.hauteur_actuelle))/20
+                    sit.pas_card2_x = (sit.pos_card2_x_arrive - width_scale(930, sit.largeur_actuelle))/20
+                    sit.pas_card2_y = (sit.pos_card2_y_arrive - height_scale(490, sit.hauteur_actuelle))/20
             # Lorsque l'on clique sur le bouton check
             # appelle la fonction send_action de network avec l'action dans un tuple (action,montant)
             case "check":
@@ -316,6 +329,19 @@ def check_click(Button):
             Global_objects.buttons_interactibles = True
             Global_objects.table_selected = None
             Global_objects.auto_arrived_sits = None
+            for sit in Global_objects.all_sits:
+                sit.pos_card1_x_arrive = sit.x + width_scale(40, sit.largeur_actuelle)
+                sit.pos_card1_y_arrive = sit.y - height_scale(100, sit.hauteur_actuelle)
+                sit.pos_card2_x_arrive = sit.x + width_scale(140, sit.largeur_actuelle)
+                sit.pos_card2_y_arrive = sit.y - height_scale(100, sit.hauteur_actuelle)
+                sit.pos_card1_x_actuel = width_scale(930, sit.largeur_actuelle)
+                sit.pos_card1_y_actuel = height_scale(490, sit.hauteur_actuelle)
+                sit.pos_card2_x_actuel = width_scale(930, sit.largeur_actuelle)
+                sit.pos_card2_y_actuel = height_scale(490, sit.hauteur_actuelle)
+                sit.pas_card1_x = (sit.pos_card1_x_arrive - width_scale(930, sit.largeur_actuelle))/20
+                sit.pas_card1_y = (sit.pos_card1_y_arrive - height_scale(490, sit.hauteur_actuelle))/20
+                sit.pas_card2_x = (sit.pos_card2_x_arrive - width_scale(930, sit.largeur_actuelle))/20
+                sit.pas_card2_y = (sit.pos_card2_y_arrive - height_scale(490, sit.hauteur_actuelle))/20
         # Lorsque le joueur ne confirme pas qu'il veut quitter
         case "no_leave":
             Global_objects.game_state.confirmation = False

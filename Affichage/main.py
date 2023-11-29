@@ -227,6 +227,8 @@ if __name__ == "__main__":
     Global_objects.sit_9 = Sits(largeur_actuelle, hauteur_actuelle, screen, 250, 80, (0, 0), pdpplayer)
     # Création de l'objet sit_10
     Global_objects.sit_10 = Sits(largeur_actuelle, hauteur_actuelle, screen, 250, 80, (0, 0), pdpplayer)
+    # Liste des sièges
+    Global_objects.all_sits = [Global_objects.sit_1, Global_objects.sit_2, Global_objects.sit_3, Global_objects.sit_4, Global_objects.sit_5, Global_objects.sit_6, Global_objects.sit_7, Global_objects.sit_8, Global_objects.sit_9, Global_objects.sit_10]
 
     # Création des cursor_bar
     # Création de l'objet music_bar
