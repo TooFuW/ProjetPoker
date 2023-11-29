@@ -37,11 +37,17 @@ class Sits:
         self.sit_selected = None
         # Variable pour savoir le temps restant au joueur pour parler et ainsi l'afficher
         self.temps_pourcent = 0
-        # Position à atteindre pour les cartes
-        self.pos_card1_x = self.x + width_scale(40, self.largeur_actuelle)
-        self.pos_card1_y = self.y - height_scale(100, self.hauteur_actuelle)
-        self.pos_card2_x = self.x + width_scale(140, self.largeur_actuelle)
-        self.pos_card2_y = self.y - height_scale(100, self.hauteur_actuelle)
+        # Variables pour gérer les animations des cartes
+        self.pos_card1_x_arrive = self.x + width_scale(40, self.largeur_actuelle)
+        self.pos_card1_y_arrive = self.y - height_scale(100, self.hauteur_actuelle)
+        self.pos_card2_x_arrive = self.x + width_scale(140, self.largeur_actuelle)
+        self.pos_card2_y_arrive = self.y - height_scale(100, self.hauteur_actuelle)
+        self.pos_card1_x_actuel = width_scale(930, self.largeur_actuelle)
+        self.pos_card1_y_actuel = height_scale(490, self.hauteur_actuelle)
+        self.pos_card2_x_actuel = width_scale(930, self.largeur_actuelle)
+        self.pos_card2_y_actuel = height_scale(490, self.hauteur_actuelle)
+        self.pas_x = self.pos_card1_x_arrive - width_scale(930, self.largeur_actuelle)
+        self.pas_y = self.pos_card1_y_arrive - height_scale(490, self.hauteur_actuelle)
    
     def draw(self):
         """Génération/affichage du siège
