@@ -1074,8 +1074,8 @@ class HUD_State:
         self.screen.blit(text_surf, text_rect)
 
         # On dessine le paquet
-        paquet = pygame.transform.scale(Global_objects.cards["dos"], (width_scale(100, self.largeur_actuelle), height_scale(150, self.hauteur_actuelle)))
-        self.screen.blit(paquet, (width_scale(915, self.largeur_actuelle), height_scale(490, self.hauteur_actuelle), width_scale(0, self.largeur_actuelle), height_scale(0, self.hauteur_actuelle)))
+        paquet = pygame.transform.scale(Global_objects.cards["dos"], (width_scale(70, self.largeur_actuelle), height_scale(110, self.hauteur_actuelle)))
+        self.screen.blit(paquet, (width_scale(930, self.largeur_actuelle), height_scale(490, self.hauteur_actuelle), width_scale(0, self.largeur_actuelle), height_scale(0, self.hauteur_actuelle)))
 
         # Boucle pour calculer le timer de chaque joueur pour prendre une décision (fait par le serveur désormais)
         """if Global_objects.game_started:

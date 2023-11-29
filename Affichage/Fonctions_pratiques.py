@@ -159,3 +159,115 @@ class Logs:
         if self.time_start - time.time() <= -3:
             Global_objects.logs.pop(0)
             del self
+
+def charge_settings(largeur_actuelle : int, hauteur_actuelle : int, screen : pygame.Surface, current_folder : str):
+    """Fonction pour charger la sauvegarde locale
+
+    Args:
+        current_folder (str): lien du fichier de sauvegarde
+    """
+    try:
+        with open(f"{current_folder}\\settings_save.txt", encoding="utf-8") as file:
+            settings = file.readlines()
+            # On charge le volume
+            music = settings[32].split("\n")
+            Global_objects.volume_music = float(music[0])
+            Global_objects.music_bar.cursor_width = width_scale(500, largeur_actuelle) + Global_objects.volume_music * (width_scale(700, largeur_actuelle) - width_scale(500, largeur_actuelle))
+            # On charge le son
+            sound = settings[33].split("\n")
+            Global_objects.button_sound_volume = float(sound[0])
+            Global_objects.sound_bar.cursor_width = width_scale(500, largeur_actuelle) + Global_objects.button_sound_volume * (width_scale(700, largeur_actuelle) - width_scale(500, largeur_actuelle))
+            # On charge les raccourcis clavier
+            raccourcis = []
+            for elem in settings[:-1]:
+                raccourci = elem.split("\n")
+                raccourcis.append(raccourci[0])
+            Global_objects.raccourcis_mainmenu = {raccourcis[0] if raccourcis[0] != "\\r" else "\r" : Global_objects.playbutton,
+                                                  raccourcis[1] if raccourcis[1] != "\\r" else "\r" : Global_objects.settingsbutton,
+                                                  raccourcis[2] if raccourcis[2] != "\\r" else "\r" : Global_objects.shopbutton,
+                                                  raccourcis[3] if raccourcis[3] != "\\r" else "\r" : Global_objects.accountbutton,
+                                                  raccourcis[4] if raccourcis[4] != "\\r" else "\r" : Global_objects.exitbutton}
+            
+            Global_objects.raccourcis_settingmenu = {raccourcis[5] if raccourcis[5] != "\\r" else "\r" : Global_objects.settingpage1button,
+                                                     raccourcis[6] if raccourcis[6] != "\\r" else "\r" : Global_objects.settingpage2button,
+                                                     raccourcis[7] if raccourcis[7] != "\\r" else "\r" : Global_objects.settingpage3button,
+                                                     raccourcis[8] if raccourcis[8] != "\\r" else "\r" : Global_objects.accountbutton,
+                                                     raccourcis[9] if raccourcis[9] != "\\r" else "\r" : Global_objects.backbutton}
+            
+            Global_objects.raccourcis_accountmenu = {raccourcis[10] if raccourcis[10] != "\\r" else "\r" : Global_objects.accountsettingsbutton,
+                                                     raccourcis[11] if raccourcis[11] != "\\r" else "\r" : Global_objects.accountpseudoinput,
+                                                     raccourcis[12] if raccourcis[12] != "\\r" else "\r" : Global_objects.accountinformationinput,
+                                                     raccourcis[13] if raccourcis[13] != "\\r" else "\r" : Global_objects.deconnexionbutton,
+                                                     raccourcis[14] if raccourcis[14] != "\\r" else "\r" : Global_objects.backbutton}
+        
+            Global_objects.raccourcis_gamemenu = {raccourcis[15] if raccourcis[15] != "\\r" else "\r" : Global_objects.checkbutton,
+                                                  raccourcis[16] if raccourcis[16] != "\\r" else "\r" : Global_objects.callbutton,
+                                                  raccourcis[17] if raccourcis[17] != "\\r" else "\r" : Global_objects.foldbutton,
+                                                  raccourcis[18] if raccourcis[18] != "\\r" else "\r" : Global_objects.raisebutton,
+                                                  raccourcis[19] if raccourcis[19] != "\\r" else "\r" : (Global_objects.yesleavebutton, Global_objects.confirmraisebutton),
+                                                  raccourcis[20] if raccourcis[20] != "\\r" else "\r" : (Global_objects.noleavebutton, Global_objects.cancelraisebutton),
+                                                  raccourcis[21] if raccourcis[21] != "\\r" else "\r" : Global_objects.minus100button,
+                                                  raccourcis[22] if raccourcis[22] != "\\r" else "\r" : Global_objects.add100button,
+                                                  raccourcis[23] if raccourcis[23] != "\\r" else "\r" : Global_objects.all_inbutton,
+                                                  raccourcis[24] if raccourcis[24] != "\\r" else "\r" : Global_objects.sit_upbutton,
+                                                  raccourcis[25] if raccourcis[25] != "\\r" else "\r" : Global_objects.leavegamebutton,
+                                                  raccourcis[26] if raccourcis[26] != "\\r" else "\r" : Global_objects.gamesettingsbutton}
+        
+            Global_objects.raccourcis_lobbymenu = {raccourcis[27] if raccourcis[27] != "\\r" else "\r" : Global_objects.previewlobbys.jointablebutton,
+                                                   raccourcis[28] if raccourcis[28] != "\\r" else "\r" : Global_objects.createtablebutton,
+                                                   raccourcis[29] if raccourcis[29] != "\\r" else "\r" : Global_objects.tablecodeinput,
+                                                   raccourcis[30] if raccourcis[30] != "\\r" else "\r" : Global_objects.accountbutton,
+                                                   raccourcis[31] if raccourcis[31] != "\\r" else "\r" : Global_objects.backbutton}
+    except:
+        # On gére le cas où le chargement de la sauvegarde ne fonctionne pas pour quelque raison que ce soit et on rétablit les paramètres par défaut des raccourcis
+        Global_objects.raccourcis_mainmenu = {"s" : Global_objects.playbutton,
+                                              "q" : Global_objects.settingsbutton,
+                                              "d" : Global_objects.shopbutton,
+                                              "z" : Global_objects.accountbutton,
+                                              "\x1b" : Global_objects.exitbutton}
+
+        Global_objects.raccourcis_settingmenu = {"&" : Global_objects.settingpage1button,
+                                                 "é" : Global_objects.settingpage2button,
+                                                 '"' : Global_objects.settingpage3button,
+                                                 "z" : Global_objects.accountbutton,
+                                                 "\x1b" : Global_objects.backbutton}
+        
+        Global_objects.raccourcis_accountmenu = {"a" : Global_objects.accountsettingsbutton,
+                                                 "q" : Global_objects.accountpseudoinput,
+                                                 "s" : Global_objects.accountinformationinput,
+                                                 "w" : Global_objects.deconnexionbutton,
+                                                 "\x1b" : Global_objects.backbutton}
+        
+        Global_objects.raccourcis_gamemenu = {"w" : Global_objects.checkbutton,
+                                              "x" : Global_objects.callbutton,
+                                              "c" : Global_objects.foldbutton,
+                                              "v" : Global_objects.raisebutton,
+                                              "\r" : (Global_objects.yesleavebutton, Global_objects.confirmraisebutton),
+                                              "\x08" : (Global_objects.noleavebutton, Global_objects.cancelraisebutton),
+                                              "," : Global_objects.minus100button,
+                                              ";" : Global_objects.add100button,
+                                              ":" : Global_objects.all_inbutton,
+                                              "b" : Global_objects.sit_upbutton,
+                                              "n" : Global_objects.leavegamebutton,
+                                              "\x1b" : Global_objects.gamesettingsbutton}
+        
+        Global_objects.raccourcis_lobbymenu = {"\r" : Global_objects.previewlobbys.jointablebutton,
+                                               "a" : Global_objects.createtablebutton,
+                                               "w" : Global_objects.tablecodeinput,
+                                               "z" : Global_objects.accountbutton,
+                                               "\x1b" : Global_objects.backbutton}
+
+def sauvegarder_settings():
+    with open(f"{__file__[:-23]}\\settings_save.txt", "w", encoding="utf-8") as file:
+        for raccourci in Global_objects.raccourcis_mainmenu.keys():
+            file.write(f"{raccourci}\n") if raccourci != "\r" else file.write(r"\r"+"\n")
+        for raccourci in Global_objects.raccourcis_settingmenu.keys():
+            file.write(f"{raccourci}\n") if raccourci != "\r" else file.write(r"\r"+"\n")
+        for raccourci in Global_objects.raccourcis_accountmenu.keys():
+            file.write(f"{raccourci}\n") if raccourci != "\r" else file.write(r"\r"+"\n")
+        for raccourci in Global_objects.raccourcis_gamemenu.keys():
+            file.write(f"{raccourci}\n") if raccourci != "\r" else file.write(r"\r"+"\n")
+        for raccourci in Global_objects.raccourcis_lobbymenu.keys():
+            file.write(f"{raccourci}\n") if raccourci != "\r" else file.write(r"\r"+"\n")
+        file.write(f"{Global_objects.volume_music}\n")
+        file.write(f"{Global_objects.button_sound_volume}\n")
