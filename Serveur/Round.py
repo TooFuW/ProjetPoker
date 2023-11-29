@@ -30,6 +30,7 @@ class Round:
 
         self.sits = sits
         self.dealer = dealer
+        print("Dealer : ",self.dealer)
 
         self.little_blind = None
         self.set_little_blind()     #La little blind se fait toujours avant la big blind !
@@ -194,8 +195,12 @@ class Round:
 
 
     def get_sit_by_player(self, player) -> Sit:
+        print(id(self.sits))
         for sit in self.sits:
-            if sit.get_player() == player:
+            print(sit ,"\n")
+            print(sit.get_player(),"vs",player)
+            if sit.get_player() is player:
+                print("CONDITION VALIDEE")
                 return sit
             
     def get_index_by_sit(self,sit):

@@ -31,13 +31,14 @@ class Lobby :
         self.game : Game = None
         self.is_continue_timer = False
         self.timer_running = False
-        self.timer = 20
+        self.timer = 5
 
         self.sits_number = capacity
         self.sits = new_sits(self.sits_number)
         self.sits : List[Sit]
 
         self.func_id_dict = {}
+        
 
         if type(name) == str and type(capacity) == int and type(cave) == int and type(is_private) == bool and type(host) == str and type(port) == int and type(id) == int:
             self.id = id
@@ -433,7 +434,7 @@ class Lobby :
         
     def start_timer (self):
         
-        self.timer = 20
+        self.timer = 5
         if not self.timer_running:
 
             self.timer_running = True
@@ -457,7 +458,6 @@ class Lobby :
 
             if self.is_continue_timer:
                 print("GAME COMMENCE")  # PROTOCOLE LANCEMENT DE GAME
-                print("step commence")
                 self.init_game()
                 self.start_game()
             else:
