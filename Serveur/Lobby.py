@@ -439,7 +439,7 @@ class Lobby :
 
             self.timer_running = True
 
-            thread_start_timer = Thread(target=self.broadcast_packet,args=['start_timer=20'])
+            thread_start_timer = Thread(target=self.broadcast_packet,args=['start_timer='+str(self.timer)])
             thread_start_timer.start()
 
             while self.timer > 0 and self.is_continue_timer:

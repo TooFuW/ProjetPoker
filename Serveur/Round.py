@@ -39,7 +39,7 @@ class Round:
         self.set_big_blind()
 
         self.sit_to_play_index = None
-        self.sit_to_play_index = self.set_sit_to_play_index()
+        self.set_sit_to_play_index()
 
         self.step : Step = None
 
@@ -47,6 +47,7 @@ class Round:
         self.board = Board()
 
         self.hand_combinations = {}
+        print("dealer : ",self.dealer, "lil blind", self.little_blind, "big blind", self.big_blind, "player to play", self.sit_to_play_index)
 
 
     def start(self):
@@ -54,7 +55,9 @@ class Round:
         # on start le round
         print("round started")
         while self.check_if_new_step():
-            self.init_step()
+            self.set_hands()
+            self.send_hand_packet()
+            self.init_step("pre_flop")
             self.step.start()
         
     def check_if_new_step(self):
@@ -88,14 +91,14 @@ class Round:
         match step_type:
 
             case "pre_flop":
-                self.step = Step("pre_flop", self.sits, self.board, self.deck, self.players,self.pots)
+                self.step = Step("pre_flop", self.sits, self.board, self.deck, self.players,self.sit_to_play_index,self.pots)
 
             case "flop":
-                self.step = Step("flop", self.sits, self.board, self.deck, self.players,self.pots)
+                self.step = Step("flop", self.sits, self.board, self.deck,self.players,self.sit_to_play_index,self.pots)
             case "turn":
-                self.step = Step("turn", self.sits, self.board, self.deck, self.players,self.pots)
+                self.step = Step("turn", self.sits, self.board, self.deck, self.players,self.sit_to_play_index,self.pots)
             case "river":
-                self.step = Step("river", self.sits, self.board, self.deck, self.players,self.pots)
+                self.step = Step("river", self.sits, self.board, self.deck, self.players,self.sit_to_play_index,self.pots)
 
 
 
@@ -127,7 +130,7 @@ class Round:
 
             
 
-    def card_to_str_for_packet(card : Card):
+    def card_to_str_for_packet(self,card : Card):
         rank = card.get_rank()
         suit = card.get_suit()
 
@@ -158,9 +161,11 @@ class Round:
         dealer_sit_index = self.get_index_by_sit(self.get_sit_by_player(self.dealer)) # on prends l'indice du siège du dealer, on passe au suivant jusqu'à ce qu'il y ait un joueur.
         for _ in range(len(self.sits)):
             dealer_sit_index += 1
+            dealer_sit_index = dealer_sit_index % len(self.sits)
             pl = self.sits[dealer_sit_index].get_player()
             if isinstance(pl,Player):
                 self.little_blind = pl
+                return
             
         print("Warning, Round.set_little_blind !")
         self.little_blind = pl
@@ -170,36 +175,38 @@ class Round:
         little_blind_sit_index = self.get_index_by_sit(self.get_sit_by_player(self.little_blind)) # on prends l'indice du siège de la little_blind, on passe au suivant jusqu'à ce qu'il y ait un joueur.
         for _ in range(len(self.sits)):
             little_blind_sit_index += 1
+            little_blind_sit_index = little_blind_sit_index % len(self.sits)
             pl = self.sits[little_blind_sit_index].get_player()
             if isinstance(pl,Player):
                 self.big_blind = pl
+                return
             
         print("Warning, Round.set_big_blind !")
         self.big_blind = pl
 
     def set_sit_to_play_index(self) -> int:
         if self.sit_to_play_index is None : # si on a pas encore défini le siège à jouer : 
-            big_blind_sit_index =  self.get_index_by_sit(self.get_sit_by_player(self.little_blind))
-            for _ in range(len(self.sits)):
+            big_blind_sit_index =  self.get_index_by_sit(self.get_sit_by_player(self.big_blind))
+            for _ in range(len(self.sits)+5):
                 big_blind_sit_index += 1
+                big_blind_sit_index = big_blind_sit_index % len(self.sits)
                 pl = self.sits[big_blind_sit_index].get_player()
                 if isinstance(pl,Player):
-                    self.sit_to_play_index = self.sits.index(pl)
+                    self.sit_to_play_index = big_blind_sit_index
+                    return
 
         else:
             for _ in range(len(self.sits)):
                 self.sit_to_play_index += 1
+                self.sit_to_play_index = self.sit_to_play_index % len(self.sits)
                 pl = self.sits[big_blind_sit_index].get_player()
                 if isinstance(pl,Player):
-                    break
+                    return
 
 
-    def get_sit_by_player(self, player) -> Sit:
-        print(id(self.sits))
+    def get_sit_by_player(self, player : Player) -> Sit:
         for sit in self.sits:
-            print(sit ,"\n")
-            print(sit.get_player(),"vs",player)
-            if sit.get_player() is player:
+            if sit.get_player() == player:
                 print("CONDITION VALIDEE")
                 return sit
             

@@ -205,6 +205,9 @@ def manage_data(conn : socket, packet : str):
         entete = packet[0]
         body = packet[1]
 
+        if entete!= "handshake":
+            print(packet)
+
         del packet
 
         match entete:
@@ -281,7 +284,7 @@ def manage_data(conn : socket, packet : str):
 
             case "handshake":
                 # réponse au handshake
-                print("packet handshake reçu : handshake = ",body)
+                #print("packet handshake reçu : handshake = ",body)
 
                 message = "handshake="+body
                 thread_anserw_handshake = Thread(target=send_packet, args=(conn,message))
@@ -360,6 +363,8 @@ def manage_data(conn : socket, packet : str):
                 Global_objects.my_turn = True
 
             case "your_cards":
+                Global_objects.logs.append(body)
+                print(entete,body)
                 '''ICI ON RECOIT LE PAQUET AVEC LES CARTES DE NOTRE MAIN SELON LA SYNTAXE INDIQUEE SUR DISCORD (ex : ["kh","1d"])
                 => Pour une liste de 2 chaines de caractères, le 1er caractère c'est le rang parmi : "123456789tjqk" où t est un 10, j un valet, q une dame, k un roi et 1 un as
                 => Le 2éme caractère c'est la famille parmi : hdsc =  h pour hearth, d pour diamond, s pour spade et c pour club

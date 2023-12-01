@@ -1,16 +1,13 @@
-from Round import Round
-from Step import Step
-from Sit import *
+x = 80
+y = 140
 
-round = Round([],2234)
+x_arriv = -170
+y_arriv = 365
 
-print(id(round.board))
+x_step = (x_arriv-x)/100
+y_step = (y_arriv-y)/100
 
-step = Step("pre_flop",[],round.board,round.deck)
-
-print(id(step.board))
-
-step.flop_board()
-
-print(step.board)
-print(round.board)
+for i in range(100):
+    x += x_step
+    y += y_step
+    print(i, "  ",x,y)
