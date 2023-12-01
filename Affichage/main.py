@@ -283,7 +283,7 @@ if __name__ == "__main__":
     
     # On charge les paramètres du client (les raccourcis clavier et le volume de la musique pour l'instant)
     charge_settings(largeur_actuelle, hauteur_actuelle, screen, current_folder)
-
+    
     # Création des TextInputBox pour les raccourcis
     # Pour raccourcis_mainmenu
     # Création de l'objet raccourci_mainmenu_play

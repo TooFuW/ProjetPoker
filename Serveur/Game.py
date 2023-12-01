@@ -21,7 +21,7 @@ class Game:
 
         self.started = False # regarde si la game a commencé, passe à True avec self.start()
         
-        self.sits = sits
+        self.sits : List[Sit]  = sits
         self.players = players
 
 
@@ -63,7 +63,7 @@ class Game:
         pass
 
     def init_round(self):
-        self.round = Round(self.sits,self.sits[self.new_dealer_index()],self.players)
+        self.round = Round(self.sits,self.sits[self.new_dealer_index()].get_player(),self.players)
         
 
     def stop_round(self):

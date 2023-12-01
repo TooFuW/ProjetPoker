@@ -139,6 +139,18 @@ class Player:
     def get_state(self):
         '''Permet d'obtenir l'état d'un joueur'''
         return self.state
+    
+    def __eq__(self,obj):
+        try :
+            if obj.get_id() == self.id and type(obj) == type(self):
+                return True
+            
+        except:
+            pass
+
+        return False
+
+
 
     
     
