@@ -51,6 +51,8 @@ class Sits:
         self.pas_card1_y = (self.pos_card1_y_arrive - height_scale(490, self.hauteur_actuelle))/100
         self.pas_card2_x = (self.pos_card2_x_arrive - width_scale(930, self.largeur_actuelle))/100
         self.pas_card2_y = (self.pos_card2_y_arrive - height_scale(490, self.hauteur_actuelle))/100
+        self.card1_timer = time.time()
+        self.card2_timer = time.time()
    
     def draw(self):
         """Génération/affichage du siège
@@ -96,25 +98,29 @@ class Sits:
             if Global_objects.nombre_cartes > 0:
                 self.screen.blit(card1, (self.pos_card1_x_actuel, self.pos_card1_y_actuel, width_scale(0, self.largeur_actuelle), height_scale(0, self.hauteur_actuelle)))
                 # On déplace la carte 1 du paquet au joueur
-                if self.pas_card1_x < 0:
-                    if self.pos_card1_x_actuel >= self.pos_card1_x_arrive:
-                        self.pos_card1_x_actuel += self.pas_card1_x
-                        self.pos_card1_y_actuel += self.pas_card1_y
-                elif self.pas_card1_x > 0:
-                    if self.pos_card1_x_actuel <= self.pos_card1_x_arrive:
-                        self.pos_card1_x_actuel += self.pas_card1_x
-                        self.pos_card1_y_actuel += self.pas_card1_y
+                if self.card1_timer - time.time() <= -0.01:
+                    self.card1_timer = time.time()
+                    if self.pas_card1_x < 0:
+                        if self.pos_card1_x_actuel >= self.pos_card1_x_arrive:
+                            self.pos_card1_x_actuel += self.pas_card1_x
+                            self.pos_card1_y_actuel += self.pas_card1_y
+                    elif self.pas_card1_x > 0:
+                        if self.pos_card1_x_actuel <= self.pos_card1_x_arrive:
+                            self.pos_card1_x_actuel += self.pas_card1_x
+                            self.pos_card1_y_actuel += self.pas_card1_y
             if Global_objects.nombre_cartes > 1:
                 self.screen.blit(card2, (self.pos_card2_x_actuel, self.pos_card2_y_actuel, width_scale(0, self.largeur_actuelle), height_scale(0, self.hauteur_actuelle)))
                 # On déplace la carte 1 du paquet au joueur
-                if self.pas_card2_x < 0:
-                    if self.pos_card2_x_actuel >= self.pos_card2_x_arrive:
-                        self.pos_card2_x_actuel += self.pas_card2_x
-                        self.pos_card2_y_actuel += self.pas_card2_y
-                elif self.pas_card2_x > 0:
-                    if self.pos_card2_x_actuel <= self.pos_card2_x_arrive:
-                        self.pos_card2_x_actuel += self.pas_card2_x
-                        self.pos_card2_y_actuel += self.pas_card2_y
+                if self.card2_timer - time.time() <= -0.01:
+                    self.card2_timer = time.time()
+                    if self.pas_card2_x < 0:
+                        if self.pos_card2_x_actuel >= self.pos_card2_x_arrive:
+                            self.pos_card2_x_actuel += self.pas_card2_x
+                            self.pos_card2_y_actuel += self.pas_card2_y
+                    elif self.pas_card2_x > 0:
+                        if self.pos_card2_x_actuel <= self.pos_card2_x_arrive:
+                            self.pos_card2_x_actuel += self.pas_card2_x
+                            self.pos_card2_y_actuel += self.pas_card2_y
             # On affiche le fond transparent du widget du siège
             transparent_surface = pygame.Surface((self.width, self.height), pygame.SRCALPHA)
             pygame.draw.rect(transparent_surface, (0, 0, 0, 160), (0, 0, self.width, self.height), border_radius = 50)

@@ -85,6 +85,7 @@ class HUD_State:
         self.chargement_temps_pause = -1
         self.chargement_fini = False
         self.chargement_next_state = None
+        self.chargement_timer = time.time()
     
     def mainmenu(self):
         """mainmenu est la fonction qui fait tourner/afficher le menu principal
@@ -1367,8 +1368,10 @@ class HUD_State:
                 sys.exit()
         
         # On demande Global_objects.auto_arrived_sits tant qu'il est égal à None
-        if Global_objects.auto_arrived_sits is None:
-            Global_objects.auto_arrived_sits = ask_sits_infos(Global_objects.client_socket, int(Global_objects.table_selected[-1]))
+        if self.chargement_timer - time.time() < -1:
+            self.chargement_timer = time.time()
+            if Global_objects.auto_arrived_sits is None:
+                Global_objects.auto_arrived_sits = ask_sits_infos(Global_objects.client_socket, int(Global_objects.table_selected[-1]))
         if Global_objects.auto_arrived_sits is not None:
             Global_objects.game_state.chargement_fini = True
 
