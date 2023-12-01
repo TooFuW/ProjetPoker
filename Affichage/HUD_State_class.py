@@ -265,14 +265,6 @@ class HUD_State:
                             self.chargement_next_state = "Game Menu"
                             Global_objects.is_selecting_sit[0] = True
                             Global_objects.game_started = False
-                            # Temporaire pour afficher les cartes le temps que je recoive réellement des cartes
-                            body = ["kh","1d"]
-                            Global_objects.nombre_cartes = len(body)
-                            try:
-                                Global_objects.card_1 = body[0]
-                                Global_objects.card_2 = body[1]
-                            except:
-                                pass
                         except:
                             self.error[0] = True
                             self.error[1] = time.time()

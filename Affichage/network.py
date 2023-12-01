@@ -314,7 +314,6 @@ def manage_data(conn : socket, packet : str):
                 print("Serveur indique : ",body)
 
             case "start_timer":
-
                 ''' ICI ON RECOIT LE PAQUET START_TIMER'''
                 Global_objects.game_state.depart_timer = int(body)
                 Global_objects.game_state.timer = [int(body), time.time(), True]
@@ -363,13 +362,10 @@ def manage_data(conn : socket, packet : str):
                 Global_objects.my_turn = True
 
             case "your_cards":
-                Global_objects.logs.append(body)
-                print(entete,body)
                 '''ICI ON RECOIT LE PAQUET AVEC LES CARTES DE NOTRE MAIN SELON LA SYNTAXE INDIQUEE SUR DISCORD (ex : ["kh","1d"])
                 => Pour une liste de 2 chaines de caractères, le 1er caractère c'est le rang parmi : "123456789tjqk" où t est un 10, j un valet, q une dame, k un roi et 1 un as
                 => Le 2éme caractère c'est la famille parmi : hdsc =  h pour hearth, d pour diamond, s pour spade et c pour club
                 Pas encore testé si tout marche'''
-                
                 body = eval(body)
                 print(body)
                 Global_objects.nombre_cartes = len(body)
