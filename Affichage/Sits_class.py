@@ -100,27 +100,23 @@ class Sits:
                 # On déplace la carte 1 du paquet au joueur
                 if self.card1_timer - time.time() <= -0.01:
                     self.card1_timer = time.time()
-                    if self.pas_card1_x < 0:
-                        if self.pos_card1_x_actuel >= self.pos_card1_x_arrive:
-                            self.pos_card1_x_actuel += self.pas_card1_x
-                            self.pos_card1_y_actuel += self.pas_card1_y
-                    elif self.pas_card1_x > 0:
-                        if self.pos_card1_x_actuel <= self.pos_card1_x_arrive:
-                            self.pos_card1_x_actuel += self.pas_card1_x
-                            self.pos_card1_y_actuel += self.pas_card1_y
+                    if self.pas_card1_x < 0 and self.pos_card1_x_actuel >= self.pos_card1_x_arrive:
+                        self.pos_card1_x_actuel += self.pas_card1_x
+                        self.pos_card1_y_actuel += self.pas_card1_y
+                    elif self.pas_card1_x > 0 and self.pos_card1_x_actuel <= self.pos_card1_x_arrive:
+                        self.pos_card1_x_actuel += self.pas_card1_x
+                        self.pos_card1_y_actuel += self.pas_card1_y
             if Global_objects.nombre_cartes > 1:
                 self.screen.blit(card2, (self.pos_card2_x_actuel, self.pos_card2_y_actuel, width_scale(0, self.largeur_actuelle), height_scale(0, self.hauteur_actuelle)))
                 # On déplace la carte 1 du paquet au joueur
                 if self.card2_timer - time.time() <= -0.01:
                     self.card2_timer = time.time()
-                    if self.pas_card2_x < 0:
-                        if self.pos_card2_x_actuel >= self.pos_card2_x_arrive:
-                            self.pos_card2_x_actuel += self.pas_card2_x
-                            self.pos_card2_y_actuel += self.pas_card2_y
-                    elif self.pas_card2_x > 0:
-                        if self.pos_card2_x_actuel <= self.pos_card2_x_arrive:
-                            self.pos_card2_x_actuel += self.pas_card2_x
-                            self.pos_card2_y_actuel += self.pas_card2_y
+                    if self.pas_card2_x < 0 and self.pos_card2_x_actuel >= self.pos_card2_x_arrive:
+                        self.pos_card2_x_actuel += self.pas_card2_x
+                        self.pos_card2_y_actuel += self.pas_card2_y
+                    elif self.pas_card2_x > 0 and self.pos_card2_x_actuel <= self.pos_card2_x_arrive:
+                        self.pos_card2_x_actuel += self.pas_card2_x
+                        self.pos_card2_y_actuel += self.pas_card2_y
             # On affiche le fond transparent du widget du siège
             transparent_surface = pygame.Surface((self.width, self.height), pygame.SRCALPHA)
             pygame.draw.rect(transparent_surface, (0, 0, 0, 160), (0, 0, self.width, self.height), border_radius = 50)
@@ -129,7 +125,8 @@ class Sits:
             self.screen.blit(self.profile_picture, (self.x - width_scale(65, self.largeur_actuelle), self.y - height_scale(22, self.hauteur_actuelle)))
             # On affiche un petit rond pour la zone où l'on va afficher la mise
             pygame.draw.circle(self.screen, "#475F77", (self.x + self.width, self.y + (self.height/2)), width_scale(25, self.largeur_actuelle))
-            if Global_objects.game_bets[self.player[0]] == "None":
+            ic(Global_objects.game_bets[self.player[0]])
+            if Global_objects.game_bets[self.player[0]] is None:
                 text_surf = gui_font.render(f"0", True, "#FFFFFF")
             else:
                 text_surf = gui_font.render(f"{Global_objects.game_bets[self.player[0]]}", True, "#FFFFFF")
