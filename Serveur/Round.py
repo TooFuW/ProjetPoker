@@ -122,8 +122,7 @@ class Round:
         for player in players:
             conn = player.get_conn()
             hand = player.get_hand()
-
-            packet = f"your_cards=['{self.card_to_str_for_packet(hand.get_hand()[0])}',{self.card_to_str_for_packet(hand.get_hand()[1])}]"
+            packet = f"your_cards=['{self.card_to_str_for_packet(hand.get_hand()[0])}','{self.card_to_str_for_packet(hand.get_hand()[1])}']"
             
             thread_send_hand = Thread(target=self.send_packet, args=[packet,conn])
             thread_send_hand.start()

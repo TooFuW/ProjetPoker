@@ -125,7 +125,6 @@ class Sits:
             self.screen.blit(self.profile_picture, (self.x - width_scale(65, self.largeur_actuelle), self.y - height_scale(22, self.hauteur_actuelle)))
             # On affiche un petit rond pour la zone où l'on va afficher la mise
             pygame.draw.circle(self.screen, "#475F77", (self.x + self.width, self.y + (self.height/2)), width_scale(25, self.largeur_actuelle))
-            ic(Global_objects.game_bets[self.player[0]])
             if Global_objects.game_bets[self.player[0]] is None:
                 text_surf = gui_font.render(f"0", True, "#FFFFFF")
             else:
