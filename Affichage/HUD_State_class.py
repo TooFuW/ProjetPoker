@@ -1071,13 +1071,8 @@ class HUD_State:
         self.screen.blit(paquet, (width_scale(930, self.largeur_actuelle), height_scale(490, self.hauteur_actuelle), width_scale(0, self.largeur_actuelle), height_scale(0, self.hauteur_actuelle)))
 
         # Boucle pour calculer le timer de chaque joueur pour prendre une décision (fait par le serveur désormais)
-        """if Global_objects.game_started:
-            print('round_started')
-            if self.timer[0] > 0:
-                self.timer[0] = self.depart_timer - (time.time() - self.timer[1])
-            else:
-                Global_objects.parole = Global_objects.parole + 1 if Global_objects.parole + 1 <= len(Global_objects.auto_arrived_sits) else 1
-                self.timer = [15, time.time(), True]"""
+        if Global_objects.game_started and self.timer[0] > 0:
+            self.timer[0] = self.depart_timer - (time.time() - self.timer[1])
 
         # Boutons d'actions
         # On rend les boutons interagissables en fonction de si le siège sur lequel le joueur est assis et le siège qui posséde la parole ou non
