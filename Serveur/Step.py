@@ -364,14 +364,16 @@ class Step:
 
 
     def is_step_done(self):
+        print("verif step est finie.")
         # la step est terminée quand tout les joueurs sont d'accord sur un prix donc quand toute la table est soit fold soit en all-in soit en a_parle
 
         for sit in self.sits:
             pl = sit.get_player()
             if not pl is None:
                 if not pl.state in ("fold","all-in","a_parle"):
+                    print("step n'est pas finie.")
                     return False
-                
+        print("step est finie.")
         return True
     
     def set_next_sit_to_play(self):
