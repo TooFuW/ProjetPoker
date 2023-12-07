@@ -188,20 +188,24 @@ class Step:
         brcst_packet = f"sit_to_play_time_to_play=({str(self.sit_to_play_index)},{str(self.time_to_play)})" #on annonce à tous les autres à qui c'est de jouer
         thread_brcst_packet = Thread(target=self.broadcast_packet, args=[brcst_packet])
         thread_brcst_packet.start()
+        print("packet ask to play envoyé.")
 
         # protocole timer
 
         while self.func_id_dict[60] is None and self.time_to_play > 0: #tant que le joueur n'a pas joué ou que le timer n'est pad 0
             # on attends que le joueur joue
+            print(self.time_to_play)
             sleep(1)
+            self.time_to_play -= 1
 
         self.waiting_for_action_packet = False
         tmp = self.func_id_dict[60]
         
         if tmp is None:
             pass
+            print("pas reçu de réponse")
             #on fait en sorte de warn car il n'a pas répondu dans les delais
-
+        print("réponse reçue")
         self.func_id_dict[60] = None
         return tmp
 
@@ -236,7 +240,7 @@ class Step:
 
 
             action = self.func_id_dict[60]
-            if not action in None:
+            if not action is None:
                 self.manage_player_action(action)
             else:
                 self.manage_player_action("fold") # attention ce joueur n'a pas joué dans les delais il doit etre averti
@@ -255,7 +259,7 @@ class Step:
 
 
 
-    def manage_player_action(self,player : Player, action : str):
+    def manage_player_action(self, action : str):
         """_summary_
 
         Args:
@@ -273,7 +277,7 @@ class Step:
         # on commence par transformer le paquet en tuple si c'est possible
         # NE SURTOUT PAS UTILISER EVAL COTE SERVEUR c'est dangereux et ouvre la porte à des failles d'injection python
 
-
+        player = self.sits[self.sit_to_play_index].get_player()
         action = action.split(",")
 
         action_type = action[0]
@@ -281,7 +285,7 @@ class Step:
         if action_type == 'fold': # action valide de type fold
             '''Protocole fold'''
 
-            self.fold_player()
+            self.fold_player(player)
 
         else:
             if action_type == 'bet':
@@ -295,7 +299,7 @@ class Step:
                         if amount < 0 :
                             # attention un ptit malin a réussi à envoyer un paquet avec des valeurs négatives
 
-                            self.fold_player()
+                            self.fold_player(player)
                             print('action invalide')
 
                         else:
