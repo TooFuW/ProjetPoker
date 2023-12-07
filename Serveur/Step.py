@@ -284,7 +284,7 @@ class Step:
 
         if action_type == 'fold': # action valide de type fold
             '''Protocole fold'''
-
+            print("fold du player")
             self.fold_player(player)
 
         else:
@@ -381,6 +381,7 @@ class Step:
         return True
     
     def set_next_sit_to_play(self):
+        print("choix du prochain joueur à parler")
 
         lenght = len(self.sits)
 
@@ -388,8 +389,10 @@ class Step:
             next_sit = (self.sit_to_play_index + i + 1) % lenght # permet de revenir au debut des index apres un tour complet evidemment
             pl = self.sits[next_sit].get_player()
             if not pl is None:
+                print(pl.pseudo,pl.state)
                 if pl.state == "peut_parler":
                     self.sit_to_play_index = next_sit
+        print("nouveau siege à jouer :",self.sit_to_play_index)
 
 
 
