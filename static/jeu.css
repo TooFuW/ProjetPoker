@@ -12,21 +12,20 @@ header{
     color:aliceblue;
     border: 0;
   }
+  
 #menu button{
-
     padding: 1% 3%;
     margin: 5px 4px;
     font-family: sans-serif;
-    text-transform: uppercase;
     text-align: center;
-    position: relative;
+    text-transform: uppercase;
     text-decoration: none;
+    position: relative;
     background-color: rgb(0, 183, 255);
     color:aliceblue;
     transform: skew(-20deg);
     border: 0;
-}
-
+  }
 .jeux a{
     display: inline-block;
     width: 190px;
@@ -44,17 +43,35 @@ header{
     color: #242424;
     padding: 1%;
     min-height: 40px;
-    border-radius: 4px;
+    border-radius: 50px;
     outline: none;
     border: none;
     line-height: 1.15;
-}
+  }
 
+  
 html {background-image: url(6226460.jpg);}
 body{
     margin: 0px;
     padding: 0px;
   }
-#menu{
-    display: inline-block;
-}
+
+#menu ul{
+    display: flex;
+    justify-content: start;
+    padding: 0px;
+    border: red solid 0.1px;
+  }
+
+#log{
+    display: flex;
+    justify-content: end;
+    align-items: center;
+  }
+  
+#nav_menu {
+    display: flex;
+    justify-content: space-between;
+    border: red solid 0.1px;
+  }
+  
