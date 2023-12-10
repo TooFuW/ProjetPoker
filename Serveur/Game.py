@@ -100,6 +100,8 @@ class Game:
             TypeError: erreur de type relatif à un joueur ou à la cave
             ValueError: banque du joueur insuffisante ou cave nulle ou négative
         """
+
+        print("buy_in : ",player, player.bank, cave)
         if type(player) != Player or type(cave) != int:
             raise TypeError
         
@@ -109,6 +111,7 @@ class Game:
         try:
             player.bank_remove(cave)
             player.chips += cave
+            player.state = "peut_parler"
             return True
 
         except ValueError as e:

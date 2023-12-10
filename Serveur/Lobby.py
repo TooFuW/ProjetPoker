@@ -140,7 +140,7 @@ class Lobby :
             if not self.address_in_players(address): # on ne crée pas 2 players avec la même connexion ou la même adresse.
                 #gestion de bdd pour la bank
                 print("new player, address : ",address)
-                new_player = self.create_player("dummy",conn,True,1800,address=address)
+                new_player = self.create_player("dummy",conn,True,180000,address=address)
 
             else :
                 print("suii")

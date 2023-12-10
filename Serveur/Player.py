@@ -109,16 +109,20 @@ class Player:
         
     def bank_remove(self, amount : int):
         if type(amount) == int:
-            if self.bank < amount:
-                raise ValueError
+
             if amount >=0:
-                self.bank -= amount
-            if self.bank < 0:
-                self.bank = 0
-                #completer avec gestion de base de données
+
+                if self.bank >= amount:
+                    self.bank -= amount
+                else:
+                    print("bank inferieure à amount",self.bank,amount)
+                    raise ValueError
+
             else:
-                raise ValueError
+                raise ValueError # montant négatif
+            
         else:
+            print("amount n'est pas un entier",self.bank,amount)
             raise TypeError
 
         
