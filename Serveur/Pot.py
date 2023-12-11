@@ -4,7 +4,7 @@ from Player import Player
 
 class Pot :
 
-    def __init__(self, mise : int = 0, sit_ids = List[int]) -> None:
+    def __init__(self, mise : int = 0, sit_ids = []) -> None:
 
         self.mise = mise
         self.sit_ids = sit_ids

@@ -40,7 +40,7 @@ class Step:
     def start(self):
         print("step started")
         self.show_states()
-        self.complete_round_table()
+        return self.complete_round_table()
 
     def stop(self):
         pass
@@ -242,6 +242,19 @@ class Step:
         self.send_table_infos()
 
         while not self.is_step_done():
+            ##################################### partie debug à enlever
+            print(f"debut du tour de parole , joueur actuel : {self.sits[self.sit_to_play_index].get_player()},{self.sit_to_play_index}")
+            print("states : ")
+            for sit in self.sits:
+                pl = sit.get_player()
+                if not pl is None:
+                    print(pl,pl.state)
+
+            ###################################""
+            winner = self.is_winner()
+            if not winner is None:
+                return winner
+
 
             self.ask_player_to_play()
 
@@ -377,7 +390,6 @@ class Step:
     def is_step_done(self):
         print("verif step est finie.")
         # la step est terminée quand tout les joueurs sont d'accord sur un prix donc quand toute la table est soit fold soit en all-in soit en a_parle
-        '''
         for sit in self.sits:
             pl = sit.get_player()
             if not pl is None:
@@ -385,9 +397,29 @@ class Step:
                     print("step n'est pas finie.")
                     return False
         print("step est finie.")
-        return True '''
+        return True
+    
+    def is_winner(self):
+        """si il ne reste qu'un joueur dans le coup, on finit la step et le round avec
+        """
+        cpt = 0
+        win = None
+        for sit in self.sits:
+            pl = sit.get_player()
+            if not pl is None:
+                state = pl.get_state()
+                if state in ("peut_parler","a_parle","all_in"):
+                    cpt += 1
+                    win = pl
 
-        return False # IMPORTANT, on fait en sorte que ça tourne à l'inifi pr linstant
+        if cpt == 1:
+            print("on a un winner")
+            return win
+        else:
+            print("on continue")
+            return None
+
+
     
     def set_next_sit_to_play(self):
         print("choix du prochain joueur à parler")
@@ -440,6 +472,7 @@ class Step:
             conn = pl.get_conn()
             thread_send_sit = Thread(target=self.send_packet,args=(packet,conn))
             thread_send_sit.start()
+            thread_send_sit.join()
 
 
 
@@ -460,13 +493,17 @@ class Step:
                 tmp_bets.append(str(pl.bet))
 
         bets_packet = "bets="+str(tmp_bets)
+        print("packet_bets",bets_packet)
         self.broadcast_packet(bets_packet)
         
 
         # send pots
-        self.broadcast_packet("pots="+str(self.pots))
+        packet_pots_list = [str(pot) for pot in self.pots]
+        print("packet_pots","pots="+str(packet_pots_list))
+        self.broadcast_packet("pots="+str(packet_pots_list))
 
         # send bet
+        print("bet packet","bet="+str(self.bet))
         self.broadcast_packet("bet="+str(self.bet))
 
 
@@ -478,7 +515,7 @@ class Step:
                 chips.append(pl.get_chips())
             else:
                 chips.append(None)
-
+        print("chips packet","chips="+str(chips))
         self.broadcast_packet("chips="+str(chips))
 
 
