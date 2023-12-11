@@ -175,74 +175,32 @@ class HUD_State:
                         Global_objects.button_sound.play()
                         # On essaie de rejoindre la partie avec le code entré
                         try:
+                            # On indique au serveur qu'on veut rejoindre tel lobby
                             lobby_id = int(Global_objects.tablecodeinput.user_text)
                             Global_objects.auto_arrived_sits = ask_sits_infos(Global_objects.client_socket,lobby_id)
                             join_lobby(Global_objects.client_socket,lobby_id)
-                            if len(Global_objects.auto_arrived_sits) == 1:
+                            # On attribue les bons sièges avec les bons joueurs
+                            if len(Global_objects.auto_arrived_sits) <= 1:
                                 Global_objects.sit_1.player = Global_objects.auto_arrived_sits[0]
-                            if len(Global_objects.auto_arrived_sits) == 2:
-                                Global_objects.sit_1.player = Global_objects.auto_arrived_sits[0]
+                            if len(Global_objects.auto_arrived_sits) <= 2:
                                 Global_objects.sit_2.player = Global_objects.auto_arrived_sits[1]
-                            if len(Global_objects.auto_arrived_sits) == 3:
-                                Global_objects.sit_1.player = Global_objects.auto_arrived_sits[0]
-                                Global_objects.sit_2.player = Global_objects.auto_arrived_sits[1]
+                            if len(Global_objects.auto_arrived_sits) <= 3:
                                 Global_objects.sit_3.player = Global_objects.auto_arrived_sits[2]
-                            if len(Global_objects.auto_arrived_sits) == 4:
-                                Global_objects.sit_1.player = Global_objects.auto_arrived_sits[0]
-                                Global_objects.sit_2.player = Global_objects.auto_arrived_sits[1]
-                                Global_objects.sit_3.player = Global_objects.auto_arrived_sits[2]
+                            if len(Global_objects.auto_arrived_sits) <= 4:
                                 Global_objects.sit_4.player = Global_objects.auto_arrived_sits[3]
-                            if len(Global_objects.auto_arrived_sits) == 5:
-                                Global_objects.sit_1.player = Global_objects.auto_arrived_sits[0]
-                                Global_objects.sit_2.player = Global_objects.auto_arrived_sits[1]
-                                Global_objects.sit_3.player = Global_objects.auto_arrived_sits[2]
-                                Global_objects.sit_4.player = Global_objects.auto_arrived_sits[3]
+                            if len(Global_objects.auto_arrived_sits) <= 5:
                                 Global_objects.sit_5.player = Global_objects.auto_arrived_sits[4]
-                            if len(Global_objects.auto_arrived_sits) == 6:
-                                Global_objects.sit_1.player = Global_objects.auto_arrived_sits[0]
-                                Global_objects.sit_2.player = Global_objects.auto_arrived_sits[1]
-                                Global_objects.sit_3.player = Global_objects.auto_arrived_sits[2]
-                                Global_objects.sit_4.player = Global_objects.auto_arrived_sits[3]
-                                Global_objects.sit_5.player = Global_objects.auto_arrived_sits[4]
+                            if len(Global_objects.auto_arrived_sits) <= 6:
                                 Global_objects.sit_6.player = Global_objects.auto_arrived_sits[5]
-                            if len(Global_objects.auto_arrived_sits) == 7:
-                                Global_objects.sit_1.player = Global_objects.auto_arrived_sits[0]
-                                Global_objects.sit_2.player = Global_objects.auto_arrived_sits[1]
-                                Global_objects.sit_3.player = Global_objects.auto_arrived_sits[2]
-                                Global_objects.sit_4.player = Global_objects.auto_arrived_sits[3]
-                                Global_objects.sit_5.player = Global_objects.auto_arrived_sits[4]
-                                Global_objects.sit_6.player = Global_objects.auto_arrived_sits[5]
+                            if len(Global_objects.auto_arrived_sits) <= 7:
                                 Global_objects.sit_7.player = Global_objects.auto_arrived_sits[6]
-                            if len(Global_objects.auto_arrived_sits) == 8:
-                                Global_objects.sit_1.player = Global_objects.auto_arrived_sits[0]
-                                Global_objects.sit_2.player = Global_objects.auto_arrived_sits[1]
-                                Global_objects.sit_3.player = Global_objects.auto_arrived_sits[2]
-                                Global_objects.sit_4.player = Global_objects.auto_arrived_sits[3]
-                                Global_objects.sit_5.player = Global_objects.auto_arrived_sits[4]
-                                Global_objects.sit_6.player = Global_objects.auto_arrived_sits[5]
-                                Global_objects.sit_7.player = Global_objects.auto_arrived_sits[6]
+                            if len(Global_objects.auto_arrived_sits) <= 8:
                                 Global_objects.sit_8.player = Global_objects.auto_arrived_sits[7]
-                            if len(Global_objects.auto_arrived_sits) == 9:
-                                Global_objects.sit_1.player = Global_objects.auto_arrived_sits[0]
-                                Global_objects.sit_2.player = Global_objects.auto_arrived_sits[1]
-                                Global_objects.sit_3.player = Global_objects.auto_arrived_sits[2]
-                                Global_objects.sit_4.player = Global_objects.auto_arrived_sits[3]
-                                Global_objects.sit_5.player = Global_objects.auto_arrived_sits[4]
-                                Global_objects.sit_6.player = Global_objects.auto_arrived_sits[5]
-                                Global_objects.sit_7.player = Global_objects.auto_arrived_sits[6]
-                                Global_objects.sit_8.player = Global_objects.auto_arrived_sits[7]
+                            if len(Global_objects.auto_arrived_sits) <= 9:
                                 Global_objects.sit_9.player = Global_objects.auto_arrived_sits[8]
-                            if len(Global_objects.auto_arrived_sits) == 10:
-                                Global_objects.sit_1.player = Global_objects.auto_arrived_sits[0]
-                                Global_objects.sit_2.player = Global_objects.auto_arrived_sits[1]
-                                Global_objects.sit_3.player = Global_objects.auto_arrived_sits[2]
-                                Global_objects.sit_4.player = Global_objects.auto_arrived_sits[3]
-                                Global_objects.sit_5.player = Global_objects.auto_arrived_sits[4]
-                                Global_objects.sit_6.player = Global_objects.auto_arrived_sits[5]
-                                Global_objects.sit_7.player = Global_objects.auto_arrived_sits[6]
-                                Global_objects.sit_8.player = Global_objects.auto_arrived_sits[7]
-                                Global_objects.sit_9.player = Global_objects.auto_arrived_sits[8]
+                            if len(Global_objects.auto_arrived_sits) <= 10:
                                 Global_objects.sit_10.player = Global_objects.auto_arrived_sits[9]
+                            # On récupére les infos du lobby pour les afficher en fond (sera retiré du jeu final)
                             for lobby in Global_objects.displayed_lobbys_list:
                                 if lobby[-1] == Global_objects.tablecodeinput.user_text:
                                     self.server_test = f"{lobby[0]}{' '*width_scale(35, self.largeur_actuelle, True)}{lobby[1]}{' '*width_scale(35, self.largeur_actuelle, True)}{lobby[2]}{' '*width_scale(35, self.largeur_actuelle, True)}{lobby[3]}{' '*width_scale(35, self.largeur_actuelle, True)}{lobby[4]}"
@@ -261,13 +219,17 @@ class HUD_State:
                             self.chargement_valeur = 0
                             self.chargement_pause = time.time()
                             self.chargement_temps_pause = -1
+                            Global_objects.previewchargement.players = Global_objects.previewlobbys.players
                             self.state = "Chargement"
                             self.chargement_next_state = "Game Menu"
+                            # On définit les variables pour gérer la partie
                             Global_objects.is_selecting_sit[0] = True
                             Global_objects.game_started = False
                         except:
+                            # Sinon on déclenche l'erreur
                             self.error[0] = True
                             self.error[1] = time.time()
+                        # On reset Global_objects.tablecodeinput
                         Global_objects.tablecodeinput.user_text = ""
                     else:
                         text_input_write(event, Global_objects.tablecodeinput)
@@ -1368,13 +1330,13 @@ class HUD_State:
         # On dessine la zone du "Loading..."
         transparent_surface = pygame.Surface((width_scale(675, self.largeur_actuelle), height_scale(150, self.hauteur_actuelle)), pygame.SRCALPHA)
         pygame.draw.rect(transparent_surface, (0, 0, 0, 180), (0, 0, width_scale(675, self.largeur_actuelle), height_scale(150, self.hauteur_actuelle)), border_radius = width_scale(25, self.largeur_actuelle, True))
-        self.screen.blit(transparent_surface, (width_scale(620, self.largeur_actuelle), height_scale(117, self.hauteur_actuelle)))
+        self.screen.blit(transparent_surface, (width_scale(620, self.largeur_actuelle), height_scale(67, self.hauteur_actuelle)))
         # Bordure du cadre
-        pygame.draw.rect(self.screen, "#000000", (width_scale(620, self.largeur_actuelle), height_scale(117, self.hauteur_actuelle), width_scale(675, self.largeur_actuelle), height_scale(150, self.hauteur_actuelle)), width_scale(3, self.largeur_actuelle, True), width_scale(25, self.largeur_actuelle, True))
+        pygame.draw.rect(self.screen, "#000000", (width_scale(620, self.largeur_actuelle), height_scale(67, self.hauteur_actuelle), width_scale(675, self.largeur_actuelle), height_scale(150, self.hauteur_actuelle)), width_scale(3, self.largeur_actuelle, True), width_scale(25, self.largeur_actuelle, True))
         # Affichage du texte
         gui_font = pygame.font.SysFont("Roboto", width_scale(170, self.largeur_actuelle, True))
         text_surf = gui_font.render(self.loading_text, True, "#FFFFFF")
-        self.screen.blit(text_surf, (width_scale(635, self.largeur_actuelle), height_scale(140, self.hauteur_actuelle)))
+        self.screen.blit(text_surf, (width_scale(635, self.largeur_actuelle), height_scale(90, self.hauteur_actuelle)))
         # Changement du texte de chargement
         if self.loading_text_timer - time.time() <= -0.3:
             if self.loading_text == "LOADING":
@@ -1387,14 +1349,19 @@ class HUD_State:
                 self.loading_text = "LOADING"
             self.loading_text_timer = time.time()
         
+        # On dessine la preview du lobby qu'on rejoint
+        Global_objects.previewchargement.draw()
+
         # Barre de chargement (fond)
-        pygame.draw.rect(self.screen, "#FFFFFF", pygame.Rect(width_scale(550, self.largeur_actuelle), height_scale(800, self.hauteur_actuelle), width_scale(800, self.largeur_actuelle), height_scale(100, self.hauteur_actuelle)), border_radius = 10)
+        pygame.draw.rect(self.screen, "#FFFFFF", pygame.Rect(width_scale(550, self.largeur_actuelle), height_scale(900, self.hauteur_actuelle), width_scale(800, self.largeur_actuelle), height_scale(100, self.hauteur_actuelle)), border_radius = width_scale(50, self.largeur_actuelle, True))
         # Barre de remplissage
-        pygame.draw.rect(self.screen, "#FF0000", pygame.Rect(width_scale(550, self.largeur_actuelle), height_scale(800, self.hauteur_actuelle), width_scale(int(width_scale(800, self.largeur_actuelle) * self.chargement_valeur / 100) + 1, self.largeur_actuelle), height_scale(100, self.hauteur_actuelle)), border_radius = 10)
+        pygame.draw.rect(self.screen, "#FF0000", pygame.Rect(width_scale(550, self.largeur_actuelle), height_scale(900, self.hauteur_actuelle), width_scale(int(width_scale(800, self.largeur_actuelle) * self.chargement_valeur / 100) + 1, self.largeur_actuelle), height_scale(100, self.hauteur_actuelle)), border_radius = width_scale(50, self.largeur_actuelle, True))
+        # Bordure de la barre de chargement
+        pygame.draw.rect(self.screen, "#000000", pygame.Rect(width_scale(550, self.largeur_actuelle), height_scale(900, self.hauteur_actuelle), width_scale(800, self.largeur_actuelle), height_scale(100, self.hauteur_actuelle)), width_scale(7, self.largeur_actuelle, True), width_scale(50, self.largeur_actuelle, True))
         # Texte du pourcentage de la barre de chargement
         gui_font = pygame.font.SysFont("Roboto", width_scale(100, self.largeur_actuelle, True))
         text_surf = gui_font.render(f"{round(self.chargement_valeur)}%", True, "#000000")
-        self.screen.blit(text_surf, (width_scale(890, self.largeur_actuelle), height_scale(815, self.hauteur_actuelle)))
+        self.screen.blit(text_surf, (width_scale(890, self.largeur_actuelle), height_scale(917, self.hauteur_actuelle)))
         # Calcul du pourcentage actuel et des temps de pause
         # Si la valeur à suivre n'est pas bonne on continue d'augmenter pour s'arrêter à 99%
         if not self.chargement_fini:
