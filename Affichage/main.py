@@ -203,6 +203,8 @@ if __name__ == "__main__":
     # Création des Previews_Table
     # Création de l'objet previewlobbys
     Global_objects.previewlobbys = Preview_Table(largeur_actuelle, hauteur_actuelle, screen, table_fond, (1270, 215))
+    # Création de l'objet previewchargement
+    Global_objects.previewchargement = Preview_Table(largeur_actuelle, hauteur_actuelle, screen, table_fond, (660, 300), False)
 
     # Création des sits
     # Création de l'objet sit_1

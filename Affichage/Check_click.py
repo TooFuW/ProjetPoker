@@ -178,6 +178,7 @@ def check_click(Button):
                     Global_objects.game_state.chargement_valeur = 0
                     Global_objects.game_state.chargement_pause = time.time()
                     Global_objects.game_state.chargement_temps_pause = -1
+                    Global_objects.previewchargement.players = Global_objects.previewlobbys.players
                     Global_objects.game_state.state = "Chargement"
                     Global_objects.game_state.chargement_next_state = "Game Menu"
                     Global_objects.is_selecting_sit[0] = True

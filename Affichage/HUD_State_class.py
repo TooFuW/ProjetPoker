@@ -261,6 +261,7 @@ class HUD_State:
                             self.chargement_valeur = 0
                             self.chargement_pause = time.time()
                             self.chargement_temps_pause = -1
+                            Global_objects.previewchargement.players = Global_objects.previewlobbys.players
                             self.state = "Chargement"
                             self.chargement_next_state = "Game Menu"
                             Global_objects.is_selecting_sit[0] = True
@@ -1368,13 +1369,13 @@ class HUD_State:
         # On dessine la zone du "Loading..."
         transparent_surface = pygame.Surface((width_scale(675, self.largeur_actuelle), height_scale(150, self.hauteur_actuelle)), pygame.SRCALPHA)
         pygame.draw.rect(transparent_surface, (0, 0, 0, 180), (0, 0, width_scale(675, self.largeur_actuelle), height_scale(150, self.hauteur_actuelle)), border_radius = width_scale(25, self.largeur_actuelle, True))
-        self.screen.blit(transparent_surface, (width_scale(620, self.largeur_actuelle), height_scale(117, self.hauteur_actuelle)))
+        self.screen.blit(transparent_surface, (width_scale(620, self.largeur_actuelle), height_scale(67, self.hauteur_actuelle)))
         # Bordure du cadre
-        pygame.draw.rect(self.screen, "#000000", (width_scale(620, self.largeur_actuelle), height_scale(117, self.hauteur_actuelle), width_scale(675, self.largeur_actuelle), height_scale(150, self.hauteur_actuelle)), width_scale(3, self.largeur_actuelle, True), width_scale(25, self.largeur_actuelle, True))
+        pygame.draw.rect(self.screen, "#000000", (width_scale(620, self.largeur_actuelle), height_scale(67, self.hauteur_actuelle), width_scale(675, self.largeur_actuelle), height_scale(150, self.hauteur_actuelle)), width_scale(3, self.largeur_actuelle, True), width_scale(25, self.largeur_actuelle, True))
         # Affichage du texte
         gui_font = pygame.font.SysFont("Roboto", width_scale(170, self.largeur_actuelle, True))
         text_surf = gui_font.render(self.loading_text, True, "#FFFFFF")
-        self.screen.blit(text_surf, (width_scale(635, self.largeur_actuelle), height_scale(140, self.hauteur_actuelle)))
+        self.screen.blit(text_surf, (width_scale(635, self.largeur_actuelle), height_scale(90, self.hauteur_actuelle)))
         # Changement du texte de chargement
         if self.loading_text_timer - time.time() <= -0.3:
             if self.loading_text == "LOADING":
@@ -1387,14 +1388,19 @@ class HUD_State:
                 self.loading_text = "LOADING"
             self.loading_text_timer = time.time()
         
+        # On dessine la preview du lobby qu'on rejoint
+        Global_objects.previewchargement.draw()
+
         # Barre de chargement (fond)
-        pygame.draw.rect(self.screen, "#FFFFFF", pygame.Rect(width_scale(550, self.largeur_actuelle), height_scale(800, self.hauteur_actuelle), width_scale(800, self.largeur_actuelle), height_scale(100, self.hauteur_actuelle)), border_radius = 10)
+        pygame.draw.rect(self.screen, "#FFFFFF", pygame.Rect(width_scale(550, self.largeur_actuelle), height_scale(900, self.hauteur_actuelle), width_scale(800, self.largeur_actuelle), height_scale(100, self.hauteur_actuelle)), border_radius = width_scale(50, self.largeur_actuelle, True))
         # Barre de remplissage
-        pygame.draw.rect(self.screen, "#FF0000", pygame.Rect(width_scale(550, self.largeur_actuelle), height_scale(800, self.hauteur_actuelle), width_scale(int(width_scale(800, self.largeur_actuelle) * self.chargement_valeur / 100) + 1, self.largeur_actuelle), height_scale(100, self.hauteur_actuelle)), border_radius = 10)
+        pygame.draw.rect(self.screen, "#FF0000", pygame.Rect(width_scale(550, self.largeur_actuelle), height_scale(900, self.hauteur_actuelle), width_scale(int(width_scale(800, self.largeur_actuelle) * self.chargement_valeur / 100) + 1, self.largeur_actuelle), height_scale(100, self.hauteur_actuelle)), border_radius = width_scale(50, self.largeur_actuelle, True))
+        # Bordure de la barre de chargement
+        pygame.draw.rect(self.screen, "#000000", pygame.Rect(width_scale(550, self.largeur_actuelle), height_scale(900, self.hauteur_actuelle), width_scale(800, self.largeur_actuelle), height_scale(100, self.hauteur_actuelle)), width_scale(7, self.largeur_actuelle, True), width_scale(50, self.largeur_actuelle, True))
         # Texte du pourcentage de la barre de chargement
         gui_font = pygame.font.SysFont("Roboto", width_scale(100, self.largeur_actuelle, True))
         text_surf = gui_font.render(f"{round(self.chargement_valeur)}%", True, "#000000")
-        self.screen.blit(text_surf, (width_scale(890, self.largeur_actuelle), height_scale(815, self.hauteur_actuelle)))
+        self.screen.blit(text_surf, (width_scale(890, self.largeur_actuelle), height_scale(917, self.hauteur_actuelle)))
         # Calcul du pourcentage actuel et des temps de pause
         # Si la valeur à suivre n'est pas bonne on continue d'augmenter pour s'arrêter à 99%
         if not self.chargement_fini:

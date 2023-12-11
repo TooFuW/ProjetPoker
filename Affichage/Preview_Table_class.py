@@ -10,7 +10,7 @@ class Preview_Table:
     """Classe Preview_Table pour afficher des previews de tables
     """
 
-    def __init__(self, largeur_actuelle : int, hauteur_actuelle : int, screen : pygame.Surface, poker_table : pygame.Surface, pos : tuple, scale : float = 1):
+    def __init__(self, largeur_actuelle : int, hauteur_actuelle : int, screen : pygame.Surface, poker_table : pygame.Surface, pos : tuple, join_button : bool = True):
         """Initialisation des paramètres des previews
 
         Args:
@@ -19,7 +19,7 @@ class Preview_Table:
             screen (pygame.Surface): Ecran sur lequel afficher la fenêtre (écran de l'utilisateur)
             poker_table (pygame.Surface): Table de poker pour fond du widget
             pos (tuple): Position x, y de la preview (x : largeur, y : hauteur)
-            scale (float) = 1: Multiplicateur de taille de la preview (1 par défaut)
+            join_button (bool) = True: Si on doit ou non mettre un bouton join
         """
         self.largeur_actuelle = largeur_actuelle
         self.hauteur_actuelle = hauteur_actuelle
@@ -27,13 +27,16 @@ class Preview_Table:
         self.poker_table = poker_table
         self.x = width_scale(pos[0], largeur_actuelle)
         self.y = height_scale(pos[1], hauteur_actuelle)
-        self.width = width_scale(600*scale, largeur_actuelle)
-        self.height = height_scale(600*scale, hauteur_actuelle)
-        self.scale = scale
+        self.width = width_scale(600, largeur_actuelle)
+        if join_button:
+            self.height = height_scale(600, hauteur_actuelle)
+            # Création de l'objet jointablebutton
+            self.jointablebutton = Button(self.largeur_actuelle, self.hauteur_actuelle, self.screen, "join table", "JOIN", "Roboto", 50, (255, 255, 255), (0, 0, 0, 180), (50, 50, 50, 200), (90, 90, 90, 180), (0, 0, 0), 3, 600 - 440, 600 - 530, (pos[0] + 220, pos[1] + 520), 10)
+        else:
+            self.height = height_scale(510, hauteur_actuelle)
+            self.jointablebutton = False
         # Une liste contenant tous les joueurs dans la table sélectionnée sous la forme [sit_id, idplayer, pseudo, chips, link] par joueur
         self.players = []
-        # Création de l'objet jointablebutton
-        self.jointablebutton = Button(self.largeur_actuelle, self.hauteur_actuelle, self.screen, "join table", "JOIN", "Roboto", 50, (255, 255, 255), (0, 0, 0, 180), (50, 50, 50, 200), (90, 90, 90, 180), (0, 0, 0), 3, 600*scale - 440, 600*scale - 530, (pos[0] + 220, pos[1] + 520), 10)
 
     def draw(self):
         """Génération/affichage de la preview
@@ -41,19 +44,20 @@ class Preview_Table:
         # Dessinez la zone de la preview sur l'écran
         pygame.draw.rect(self.screen, "#006400", (self.x, self.y, self.width, self.height), border_radius = 10)
         # Dessine l'image de fond sur la self.screen de l'écran
-        poker_table = pygame.transform.scale(self.poker_table, (width_scale(580*self.scale, self.largeur_actuelle), height_scale(490*self.scale, self.hauteur_actuelle)))
+        poker_table = pygame.transform.scale(self.poker_table, (width_scale(580, self.largeur_actuelle), height_scale(490, self.hauteur_actuelle)))
         self.screen.blit(poker_table, (self.x + width_scale( 10, self.largeur_actuelle), self.y + height_scale( 10, self.hauteur_actuelle)))
-        # Affichage des bouttons
-        # Cliquer sur le bouton JOIN fait rejoindre la table sélectionnée
-        self.jointablebutton.draw()
+        if self.jointablebutton is not False:
+            # Affichage des bouttons
+            # Cliquer sur le bouton JOIN fait rejoindre la table sélectionnée
+            self.jointablebutton.draw()
         # Pour chaque joueur dans la table on affiche ses informations
         gui_font = pygame.font.SysFont("Roboto", width_scale(30, self.largeur_actuelle, True))
         match len(self.players):
 
             case 2:
                 # On affiche les boxs
-                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(225, self.largeur_actuelle), self.y + height_scale(165, self.hauteur_actuelle)), (width_scale(600*self.scale - 450, self.largeur_actuelle), height_scale(600*self.scale - 530, self.hauteur_actuelle))), border_radius = 3)
-                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(225, self.largeur_actuelle), self.y + height_scale(265, self.hauteur_actuelle)), (width_scale(600*self.scale - 450, self.largeur_actuelle), height_scale(600*self.scale - 530, self.hauteur_actuelle))), border_radius = 3)
+                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(225, self.largeur_actuelle), self.y + height_scale(165, self.hauteur_actuelle)), (width_scale(600 - 450, self.largeur_actuelle), height_scale(600 - 530, self.hauteur_actuelle))), border_radius = 3)
+                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(225, self.largeur_actuelle), self.y + height_scale(265, self.hauteur_actuelle)), (width_scale(600 - 450, self.largeur_actuelle), height_scale(600 - 530, self.hauteur_actuelle))), border_radius = 3)
                 # On affiche les textes au-dessus des boxs correspondants
                 # Texte box 1
                 if self.players[0][1] == None:
@@ -80,9 +84,9 @@ class Preview_Table:
 
             case 3:
                 # On affiche les boxs
-                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(225, self.largeur_actuelle), self.y + height_scale(115, self.hauteur_actuelle)), (width_scale(600*self.scale - 450, self.largeur_actuelle), height_scale(600*self.scale - 530, self.hauteur_actuelle))), border_radius = 3)
-                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(225, self.largeur_actuelle), self.y + height_scale(215, self.hauteur_actuelle)), (width_scale(600*self.scale - 450, self.largeur_actuelle), height_scale(600*self.scale - 530, self.hauteur_actuelle))), border_radius = 3)
-                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(225, self.largeur_actuelle), self.y + height_scale(315, self.hauteur_actuelle)), (width_scale(600*self.scale - 450, self.largeur_actuelle), height_scale(600*self.scale - 530, self.hauteur_actuelle))), border_radius = 3)
+                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(225, self.largeur_actuelle), self.y + height_scale(115, self.hauteur_actuelle)), (width_scale(600 - 450, self.largeur_actuelle), height_scale(600 - 530, self.hauteur_actuelle))), border_radius = 3)
+                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(225, self.largeur_actuelle), self.y + height_scale(215, self.hauteur_actuelle)), (width_scale(600 - 450, self.largeur_actuelle), height_scale(600 - 530, self.hauteur_actuelle))), border_radius = 3)
+                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(225, self.largeur_actuelle), self.y + height_scale(315, self.hauteur_actuelle)), (width_scale(600 - 450, self.largeur_actuelle), height_scale(600 - 530, self.hauteur_actuelle))), border_radius = 3)
                 # On affiche les textes au-dessus des boxs correspondants
                 # Texte box 1
                 if self.players[0][1] == None:
@@ -120,10 +124,10 @@ class Preview_Table:
 
             case 4:
                 # On affiche les boxs
-                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(225, self.largeur_actuelle), self.y + height_scale(70, self.hauteur_actuelle)), (width_scale(600*self.scale - 450, self.largeur_actuelle), height_scale(600*self.scale - 530, self.hauteur_actuelle))), border_radius = 3)
-                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(225, self.largeur_actuelle), self.y + height_scale(170, self.hauteur_actuelle)), (width_scale(600*self.scale - 450, self.largeur_actuelle), height_scale(600*self.scale - 530, self.hauteur_actuelle))), border_radius = 3)
-                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(225, self.largeur_actuelle), self.y + height_scale(270, self.hauteur_actuelle)), (width_scale(600*self.scale - 450, self.largeur_actuelle), height_scale(600*self.scale - 530, self.hauteur_actuelle))), border_radius = 3)
-                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(225, self.largeur_actuelle), self.y + height_scale(370, self.hauteur_actuelle)), (width_scale(600*self.scale - 450, self.largeur_actuelle), height_scale(600*self.scale - 530, self.hauteur_actuelle))), border_radius = 3)
+                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(225, self.largeur_actuelle), self.y + height_scale(70, self.hauteur_actuelle)), (width_scale(600 - 450, self.largeur_actuelle), height_scale(600 - 530, self.hauteur_actuelle))), border_radius = 3)
+                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(225, self.largeur_actuelle), self.y + height_scale(170, self.hauteur_actuelle)), (width_scale(600 - 450, self.largeur_actuelle), height_scale(600 - 530, self.hauteur_actuelle))), border_radius = 3)
+                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(225, self.largeur_actuelle), self.y + height_scale(270, self.hauteur_actuelle)), (width_scale(600 - 450, self.largeur_actuelle), height_scale(600 - 530, self.hauteur_actuelle))), border_radius = 3)
+                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(225, self.largeur_actuelle), self.y + height_scale(370, self.hauteur_actuelle)), (width_scale(600 - 450, self.largeur_actuelle), height_scale(600 - 530, self.hauteur_actuelle))), border_radius = 3)
                 # On affiche les textes au-dessus des boxs correspondants
                 # Texte box 1
                 if self.players[0][1] == None:
@@ -172,11 +176,11 @@ class Preview_Table:
 
             case 5:
                 # On affiche les boxs
-                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(225, self.largeur_actuelle), self.y + height_scale(65, self.hauteur_actuelle)), (width_scale(600*self.scale - 450, self.largeur_actuelle), height_scale(600*self.scale - 530, self.hauteur_actuelle))), border_radius = 3)
-                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(50, self.largeur_actuelle), self.y + height_scale(165, self.hauteur_actuelle)), (width_scale(600*self.scale - 450, self.largeur_actuelle), height_scale(600*self.scale - 530, self.hauteur_actuelle))), border_radius = 3)
-                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(400, self.largeur_actuelle), self.y + height_scale(165, self.hauteur_actuelle)), (width_scale(600*self.scale - 450, self.largeur_actuelle), height_scale(600*self.scale - 530, self.hauteur_actuelle))), border_radius = 3)
-                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(50, self.largeur_actuelle), self.y + height_scale(265, self.hauteur_actuelle)), (width_scale(600*self.scale - 450, self.largeur_actuelle), height_scale(600*self.scale - 530, self.hauteur_actuelle))), border_radius = 3)
-                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(400, self.largeur_actuelle), self.y + height_scale(265, self.hauteur_actuelle)), (width_scale(600*self.scale - 450, self.largeur_actuelle), height_scale(600*self.scale - 530, self.hauteur_actuelle))), border_radius = 3)
+                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(225, self.largeur_actuelle), self.y + height_scale(65, self.hauteur_actuelle)), (width_scale(600 - 450, self.largeur_actuelle), height_scale(600 - 530, self.hauteur_actuelle))), border_radius = 3)
+                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(50, self.largeur_actuelle), self.y + height_scale(165, self.hauteur_actuelle)), (width_scale(600 - 450, self.largeur_actuelle), height_scale(600 - 530, self.hauteur_actuelle))), border_radius = 3)
+                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(400, self.largeur_actuelle), self.y + height_scale(165, self.hauteur_actuelle)), (width_scale(600 - 450, self.largeur_actuelle), height_scale(600 - 530, self.hauteur_actuelle))), border_radius = 3)
+                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(50, self.largeur_actuelle), self.y + height_scale(265, self.hauteur_actuelle)), (width_scale(600 - 450, self.largeur_actuelle), height_scale(600 - 530, self.hauteur_actuelle))), border_radius = 3)
+                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(400, self.largeur_actuelle), self.y + height_scale(265, self.hauteur_actuelle)), (width_scale(600 - 450, self.largeur_actuelle), height_scale(600 - 530, self.hauteur_actuelle))), border_radius = 3)
                 # On affiche les textes au-dessus des boxs correspondants
                 # Texte box 1
                 if self.players[0][1] == None:
@@ -236,12 +240,12 @@ class Preview_Table:
 
             case 6:
                 # On affiche les boxs
-                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(225, self.largeur_actuelle), self.y + height_scale(65, self.hauteur_actuelle)), (width_scale(600*self.scale - 450, self.largeur_actuelle), height_scale(600*self.scale - 530, self.hauteur_actuelle))), border_radius = 3)
-                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(50, self.largeur_actuelle), self.y + height_scale(165, self.hauteur_actuelle)), (width_scale(600*self.scale - 450, self.largeur_actuelle), height_scale(600*self.scale - 530, self.hauteur_actuelle))), border_radius = 3)
-                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(400, self.largeur_actuelle), self.y + height_scale(165, self.hauteur_actuelle)), (width_scale(600*self.scale - 450, self.largeur_actuelle), height_scale(600*self.scale - 530, self.hauteur_actuelle))), border_radius = 3)
-                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(50, self.largeur_actuelle), self.y + height_scale(265, self.hauteur_actuelle)), (width_scale(600*self.scale - 450, self.largeur_actuelle), height_scale(600*self.scale - 530, self.hauteur_actuelle))), border_radius = 3)
-                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(400, self.largeur_actuelle), self.y + height_scale(265, self.hauteur_actuelle)), (width_scale(600*self.scale - 450, self.largeur_actuelle), height_scale(600*self.scale - 530, self.hauteur_actuelle))), border_radius = 3)
-                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(225, self.largeur_actuelle), self.y + height_scale(365, self.hauteur_actuelle)), (width_scale(600*self.scale - 450, self.largeur_actuelle), height_scale(600*self.scale - 530, self.hauteur_actuelle))), border_radius = 3)
+                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(225, self.largeur_actuelle), self.y + height_scale(65, self.hauteur_actuelle)), (width_scale(600 - 450, self.largeur_actuelle), height_scale(600 - 530, self.hauteur_actuelle))), border_radius = 3)
+                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(50, self.largeur_actuelle), self.y + height_scale(165, self.hauteur_actuelle)), (width_scale(600 - 450, self.largeur_actuelle), height_scale(600 - 530, self.hauteur_actuelle))), border_radius = 3)
+                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(400, self.largeur_actuelle), self.y + height_scale(165, self.hauteur_actuelle)), (width_scale(600 - 450, self.largeur_actuelle), height_scale(600 - 530, self.hauteur_actuelle))), border_radius = 3)
+                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(50, self.largeur_actuelle), self.y + height_scale(265, self.hauteur_actuelle)), (width_scale(600 - 450, self.largeur_actuelle), height_scale(600 - 530, self.hauteur_actuelle))), border_radius = 3)
+                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(400, self.largeur_actuelle), self.y + height_scale(265, self.hauteur_actuelle)), (width_scale(600 - 450, self.largeur_actuelle), height_scale(600 - 530, self.hauteur_actuelle))), border_radius = 3)
+                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(225, self.largeur_actuelle), self.y + height_scale(365, self.hauteur_actuelle)), (width_scale(600 - 450, self.largeur_actuelle), height_scale(600 - 530, self.hauteur_actuelle))), border_radius = 3)
                 # On affiche les textes au-dessus des boxs correspondants
                 # Texte box 1
                 if self.players[0][1] == None:
@@ -312,13 +316,13 @@ class Preview_Table:
 
             case 7:
                 # On affiche les boxs
-                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(50, self.largeur_actuelle), self.y + height_scale(65, self.hauteur_actuelle)), (width_scale(600*self.scale - 450, self.largeur_actuelle), height_scale(600*self.scale - 530, self.hauteur_actuelle))), border_radius = 3)
-                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(400, self.largeur_actuelle), self.y + height_scale(65, self.hauteur_actuelle)), (width_scale(600*self.scale - 450, self.largeur_actuelle), height_scale(600*self.scale - 530, self.hauteur_actuelle))), border_radius = 3)
-                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(50, self.largeur_actuelle), self.y + height_scale(165, self.hauteur_actuelle)), (width_scale(600*self.scale - 450, self.largeur_actuelle), height_scale(600*self.scale - 530, self.hauteur_actuelle))), border_radius = 3)
-                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(400, self.largeur_actuelle), self.y + height_scale(165, self.hauteur_actuelle)), (width_scale(600*self.scale - 450, self.largeur_actuelle), height_scale(600*self.scale - 530, self.hauteur_actuelle))), border_radius = 3)
-                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(50, self.largeur_actuelle), self.y + height_scale(265, self.hauteur_actuelle)), (width_scale(600*self.scale - 450, self.largeur_actuelle), height_scale(600*self.scale - 530, self.hauteur_actuelle))), border_radius = 3)
-                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(400, self.largeur_actuelle), self.y + height_scale(265, self.hauteur_actuelle)), (width_scale(600*self.scale - 450, self.largeur_actuelle), height_scale(600*self.scale - 530, self.hauteur_actuelle))), border_radius = 3)
-                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(225, self.largeur_actuelle), self.y + height_scale(365, self.hauteur_actuelle)), (width_scale(600*self.scale - 450, self.largeur_actuelle), height_scale(600*self.scale - 530, self.hauteur_actuelle))), border_radius = 3)
+                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(50, self.largeur_actuelle), self.y + height_scale(65, self.hauteur_actuelle)), (width_scale(600 - 450, self.largeur_actuelle), height_scale(600 - 530, self.hauteur_actuelle))), border_radius = 3)
+                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(400, self.largeur_actuelle), self.y + height_scale(65, self.hauteur_actuelle)), (width_scale(600 - 450, self.largeur_actuelle), height_scale(600 - 530, self.hauteur_actuelle))), border_radius = 3)
+                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(50, self.largeur_actuelle), self.y + height_scale(165, self.hauteur_actuelle)), (width_scale(600 - 450, self.largeur_actuelle), height_scale(600 - 530, self.hauteur_actuelle))), border_radius = 3)
+                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(400, self.largeur_actuelle), self.y + height_scale(165, self.hauteur_actuelle)), (width_scale(600 - 450, self.largeur_actuelle), height_scale(600 - 530, self.hauteur_actuelle))), border_radius = 3)
+                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(50, self.largeur_actuelle), self.y + height_scale(265, self.hauteur_actuelle)), (width_scale(600 - 450, self.largeur_actuelle), height_scale(600 - 530, self.hauteur_actuelle))), border_radius = 3)
+                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(400, self.largeur_actuelle), self.y + height_scale(265, self.hauteur_actuelle)), (width_scale(600 - 450, self.largeur_actuelle), height_scale(600 - 530, self.hauteur_actuelle))), border_radius = 3)
+                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(225, self.largeur_actuelle), self.y + height_scale(365, self.hauteur_actuelle)), (width_scale(600 - 450, self.largeur_actuelle), height_scale(600 - 530, self.hauteur_actuelle))), border_radius = 3)
                 # On affiche les textes au-dessus des boxs correspondants
                 # Texte box 1
                 if self.players[0][1] == None:
@@ -400,14 +404,14 @@ class Preview_Table:
 
             case 8:
                 # On affiche les boxs
-                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(50, self.largeur_actuelle), self.y + height_scale(65, self.hauteur_actuelle)), (width_scale(600*self.scale - 450, self.largeur_actuelle), height_scale(600*self.scale - 530, self.hauteur_actuelle))), border_radius = 3)
-                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(400, self.largeur_actuelle), self.y + height_scale(65, self.hauteur_actuelle)), (width_scale(600*self.scale - 450, self.largeur_actuelle), height_scale(600*self.scale - 530, self.hauteur_actuelle))), border_radius = 3)
-                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(50, self.largeur_actuelle), self.y + height_scale(165, self.hauteur_actuelle)), (width_scale(600*self.scale - 450, self.largeur_actuelle), height_scale(600*self.scale - 530, self.hauteur_actuelle))), border_radius = 3)
-                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(400, self.largeur_actuelle), self.y + height_scale(165, self.hauteur_actuelle)), (width_scale(600*self.scale - 450, self.largeur_actuelle), height_scale(600*self.scale - 530, self.hauteur_actuelle))), border_radius = 3)
-                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(50, self.largeur_actuelle), self.y + height_scale(265, self.hauteur_actuelle)), (width_scale(600*self.scale - 450, self.largeur_actuelle), height_scale(600*self.scale - 530, self.hauteur_actuelle))), border_radius = 3)
-                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(400, self.largeur_actuelle), self.y + height_scale(265, self.hauteur_actuelle)), (width_scale(600*self.scale - 450, self.largeur_actuelle), height_scale(600*self.scale - 530, self.hauteur_actuelle))), border_radius = 3)
-                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(50, self.largeur_actuelle), self.y + height_scale(365, self.hauteur_actuelle)), (width_scale(600*self.scale - 450, self.largeur_actuelle), height_scale(600*self.scale - 530, self.hauteur_actuelle))), border_radius = 3)
-                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(400, self.largeur_actuelle), self.y + height_scale(365, self.hauteur_actuelle)), (width_scale(600*self.scale - 450, self.largeur_actuelle), height_scale(600*self.scale - 530, self.hauteur_actuelle))), border_radius = 3)
+                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(50, self.largeur_actuelle), self.y + height_scale(65, self.hauteur_actuelle)), (width_scale(600 - 450, self.largeur_actuelle), height_scale(600 - 530, self.hauteur_actuelle))), border_radius = 3)
+                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(400, self.largeur_actuelle), self.y + height_scale(65, self.hauteur_actuelle)), (width_scale(600 - 450, self.largeur_actuelle), height_scale(600 - 530, self.hauteur_actuelle))), border_radius = 3)
+                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(50, self.largeur_actuelle), self.y + height_scale(165, self.hauteur_actuelle)), (width_scale(600 - 450, self.largeur_actuelle), height_scale(600 - 530, self.hauteur_actuelle))), border_radius = 3)
+                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(400, self.largeur_actuelle), self.y + height_scale(165, self.hauteur_actuelle)), (width_scale(600 - 450, self.largeur_actuelle), height_scale(600 - 530, self.hauteur_actuelle))), border_radius = 3)
+                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(50, self.largeur_actuelle), self.y + height_scale(265, self.hauteur_actuelle)), (width_scale(600 - 450, self.largeur_actuelle), height_scale(600 - 530, self.hauteur_actuelle))), border_radius = 3)
+                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(400, self.largeur_actuelle), self.y + height_scale(265, self.hauteur_actuelle)), (width_scale(600 - 450, self.largeur_actuelle), height_scale(600 - 530, self.hauteur_actuelle))), border_radius = 3)
+                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(50, self.largeur_actuelle), self.y + height_scale(365, self.hauteur_actuelle)), (width_scale(600 - 450, self.largeur_actuelle), height_scale(600 - 530, self.hauteur_actuelle))), border_radius = 3)
+                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(400, self.largeur_actuelle), self.y + height_scale(365, self.hauteur_actuelle)), (width_scale(600 - 450, self.largeur_actuelle), height_scale(600 - 530, self.hauteur_actuelle))), border_radius = 3)
                 # On affiche les textes au-dessus des boxs correspondants
                 # Texte box 1
                 if self.players[0][1] == None:
@@ -500,15 +504,15 @@ class Preview_Table:
 
             case 9:
                 # On affiche les boxs
-                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(50, self.largeur_actuelle), self.y + height_scale(65, self.hauteur_actuelle)), (width_scale(600*self.scale - 450, self.largeur_actuelle), height_scale(600*self.scale - 530, self.hauteur_actuelle))), border_radius = 3)
-                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(225, self.largeur_actuelle), self.y + height_scale(65, self.hauteur_actuelle)), (width_scale(600*self.scale - 450, self.largeur_actuelle), height_scale(600*self.scale - 530, self.hauteur_actuelle))), border_radius = 3)
-                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(400, self.largeur_actuelle), self.y + height_scale(65, self.hauteur_actuelle)), (width_scale(600*self.scale - 450, self.largeur_actuelle), height_scale(600*self.scale - 530, self.hauteur_actuelle))), border_radius = 3)
-                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(50, self.largeur_actuelle), self.y + height_scale(165, self.hauteur_actuelle)), (width_scale(600*self.scale - 450, self.largeur_actuelle), height_scale(600*self.scale - 530, self.hauteur_actuelle))), border_radius = 3)
-                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(400, self.largeur_actuelle), self.y + height_scale(165, self.hauteur_actuelle)), (width_scale(600*self.scale - 450, self.largeur_actuelle), height_scale(600*self.scale - 530, self.hauteur_actuelle))), border_radius = 3)
-                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(50, self.largeur_actuelle), self.y + height_scale(265, self.hauteur_actuelle)), (width_scale(600*self.scale - 450, self.largeur_actuelle), height_scale(600*self.scale - 530, self.hauteur_actuelle))), border_radius = 3)
-                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(400, self.largeur_actuelle), self.y + height_scale(265, self.hauteur_actuelle)), (width_scale(600*self.scale - 450, self.largeur_actuelle), height_scale(600*self.scale - 530, self.hauteur_actuelle))), border_radius = 3)
-                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(50, self.largeur_actuelle), self.y + height_scale(365, self.hauteur_actuelle)), (width_scale(600*self.scale - 450, self.largeur_actuelle), height_scale(600*self.scale - 530, self.hauteur_actuelle))), border_radius = 3)
-                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(400, self.largeur_actuelle), self.y + height_scale(365, self.hauteur_actuelle)), (width_scale(600*self.scale - 450, self.largeur_actuelle), height_scale(600*self.scale - 530, self.hauteur_actuelle))), border_radius = 3)
+                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(50, self.largeur_actuelle), self.y + height_scale(65, self.hauteur_actuelle)), (width_scale(600 - 450, self.largeur_actuelle), height_scale(600 - 530, self.hauteur_actuelle))), border_radius = 3)
+                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(225, self.largeur_actuelle), self.y + height_scale(65, self.hauteur_actuelle)), (width_scale(600 - 450, self.largeur_actuelle), height_scale(600 - 530, self.hauteur_actuelle))), border_radius = 3)
+                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(400, self.largeur_actuelle), self.y + height_scale(65, self.hauteur_actuelle)), (width_scale(600 - 450, self.largeur_actuelle), height_scale(600 - 530, self.hauteur_actuelle))), border_radius = 3)
+                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(50, self.largeur_actuelle), self.y + height_scale(165, self.hauteur_actuelle)), (width_scale(600 - 450, self.largeur_actuelle), height_scale(600 - 530, self.hauteur_actuelle))), border_radius = 3)
+                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(400, self.largeur_actuelle), self.y + height_scale(165, self.hauteur_actuelle)), (width_scale(600 - 450, self.largeur_actuelle), height_scale(600 - 530, self.hauteur_actuelle))), border_radius = 3)
+                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(50, self.largeur_actuelle), self.y + height_scale(265, self.hauteur_actuelle)), (width_scale(600 - 450, self.largeur_actuelle), height_scale(600 - 530, self.hauteur_actuelle))), border_radius = 3)
+                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(400, self.largeur_actuelle), self.y + height_scale(265, self.hauteur_actuelle)), (width_scale(600 - 450, self.largeur_actuelle), height_scale(600 - 530, self.hauteur_actuelle))), border_radius = 3)
+                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(50, self.largeur_actuelle), self.y + height_scale(365, self.hauteur_actuelle)), (width_scale(600 - 450, self.largeur_actuelle), height_scale(600 - 530, self.hauteur_actuelle))), border_radius = 3)
+                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(400, self.largeur_actuelle), self.y + height_scale(365, self.hauteur_actuelle)), (width_scale(600 - 450, self.largeur_actuelle), height_scale(600 - 530, self.hauteur_actuelle))), border_radius = 3)
                 # On affiche les textes au-dessus des boxs correspondants
                 # Texte box 1
                 if self.players[0][1] == None:
@@ -612,16 +616,16 @@ class Preview_Table:
 
             case 10:
                 # On affiche les boxs
-                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(50, self.largeur_actuelle), self.y + height_scale(65, self.hauteur_actuelle)), (width_scale(600*self.scale - 450, self.largeur_actuelle), height_scale(600*self.scale - 530, self.hauteur_actuelle))), border_radius = 3)
-                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(225, self.largeur_actuelle), self.y + height_scale(65, self.hauteur_actuelle)), (width_scale(600*self.scale - 450, self.largeur_actuelle), height_scale(600*self.scale - 530, self.hauteur_actuelle))), border_radius = 3)
-                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(400, self.largeur_actuelle), self.y + height_scale(65, self.hauteur_actuelle)), (width_scale(600*self.scale - 450, self.largeur_actuelle), height_scale(600*self.scale - 530, self.hauteur_actuelle))), border_radius = 3)
-                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(50, self.largeur_actuelle), self.y + height_scale(165, self.hauteur_actuelle)), (width_scale(600*self.scale - 450, self.largeur_actuelle), height_scale(600*self.scale - 530, self.hauteur_actuelle))), border_radius = 3)
-                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(400, self.largeur_actuelle), self.y + height_scale(165, self.hauteur_actuelle)), (width_scale(600*self.scale - 450, self.largeur_actuelle), height_scale(600*self.scale - 530, self.hauteur_actuelle))), border_radius = 3)
-                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(50, self.largeur_actuelle), self.y + height_scale(265, self.hauteur_actuelle)), (width_scale(600*self.scale - 450, self.largeur_actuelle), height_scale(600*self.scale - 530, self.hauteur_actuelle))), border_radius = 3)
-                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(400, self.largeur_actuelle), self.y + height_scale(265, self.hauteur_actuelle)), (width_scale(600*self.scale - 450, self.largeur_actuelle), height_scale(600*self.scale - 530, self.hauteur_actuelle))), border_radius = 3)
-                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(50, self.largeur_actuelle), self.y + height_scale(365, self.hauteur_actuelle)), (width_scale(600*self.scale - 450, self.largeur_actuelle), height_scale(600*self.scale - 530, self.hauteur_actuelle))), border_radius = 3)
-                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(225, self.largeur_actuelle), self.y + height_scale(365, self.hauteur_actuelle)), (width_scale(600*self.scale - 450, self.largeur_actuelle), height_scale(600*self.scale - 530, self.hauteur_actuelle))), border_radius = 3)
-                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(400, self.largeur_actuelle), self.y + height_scale(365, self.hauteur_actuelle)), (width_scale(600*self.scale - 450, self.largeur_actuelle), height_scale(600*self.scale - 530, self.hauteur_actuelle))), border_radius = 3)
+                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(50, self.largeur_actuelle), self.y + height_scale(65, self.hauteur_actuelle)), (width_scale(600 - 450, self.largeur_actuelle), height_scale(600 - 530, self.hauteur_actuelle))), border_radius = 3)
+                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(225, self.largeur_actuelle), self.y + height_scale(65, self.hauteur_actuelle)), (width_scale(600 - 450, self.largeur_actuelle), height_scale(600 - 530, self.hauteur_actuelle))), border_radius = 3)
+                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(400, self.largeur_actuelle), self.y + height_scale(65, self.hauteur_actuelle)), (width_scale(600 - 450, self.largeur_actuelle), height_scale(600 - 530, self.hauteur_actuelle))), border_radius = 3)
+                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(50, self.largeur_actuelle), self.y + height_scale(165, self.hauteur_actuelle)), (width_scale(600 - 450, self.largeur_actuelle), height_scale(600 - 530, self.hauteur_actuelle))), border_radius = 3)
+                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(400, self.largeur_actuelle), self.y + height_scale(165, self.hauteur_actuelle)), (width_scale(600 - 450, self.largeur_actuelle), height_scale(600 - 530, self.hauteur_actuelle))), border_radius = 3)
+                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(50, self.largeur_actuelle), self.y + height_scale(265, self.hauteur_actuelle)), (width_scale(600 - 450, self.largeur_actuelle), height_scale(600 - 530, self.hauteur_actuelle))), border_radius = 3)
+                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(400, self.largeur_actuelle), self.y + height_scale(265, self.hauteur_actuelle)), (width_scale(600 - 450, self.largeur_actuelle), height_scale(600 - 530, self.hauteur_actuelle))), border_radius = 3)
+                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(50, self.largeur_actuelle), self.y + height_scale(365, self.hauteur_actuelle)), (width_scale(600 - 450, self.largeur_actuelle), height_scale(600 - 530, self.hauteur_actuelle))), border_radius = 3)
+                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(225, self.largeur_actuelle), self.y + height_scale(365, self.hauteur_actuelle)), (width_scale(600 - 450, self.largeur_actuelle), height_scale(600 - 530, self.hauteur_actuelle))), border_radius = 3)
+                pygame.draw.rect(self.screen, "#475F77", pygame.Rect((self.x + width_scale(400, self.largeur_actuelle), self.y + height_scale(365, self.hauteur_actuelle)), (width_scale(600 - 450, self.largeur_actuelle), height_scale(600 - 530, self.hauteur_actuelle))), border_radius = 3)
                 # On affiche les textes au-dessus des boxs correspondants
                 # Texte box 1
                 if self.players[0][1] == None:
