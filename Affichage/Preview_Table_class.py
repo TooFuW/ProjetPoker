@@ -10,21 +10,21 @@ class Preview_Table:
     """Classe Preview_Table pour afficher des previews de tables
     """
 
-    def __init__(self, largeur_actuelle : int, hauteur_actuelle : int, screen : pygame.Surface, poker_table : pygame.Surface, pos : tuple, join_button : bool = True):
+    def __init__(self, largeur_actuelle : int, hauteur_actuelle : int, screen : pygame.Surface, fond : pygame.Surface, pos : tuple, join_button : bool = True):
         """Initialisation des paramètres des previews
 
         Args:
             largeur_actuelle (int): Largeur de l'écran (pour width_scale())
             hauteur_actuelle (int): Hauteur de l'écran (pour height_scale())
             screen (pygame.Surface): Ecran sur lequel afficher la fenêtre (écran de l'utilisateur)
-            poker_table (pygame.Surface): Table de poker pour fond du widget
+            fond (pygame.Surface): Surface du fond du widget
             pos (tuple): Position x, y de la preview (x : largeur, y : hauteur)
             join_button (bool) = True: Si on doit ou non mettre un bouton join
         """
         self.largeur_actuelle = largeur_actuelle
         self.hauteur_actuelle = hauteur_actuelle
         self.screen = screen
-        self.poker_table = poker_table
+        self.fond = fond
         self.x = width_scale(pos[0], largeur_actuelle)
         self.y = height_scale(pos[1], hauteur_actuelle)
         self.width = width_scale(600, largeur_actuelle)
@@ -44,8 +44,8 @@ class Preview_Table:
         # Dessinez la zone de la preview sur l'écran
         pygame.draw.rect(self.screen, "#006400", (self.x, self.y, self.width, self.height), border_radius = 10)
         # Dessine l'image de fond sur la self.screen de l'écran
-        poker_table = pygame.transform.scale(self.poker_table, (width_scale(580, self.largeur_actuelle), height_scale(490, self.hauteur_actuelle)))
-        self.screen.blit(poker_table, (self.x + width_scale( 10, self.largeur_actuelle), self.y + height_scale( 10, self.hauteur_actuelle)))
+        fond = pygame.transform.scale(self.fond, (width_scale(580, self.largeur_actuelle), height_scale(490, self.hauteur_actuelle)))
+        self.screen.blit(fond, (self.x + width_scale( 10, self.largeur_actuelle), self.y + height_scale( 10, self.hauteur_actuelle)))
         if self.jointablebutton is not False:
             # Affichage des bouttons
             # Cliquer sur le bouton JOIN fait rejoindre la table sélectionnée
