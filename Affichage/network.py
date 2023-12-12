@@ -199,14 +199,14 @@ def connect_to_lobby(conn : socket, lobby_id : int):
     pass
 
 def manage_data(conn : socket, packet : str):
-    if True : # A REMPLACER PAR TRY EXCEPT
-        if not "handshake" in packet:
-            print(packet)
+    try : 
         packet = packet_separator(packet)
 
         entete = packet[0]
         body = packet[1]
 
+        if entete!= "handshake":
+            print(packet)
 
         del packet
 
@@ -333,13 +333,8 @@ def manage_data(conn : socket, packet : str):
 
             case 'pots':
                 '''ICI ON RECOIT LA LISTE DES POTS ACTUELS chaque pot est sous forme d'un tuple contenant le montant du pot associé à la liste des index de sièges jouat le pot.'''
-                print(body)
                 body = eval(body)
-                for i in range(len(body)):
-                    body[i] = eval(body[i])
-                    pass
-                print(body)
-                Global_objects.pot = int(body[0][0])
+                Global_objects.pot = int(body[0])
 
             case "bet":
                 Global_objects.bet = int(body)
@@ -384,8 +379,8 @@ def manage_data(conn : socket, packet : str):
                 print(body)
 
             
-    #except Exception as e:
-        #print("Erreur sur network.manage_data : ",e)
+    except Exception as e:
+        print("Erreur sur network.manage_data : ",e)
 
 
 def check_lobby_exist(conn,lobby_id):

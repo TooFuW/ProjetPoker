@@ -24,7 +24,7 @@ class Round:
         # attention il faut modifier self.step après un appel de self.step.stop()
 
         self.started = False # indique si le round a commencé, passe à True dans la fonction start()
-        self.pots : List[Pot] = [Pot()] #création de la liste des pots et du main Pot
+        self.pots : List[Pot]= [Pot()] #création de la liste des pots et du main Pot
         self.players = players
 
 
@@ -55,7 +55,6 @@ class Round:
         # on start le round
         print("round started")
         while self.check_if_new_step():
-            self.refresh_states()
             self.set_hands()
             self.send_hand_packet()
             self.init_step("pre_flop")
@@ -63,16 +62,6 @@ class Round:
         
     def check_if_new_step(self):
         return True
-    
-    def refresh_states(self):
-        for sit in self.sits:
-            pl = sit.get_player()
-            if not pl is None:
-                state = pl.get_state()
-                if state in ("a_parle"):
-                    pl.state = "peut_parler"
-                
-
 
     def start_step(self):
         pass
