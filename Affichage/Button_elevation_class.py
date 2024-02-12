@@ -29,7 +29,7 @@ class Button_elevation:
             width (int): Largeur du bouton
             height (int): Hauteur du bouton
             pos (tuple): Position contenant deux valeurs x et y (x : largeur, y : hauteur)
-            elevation (int): /!\ PLUS QUE 6 N'EST PAS RECOMMANDE /!\ Hauteur du bouton comparé au "sol" (purement cosmétique, pour donner un style "d'appui") (risque de bug si on appuie à un endroit qui ne va plus être le bouton lorsque celui-ci va se baisser)
+            elevation (int): Hauteur du bouton comparé au "sol" (purement cosmétique, pour donner un style "d'appui") (risque de bug si on appuie à un endroit qui ne va plus être le bouton lorsque celui-ci va se baisser)
             round_border (int): Puissance de la courbure des bords du bouton
             image (str) = None: Le lien relatif de l'image s'il y en a une comme fond du bouton
         """
