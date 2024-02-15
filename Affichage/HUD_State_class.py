@@ -141,7 +141,7 @@ class HUD_State:
         Global_objects.accountbutton.draw()
         # Affichage des chips de l'utilisateur à droite du bouton ACCOUNT
         gui_font = pygame.font.SysFont("Roboto", width_scale(40, self.largeur_actuelle, True))
-        text_surf = gui_font.render("Chips : ", True, "#FFFFFF")
+        text_surf = gui_font.render(f"Chips : {1500}", True, "#FFFFFF")
         transparent_surface = pygame.Surface((width_scale(200, self.largeur_actuelle), height_scale(50, self.hauteur_actuelle)), pygame.SRCALPHA)
         pygame.draw.rect(transparent_surface, (0, 0, 0, 180), (0, 0, width_scale(200, self.largeur_actuelle), height_scale(50, self.hauteur_actuelle)), border_radius = width_scale(10, self.largeur_actuelle, True))
         self.screen.blit(transparent_surface, (width_scale(1540, self.largeur_actuelle), height_scale(30, self.hauteur_actuelle)))
@@ -328,7 +328,7 @@ class HUD_State:
         gui_font = pygame.font.SysFont("Roboto", width_scale(40, self.largeur_actuelle, True))
         # Affichage des chips de l'utilisateur à droite du bouton ACCOUNT
         gui_font = pygame.font.SysFont("Roboto", width_scale(40, self.largeur_actuelle, True))
-        text_surf = gui_font.render("Chips : ", True, "#FFFFFF")
+        text_surf = gui_font.render(f"Chips : {1500}", True, "#FFFFFF")
         transparent_surface = pygame.Surface((width_scale(200, self.largeur_actuelle), height_scale(50, self.hauteur_actuelle)), pygame.SRCALPHA)
         pygame.draw.rect(transparent_surface, (0, 0, 0, 180), (0, 0, width_scale(200, self.largeur_actuelle), height_scale(50, self.hauteur_actuelle)), border_radius = width_scale(10, self.largeur_actuelle, True))
         self.screen.blit(transparent_surface, (width_scale(1540, self.largeur_actuelle), height_scale(30, self.hauteur_actuelle)))
@@ -495,7 +495,7 @@ class HUD_State:
         gui_font = pygame.font.SysFont("Roboto", width_scale(40, self.largeur_actuelle, True))
         # Affichage des chips de l'utilisateur à droite du bouton ACCOUNT
         gui_font = pygame.font.SysFont("Roboto", width_scale(40, self.largeur_actuelle, True))
-        text_surf = gui_font.render("Chips : ", True, "#FFFFFF")
+        text_surf = gui_font.render(f"Chips : {1500}", True, "#FFFFFF")
         transparent_surface = pygame.Surface((width_scale(200, self.largeur_actuelle), height_scale(50, self.hauteur_actuelle)), pygame.SRCALPHA)
         pygame.draw.rect(transparent_surface, (0, 0, 0, 180), (0, 0, width_scale(200, self.largeur_actuelle), height_scale(50, self.hauteur_actuelle)), border_radius = width_scale(10, self.largeur_actuelle, True))
         self.screen.blit(transparent_surface, (width_scale(1540, self.largeur_actuelle), height_scale(30, self.hauteur_actuelle)))
@@ -819,7 +819,7 @@ class HUD_State:
         gui_font = pygame.font.SysFont("Roboto", width_scale(40, self.largeur_actuelle, True))
         # Affichage des chips de l'utilisateur à droite du bouton ACCOUNT
         gui_font = pygame.font.SysFont("Roboto", width_scale(40, self.largeur_actuelle, True))
-        text_surf = gui_font.render("Chips : ", True, "#FFFFFF")
+        text_surf = gui_font.render(f"Chips : {1500}", True, "#FFFFFF")
         transparent_surface = pygame.Surface((width_scale(200, self.largeur_actuelle), height_scale(50, self.hauteur_actuelle)), pygame.SRCALPHA)
         pygame.draw.rect(transparent_surface, (0, 0, 0, 180), (0, 0, width_scale(200, self.largeur_actuelle), height_scale(50, self.hauteur_actuelle)), border_radius = width_scale(10, self.largeur_actuelle, True))
         self.screen.blit(transparent_surface, (width_scale(1540, self.largeur_actuelle), height_scale(30, self.hauteur_actuelle)))
@@ -887,7 +887,7 @@ class HUD_State:
         gui_font = pygame.font.SysFont("Roboto", width_scale(40, self.largeur_actuelle, True))
         # Affichage des chips de l'utilisateur à droite du bouton ACCOUNT
         gui_font = pygame.font.SysFont("Roboto", width_scale(40, self.largeur_actuelle, True))
-        text_surf = gui_font.render("Chips : ", True, "#FFFFFF")
+        text_surf = gui_font.render(f"Chips : {1500}", True, "#FFFFFF")
         transparent_surface = pygame.Surface((width_scale(200, self.largeur_actuelle), height_scale(50, self.hauteur_actuelle)), pygame.SRCALPHA)
         pygame.draw.rect(transparent_surface, (0, 0, 0, 180), (0, 0, width_scale(200, self.largeur_actuelle), height_scale(50, self.hauteur_actuelle)), border_radius = width_scale(10, self.largeur_actuelle, True))
         self.screen.blit(transparent_surface, (width_scale(1540, self.largeur_actuelle), height_scale(30, self.hauteur_actuelle)))
@@ -922,7 +922,7 @@ class HUD_State:
         gui_font = pygame.font.SysFont("Roboto", width_scale(40, self.largeur_actuelle, True))
         # Affichage des chips de l'utilisateur à droite du bouton ACCOUNT
         gui_font = pygame.font.SysFont("Roboto", width_scale(40, self.largeur_actuelle, True))
-        text_surf = gui_font.render("Chips : ", True, "#FFFFFF")
+        text_surf = gui_font.render(f"Chips : {1500}", True, "#FFFFFF")
         transparent_surface = pygame.Surface((width_scale(200, self.largeur_actuelle), height_scale(50, self.hauteur_actuelle)), pygame.SRCALPHA)
         pygame.draw.rect(transparent_surface, (0, 0, 0, 180), (0, 0, width_scale(200, self.largeur_actuelle), height_scale(50, self.hauteur_actuelle)), border_radius = width_scale(10, self.largeur_actuelle, True))
         self.screen.blit(transparent_surface, (width_scale(1540, self.largeur_actuelle), height_scale(30, self.hauteur_actuelle)))
