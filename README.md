@@ -1,5 +1,7 @@
 # Projet Poker
 
-Projet de groupe pour s'entraîner sur un "gros" projet client-serveur.
+Group project to practice on a "big" client-server project.
 
-(Pas fini et ne le sera jamais)
+(Not finished and never will be)
+
+Code in French
